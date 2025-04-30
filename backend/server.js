@@ -19,8 +19,19 @@ const usersSchema = new mongoose.Schema({
         required: true,
     },
 });
+module.exports = User;
 
-const usersModel = mongoose.model("users", usersSchema);
+const User = mongoose.model("User", usersSchema);
+
+const plantSchema = new mongoose.Schema({
+    type: String,
+    name: String,
+    items: [String],
+});
+
+const Plant = mongoose.model("Plant", plantSchema);
+
+module.exports = Plant;
 
 main().catch((err) => console.log(err));
 /* Cors is used for preventing web pages from making requests to a different domain than the one that served the web page unless specified
