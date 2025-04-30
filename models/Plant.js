@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const plantSchema = new mongoose.Schema({
     type: String,
     name: String,
