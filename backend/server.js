@@ -3,6 +3,25 @@ const app = express();
 
 const mongoose = require("mongoose");
 
+const usersSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        lowercase: true,
+    },
+    password: {
+        type: String,
+        minimumLength: 10,
+        required: true,
+    },
+});
+
+const usersModel = mongoose.model("users", usersSchema);
+
 main().catch((err) => console.log(err));
 /* Cors is used for preventing web pages from making requests to a different domain than the one that served the web page unless specified
  */
