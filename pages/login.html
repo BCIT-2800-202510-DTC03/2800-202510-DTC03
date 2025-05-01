@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="form" id="login_form_wrapper">
+      <form action="/login" method="post" name="login_form">
+        <h1>Log in</h1>
+        <label for="email"><b>Email</b></label>
+        <input
+          id="input_login_id"
+          class="textbox"
+          type="text"
+          name="email"
+          placeholder="Email Address"
+        />
+        <label for="password"><b>Password</b></label>
+        <input
+          id="input_login_password"
+          class="textbox"
+          type="password"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          id="input_login_submit"
+          class="btn"
+          type="submit"
+          name="login"
+          value="Log In"
+        />
+      </form>
+    </div>
+    <div class="form" id="signup_form_wrapper">
+      <form action="/login" method="post" name="signup_form">
+        <h1>Sign Up</h1>
+        <label for="email"><b>Email</b></label>
+        <input
+          id="input_login_id"
+          class="textbox"
+          type="text"
+          name="email"
+          placeholder="Email Address"
+        />
+        <label for="password"><b>Password</b></label>
+        <input
+          id="input_login_password"
+          class="textbox"
+          type="password"
+          name="password"
+          placeholder="Password"
+        />
+        <label for="password_repeat"><b>Confirm Your Password</b></label>
+        <input
+          id="input_login_password_repeat"
+          class="textbox"
+          type="password"
+          name="password_repeat"
+          placeholder="Repeat Password"
+        />
+        <input
+          id="input_login_submit"
+          class="btn"
+          type="submit"
+          name="login"
+          value="Sign Up"
+        />
+      </form>
+    </div>
+  </body>
 </html>
