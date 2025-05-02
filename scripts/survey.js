@@ -33,7 +33,7 @@ const surveyQuestions = [
             o2: { desc: "I try to conserve but don’t track it closely", point: 2 },
             o3: { desc: "I don’t do much to reduce energy use", point: 1 }
         },
-        type: "energyConservation"
+        type: "resourceConservation"
     },
     {
         name: "How often do you buy new items?",
@@ -69,7 +69,7 @@ const surveyQuestions = [
             o2: { desc: "Occasionally turn off the tap when not in use", point: 2 },
             o3: { desc: "Rarely think about water conservation", point: 1 }
         },
-        type: "waterConservation"
+        type: "resourceConservation"
     },
     {
         name: "How often do you use reusable products instead of single-use items?",
@@ -78,7 +78,7 @@ const surveyQuestions = [
             o2: { desc: "Sometimes", point: 2 },
             o3: { desc: "Never", point: 1 }
         },
-        type: "sustainableHabits"
+        type: "consciousConsumption"
     },
     {
         name: "What factors influence your decision to buy eco-friendly products?",
@@ -90,6 +90,7 @@ const surveyQuestions = [
         type: "consciousConsumption"
     }
 ];
+
 
 
 
@@ -147,6 +148,48 @@ function getNextQuestion() {
 
 
 function displayResults() {
-    
+    let resultCategory = getResults();
+
+}
+
+function getResults() {
+    let categoryTotals = {
+        greenerEating: 0,
+        transportation: 0,
+        wasteReduction: 0,
+        resourceConservation: 0,
+        consciousConsumption: 0
+    };
+
+    let categoryCount = {
+        greenerEating: 0,
+        transportation: 0,
+        wasteReduction: 0,
+        resourceConservation: 0,
+        consciousConsumption: 0
+    };
+
+    surveyQuestions.forEach((question, index) => {
+        const response = userResponses[index];
+
+        categoryTotals[question.type] += response;
+        categoryCount[question.type] += 1;
+    });
+
+    const Averages = {};
+    for (const category in categoryTotals) {
+        Averages[category] = categoryTotals[category] / categoryCount[category];
+    }
+
+    let highest = "";
+    let highestAvg = 0;
+    for (const category in Averages) {
+        if(Averages[category] > highestAvg) {
+            highestAvg = Averages[category];
+            highest = category;
+        }
+    }
+
+    return highest;
 }
 main();
