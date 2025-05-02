@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const plantSchema = new mongoose.Schema({
-    type: String,
     name: String,
-    items: [String],
+    rewards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reward" }],
 });
 
 const Plant = mongoose.model("Plant", plantSchema);
