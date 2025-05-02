@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
   </head>
   <body>
     <div class="form" id="login_form_wrapper">
-      <form method="post" name="login_form" id="login_form">
+      <form name="login_form" id="login_form">
         <h1>Log in</h1>
-        <label for="email"><b>Email</b></label>
+        <label for="input_login_id"><b>Email</b></label>
         <input
           id="input_login_id"
           class="textbox"
@@ -17,7 +18,7 @@
           name="email"
           placeholder="Email Address"
         />
-        <label for="password"><b>Password</b></label>
+        <label for="input_login_password"><b>Password</b></label>
         <input
           id="input_login_password"
           class="textbox"
@@ -35,9 +36,9 @@
       </form>
     </div>
     <div class="form" id="signup_form_wrapper">
-      <form method="post" name="signup_form" id="signup_form">
+      <form name="signup_form" id="signup_form">
         <h1>Sign Up</h1>
-        <label for="email"><b>Email</b></label>
+        <label for="input_signup_id"><b>Email</b></label>
         <input
           id="input_signup_id"
           class="textbox"
@@ -45,7 +46,7 @@
           name="email"
           placeholder="Email Address"
         />
-        <label for="password"><b>Password</b></label>
+        <label for="input_signup_password"><b>Password</b></label>
         <input
           id="input_signup_password"
           class="textbox"
@@ -53,7 +54,9 @@
           name="password"
           placeholder="Password"
         />
-        <label for="password_repeat"><b>Confirm Your Password</b></label>
+        <label for="input_signup_password_repeat"
+          ><b>Confirm Your Password</b></label
+        >
         <input
           id="input_signup_password_repeat"
           class="textbox"
@@ -70,6 +73,7 @@
         />
       </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/login.js"></script>
   </body>
 </html>

@@ -1,9 +1,9 @@
-const bcrypt = require("bcrypt");
 
 // bind the buttons to the handle functions
 window.addEventListener("DOMContentLoaded", () => {
-  handleLogin(); 
+  handleLogin();
   handleRegister();
+  console.log("addEventListener");
 });
 
 function handleLogin() {
@@ -13,19 +13,16 @@ function handleLogin() {
 function handleRegister() {
   loginForm = document.getElementById("signup_form");
   loginForm.addEventListener("submit", signUpSubmit);
-}
-async function hashingPassword(password) {
-    const SALT_ROUND = 10;
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUND);
-    console.log(hashedPassword);
+  console.log("handleRegister");
 }
 
-function loginSubmit(event) {
+async function loginSubmit(event) {
   event.preventDefault();
+  console.log("loginSubmit");
 
   let emailAddress = document.getElementById("input_login_id").value;
   let password = document.getElementById("input_login_password").value;
-  password = hashingPassword(password);
+  password = await hashingPassword(password);
   // ! login api has not been established
   // hashing before wrapping the request body
   // try {
@@ -33,11 +30,30 @@ function loginSubmit(event) {
   //     })
   // }
 }
-function signUpSubmit(event) {
+async function signUpSubmit(event) {
   event.preventDefault();
+  console.log("signUpSubmit");
+  console.log("inside form");
+  let emailAddress = document.getElementById("input_signup_id").value;
+  let password = document.getElementById("input_signup_password").value;
+  let passwordRepeat = document.getElementById(
+    "input_signup_password_repeat"
+  ).value;
+  if (password != passwordRepeat) {
+    console.log("error: password does not match");
+  }
+  console.log("Email:", emailAddress);
+  console.log("Password:", password);
 
-  let emailAddress = document.getElementById("input_login_id").value;
-  let password = document.getElementById("input_login_password").value;
-  password = hashingPassword(password);
-
+  const userData = {
+    email: emailAddress,
+    password: password,
+  };
+  const backendURLTest = "http://192.168.1.112:3000";
+  try {
+    const response = await axios.post(backendURLTest + "/user/register", userData);
+    return response.json();
+  } catch (error) {
+    console.error("error:", error);
+  }
 }
