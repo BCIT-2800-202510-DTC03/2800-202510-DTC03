@@ -119,7 +119,16 @@ function getNextQuestion() {
     const surveyContainer = document.getElementById("questions-form");
     surveyContainer.innerHTML="";
     const questionName = document.getElementById("question-title");
-    startButton.innerText="Next Question";
+    if (current === surveyQuestions.length-1) {
+        startButton.innerText = "Finish"
+    } else {
+        startButton.innerText="Next Question";
+    }
+    if(current === surveyQuestions.length) {
+        startButton.style="display:none;"
+        displayResults();
+        return;
+    }
 
     const question = surveyQuestions[current];
     questionName.innerText = question.name;
@@ -136,4 +145,8 @@ function getNextQuestion() {
     console.log(userResponses);
 }
 
+
+function displayResults() {
+    
+}
 main();
