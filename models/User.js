@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 
 const usersSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types
-            .ObjectId /* type value is of type ObjectId */,
-        default: () =>
-            new mongoose.Types.ObjectId() /* Automatically set default to a new ObjectId if not provided */,
-    },
     username: {
         type: String,
         required: true,
