@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="form" id="login_form_wrapper">
-      <form action="/login" method="post" name="login_form">
+      <form method="post" name="login_form" id="login_form">
         <h1>Log in</h1>
         <label for="email"><b>Email</b></label>
         <input
@@ -35,11 +35,11 @@
       </form>
     </div>
     <div class="form" id="signup_form_wrapper">
-      <form action="/login" method="post" name="signup_form">
+      <form method="post" name="signup_form" id="signup_form">
         <h1>Sign Up</h1>
         <label for="email"><b>Email</b></label>
         <input
-          id="input_login_id"
+          id="input_signup_id"
           class="textbox"
           type="text"
           name="email"
@@ -47,7 +47,7 @@
         />
         <label for="password"><b>Password</b></label>
         <input
-          id="input_login_password"
+          id="input_signup_password"
           class="textbox"
           type="password"
           name="password"
@@ -55,14 +55,14 @@
         />
         <label for="password_repeat"><b>Confirm Your Password</b></label>
         <input
-          id="input_login_password_repeat"
+          id="input_signup_password_repeat"
           class="textbox"
           type="password"
           name="password_repeat"
           placeholder="Repeat Password"
         />
         <input
-          id="input_login_submit"
+          id="input_signup_submit"
           class="btn"
           type="submit"
           name="login"
@@ -70,5 +70,6 @@
         />
       </form>
     </div>
+    <script src="../scripts/login.js"></script>
   </body>
 </html>
