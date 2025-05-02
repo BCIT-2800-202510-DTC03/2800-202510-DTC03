@@ -36,7 +36,7 @@ const surveyQuestions = [
         type: "energyConservation"
     },
     {
-        name: "How often do you buy new clothes or gadgets?",
+        name: "How often do you buy new items?",
         options: {
             o1: { desc: "Rarely – I try to reuse or buy second-hand", point: 3 },
             o2: { desc: "Sometimes – I mix new and used items", point: 2 },
@@ -90,3 +90,50 @@ const surveyQuestions = [
         type: "consciousConsumption"
     }
 ];
+
+
+
+var current = 0;
+const userResponses = [];
+
+function main() {
+    const startButton = document.getElementById("start-button");
+    startButton.addEventListener("click", getNextQuestion);
+}
+
+function getNextQuestion() {
+    const startButton = document.getElementById("start-button");
+    if (current > 0) {
+        const selected = document.querySelector('input[name="option-' + (current - 1) + '"]:checked');
+        if (selected) {
+            userResponses.push(parseInt(selected.value));
+        } else {
+            alert("Please select an option before continuing.");
+            return;
+        }
+    } else {
+        const startText = document.getElementById("starting-text");
+        startText.style ="display:none;"
+        startButton.style="transform: translateX(50%) translateY(-40%);"
+    }
+    const surveyContainer = document.getElementById("questions-form");
+    surveyContainer.innerHTML="";
+    const questionName = document.getElementById("question-title");
+    startButton.innerText="Next Question";
+
+    const question = surveyQuestions[current];
+    questionName.innerText = question.name;
+    Object.entries(question.options).forEach(([key, option]) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+                    <input type="radio" class="survey-input" name="option-${current}" id="${option.desc}" value="${option.point}">
+                    <label for="${option.desc}" class="option-label">${option.desc}</label>
+                    `
+        surveyContainer.appendChild(div);
+    });
+    current++;
+    console.log(userResponses);
+}
+
+main();
