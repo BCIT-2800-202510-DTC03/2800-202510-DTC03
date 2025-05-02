@@ -1,4 +1,4 @@
-
+// axios.defaults.withCredentials = true;
 // bind the buttons to the handle functions
 window.addEventListener("DOMContentLoaded", () => {
   handleLogin();
@@ -41,19 +41,23 @@ async function signUpSubmit(event) {
   ).value;
   if (password != passwordRepeat) {
     console.log("error: password does not match");
-  }
-  console.log("Email:", emailAddress);
-  console.log("Password:", password);
+  } else {
+    console.log("Email:", emailAddress);
+    console.log("Password:", password);
 
-  const userData = {
-    email: emailAddress,
-    password: password,
-  };
-  const backendURLTest = "http://192.168.1.112:3000";
-  try {
-    const response = await axios.post(backendURLTest + "/user/register", userData);
-    return response.json();
-  } catch (error) {
-    console.error("error:", error);
+    const userData = {
+      email: emailAddress,
+      password: password,
+    };
+    const backendURLTest = "http://192.168.1.112:3000";
+    try {
+      const response = await axios.post(
+        backendURLTest + "/user/register",
+        userData
+      );
+      return response.json;
+    } catch (error) {
+      console.error("error:", error);
+    }
   }
 }
