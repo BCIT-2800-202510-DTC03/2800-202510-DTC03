@@ -1,21 +1,30 @@
 const express = require("express");
+const session = require("express-session");
+require("dotenv").config();
+
+const connectToMongo = require("./db"); /* Reference db.js */
 const app = express();
+const port = process.env.PORT || 3000;
 
-const mongoose = require("mongoose");
+/* Middleware to parse JSON and form data */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-main().catch((err) => console.log(err));
-/* Cors is used for preventing web pages from making requests to a different domain than the one that served the web page unless specified
- */
-const cors = require("cors");
-app.use(cors());
+/* Session setup */
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET /* from .env */,
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 
-async function main() {
-    await mongoose
-        .connect
-        // Local host
-        // "mongodb://127.0.0.1:27017/test"
+connectToMongo();
 
-        // Mongo DB Atlas
-        // mongoose.connect("mongodb+srv://mongo:mongo@cluster0.eyhty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        ();
-}
+app.get("/", (req, res) => {
+    res.send("Server connected to MongoDB");
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
