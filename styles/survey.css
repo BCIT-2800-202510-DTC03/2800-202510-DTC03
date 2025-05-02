@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+body{
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    background-color: #DFCFBF;
+}
+
+.survey-wrapper{
+    width:50vw;
+    background-color: #606C38;
+    border-radius: 4vw;
+    color: #DFCFBF;
+    padding: 2vh 6vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 25%;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-label{
+    display: inline-flex;
+    align-items: center;
+    margin-left: 2vw;
+    font-size: 2vh;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 2vh;
+}
+
+.option-label::before {
+    content: '';
+    position: absolute;
+    width: 2vh;
+    height: 2vh;
+    left:0;
+    transform:translateX(-170%);
+    border-radius: 50%;
+    background-color: #DFCFBF;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.survey-input:checked + .option-label::after{
+    content: '';
+    /* \2713 */
+    position: absolute;
+    width: 1vh;
+    height: 1vh;
+    left:0;
+    background-color: #606C38;
+    transform:translate(-290%, 0%);
+    font-size: 2vh;
+    color:#606C38;
+    border-radius: 50%;
+    font-weight:900;
+}
+
+.survey-input{
+    display: none;
+}
+
+#questions-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.question{
+    padding: 1vw 2vh;
+}
+
+#question-title{
+    text-align: center;
+    padding-bottom: 2vh;
+    font-size: 3vh;
+}
