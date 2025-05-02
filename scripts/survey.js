@@ -114,7 +114,7 @@ function getNextQuestion() {
     } else {
         const startText = document.getElementById("starting-text");
         startText.style ="display:none;"
-        startButton.style="transform: translateX(50%) translateY(-40%);"
+        startButton.style="transform: translateX(50%) translateY(-100%);"
     }
     const surveyContainer = document.getElementById("questions-form");
     surveyContainer.innerHTML="";
