@@ -124,3 +124,8 @@ body{
     font-size: 3vh;
     transform:translate(-50%, -80%);
 }
+
+.result-p{
+   text-align: center;
+   font-size: 2vh;
+}

@@ -142,9 +142,9 @@ const surveyQuestions = [
     {
         name: "Do you want to recycle or compost more consistently?",
         options: {
-            o1: { desc: "Yes, I want to do both", point: 3 },
-            o2: { desc: "Just recycle more", point: 2 },
-            o3: { desc: "Not interested", point: 1 }
+            o1: { desc: "Yes", point: 3 },
+            o2: { desc: "A bit", point: 2 },
+            o3: { desc: "Not really", point: 1 }
         },
         type: "wasteReduction"
     },
@@ -256,6 +256,7 @@ function displayResults() {
     let resultText = "";
     let resultCategory = getResults();
     questionName.innerText = "Your goal is...";
+    questionName.style="font-size: 3vh;"
     switch (resultCategory) {
         case("greenerEating"):
             resultText = "To eat greener!";
@@ -263,11 +264,27 @@ function displayResults() {
         case("transportation"):
             resultText = "To change up your transit!";
             break;
+        case("wasteReduction"):
+            resultText = "To reduce your waste!";
+            break;
+        case("resourceConservation"):
+            resultText = "To conserve more resources!";
+            break;
+        case("consciousConsumption"):
+            resultText = "To consume more environmentally conscious products!";
+            break;
         default:
             resultText = resultCategory;
             break;
     };
-    console.log(resultText);
+    surveyContainer.innerHTML = `
+        <p class="result-p">${resultText}</p>
+        <br/><br/>
+        <p class="result-p">Not quite what you were thinking?</p>
+        <div id="result-b-wrapper">
+        <button class="result-b">Take the survey again</button>
+        <button class="result-b">Choose my own goal</button>
+        </div>`;
 }
 
 function getResults() {
