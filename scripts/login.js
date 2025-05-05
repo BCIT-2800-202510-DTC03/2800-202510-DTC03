@@ -22,14 +22,21 @@ async function loginSubmit(event) {
 
   let emailAddress = document.getElementById("input_login_id").value;
   let password = document.getElementById("input_login_password").value;
-  password = await hashingPassword(password);
-  // ! login api has not been established
-  // hashing before wrapping the request body
-  // try {
-  //     const response = await fetch("/user/login", {
-  //     })
-  // }
+
+  const userData = {
+    email: emailAddress,
+    password: password,
+  };
+
+  const backendURLTest = "http://192.168.1.112:3000"; // waiting to be updated
+  try {
+    const response = await axios.post(backendURLTest + "/user/login", userData);
+    return response.json;
+  } catch (error) {
+    console.error("error:", error);
+  }
 }
+
 async function signUpSubmit(event) {
   event.preventDefault();
   console.log("signUpSubmit");
@@ -49,7 +56,7 @@ async function signUpSubmit(event) {
       email: emailAddress,
       password: password,
     };
-    const backendURLTest = "http://192.168.1.112:3000";
+    const backendURLTest = "http://192.168.1.112:3000"; // waiting to be updated
     try {
       const response = await axios.post(
         backendURLTest + "/user/register",
