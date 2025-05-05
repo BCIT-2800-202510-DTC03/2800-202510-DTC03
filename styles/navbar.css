@@ -96,6 +96,9 @@ body {
 
     margin-bottom: 50px;
 
+    border: black 2px solid;
+    border-radius: 5px;
+
     display: flex;
     justify-content: center;
     justify-self: right;
@@ -126,7 +129,22 @@ body {
     padding: 10px;
     margin: 10px;
 
+    border: black 2px solid;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+#header-navbar {
+    border-radius: 5px;
+}
+
+#header-profile {
+    border-radius: 50%;
+
+    background-image: url("../assets/images/placeholder.svg");
+    background-position: center;
+    background-size: cover;
 }
