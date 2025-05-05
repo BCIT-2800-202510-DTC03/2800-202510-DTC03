@@ -4,79 +4,85 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
     <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
   </head>
   <body>
-    <div class="form" id="login_form_wrapper">
-      <form name="login_form" id="login_form">
-        <h1>Log in</h1>
-        <label for="input_login_id"><b>Email</b></label>
-        <input
-          id="input_login_id"
-          class="textbox"
-          type="text"
-          name="email"
-          placeholder="Email Address"
-          required
-        />
-        <label for="input_login_password"><b>Password</b></label>
-        <input
-          id="input_login_password"
-          class="textbox"
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <input
-          id="input_login_submit"
-          class="btn"
-          type="submit"
-          name="login"
-          value="Log In"
-        />
-      </form>
-    </div>
-    <div class="form" id="signup_form_wrapper">
-      <form name="signup_form" id="signup_form">
-        <h1>Sign Up</h1>
-        <label for="input_signup_id"><b>Email</b></label>
-        <input
-          id="input_signup_id"
-          class="textbox"
-          type="text"
-          name="email"
-          placeholder="Email Address"
-          required
-        />
-        <label for="input_signup_password"><b>Password</b></label>
-        <input
-          id="input_signup_password"
-          class="textbox"
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <label for="input_signup_password_repeat"
-          ><b>Confirm Your Password</b></label
-        >
-        <input
-          id="input_signup_password_repeat"
-          class="textbox"
-          type="password"
-          name="password_repeat"
-          placeholder="Repeat Password"
-          required
-        />
-        <input
-          id="input_signup_submit"
-          class="btn"
-          type="submit"
-          name="login"
-          value="Sign Up"
-        />
-      </form>
+    <a></a>
+    <div class="form_wrapper">
+      <button id="toggle_form_btn" class="toggle_btn">New User? Sign Up</button>
+      <div class="loginpage_form" id="login_form_wrapper">
+        <form name="login_form" id="login_form">
+          <h1>Log in</h1>
+          <label for="input_login_id"><b>Email</b></label>
+          <input
+            id="input_login_id"
+            class="textbox"
+            type="text"
+            name="email"
+            placeholder="Email Address"
+            required
+          />
+          <label for="input_login_password"><b>Password</b></label>
+          <input
+            id="input_login_password"
+            class="textbox"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            id="input_login_submit"
+            class="btn"
+            type="submit"
+            name="login"
+            value="Log In"
+          />
+        </form>
+      </div>
+      <div class="loginpage_form" id="signup_form_wrapper">
+        <form name="signup_form" id="signup_form">
+          <h1>Sign Up</h1>
+          <label for="input_signup_id"><b>Email</b></label>
+          <input
+            id="input_signup_id"
+            class="textbox"
+            type="text"
+            name="email"
+            placeholder="Email Address"
+            required
+          />
+          <label for="input_signup_password"><b>Password</b></label>
+          <input
+            id="input_signup_password"
+            class="textbox"
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <label for="input_signup_password_repeat"
+            ><b>Confirm Your Password</b></label
+          >
+          <input
+            id="input_signup_password_repeat"
+            class="textbox"
+            type="password"
+            name="password_repeat"
+            placeholder="Repeat Password"
+            required
+          />
+          <input
+            id="input_signup_submit"
+            class="btn"
+            type="submit"
+            name="login"
+            value="Sign Up"
+          />
+        </form>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/login.js"></script>

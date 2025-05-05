@@ -1,0 +1,12 @@
+.loginpage_form {
+    display: none;
+}
+
+.loginpage_form.active {
+    display: block;
+}
+
+.toggle-btn {
+    margin-bottom: 20px;
+    cursor: pointer;
+}

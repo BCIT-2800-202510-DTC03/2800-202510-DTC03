@@ -1,4 +1,26 @@
-// axios.defaults.withCredentials = true;
+// function help to switch the login/ signup form
+function switchForm() {
+  const toggleBtn = document.getElementById("toggle_form_btn");
+  const loginForm = document.getElementById("login_form_wrapper");
+  const signupForm = document.getElementById("signup_form_wrapper");
+
+  let isLogin = true;
+  toggleBtn.addEventListener("click", () => {
+    isLogin = !isLogin;
+    // switch between login btn & signup btn
+    if (isLogin) {
+      loginForm.classList.add("active");
+      signupForm.classList.remove("active");
+      toggleBtn.textContent = "New User?";
+    } else {
+      loginForm.classList.remove("active");
+      signupForm.classList.add("active");
+      toggleBtn.textContent = "Already have an account?";
+    }
+  });
+}
+switchForm();
+
 // bind the buttons to the handle functions
 window.addEventListener("DOMContentLoaded", () => {
   handleLogin();
@@ -16,6 +38,7 @@ function handleRegister() {
   console.log("handleRegister");
 }
 
+// login
 async function loginSubmit(event) {
   event.preventDefault();
   console.log("loginSubmit");
@@ -36,7 +59,7 @@ async function loginSubmit(event) {
     console.error("error:", error);
   }
 }
-
+//signup
 async function signUpSubmit(event) {
   event.preventDefault();
   console.log("signUpSubmit");
