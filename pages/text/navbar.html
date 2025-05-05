@@ -7,39 +7,44 @@
 
     <link rel="stylesheet" href="../../styles/navbar.css">
     
+    <script src="../../scripts/navbar.js"></script>
 </head>
 <body>
-    <header>
-        <div id="sidebar-overlay">
-            <div id="sidebar">
-                <a>
+    <div>
+        <side id="sidebar-overlay">
+            <nav id="sidebar">        
+                <button id="sidebar-navbar" onclick="closeSidebar()">|||</button>
+
+                <a class="sidebar-button">
                     Home
                     <hr />
                 </a>
-                <a>
+                <a class="sidebar-button">
                     Shop
                     <hr />
                 </a>
-                <a>
+                <a class="sidebar-button">
                     Garden
                     <hr />
                 </a>
-                <a>
+                <a class="sidebar-button">
                     Friends
                     <hr />
                 </a>
-                <a>
+                <a class="sidebar-button">
                     Settings
                     <hr />
                 </a>
-            </div>
-        </div> 
+            </nav>
+        </side> 
 
-        <div id="header">
-            <button id="header-havbar">|||</button>
+        <header id="header">
+            <button id="header-navbar" onclick="openSidebar()">|||</button>
             <p id="header-text">BloomGreener</p>
             <button id="header-profile">O</button>
-        </div>
-    </header>
+        </header>
+    </div>
+
+
 </body>
 </html>
