@@ -1,51 +1,107 @@
+@keyframes applyOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.6);
+    } 
+}
+
+@keyframes removeOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.0);
+    } 
+}
+
+@keyframes openSidebar {
+    from {
+        translate: -250px;
+    }
+    to {
+        translate: 0;
+    } 
+}
+
+@keyframes closeSidebar {
+    from {
+        translate: 0;
+    }
+    to {
+        translate: -250px;
+    } 
+}
+
+
 body {
     padding: 0;
     margin: 0;
 }
 
-#sidebar-overlay {
+
+#sidebar-overlay { /*Shadow/overlay applied when sidebar is opened*/
     width: 100%;
     height: 100%;
 
     z-index: 100;
 
     position: fixed;
+    display: none;
 
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.0);
 }
+
 
 #sidebar {
     width: 200px;
     height: 100%;
 
-    padding: 0;
+    padding: 10px 10px;
     margin: 0;
     z-index: 100;
 
     position: fixed;
     float: left;
 
+    background-color: grey;
+}
+
+.sidebar-button {
+    width: 75%;
+    height: auto;
+
+    margin: 15px auto;    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    background-color: grey;
-
-}
-
-#sidebar a {
-    width: 100%;
-    height: auto;
-
-    margin: 10px 0px;
-
     text-align: center;
 }
 
-#sidebar hr {
-    width: 50%;
+.sidebar-button:hover {
+    color: aqua;
+}
+
+.sidebar-button hr {
+    width: 75%;
     height: auto;
 }
+
+#sidebar-navbar {
+    width: 30px;
+    height: 30px;
+
+    margin-bottom: 50px;
+
+    display: flex;
+    justify-content: center;
+    justify-self: right;
+    align-items: center;
+}
+
 
 #header {
     width: 100%;
@@ -69,7 +125,6 @@ body {
 
     padding: 10px;
     margin: 10px;
-
 
     display: flex;
     justify-content: center;
