@@ -19,7 +19,7 @@ function switchForm() {
     }
   });
 }
-switchForm();
+
 let signupErrorMessage;
 let loginErrorMessage;
 // bind the buttons to the handle functions
@@ -27,6 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // get DOM element to revise error message
   signupErrorMessage = document.getElementById("signup_error");
   loginErrorMessage = document.getElementById("login_error");
+  switchForm();
   handleLogin();
   handleRegister();
   console.log("addEventListener");
@@ -37,15 +38,15 @@ function handleLogin() {
   loginForm.addEventListener("submit", loginSubmit);
 }
 function handleRegister() {
-  loginForm = document.getElementById("signup_form");
-  loginForm.addEventListener("submit", signUpSubmit);
-  console.log("handleRegister");
+  signupForm = document.getElementById("signup_form");
+  signupForm.addEventListener("submit", signUpSubmit);
+  // console.log("handleRegister");
 }
 
 // login
 async function loginSubmit(event) {
   event.preventDefault();
-  console.log("loginSubmit");
+  // console.log("loginSubmit");
 
   let emailAddress = document.getElementById("input_login_id").value;
   let password = document.getElementById("input_login_password").value;
