@@ -256,7 +256,7 @@ function displayResults() {
     let resultText = "";
     let resultCategory = getResults();
     questionName.innerText = "Your goal is...";
-    questionName.style="font-size: 3vh;"
+    questionName.style="height: 5vh;"
     switch (resultCategory) {
         case("greenerEating"):
             resultText = "To eat greener!";
@@ -279,12 +279,16 @@ function displayResults() {
     };
     surveyContainer.innerHTML = `
         <p class="result-p">${resultText}</p>
-        <br/><br/>
-        <p class="result-p">Not quite what you were thinking?</p>
+        <button id="ctn-btn">Looks good!</button><br/>
         <div id="result-b-wrapper">
-        <button class="result-b">Take the survey again</button>
-        <button class="result-b">Choose my own goal</button>
+        <p class="result-p" id="again-p">Not quite what you were thinking?</p>
+        <button class="result-b" id="choose-btn">Choose my own goal</button>
         </div>`;
+
+    const continuebtn = document.getElementById("ctn-btn");
+    continuebtn.addEventListener("click", () => {
+        // Redirect user to home page + store user goal
+    })
 }
 
 function getResults() {
