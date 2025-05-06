@@ -26,6 +26,7 @@
         <div class="loginpage_form" id="login_form_wrapper">
           <form name="login_form" id="login_form">
             <p>Log in</p>
+            <p id="login_error" class="error_message"></p>
             <div class="input_with_icon">
               <img src="../assets/icons/mail.svg" class="input_icon" />
               <input
@@ -48,6 +49,7 @@
                 required
               />
             </div>
+
             <input
               id="input_login_submit"
               class="loginPage_btn btn"
@@ -60,7 +62,7 @@
         <div class="loginpage_form hidden" id="signup_form_wrapper">
           <form name="signup_form" id="signup_form">
             <p>Sign Up</p>
-            <!-- <label for="input_signup_id"><b>Email</b></label> -->
+            <p id="signup_error" class="error_message"></p>
             <div class="input_with_icon">
               <img src="../assets/icons/mail.svg" class="input_icon" />
               <input
@@ -72,7 +74,7 @@
                 required
               />
             </div>
-            <!-- <label for="input_signup_password"><b>Password</b></label> -->
+
             <div class="input_with_icon">
               <img src="../assets/icons/key.svg" class="input_icon" />
               <input
@@ -84,9 +86,7 @@
                 required
               />
             </div>
-            <!-- <label for="input_signup_password_repeat"
-              ><b>Confirm Your Password</b></label
-            > -->
+
             <div class="input_with_icon">
               <img src="../assets/icons/key.svg" class="input_icon" />
               <input
@@ -98,6 +98,7 @@
                 required
               />
             </div>
+
             <input
               id="input_signup_submit"
               class="loginPage_btn btn"

@@ -20,9 +20,13 @@ function switchForm() {
   });
 }
 switchForm();
-
+let signupErrorMessage;
+let loginErrorMessage;
 // bind the buttons to the handle functions
 window.addEventListener("DOMContentLoaded", () => {
+  // get DOM element to revise error message
+  signupErrorMessage = document.getElementById("signup_error");
+  loginErrorMessage = document.getElementById("login_error");
   handleLogin();
   handleRegister();
   console.log("addEventListener");
@@ -56,7 +60,12 @@ async function loginSubmit(event) {
     const response = await axios.post(backendURLTest + "/user/login", userData);
     return response.json;
   } catch (error) {
-    console.error("error:", error);
+    if (error.response && error.response.status === 401) {
+      loginErrorMessage.textContent = error.response.data.error_message;
+    } else {
+      loginErrorMessage.textContent =
+        "Something is going wrong. Please try again.";
+    }
   }
 }
 //signup
@@ -71,6 +80,8 @@ async function signUpSubmit(event) {
   ).value;
   if (password != passwordRepeat) {
     console.log("error: password does not match");
+    signupErrorMessage.textContent = "Passwords do not match.";
+    return;
   } else {
     console.log("Email:", emailAddress);
     console.log("Password:", password);
@@ -87,7 +98,12 @@ async function signUpSubmit(event) {
       );
       return response.json;
     } catch (error) {
-      console.error("error:", error);
+      if (error.response && error.response.status === 409) {
+        signupErrorMessage.textContent = error.response.data.error_message;
+      } else {
+        signupErrorMessage.textContent =
+          "Something is going wrong. Please try again.";
+      }
     }
   }
 }

@@ -95,3 +95,9 @@ DFCFBF light brown
         color: #fff;
         font-weight: 600;
 }
+
+.error_message {
+    color: red;
+    margin-top: 10px;
+    font-size:0.75rem;
+}
