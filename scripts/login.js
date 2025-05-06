@@ -9,12 +9,12 @@ function switchForm() {
     isLogin = !isLogin;
     // switch between login btn & signup btn
     if (isLogin) {
-      loginForm.classList.add("active");
-      signupForm.classList.remove("active");
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
       toggleBtn.textContent = "New User?";
     } else {
-      loginForm.classList.remove("active");
-      signupForm.classList.add("active");
+      loginForm.classList.add("hidden");
+      signupForm.classList.remove("hidden");
       toggleBtn.textContent = "Already have an account?";
     }
   });
