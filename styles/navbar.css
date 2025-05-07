@@ -90,13 +90,16 @@ body {
 }
 
 .sidebar-button:hover {
-    color: antiquewhite;
-    border-color: antiquewhite;
+    color: blanchedalmond;
 }
 
 .sidebar-button hr {
     width: 75%;
     height: auto;
+}
+
+.sidebar-button:hover hr {
+    border-color: blanchedalmond;
 }
 
 #sidebar-navbar {
@@ -105,13 +108,30 @@ body {
 
     margin-bottom: 50px;
 
-    border: black 2px solid;
+    border: none;
     border-radius: 5px;
 
     display: flex;
     justify-content: center;
     justify-self: right;
     align-items: center;
+    flex-direction: column;
+    gap: 5px;
+
+    background-color: transparent;
+}
+
+#sidebar-navbar div {
+    width: 25px;
+    height: 3px;
+
+    border-radius: 5px;
+
+    background-color: white;
+}
+
+#sidebar-navbar:hover div {
+    background-color: blanchedalmond;
 }
 
 
@@ -141,19 +161,36 @@ body {
     width: 30px;
     height: 30px;
 
-    padding: 10px;
     margin: 10px;
-
-    border: black 2px solid;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
+    border: none;
+
+    background-color: transparent;
 }
 
 #header-navbar {
     border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#header-navbar div {
+    width: 25px;
+    height: 3px;
+
+    border-radius: 5px;
+
+    background-color: white;
+}
+
+#header-navbar:hover div {
+    background-color: blanchedalmond;
 }
 
 #header-profile {
