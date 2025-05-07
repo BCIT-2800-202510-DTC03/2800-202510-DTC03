@@ -67,7 +67,7 @@ body {
     top: 0px;
     float: left;
 
-    background-color: #606C38;
+    background-image: linear-gradient(#606C38, #606C38, #8e8b4d, #dfb980);
     color: white;
 
     box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.3);
