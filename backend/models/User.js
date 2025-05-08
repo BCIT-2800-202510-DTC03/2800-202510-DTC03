@@ -12,8 +12,12 @@ const usersSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        minimumLength: 10,
+        minLength: 10,
         required: true,
+    },
+    currency: {
+        type: Number,
+        default: 0,
     },
 });
 

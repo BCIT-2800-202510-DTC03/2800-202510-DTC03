@@ -1,40 +1,50 @@
 const express = require("express");
+const session = require("express-session");
+const path = require("path"); /* Needed for working with directories and file paths */
+require("dotenv").config();
+
+const connectToMongo = require("./db"); /* Reference db.js */
 const app = express();
-const cors = require("cors");
-app.use(cors());
+const PORT = process.env.PORT || 3000;
 
-const port = 3000
+/* View engine EJS */
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
+/* Middleware to parse JSON and form data */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// const mongoose = require("mongoose");
+/* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
+app.use(express.static("public"));
 
-// main().catch((err) => console.log(err));
-/* Cors is used for preventing web pages from making requests to a different domain than the one that served the web page unless specified
- */
+/* Session setup */
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET /* from .env */,
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 
+connectToMongo();
 
-// async function main() {
-//     await mongoose
-//         .connect
-//         // Local host
-//         // "mongodb://127.0.0.1:27017/test"
+/* Routes */
+// app.use("/", authRoutes); /* These aren't made yet, so just placeholders */
+// app.use("/tasks", taskRoutes);
+// app.use("/rewards", rewardRoutes);
 
-//         // Mongo DB Atlas
-//         // mongoose.connect("mongodb+srv://mongo:mongo@cluster0.eyhty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-//         ();
-// }
-
+/* Testing purposes */
+// app.get("/", (req, res) => {
+//     res.send("Server connected to MongoDB");
+// });
 
 // https://expressjs.com/en/guide/routing.html
-const userRouter = require('./user')
-app.use('/user', userRouter)
+const userRouter = require("./user");
+app.use("/user", userRouter);
+/* Login */
+app.get("/", (req, res) => res.redirect("/login"));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
