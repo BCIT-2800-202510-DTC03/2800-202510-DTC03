@@ -11,6 +11,11 @@ const rewardSchema = new mongoose.Schema({
         enum: ["common", "uncommon", "rare", "epic"],
         lowercase: true, // Consistency for querying
     },
+    cost: {
+        type: Number,
+        required: true,
+        min: 0,
+    },
 });
 
 const Reward = mongoose.model("Reward", rewardSchema);
