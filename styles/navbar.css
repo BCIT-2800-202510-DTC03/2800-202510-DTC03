@@ -40,6 +40,10 @@ body {
     margin: 0;
 }
 
+#main-content {
+    padding: 50px 20px;
+}
+
 
 #sidebar-overlay { /*Shadow/overlay applied when sidebar is opened*/
     width: 100%;
