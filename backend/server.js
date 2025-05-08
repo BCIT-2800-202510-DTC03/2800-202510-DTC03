@@ -1,19 +1,19 @@
-const express = require("express");
 
+const express = require("express");
 const session = require("express-session");
+// const path = require("path"); /* Needed for working with directories and file paths */
 require("dotenv").config();
 
 const connectToMongo = require("./db"); /* Reference db.js */
-const UserRoutes = require("./user");
-
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-const cors = require("cors");
-app.use(cors());
 /* Middleware to parse JSON and form data */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+/* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
+app.use(express.static("public"));
 
 /* Session setup */
 app.use(
@@ -24,14 +24,24 @@ app.use(
   })
 );
 
-app.use("/user", UserRoutes);
-
 connectToMongo();
 
-app.get("/", (req, res) => {
-  res.send("Server connected to MongoDB!!!!!!!!!!!");
-});
+/* Routes */
+// app.use("/", authRoutes); /* These aren't made yet, so just placeholders */
+// app.use("/tasks", taskRoutes);
+// app.use("/rewards", rewardRoutes);
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+/* Testing purposes */
+// app.get("/", (req, res) => {
+//     res.send("Server connected to MongoDB");
+// });
+
+// https://expressjs.com/en/guide/routing.html
+const userRouter = require("./user");
+app.use("/user", userRouter);
+/* Login */
+app.get("/", (req, res) => res.redirect("/login"));
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
