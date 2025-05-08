@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
   switchForm();
   handleLogin();
   handleRegister();
-  console.log("addEventListener");
+  // console.log("addEventListener");
 });
 
 function handleLogin() {
@@ -40,23 +40,22 @@ function handleLogin() {
 function handleRegister() {
   signupForm = document.getElementById("signup_form");
   signupForm.addEventListener("submit", signUpSubmit);
-  // console.log("handleRegister");
 }
 
 // login
 async function loginSubmit(event) {
   event.preventDefault();
-  // console.log("loginSubmit");
 
   let emailAddress = document.getElementById("input_login_id").value;
   let password = document.getElementById("input_login_password").value;
-
+  // waiting to be updated: set the email as username for now
   const userData = {
+    username: emailAddress,
     email: emailAddress,
     password: password,
   };
 
-  const backendURLTest = "http://192.168.1.112:3000"; // waiting to be updated
+  const backendURLTest = "http://localhost:3000"; // waiting to be updated
   try {
     const response = await axios.post(backendURLTest + "/user/login", userData);
     return response.json;
@@ -79,19 +78,24 @@ async function signUpSubmit(event) {
   let passwordRepeat = document.getElementById(
     "input_signup_password_repeat"
   ).value;
+  // validation: password must be longer than 10
+  if (password.length < 10) {
+    console.log("error: Password must be at least 10 characters.");
+    signupErrorMessage.textContent = "Password must be at least 10 characters.";
+    return;
+  }
+  // validation: password must match passwordRepeat
   if (password != passwordRepeat) {
     console.log("error: password does not match");
     signupErrorMessage.textContent = "Passwords do not match.";
     return;
   } else {
-    console.log("Email:", emailAddress);
-    console.log("Password:", password);
-
     const userData = {
+      username: emailAddress,
       email: emailAddress,
       password: password,
     };
-    const backendURLTest = "http://192.168.1.112:3000"; // waiting to be updated
+    const backendURLTest = "http://localhost:3000"; // waiting to be updated
     try {
       const response = await axios.post(
         backendURLTest + "/user/register",
