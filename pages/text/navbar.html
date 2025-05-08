@@ -1,59 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<side id="sidebar-overlay">
+    <nav id="sidebar">        
+        <button id="sidebar-navbar" onclick="closeSidebar()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+        <a class="sidebar-button" href="#">
+            Home
+            <hr />
+        </a>
+        <a class="sidebar-button" href="#">
+            Shop
+            <hr />
+        </a>
+        <a class="sidebar-button" href="#">
+            Garden
+            <hr />
+        </a>
+        <a class="sidebar-button" href="#">
+            Friends
+            <hr />
+        </a>
+        <a class="sidebar-button" href="#">
+            Settings
+            <hr />
+        </a>
+    </nav>
+</side> 
 
-    <link rel="stylesheet" href="../../styles/navbar.css" />
-</head>
-
-<body>
-    <header>
-        <script src="../../scripts/navbar.js"></script>
-        
-        <side id="sidebar-overlay">
-            <nav id="sidebar">        
-                <button id="sidebar-navbar" onclick="closeSidebar()">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </button>
-
-                <a class="sidebar-button" href="#">
-                    Home
-                    <hr />
-                </a>
-                <a class="sidebar-button" href="#">
-                    Shop
-                    <hr />
-                </a>
-                <a class="sidebar-button" href="#">
-                    Garden
-                    <hr />
-                </a>
-                <a class="sidebar-button" href="#">
-                    Friends
-                    <hr />
-                </a>
-                <a class="sidebar-button" href="#">
-                    Settings
-                    <hr />
-                </a>
-            </nav>
-        </side> 
-
-        <header id="header">
-            <button id="header-navbar" onclick="openSidebar()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </button>
-            <p id="header-text">BloomGreener</p>
-            <button id="header-profile"></button>
-        </header>
-    </header>
-</body>
-
-</html>
+<header id="header">
+    <button id="header-navbar" onclick="openSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </button>
+    <p id="header-text">BloomGreener</p>
+    <button id="header-profile"></button>
+</header>
