@@ -47,11 +47,11 @@ router.post("/login", async (req, res) => {
     }
 
     // login success
-    res.json({
-      message: `Welcome ${email}`,
-      email: user.email,
-    });
-
+    // res.json({
+    //   message: `Welcome ${email}`,
+    // email: user.email,
+    // });
+    // res.redirect("/page/home.html");
     // catch error
   } catch (error) {
     console.error("Login error:", error);
@@ -87,10 +87,11 @@ router.post("/register", async (req, res) => {
     await newUser.save();
 
     // registration success
-    res.status(200).json({
-      message: "Registration successful",
-      email: newUser.email,
-    });
+    // res.status(200).json({
+    //   message: "Registration successful",
+    //   email: newUser.email,
+    // });
+    // res.redirect("/page/register.html");
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({

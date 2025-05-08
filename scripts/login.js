@@ -45,7 +45,7 @@ function handleRegister() {
 // login
 async function loginSubmit(event) {
   event.preventDefault();
-
+  loginErrorMessage.textContent = "";
   let emailAddress = document.getElementById("input_login_id").value;
   let password = document.getElementById("input_login_password").value;
   // waiting to be updated: set the email as username for now
@@ -71,8 +71,7 @@ async function loginSubmit(event) {
 //signup
 async function signUpSubmit(event) {
   event.preventDefault();
-  console.log("signUpSubmit");
-  console.log("inside form");
+  signupErrorMessage.textContent = "";
   let emailAddress = document.getElementById("input_signup_id").value;
   let password = document.getElementById("input_signup_password").value;
   let passwordRepeat = document.getElementById(
