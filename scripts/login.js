@@ -59,7 +59,7 @@ async function loginSubmit(event) {
   try {
     const response = await axios.post(backendURLTest + "/user/login", userData);
     if (response.status === 200) {
-      window.location.href = "../pages/homepage.html";
+      window.location.href = "../pages/home.html";
     }
   } catch (error) {
     if (error.response && error.response.status === 401) {
