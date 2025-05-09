@@ -6,14 +6,23 @@ const connectToMongo = require("./db"); /* Reference db.js */
 const express = require("express");
 const session = require("express-session");
 const path = require("path"); /* Needed for working with directories and file paths */
+// const path = require("path"); /* Needed for working with directories and file paths */
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require("cors");
 
 /* View engine EJS */
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 /* Middleware to parse JSON and form data */
+app.use(
+    cors({
+        origin: true,
+        credentials: true,
+    })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
