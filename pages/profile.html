@@ -10,10 +10,12 @@
 <body>
     <div id="profile-wrapper">
         <div id="picture-wrapper">
-            <img id="profile-picture" src="https://dummyimage.com/100/ded5de/999999.png&text=user">
-            <div id="picture-input">
-                <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
-                <input type="file" id="pfp-img" name="pfp-img" accept="image/*">
+            <div id="pfp-container">
+                <img id="profile-picture" src="https://dummyimage.com/100/ded5de/999999.png&text=user">
+                <div id="picture-input">
+                    <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
+                    <input type="file" id="pfp-img" name="pfp-img" accept="image/*">
+                </div>
             </div>
         </div>
         <div id="username-wrapper">
@@ -22,7 +24,7 @@
         <div id="about-me-wrapper">
             <h2>About me</h2>
             <div id="about-me-txt-wrap">
-                <input type="text" id="about-me-txt" name="about-me" placeholder="I like...">
+                <textarea id="about-me-txt" name="about-me" placeholder="I like..." maxlength="300"></textarea>
             </div>
         </div>
         <div id="goal-wrapper">
