@@ -22,7 +22,7 @@ body {
     box-sizing: border-box;
     padding-top: 15vh;
     height: 100%;
-    width: 70vw;
+    width: 75vw;
     max-width: 600px;
 }
 
@@ -83,11 +83,11 @@ body {
     width:100%;
     height:100%;
     user-select: text;
+    resize: none;
     
 }
 
-#about-me-txt:focus{
-    border: none;
+#about-me-txt:focus, #goals:focus{
     outline: none;
 }
 
@@ -100,12 +100,11 @@ body {
 
 
 #goals{
-    width: 70vw;
     border: solid 0.2rem var(--dark-green);
     border-radius: 0.7vh;
     background-color: #606c3848;
     color: var(--dark-green);
-    max-width:100%;
+    width:100%;
 }
 
 #picture-input{
