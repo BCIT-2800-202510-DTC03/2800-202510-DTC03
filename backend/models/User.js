@@ -19,6 +19,10 @@ const usersSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  goal:{
+      type: String,
+      default: null,
+    }
 });
 const User = mongoose.model("User", usersSchema);
 
