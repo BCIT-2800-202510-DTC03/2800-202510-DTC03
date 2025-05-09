@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 
 #profile-wrapper {
@@ -23,7 +24,7 @@ body {
     padding-top: 15vh;
     height: 100%;
     width: 75vw;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 
@@ -36,7 +37,6 @@ body {
 #profile-picture{
     height: 20vh;
     border-radius: 100%;
-    border: solid var(--dark-green) 0.3rem;
 }
 
 #username-wrapper{
@@ -49,8 +49,9 @@ body {
 #username {
     height:5vh;
     font-size: xx-large;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
+    color: var(--dark-green);
 }
 
 #about-me-wrapper {
@@ -69,9 +70,8 @@ body {
 }
 
 #about-me-txt-wrap{
-    border:solid 0.2rem var(--dark-green);
-    background-color: #606c3848;
-    border-radius: 1vh;
+    border:solid 0.1rem lightgrey;
+    border-radius: 0.5vh;
     padding: 0vh 1vw;
     height: 10vh;
 }
@@ -99,12 +99,20 @@ body {
 }
 
 
-#goals{
-    border: solid 0.2rem var(--dark-green);
+#goal-select-wrap{
+    border: solid 0.1rem lightgrey;
     border-radius: 0.7vh;
-    background-color: #606c3848;
     color: var(--dark-green);
     width:100%;
+    cursor: pointer;
+    padding: 0vh 1vw;
+}
+
+#goals{
+    background-color: transparent;
+    width: 100%;
+    outline: none;
+    border: none;
     cursor: pointer;
 }
 
@@ -117,8 +125,6 @@ body {
     height:5vh;
     width:5vh;
     border-radius: 100%;
-    border: solid var(--dark-green) 0.3rem;
-    
 }
 #camera-img{
     border-radius: 100%;
@@ -134,4 +140,28 @@ body {
 #pfp-container{
     position: relative;
     display: inline-block;
+}
+
+/* different navbar than usual pages since we don't need the user's pfp */
+#pfp-nav {
+    /* change this height to match the usual navbar */
+    position: absolute;
+    height:7vh;
+    width: 100%;
+    background-color: var(--dark-green);
+    z-index: 100;
+}
+
+
+.section-title {
+    font-weight: 300;
+    font-size: medium;
+    padding-right: 2vh;
+}
+
+#back-arrow {
+    color:white;
+    font-size: 4vh;
+    padding: 1.5vh 2vw;
+    cursor: pointer;
 }
