@@ -1,28 +1,60 @@
 #task {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     background-color: #DFCFBF;
-    border-radius: 9999px;
-    padding: 12px 20px;
-    margin: 10px 0;
+    border-radius: 2rem;
+    padding: 18px 20px;
+    margin: 12px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #task-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
     flex: 1;
 }
 
 #task-text {
-    font-size: 16px;
-    color: #000;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
 #task-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
+    margin-left: 16px;
+}
+
+#sunpoints {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+}
+
+#sun-icon {
+    margin-right: 4px;
+    font-size: 1.2rem;
+}
+
+#sun-value {
+    font-weight: 500;
+}
+
+#checkmark {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #333;
+    border-radius: 25%;
+    flex-shrink: 0;
+    background-color: #F5F0E6;
 }
