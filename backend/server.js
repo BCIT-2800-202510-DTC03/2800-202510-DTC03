@@ -1,17 +1,20 @@
 const express = require("express");
 const session = require("express-session");
-const path = require("path"); /* Needed for working with directories and file paths */
+const cors = require("cors");
+// const path = require("path"); /* Needed for working with directories and file paths */
 require("dotenv").config();
 
 const connectToMongo = require("./db"); /* Reference db.js */
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-/* View engine EJS */
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
 /* Middleware to parse JSON and form data */
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -20,11 +23,11 @@ app.use(express.static("public"));
 
 /* Session setup */
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET /* from .env */,
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: process.env.SESSION_SECRET /* from .env */,
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 
 connectToMongo();
@@ -46,5 +49,5 @@ app.use("/user", userRouter);
 app.get("/", (req, res) => res.redirect("/login"));
 
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
