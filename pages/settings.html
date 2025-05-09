@@ -5,57 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- This is for installing Tailwind locally and having the same Tailwind and DaisyUI styling across mutliple pages-->
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/settings.css" />
+
+    <!-- This is for installing Tailwind locally and having the same Tailwind and daisyUI styling across mutliple pages-->
     <link href="/styles/output.css" rel="stylesheet">
 
     <title>Account Settings</title>
 </head>
 
 <body>
-    <div class="max-w-md mx-auto card shadow-lg p-6">
+    <div class="max-w-md mx-auto px-4"> <!-- Card is from daisyUI -->
+
+        <h1 class="heading pt-4"> Account Settings </h1>
         <!-- Need to add card styling later -->
         <form action="/settings/update" method="POST" class="">
 
             <!-- Username -->
-            <div class="form-control"> <!-- DaisyUI form-control used to group form items -->
-                <label class="userDetails"> Username </label>
+            <div class="mb-4">
+                <label class="label flex flex-col items-start"> Username </label>
                 <input type="text" name="userName" value="<% user.username %>" class="input" required>
                 <!-- This also means for registration we need to get the user to enter a username otherwise we have to carefully handle any errors if there's no username associated with the user -->
             </div>
 
             <!-- Email -->
-            <div class="form-control">
-                <label class="label">
+            <div class="">
+                <label class="label flex flex-col items-start">
                     <span class="label-text">Email</span>
                 </label>
                 <input type="email" name="email" value="<%= user.email %>" class="input" required>
             </div>
 
             <!-- Old Password-->
-            <div class="form-control">
-                <label class="label">
+            <div class="">
+                <label class="label flex flex-col items-start">
                     <span class="label-text">Old Password</span>
                 </label>
                 <input type="password" name="oldPassword" class="input input-bordered">
             </div>
 
             <!-- New Password -->
-            <div class="form-control">
-                <label class="label">
+            <div class="">
+                <label class="label flex flex-col items-start">
                     <span class="label-text">New Password</span>
                 </label>
                 <input type="password" name="newPassword" class="input">
             </div>
 
             <!-- Confirm Password -->
-            <div class="form-control">
-                <label class="label">
+            <div class="">
+                <label class="label flex flex-col items-start">
                     <span class="label-text">Confirm Password</span>
                 </label>
                 <input type="password" name="confirmPassword" class="input">
             </div>
 
-            <button type="submit" class="btn btn-primary w-full">Update Settings</button>
+            <button type="submit" class="btn btn-primary px-5" id="updateSettingsBtn">Update Settings</button>
         </form>
     </div>
 </body>
