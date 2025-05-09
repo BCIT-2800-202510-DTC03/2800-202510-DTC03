@@ -25,22 +25,22 @@
             <!-- Username -->
             <div class="mb-4">
                 <label class="label flex flex-col items-start"> Username </label>
-                <input type="text" name="userName" value="<% user.username %>" class="input" required>
+                <input id="usernameInput" type="text" name="userName" class="input" required>
                 <!-- This also means for registration we need to get the user to enter a username otherwise we have to carefully handle any errors if there's no username associated with the user -->
             </div>
 
             <!-- Email -->
             <div class="">
                 <label class="label flex flex-col items-start">
-                    <span class="label-text">Email</span>
+                    <span id="email" class="label-text">Email</span>
                 </label>
-                <input type="email" name="email" value="<%= user.email %>" class="input" required>
+                <input id="emailInput" type="email" name="email" class="input" required>
             </div>
 
             <!-- Old Password-->
             <div class="">
                 <label class="label flex flex-col items-start">
-                    <span class="label-text">Old Password</span>
+                    <span id="oldPassword" class="label-text">Old Password</span>
                 </label>
                 <input type="password" name="oldPassword" class="input input-bordered">
             </div>
@@ -48,7 +48,7 @@
             <!-- New Password -->
             <div class="">
                 <label class="label flex flex-col items-start">
-                    <span class="label-text">New Password</span>
+                    <span id="newPassword" class="label-text">New Password</span>
                 </label>
                 <input type="password" name="newPassword" class="input">
             </div>
@@ -56,7 +56,7 @@
             <!-- Confirm Password -->
             <div class="">
                 <label class="label flex flex-col items-start">
-                    <span class="label-text">Confirm Password</span>
+                    <span id="confirmPassword" class="label-text">Confirm Password</span>
                 </label>
                 <input type="password" name="confirmPassword" class="input">
             </div>
