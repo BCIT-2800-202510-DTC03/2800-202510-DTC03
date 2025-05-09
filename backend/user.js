@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+// import user model
+const User = require("./models/User");
+
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
 const { createHash } = require("node:crypto");
@@ -23,47 +26,82 @@ usersArr = usersArr.map((user) => ({
   password: hashing(user.password),
 }));
 
-router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const user = usersArr.find(
-    (user) => user.email === email && user.password === hashing(password)
-  );
+router.post("/login", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const user = await User.findOne({ email });
 
-  if (user) {
-    res.send({
-      message: `Welcome ${email}`,
+    // find the user
+    if (!user) {
+      return res.status(401).json({
+        error_message: "Email or password is incorrect",
+      });
+    }
+
+    // validate the password
+    const hashedInputPassword = hashing(password);
+    if (user.password !== hashedInputPassword) {
+      return res.status(401).json({
+        error_message: "Email or password is incorrect",
+      });
+    }
+
+    // login success
+    // res.json({
+    //   message: `Welcome ${email}`,
+    // email: user.email,
+    // });
+    // res.redirect("/page/home.html");
+    // catch error
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({
+      error_message: "Server error",
     });
-  } else {
-    res.status(401).json({ error_message: "Email or password is incorrect" });
   }
 });
 
-router.post("/register", (req, res) => {
-  const { email, password } = req.body;
+router.post("/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({
-      error_message: "Email and password are required",
+    // validate input are not empty
+    if (!email || !password) {
+      return res.status(400).json({
+        error_message: "Email and password are required",
+      });
+    }
+    // check if user already exists
+    const userExists = usersArr.some((user) => user.email === email);
+    if (userExists) {
+      return res.status(409).json({
+        error_message: "Email already exists",
+      });
+    }
+
+    const newUser = new User({
+      username: email,
+      email: email,
+      password: hashing(password),
+    });
+    await newUser.save();
+
+    // registration success
+    // res.status(200).json({
+    //   message: "Registration successful",
+    //   email: newUser.email,
+    // });
+    // res.redirect("/page/register.html");
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({
+      error_message: "Server error",
     });
   }
-
-  const userExists = usersArr.some((user) => user.email === email);
-  if (userExists) {
-    return res.status(409).json({
-      error_message: "Email already exists",
-    });
-  }
-
-  const newUser = {
-    email: email,
-    password: hashing(password),
-  };
-  usersArr.push(newUser);
-
-  res.status(200).json({
-    message: "Registration successful",
-    email: newUser.email,
-  });
+});
+// route for testing
+router.get("/test", (req, res) => {
+  res.send("Router working");
 });
 
 module.exports = router;
