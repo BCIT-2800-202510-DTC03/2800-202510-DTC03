@@ -35,7 +35,9 @@ body {
 }
 
 #profile-picture{
+    width: 20vh;
     height: 20vh;
+    object-fit: cover;
     border-radius: 100%;
 }
 
@@ -154,9 +156,10 @@ body {
 
 
 .section-title {
-    font-weight: 300;
+    font-weight: 400;
     font-size: medium;
     padding-right: 2vh;
+    color: var(--dark-green);
 }
 
 #back-arrow {
@@ -164,4 +167,14 @@ body {
     font-size: 4vh;
     padding: 1.5vh 2vw;
     cursor: pointer;
+}
+
+/* Garden */
+
+#garden-display-wrapper{
+
+}
+
+#garden-display {
+
 }
