@@ -1,9 +1,11 @@
+require("dotenv").config({
+    path: "../.env",
+}); /* Needs to be 1 directory up from where server.js is */
+const connectToMongo = require("./db"); /* Reference db.js */
+
 const express = require("express");
 const session = require("express-session");
 const path = require("path"); /* Needed for working with directories and file paths */
-require("dotenv").config();
-
-const connectToMongo = require("./db"); /* Reference db.js */
 const app = express();
 const PORT = process.env.PORT || 3000;
 
