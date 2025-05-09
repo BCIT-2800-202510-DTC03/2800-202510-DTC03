@@ -105,6 +105,7 @@ body {
     background-color: #606c3848;
     color: var(--dark-green);
     width:100%;
+    cursor: pointer;
 }
 
 #picture-input{
@@ -117,11 +118,14 @@ body {
     width:5vh;
     border-radius: 100%;
     border: solid var(--dark-green) 0.3rem;
+    
 }
 #camera-img{
     border-radius: 100%;
-    
+    overflow: hidden;
+    cursor: pointer;
 }
+
 
 #pfp-img {
    display: none;
