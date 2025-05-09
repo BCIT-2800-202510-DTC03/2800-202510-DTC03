@@ -25,4 +25,5 @@ const notificationSchema = new mongoose.Schema({
     repeatUntil: { type: Date },
 });
 
+const Notification = mongoose.model("Notification", notificationSchema);
 module.exports = Notification;
