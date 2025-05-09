@@ -48,3 +48,7 @@ app.get("/", (req, res) => res.redirect("/login"));
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+
+/* Settings Route */
+const settingsRouter = require("./routes/settings");
+app.use("/settings", settingsRouter);
