@@ -58,7 +58,9 @@ async function loginSubmit(event) {
   const backendURLTest = "http://localhost:3000"; // waiting to be updated
   try {
     const response = await axios.post(backendURLTest + "/user/login", userData);
-    return response.json;
+    if (response.status === 200) {
+      window.location.href = "../pages/home.html";
+    }
   } catch (error) {
     if (error.response && error.response.status === 401) {
       loginErrorMessage.textContent = error.response.data.error_message;
@@ -100,7 +102,9 @@ async function signUpSubmit(event) {
         backendURLTest + "/user/register",
         userData
       );
-      return response.json;
+      if (response.status === 200) {
+        window.location.href = "../pages/register.html";
+      }
     } catch (error) {
       if (error.response && error.response.status === 409) {
         signupErrorMessage.textContent = error.response.data.error_message;
