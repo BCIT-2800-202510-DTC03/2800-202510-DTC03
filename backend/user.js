@@ -8,23 +8,10 @@ const User = require("./models/User");
 // https://nodejs.org/api/crypto.html#class-hash
 const { createHash } = require("node:crypto");
 
+//hashing function
 function hashing(input) {
   return createHash("sha256").update(input).digest("hex");
 }
-
-// mockdata, will be update after database connection done
-let usersArr = [
-  { email: "admin1@test.com", password: "admin1" },
-  { email: "admin2@test.com", password: "admin2" },
-  { email: "user1@test.com", password: "password1" },
-  { email: "user2@test.com", password: "password2" },
-  { email: "user3@test.com", password: "password3" },
-];
-
-usersArr = usersArr.map((user) => ({
-  email: user.email,
-  password: hashing(user.password),
-}));
 
 router.post("/login", async (req, res) => {
   try {
@@ -46,13 +33,11 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // login success
-    // res.json({
-    //   message: `Welcome ${email}`,
-    // email: user.email,
-    // });
-    // res.redirect("/page/home.html");
-    // catch error
+    // if success
+    res.status(200).json({
+      message: `Welcome ${user.username}`,
+      email: user.email,
+    });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({
@@ -61,6 +46,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// register
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -71,8 +57,10 @@ router.post("/register", async (req, res) => {
         error_message: "Email and password are required",
       });
     }
+
     // check if user already exists
-    const userExists = usersArr.some((user) => user.email === email);
+    const userExists = await User.findOne({ email });
+
     if (userExists) {
       return res.status(409).json({
         error_message: "Email already exists",
@@ -85,13 +73,13 @@ router.post("/register", async (req, res) => {
       password: hashing(password),
     });
     await newUser.save();
-
-    // registration success
-    // res.status(200).json({
-    //   message: "Registration successful",
-    //   email: newUser.email,
-    // });
-    // res.redirect("/page/register.html");
+    console.log("save user");
+    // if success
+    res.status(200).json({
+      message: `Welcome ${newUser.username}`,
+      email: newUser.email,
+    });
+    console.log("Registration response sent");
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({

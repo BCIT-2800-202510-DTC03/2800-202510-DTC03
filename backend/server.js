@@ -1,7 +1,6 @@
-
 const express = require("express");
 const session = require("express-session");
-
+const cors = require("cors");
 // const path = require("path"); /* Needed for working with directories and file paths */
 require("dotenv").config();
 
@@ -9,15 +8,18 @@ const connectToMongo = require("./db"); /* Reference db.js */
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-
 /* Middleware to parse JSON and form data */
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
 app.use(express.static("public"));
-
 
 /* Session setup */
 app.use(
@@ -47,7 +49,5 @@ app.use("/user", userRouter);
 app.get("/", (req, res) => res.redirect("/login"));
 
 app.listen(PORT, () => {
-
   console.log(`Server running at http://localhost:${PORT}`);
-
 });
