@@ -45,7 +45,7 @@ router.post("/update", async (req, res) => {
         user.username = userName;
         user.email = email;
 
-        // Only change password if old and new are filled
+        // Only change password if old, new , and confirm are filled
         if (oldPassword && newPassword && confirmPassword) {
             const match = await bcrypt.compare(oldPassword, user.password);
             if (!match) {
