@@ -12,10 +12,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 
-/* View engine EJS */
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
@@ -53,6 +49,7 @@ connectToMongo();
 // https://expressjs.com/en/guide/routing.html
 const userRouter = require("./user");
 app.use("/user", userRouter);
+
 /* Login */
 app.get("/", (req, res) => res.redirect("/login"));
 
