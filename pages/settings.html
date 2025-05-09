@@ -12,16 +12,50 @@
 </head>
 
 <body>
-    <div class="bg-" <div class="max-w-md mx-auto card shadow-lg p-6">
+    <div class="" <div class="max-w-md mx-auto card shadow-lg p-6">
         <!-- Need to add card styling later -->
         <form action"/settings/update" method="POST" class="">
 
             <!-- Username -->
             <div class="form-control"> <!-- DaisyUI form-control used to group form items -->
                 <label class="userDetails"> Username </label>
-                <input type="text" name="userName" value="<% user.username %>" class="input input-bordered" required>
+                <input type="text" name="userName" value="<% user.username %>" class="input" required>
+                <!-- This also means for registration we need to get the user to enter a username otherwise we have to carefully handle any errors if there's no username associated with the user -->
             </div>
 
+            <!-- Email -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Email</span>
+                </label>
+                <input type="email" name="email" value="<%= user.email %>" class="input" required>
+            </div>
+
+            <!-- Old Password-->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Old Password</span>
+                </label>
+                <input type="password" name="oldPassword" class="input input-bordered">
+            </div>
+
+            <!-- New Password -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">New Password</span>
+                </label>
+                <input type="password" name="newPassword" class="input">
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Confirm Password</span>
+                </label>
+                <input type="password" name="confirmPassword" class="input">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full">Update Settings</button>
         </form>
     </div>
 </body>
