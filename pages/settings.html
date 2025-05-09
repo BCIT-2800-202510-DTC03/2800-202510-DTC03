@@ -6,15 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- This is for installing Tailwind locally and having the same Tailwind and DaisyUI styling across mutliple pages-->
-    <link href="/css/output.css" rel="stylesheet">
+    <link href="/styles/output.css" rel="stylesheet">
 
     <title>Account Settings</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 
 <body>
-    <div class=""> <!-- Need to add card styling later -->
+    <div class="bg-" <div class="max-w-md mx-auto card shadow-lg p-6">
+        <!-- Need to add card styling later -->
         <form action"/settings/update" method="POST" class="">
+
+            <!-- Username -->
+            <div class="form-control"> <!-- DaisyUI form-control used to group form items -->
+                <label class="userDetails"> Username </label>
+                <input type="text" name="userName" value="<% user.username %>" class="input input-bordered" required>
+            </div>
+
         </form>
     </div>
 </body>
