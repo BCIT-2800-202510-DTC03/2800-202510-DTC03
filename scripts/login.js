@@ -55,7 +55,7 @@ async function loginSubmit(event) {
     password: password,
   };
 
-  const backendURLTest = "http://localhost:3000"; // waiting to be updated
+  const backendURLTest = "https://bloomgreener.onrender.com"; // waiting to be integrated to util file
   try {
     const response = await axios.post(backendURLTest + "/user/login", userData);
     if (response.status === 200) {
@@ -96,7 +96,7 @@ async function signUpSubmit(event) {
       email: emailAddress,
       password: password,
     };
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
+    const backendURLTest = "https://bloomgreener.onrender.com"; // waiting to be integrated to util file
     try {
       const response = await axios.post(
         backendURLTest + "/user/register",
