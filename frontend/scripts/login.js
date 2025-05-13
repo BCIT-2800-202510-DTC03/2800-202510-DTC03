@@ -57,7 +57,11 @@ async function loginSubmit(event) {
 
   const backendURLTest = "http://localhost:3000"; // waiting to be updated
   try {
-    const response = await axios.post(backendURLTest + "/user/login", userData);
+    const response = await axios.post(
+      backendURLTest + "/user/login",
+      userData,
+      { withCredentials: true }
+    );
     if (response.status === 200) {
       window.location.href = "../pages/home.html";
     }
@@ -96,14 +100,16 @@ async function signUpSubmit(event) {
       email: emailAddress,
       password: password,
     };
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
+    const backendURLTest = "http://localhost:3000"; // https://bloomgreener.onrender.com waiting to be updated
     try {
       const response = await axios.post(
         backendURLTest + "/user/register",
-        userData
+        userData,
+        { withCredentials: true }
       );
       if (response.status === 200) {
         window.location.href = "../pages/register.html";
+        console.log(userData);
       }
     } catch (error) {
       if (error.response && error.response.status === 409) {
