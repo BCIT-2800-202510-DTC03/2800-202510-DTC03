@@ -21,7 +21,11 @@ async function loadUserSettings() {
 }
 loadUserSettings();
 
-// Add update rendering
+/**
+ * Prevents settings form from being submitted unless the correct information is provided. I found this on https://developer.mozilla.org/
+ * @author MDN contributors
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+ */
 const settingsForm = document.getElementById("settingsForm");
 settingsForm.addEventListener("submit", async (event) => {
     event.preventDefault(); // Prevent post if their password(s) is/are incorrect
@@ -29,7 +33,6 @@ settingsForm.addEventListener("submit", async (event) => {
     const oldPassword = document.getElementById("oldPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const email = document.getElementById("emailInput").value;
 
     try {
         const res = await fetch("/settings/update", {
@@ -49,7 +52,7 @@ settingsForm.addEventListener("submit", async (event) => {
         const data = await res.json();
 
         if (!res.ok) {
-            alert(data.error); //
+            alert(data.error);
             return;
         }
 
