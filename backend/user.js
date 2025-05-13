@@ -34,10 +34,18 @@ router.post("/login", async (req, res) => {
     }
 
     // if success
+    // update session
+    if (user) {
+      req.session.user = user;
+      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+      req.session.userId = user._id.toString();
+    }
+
     res.status(200).json({
       message: `Welcome ${user.username}`,
       email: user.email,
     });
+    console.log("Login successfully", req.session.userId);
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({
@@ -72,14 +80,23 @@ router.post("/register", async (req, res) => {
       email: email,
       password: hashing(password),
     });
+    //
     await newUser.save();
     console.log("save user");
+
     // if success
+    // update session
+    if (newUser) {
+      req.session.user = newUser;
+      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+      req.session.userId = newUser._id.toString();
+    }
+
     res.status(200).json({
       message: `Welcome ${newUser.username}`,
       email: newUser.email,
     });
-    console.log("Registration response sent");
+    console.log("Registration response sent", req.session.userId);
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({
