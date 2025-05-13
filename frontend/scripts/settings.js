@@ -33,6 +33,7 @@ settingsForm.addEventListener("submit", async (event) => {
     const oldPassword = document.getElementById("oldPassword").value;
     const newPassword = document.getElementById("newPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
+    const email = document.getElementById("emailInput").value;
 
     try {
         const res = await fetch("/settings/update", {
