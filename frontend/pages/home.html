@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/navbar.css" />
     <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="../styles/garden.css" />
 </head>
 
 <body>
@@ -21,21 +22,22 @@
     <div id="main-content">
         <div id="home-content">
             <div id="garden-container">
-                <div id="garden-background">Background</div>
-                <div id="garden-fence">Fence</div> 
-                <div id="garden-ground">Ground</div>
-                <div id="garden-building">Large Building</div> 
-                <div id="garden-shelf">
-                    <div class="garden-plant" id="four">Plant 4</div> 
-                    <div class="garden-plant" id="five">Plant 5</div> 
-                    <div class="garden-plant" id="six">Plant 6</div> 
-                    <div class="garden-plant" id="one">Plant 1</div> 
-                    <div class="garden-plant" id="two">Plant 2</div> 
-                    <div class="garden-plant" id="three">Plant 3</div>
+                <div id="garden-background" title="Background"></div>
+                <div id="garden-fence" title="Fence"></div> 
+                <div id="garden-ground" title="Ground"></div>
+                <div id="garden-building" title="Building"></div> 
+                <div id="garden-shelf" title="Shelf">
+                    <div class="garden-plant" id="plant-4" title="Plant 4"></div>
+                    <div class="garden-plant" id="plant-5" title="Plant 5"></div>
+                    <div class="garden-plant" id="plant-6" title="Plant 6"></div>
+                    <div class="garden-plant" id="plant-1" title="Plant 1"></div>
+                    <div class="garden-plant" id="plant-2" title="Plant 2"></div>
+                    <div class="garden-plant" id="plant-3" title="Plant 3"></div>
                 </div>  
-                <div id="garden-rightObject">Small Object Right</div> 
-                <div id="garden-leftObject">Small Object Left</div> 
-                <!-- <div id="garden-weather">Weather</div> -->
+                <div id="garden-rightObject" title="Right Object"></div> 
+                <div id="garden-leftObject" title="Left Object"></div> 
+                <!-- <div id="garden-weather" title="Weather"></div> -->
+                <div id="garden-shadow"></div>
             </div>
         
             <div id="task-list">
@@ -49,5 +51,7 @@
 <script src="../scripts/skeleton.js"></script>
 <script src="../scripts/navbar.js"></script>
 <script src="../scripts/home.js"></script>
+<script src="../scripts/weather.js"></script>
+<script src="../scripts/garden.js"></script>
 
 </html>
