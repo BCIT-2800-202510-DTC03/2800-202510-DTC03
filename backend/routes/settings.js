@@ -10,13 +10,15 @@ const User = require("../models/User"); // Express server accesses Mongoose sche
 // Populate the settings page
 router.get("/", async (req, res) => {
     try {
+        console.log("SESSION OBJECT:", req.session);
+        console.log(req.session.userId);
         const user = await User.findById(req.session.userId);
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
         res.json({
-            username: user.username,
+            _id: user._id,
             email: user.email,
         });
     } catch (error) {
@@ -27,7 +29,7 @@ router.get("/", async (req, res) => {
 
 // Updating account information
 router.post("/update", async (req, res) => {
-    const sessionUserId = req.session.user._id;
+    const sessionUserId = req.session.userId;
     const { email, oldPassword, newPassword, confirmPassword } = req.body;
 
     try {
