@@ -27,14 +27,13 @@ router.get("/", async (req, res) => {
 
 // Updating account information
 router.post("/update", async (req, res) => {
-    const userId = req.session.userId;
+    const sessionUserId = req.session.user._id;
     const { email, oldPassword, newPassword, confirmPassword } = req.body;
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(sessionUserId);
         if (!user) return res.status(404).send("User not found");
 
-        user._id = userId;
         user.email = email;
 
         // Only change password if old, new , and confirm are filled
