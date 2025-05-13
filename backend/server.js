@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 3000;
 /* Middleware to parse JSON and form data */
 app.use(
   cors({
-    origin: true,
+    origin: [
+      "http://127.0.0.1:5500",
+      "http://localhost:5500",
+      "https://two800bloomgreener.onrender.com",
+    ],
     credentials: true,
   })
 );
@@ -29,9 +33,16 @@ app.use(
     saveUninitialized: false,
 
     cookie: {
+      httpOnly: true,
       secure: false,
-      maxAge: 1000 * 60 * 60,
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 24,
     },
+    // for deploy in future
+    //     cookie: {
+    //   httpOnly: true,
+    //   secure: true,
+    // }
   })
 );
 
