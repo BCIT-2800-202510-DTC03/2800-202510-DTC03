@@ -70,12 +70,17 @@ function insertPlant(type, select) {
 
 async function setup() {
     insertBackground();
-    insertFence("black");
-    insertBuilding("tent-yellow");
-    insertShelf("blue");
-    insertObject("stool-pink", "right");
-    insertPlant("tulip-yellow", "6")
-    insertPlant("tulip-pink", "2")
+    insertFence("brown");
+    insertBuilding("");
+    insertShelf("brown");
+    insertObject("", "right");
+    insertObject("", "left");
+    insertPlant("", "1")
+    insertPlant("", "2")
+    insertPlant("", "3")
+    insertPlant("", "4")
+    insertPlant("", "5")
+    insertPlant("", "6")
 }
 
 setup();
