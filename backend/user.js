@@ -1,69 +1,112 @@
 const express = require("express");
 const router = express.Router();
 
+// import user model
+const User = require("./models/User");
+
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
 const { createHash } = require("node:crypto");
 
+//hashing function
 function hashing(input) {
   return createHash("sha256").update(input).digest("hex");
 }
 
-// mockdata, will be update after database connection done
-let usersArr = [
-  { email: "admin1@test.com", password: "admin1" },
-  { email: "admin2@test.com", password: "admin2" },
-  { email: "user1@test.com", password: "password1" },
-  { email: "user2@test.com", password: "password2" },
-  { email: "user3@test.com", password: "password3" },
-];
+router.post("/login", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const user = await User.findOne({ email });
 
-usersArr = usersArr.map((user) => ({
-  email: user.email,
-  password: hashing(user.password),
-}));
+    // find the user
+    if (!user) {
+      return res.status(401).json({
+        error_message: "Email or password is incorrect",
+      });
+    }
 
-router.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const user = usersArr.find(
-    (user) => user.email === email && user.password === hashing(password)
-  );
+    // validate the password
+    const hashedInputPassword = hashing(password);
+    if (user.password !== hashedInputPassword) {
+      return res.status(401).json({
+        error_message: "Email or password is incorrect",
+      });
+    }
 
-  if (user) {
-    res.send({
-      message: `Welcome ${email}`,
+    // if success
+    // update session
+    if (user) {
+      req.session.user = user;
+      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+      req.session.userId = user._id.toString();
+    }
+
+    res.status(200).json({
+      message: `Welcome ${user.username}`,
+      email: user.email,
     });
-  } else {
-    res.status(401).json({ error_message: "Email or password is incorrect" });
+    console.log("Login successfully", req.session.userId);
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({
+      error_message: "Server error",
+    });
   }
 });
 
-router.post("/register", (req, res) => {
-  const { email, password } = req.body;
+// register
+router.post("/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({
-      error_message: "Email and password are required",
+    // validate input are not empty
+    if (!email || !password) {
+      return res.status(400).json({
+        error_message: "Email and password are required",
+      });
+    }
+
+    // check if user already exists
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      return res.status(409).json({
+        error_message: "Email already exists",
+      });
+    }
+
+    const newUser = new User({
+      username: email,
+      email: email,
+      password: hashing(password),
+    });
+    //
+    await newUser.save();
+    console.log("save user");
+
+    // if success
+    // update session
+    if (newUser) {
+      req.session.user = newUser;
+      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+      req.session.userId = newUser._id.toString();
+    }
+
+    res.status(200).json({
+      message: `Welcome ${newUser.username}`,
+      email: newUser.email,
+    });
+    console.log("Registration response sent", req.session.userId);
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({
+      error_message: "Server error",
     });
   }
-
-  const userExists = usersArr.some((user) => user.email === email);
-  if (userExists) {
-    return res.status(409).json({
-      error_message: "Email already exists",
-    });
-  }
-
-  const newUser = {
-    email: email,
-    password: hashing(password),
-  };
-  usersArr.push(newUser);
-
-  res.status(200).json({
-    message: "Registration successful",
-    email: newUser.email,
-  });
+});
+// route for testing
+router.get("/test", (req, res) => {
+  res.send("Router working");
 });
 
 module.exports = router;
