@@ -45,36 +45,19 @@ const backendURLTest = "http://localhost:3000"; // waiting to be updated
 function handleLogout() {
     const logoutButton = document.getElementById("logoutButton");
     logoutButton.addEventListener("click", async () => {
-        const response = await axios.post(backendURLTest + "/user/logout");
-        console.log("hello");
+        try {
+            const response = await axios.post(backendURLTest + "/user/logout");
+            window.location.reload();
+        } catch (error) {
+            console.error("Logout failed:", err);
+            alert("Could not log out. Please try again.");
+        }
     });
 } // Make logout only appear for logged in people later
 
 function handleRegister() {
     signupForm = document.getElementById("signup_form");
     signupForm.addEventListener("submit", signUpSubmit);
-}
-
-// Toggle login and logout buttons
-async function checkLoginStatus() {
-    try {
-        const response = await axios.get(backendURLTest + "/user/status", {
-            withCredentials: true,
-        });
-
-        if (response.data.loggedIn) {
-            document.getElementById("logoutButton").classList.remove("hidden");
-            document.getElementById("authButtons").classList.add("hidden");
-        } else {
-            document.getElementById("logoutButton").classList.add("hidden");
-            document.getElementById("authButtons").classList.remove("hidden");
-        }
-    } catch (error) {
-        console.error("Unable to check login status", error);
-        // If not logged in
-        document.getElementById("logoutButton").classList.add("hidden");
-        document.getElementById("authButtons").classList.remove("hidden");
-    }
 }
 
 // login
@@ -155,5 +138,28 @@ async function signUpSubmit(event) {
                     "Something is going wrong. Please try again.";
             }
         }
+    }
+}
+
+// Toggle login and logout buttons
+async function checkLoginStatus() {
+    try {
+        const response = await axios.get(backendURLTest + "/user/status", {
+            withCredentials: true,
+        });
+        const logoutButton = document.getElementById("logoutButton");
+        const authButton = document.getElementById("input_login_submit");
+        console.log("Login status:", response.data.loggedIn);
+
+        if (response.data.loggedIn) {
+            logoutButton.classList.remove("hidden");
+            authButton.classList.add("hidden");
+        } else {
+            logoutButton.classList.add("hidden");
+        }
+    } catch (error) {
+        console.error("Unable to check login status", error);
+        // If not logged in
+        logoutButton.classList.add("hidden");
     }
 }
