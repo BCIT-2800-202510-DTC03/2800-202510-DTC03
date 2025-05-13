@@ -22,9 +22,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
-app.use(express.static("public"));
-
 /* Session setup */
 app.use(
     session({
@@ -34,10 +31,15 @@ app.use(
 
         cookie: {
             secure: false,
+            httpOnly: true,
             maxAge: 1000 * 60 * 60,
         },
     })
 );
+
+/* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 connectToMongo();
 
