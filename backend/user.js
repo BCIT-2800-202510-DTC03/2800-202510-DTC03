@@ -63,6 +63,18 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// logout
+router.post("/logout", async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).send("Logout failed");
+        }
+        console.log("You hit the logout.");
+        res.sendStatus(200);
+    });
+});
+
 // register
 router.post("/register", async (req, res) => {
     try {
