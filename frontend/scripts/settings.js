@@ -49,7 +49,7 @@ settingsForm.addEventListener("submit", async (event) => {
         const data = await res.json();
 
         if (!res.ok) {
-            alert(data.error); // 👈 show alert
+            alert(data.error); //
             return;
         }
 
