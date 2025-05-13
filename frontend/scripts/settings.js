@@ -1,7 +1,7 @@
 async function loadUserSettings() {
     try {
         const load = await fetch("/pages/settings", { credentials: "include" });
-        const userData = await res.json();
+        const userData = await load.json();
 
         if (userData.error) {
             alert(userData.error);
