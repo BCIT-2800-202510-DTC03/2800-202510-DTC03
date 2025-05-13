@@ -4,6 +4,10 @@
     padding: 0;
     font-family: "Poppins", sans-serif;
 }
+/* Needs to override any future block styling */
+.hidden {
+    display: none !important;
+}
 
 /* color 
 DFCFBF light brown
@@ -76,10 +80,26 @@ DFCFBF light brown
     height: 20px;
     pointer-events: none;
 }
-.loginPage_btn,
-#logoutButton {
+.loginPage_btn {
     margin-top: 2rem;
     display: block;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    border: #606c38;
+    width: 100%;
+    padding: 0.5rem;
+
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: #606c38;
+    color: #fff;
+    font-weight: 600;
+}
+
+#logoutButton {
+    margin-top: 2rem;
+    /* display: block; */
     box-sizing: border-box;
     border-radius: 1rem;
     border: #606c38;
