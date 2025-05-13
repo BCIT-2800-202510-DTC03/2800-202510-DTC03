@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-var session = require("express-session");
 
 // import user model
 const User = require("./models/User");
