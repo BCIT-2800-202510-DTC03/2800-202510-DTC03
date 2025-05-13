@@ -1,0 +1,176 @@
+#garden-container {
+    width: 100%;
+    height: 480px;
+
+    max-width: 600px;
+    min-width: 360px;
+
+    margin: auto;
+
+    border: 5px black solid;
+
+    position: relative;
+}
+
+#garden-background {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+
+    background-color: rgb(116, 218, 252);
+
+    background-size: cover;
+    background-position: center;
+    background-image: url("../assets/garden/background-clear.png");
+}
+
+#garden-fence {
+    width: 100%;
+    height: 150px;
+
+    position: absolute;
+    bottom: 210px;
+
+    background-color: rgb(240, 230, 185);
+
+    background-size: cover;
+    background-position: center;
+    background-image: url("../assets/garden/fence-brown.png");
+}
+
+#garden-ground {
+    width: 100%;
+    height: 220px;
+
+    position: absolute;
+    bottom: 0;
+
+    background-color: rgb(155, 230, 105);
+
+    background-size: cover;
+    background-position: center;
+    background-image: url("../assets/garden/ground.png");
+}
+
+#garden-building {
+    width: 250px;
+    height: 300px;
+
+    position: absolute;
+    right: 0;
+    bottom: 180px;
+
+    background-color: rgb(115, 80, 65);
+
+    background-size: cover;
+}
+
+#garden-rightObject {
+    width: 100px;
+    height: 150px;
+
+    position: absolute;
+    right: 5%;
+    bottom: 80px;
+
+    background-color: rgb(170, 160, 180);
+
+    background-size: cover;
+    background-image: url("../assets/garden/birdbath.png");
+}
+
+#garden-leftObject {
+    width: 100px;
+    height: 150px;
+
+    position: absolute;
+    left: 10%;
+    bottom: 30px;
+
+    background-color: rgb(170, 160, 180);
+
+    background-size: cover;
+    background-image: url("../assets/garden/stool-brown.png");
+}
+
+#garden-shelf {
+    width: 220px;
+    height: 120px;
+
+    padding: 0px 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    position: absolute;
+    left: 5%;
+    bottom: 150px;
+
+    background-color: rgb(175, 105, 90);
+
+    background-size: cover;
+    background-image: url("../assets/garden/shelf-brown.png");
+}
+
+.garden-plant {
+    width: 60px;
+    height: 90px;
+
+    position: relative;
+    
+
+    background-color: rgb(165, 185, 105);
+    
+    background-size: cover;
+}
+
+.garden-plant#one {
+    bottom: 95%;
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+.garden-plant#two {
+    bottom: 95%;
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+.garden-plant#three {
+    bottom: 95%;
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+.garden-plant#four {
+    bottom: 65%;
+    
+    background-color: rgb(100, 135, 70);
+
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+.garden-plant#five {
+    bottom: 65%;
+    
+    background-color: rgb(100, 135, 70);
+
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+.garden-plant#six {
+    bottom: 65%;
+    
+    background-color: rgb(100, 135, 70);
+
+    background-image: url("../assets/garden/tulip-orange.png");
+}
+
+#garden-weather {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+
+    background-color: rgba(150, 220, 190, 0.3);
+}
