@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/styles/fonts.css">
     <link rel="stylesheet" href="/styles/profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit" />
 </head>
 <body>
     <nav id="pfp-nav">
@@ -19,8 +20,11 @@
             <div id="pfp-container">
                 <img id="profile-picture" src="https://dummyimage.com/300/a3ab87/fff.png&text=+">
                 <div id="picture-input">
-                    <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
-                    <input type="file" id="pfp-img" name="pfp-img" accept="image/*">
+                    <!-- <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
+                    <input type="file" id="pfp-img" name="pfp-img" accept="image/*"> -->
+                    <span class="material-symbols-outlined" id="edit-pencil" onclick="document.getElementById('pfp-choices').display = 'block';">edit</span>
+                </div>
+                <div id="pfp-choices">
                 </div>
             </div>
         </div>

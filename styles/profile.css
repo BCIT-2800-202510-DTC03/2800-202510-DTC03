@@ -122,13 +122,13 @@ body {
     position: absolute;
     display: flex;
     justify-content: center;
-    top:75%;
-    right:10%;
+    top:80%;
+    right:5%;
     height:5vh;
     width:5vh;
     border-radius: 100%;
 }
-#camera-img{
+/* #camera-img{
     border-radius: 100%;
     overflow: hidden;
     cursor: pointer;
@@ -137,6 +137,16 @@ body {
 
 #pfp-img {
    display: none;
+} */
+
+#edit-pencil{
+    background-color: #606C38;
+    height: fit-content;
+    padding:1vh;
+    border-radius: 100%;
+    color:white;
+    font-size: xx-large;
+    cursor:pointer;
 }
 
 #pfp-container{
