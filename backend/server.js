@@ -72,3 +72,21 @@ app.listen(PORT, () => {
 /* Settings Route */
 const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
+
+// Notification related items:
+
+// First, create HTTP server
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+
+const io = new Server(server);
+// Connect to MongoDB
+
+io.on("connection", (socket) => {
+    console.log("A user connected");
+});
+
+server.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`);
+});
