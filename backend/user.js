@@ -13,6 +13,15 @@ function hashing(input) {
     return createHash("sha256").update(input).digest("hex");
 }
 
+// Check if user is logged in
+router.get("/status", (req, res) => {
+    if (req.session.userId) {
+        res.json({ loggedIn: true });
+    } else {
+        res.json({ loggedIn: false });
+    }
+});
+
 router.post("/login", async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -33,25 +42,37 @@ router.post("/login", async (req, res) => {
             });
         }
 
-    // if success
-    // update session
-    if (user) {
-      req.session.user = user;
-      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
-      req.session.userId = user._id.toString();
-    }
+        // if success
+        // update session
+        if (user) {
+            req.session.user = user;
+            req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+            req.session.userId = user._id.toString();
+        }
 
-    res.status(200).json({
-      message: `Welcome ${user.username}`,
-      email: user.email,
+        res.status(200).json({
+            message: `Welcome ${user.username}`,
+            email: user.email,
+        });
+        console.log("Login successfully", req.session.userId);
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).json({
+            error_message: "Server error",
+        });
+    }
+});
+
+// logout
+router.post("/logout", async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Logout error:", err);
+            return res.status(500).send("Logout failed");
+        }
+        console.log("You hit the logout.");
+        res.sendStatus(200);
     });
-    console.log("Login successfully", req.session.userId);
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({
-      error_message: "Server error",
-    });
-  }
 });
 
 // register
@@ -75,34 +96,34 @@ router.post("/register", async (req, res) => {
             });
         }
 
-    const newUser = new User({
-      username: email,
-      email: email,
-      password: hashing(password),
-    });
-    //
-    await newUser.save();
-    console.log("save user");
+        const newUser = new User({
+            username: email,
+            email: email,
+            password: hashing(password),
+        });
+        //
+        await newUser.save();
+        console.log("save user");
 
-    // if success
-    // update session
-    if (newUser) {
-      req.session.user = newUser;
-      req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
-      req.session.userId = newUser._id.toString();
+        // if success
+        // update session
+        if (newUser) {
+            req.session.user = newUser;
+            req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7;
+            req.session.userId = newUser._id.toString();
+        }
+
+        res.status(200).json({
+            message: `Welcome ${newUser.username}`,
+            email: newUser.email,
+        });
+        console.log("Registration response sent", req.session.userId);
+    } catch (error) {
+        console.error("Registration error:", error);
+        res.status(500).json({
+            error_message: "Server error",
+        });
     }
-
-    res.status(200).json({
-      message: `Welcome ${newUser.username}`,
-      email: newUser.email,
-    });
-    console.log("Registration response sent", req.session.userId);
-  } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).json({
-      error_message: "Server error",
-    });
-  }
 });
 // route for testing
 router.get("/test", (req, res) => {

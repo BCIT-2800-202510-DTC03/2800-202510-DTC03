@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/settings.css" />
+
+    <!-- This is for installing Tailwind locally and having the same Tailwind and daisyUI styling across mutliple pages-->
+    <link href="../styles/output.css" rel="stylesheet">
+    <script defer src="../scripts/settings.js">
+    </script>
+
+    <title>Account Settings</title>
+</head>
+
+<body>
+    <div class="max-w-md mx-auto px-4"> <!-- Card is from daisyUI -->
+
+        <h1 class="heading pt-4"> Account Settings </h1>
+        <!-- Need to add card styling later -->
+        <form id="settingsForm">
+
+            <!-- Username -->
+            <div class="mb-4">
+                <label class="label flex flex-col items-start"> User ID </label>
+                <input id="userId" type="text" name="userId" class="input" required>
+            </div>
+
+            <!-- Email -->
+            <div class="">
+                <label class="label flex flex-col items-start">
+                    <span id="email" class="label-text">Email</span>
+                </label>
+                <input id="emailInput" type="email" name="email" class="input" required>
+            </div>
+
+            <!-- Old Password-->
+            <div class="">
+                <label class="label flex flex-col items-start">
+                    <span id="oldPassword" class="label-text">Old Password</span>
+                </label>
+                <input type="password" name="oldPassword" class="input input-bordered">
+            </div>
+
+            <!-- New Password -->
+            <div class="">
+                <label class="label flex flex-col items-start">
+                    <span id="newPassword" class="label-text">New Password</span>
+                </label>
+                <input type="password" name="newPassword" class="input">
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="">
+                <label class="label flex flex-col items-start">
+                    <span id="confirmPassword" class="label-text">Confirm Password</span>
+                </label>
+                <input type="password" name="confirmPassword" class="input">
+            </div>
+
+            <button type="submit" class="btn btn-primary px-5" id="updateSettingsBtn">Update Settings</button>
+        </form>
+    </div>
+</body>
+
+</html>
