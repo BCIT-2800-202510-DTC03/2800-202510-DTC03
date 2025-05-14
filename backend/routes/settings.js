@@ -34,7 +34,7 @@ router.post("/update", async (req, res) => {
 
     try {
         const user = await User.findById(sessionUserId);
-        if (!user) return res.status(404).send("User not found");
+        if (!user) return res.status(404).json({ error: "User not found" });
 
         user.email = email;
 
