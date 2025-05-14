@@ -4,11 +4,38 @@ const buttons = document.querySelectorAll('.pfp-image-radio');
 const pfp = document.getElementById("profile-picture");
 const aboutMe = document.getElementById("about-me-txt");
 const goalSelect = document.getElementById("goals");
+const gBGElmnt = document.getElementById("garden-background");
+const gGRNDElmnt = document.getElementById("garden-ground");
+const gFenceElmnt = document.getElementById("garden-fence");
+const gBuildElmnt = document.getElementById("garden-building");
+const gShelfElmnt = document.getElementById("garden-shelf");
+const gplnt1Elmnt = document.getElementById("one");
+const gplnt2Elmnt = document.getElementById("two");
+const gplnt3Elmnt = document.getElementById("three");
+const gplnt4Elmnt = document.getElementById("four");
+const gplnt5Elmnt = document.getElementById("five");
+const gplnt6Elmnt = document.getElementById("six");
+const gRightElmnt = document.getElementById("garden-rightObject");
+const gLeftElmnt = document.getElementById("garden-leftObject");
 
 
 var aboutContent;
 var pfpPreference;
 var userGoal;
+
+var gardenBG;
+var gardenGRND;
+var gardenFence;
+var gardenBuild;
+var gardenShelf;
+var gardenplnt1;
+var gardenplnt2;
+var gardenplnt3;
+var gardenplnt4;
+var gardenplnt5;
+var gardenplnt6;
+var gardenRight;
+var gardenLeft;
 
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
@@ -81,7 +108,9 @@ function goalSetup() {
     })
 }
 
+function gardenSetup() {
 
+}
 
 function main() {
     loadUserPreferences();
@@ -89,6 +118,7 @@ function main() {
     radioButtonSetup();
     aboutMetSetup();
     goalSetup();
+    gardenSetup();
 }
 
 main();
