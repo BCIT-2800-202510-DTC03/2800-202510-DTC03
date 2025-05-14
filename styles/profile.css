@@ -187,6 +187,8 @@ body {
 .pfp-img-choice{
     cursor: pointer;
     -webkit-user-drag: none;
+    width:100px;
+    height:100px;
 }
 
 .pfp-image-radio{
