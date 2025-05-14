@@ -1,23 +1,46 @@
+const editPencil = document.getElementById("edit-pencil");
+const pfpOptions = document.getElementById("pfp-choices-wrap");
+const buttons = document.querySelectorAll('.pfp-image-radio');
+const pfp = document.getElementById("profile-picture");
+
+
 function profilePictureSetup() {
-    const fileInput = document.getElementById("pfp-img");
-    const pfp = document.getElementById("profile-picture");
+    editPencil.addEventListener("click", (event) => {
+        //prevents triggering other event listener immediately
+        event.stopPropagation();
+        pfpOptions.style.display = "flex";
+    })
 
-    fileInput.addEventListener("change", (fileChange) => {
-        const file = fileChange.target.files[0];
-        const fileReader = new FileReader();
+    document.addEventListener("click", (closeEvent) => {
+        const clickedOptions = pfpOptions.contains(closeEvent.target);
+        if (!clickedOptions) {
+            pfpOptions.style.display = "none";
+        }
+    })
+}
 
-        fileReader.onload = (event) => {
-            pfp.src = event.target.result;
-        };
 
-        fileReader.readAsDataURL(file);
-    });
+function updateUserPreference() {
+    //send stuff to DB
+}
+
+function radioButtonSetup() {
+    buttons.forEach(btn => {
+        btn.addEventListener("change", () => {
+            if (btn.checked) {
+                pfp.src = btn.value;
+                pfpOptions.style.display = "none";
+                updateUserPreference();
+            }
+        })
+    })
 }
 
 
 
 function main() {
     profilePictureSetup();
+    radioButtonSetup();
 }
 
 main();

@@ -145,13 +145,52 @@ body {
     padding:1vh;
     border-radius: 100%;
     color:white;
-    font-size: xx-large;
+    font-size: x-large;
     cursor:pointer;
+}
+
+#edit-pencil:hover, .pfp-img-choice:hover{
+    filter: brightness(120%);
 }
 
 #pfp-container{
     position: relative;
     display: inline-block;
+}
+
+#pfp-choices-wrap{
+    background-color: #fff;
+    border: #606C38 solid 0.1vh;
+    padding:2vh;
+    position: absolute;
+    border-radius: 0.5vh;
+    left:0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    @media only screen and (max-width: 600px) {
+        transform: translateX(-10%);
+    }
+}
+
+#pfp-choices-wrap h2{
+    padding-right: 0;
+}
+
+#pfp-choices {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1vh;
+}
+
+.pfp-img-choice{
+    cursor: pointer;
+    -webkit-user-drag: none;
+}
+
+.pfp-image-radio{
+    display: none;
 }
 
 /* different navbar than usual pages since we don't need the user's pfp */
