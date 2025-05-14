@@ -1,7 +1,9 @@
+const PORT = process.env.PORT || 3000;
+
 async function loadUserSettings() {
     try {
         // const load = await fetch("/pages/settings", { credentials: "include" });
-        const load = await fetch("http://localhost:3000/settings", {
+        const load = await fetch(`http://localhost:${PORT}/settings`, {
             credentials: "include",
         }); // Just for testing purposes locally
         const userData = await load.json();
@@ -36,7 +38,7 @@ settingsForm.addEventListener("submit", async (event) => {
     const email = document.getElementById("emailInput").value;
 
     try {
-        const res = await fetch("/settings/update", {
+        const res = await fetch(`http://localhost:${PORT}/settings/update`, {
             method: "POST",
             credentials: "include",
             headers: {
