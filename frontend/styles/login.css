@@ -1,33 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
-
+}
+/* Needs to override any future block styling */
+.hidden {
+    display: none !important;
 }
 
 /* color 
 DFCFBF light brown
 606C38 dark green*/
-.login_content{
-    color:#606C38;
+.login_content {
+    color: #606c38;
     margin-top: 0.75rem;
     line-height: 1.25rem;
 }
 
-.container{
-    margin:2rem;
+.container {
+    margin: 2rem;
     margin-top: 3rem;
 }
 
-.login_title_box{
+.login_title_box {
     margin-top: 1rem;
 }
-.login_title{
+.login_title {
     font-size: 1.75rem;
-    line-height:2.5rem;
+    line-height: 2.5rem;
 }
-
 
 .loginpage_form {
     display: block;
@@ -42,18 +44,17 @@ DFCFBF light brown
     display: block;
     margin-left: auto;
     margin-right: 0;
-    top:2rem;
-    right:0;
+    top: 2rem;
+    right: 0;
     border: none;
     background-color: white;
     text-decoration: underline;
-    color: #606C38;
+    color: #606c38;
     position: relative;
     top: 1.25rem;
-
 }
-.textbox{
-    display:block;
+.textbox {
+    display: block;
     box-sizing: border-box;
 
     width: 100%;
@@ -79,30 +80,48 @@ DFCFBF light brown
     height: 20px;
     pointer-events: none;
 }
-.loginPage_btn{
+.loginPage_btn {
     margin-top: 2rem;
     display: block;
-        box-sizing: border-box;
-        border-radius: 1rem;
-        border: #606C38;
-        width: 100%;
-        padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    border: #606c38;
+    width: 100%;
+    padding: 0.5rem;
 
-        margin-top: 2rem;
-        margin-bottom: 0.5rem;
-        border: none;
-        background-color: #606C38;
-        color: #fff;
-        font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: #606c38;
+    color: #fff;
+    font-weight: 600;
 }
-.login_logo{
+
+#logoutButton {
+    margin-top: 2rem;
+    /* display: block; */
+    box-sizing: border-box;
+    border-radius: 1rem;
+    border: #606c38;
+    width: 100%;
+    padding: 0.5rem;
+
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: #606c38;
+    color: #fff;
+    font-weight: 600;
+}
+
+.login_logo {
     display: block;
-    margin:0 auto;
+    margin: 0 auto;
 }
 .error_message {
     color: red;
     margin-top: 10px;
-    font-size:0.75rem;
+    font-size: 0.75rem;
 }
 
 @media (min-width: 600px) {
@@ -115,7 +134,7 @@ DFCFBF light brown
 @media (min-width: 830px) {
     .container {
         font-size: 18px;
-        width:40vw;
+        width: 40vw;
         margin-top: 50px;
         margin-right: 6vw;
     }
