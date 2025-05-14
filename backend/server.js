@@ -15,7 +15,11 @@ const cors = require("cors");
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
-        origin: true,
+        origin: [
+            "http://127.0.0.1:5500",
+            "http://localhost:5500",
+            "https://two800bloomgreener.onrender.com",
+        ],
         credentials: true,
     })
 );
@@ -32,14 +36,11 @@ app.use(
         cookie: {
             secure: false,
             httpOnly: true,
+            sameSite: "none",
             maxAge: 1000 * 60 * 60,
         },
     })
 );
-
-/* For serving up static files if we need to host our own images depending on bandwith restrictions for mongodb/cloundinary. This means anything that needs to be accessed publicy will be in the public folder, not yet made. */
-// app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "../frontend")));
 
 connectToMongo();
 
