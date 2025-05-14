@@ -26,7 +26,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* Session setup */
 app.use(
     session({
         secret: process.env.SESSION_SECRET /* from .env */,
@@ -34,11 +33,16 @@ app.use(
         saveUninitialized: false,
 
         cookie: {
-            secure: false,
             httpOnly: true,
+            secure: false,
             sameSite: "none",
-            maxAge: 1000 * 60 * 60,
+            maxAge: 1000 * 60 * 60 * 24,
         },
+        // for deploy in future
+        //     cookie: {
+        //   httpOnly: true,
+        //   secure: true,
+        // }
     })
 );
 

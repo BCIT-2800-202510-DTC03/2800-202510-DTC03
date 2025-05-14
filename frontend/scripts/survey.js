@@ -208,9 +208,11 @@ const surveyContainer = document.getElementById("questions-form");
 
 function main() {
     startButton.addEventListener("click", getNextQuestion);
+
 }
 
 function getNextQuestion() {
+
     if (current > 0) {
         const selected = document.querySelector('input[name="option-' + (current - 1) + '"]:checked');
         if (selected) {
