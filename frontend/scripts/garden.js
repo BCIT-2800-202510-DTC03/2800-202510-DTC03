@@ -68,19 +68,18 @@ function insertPlant(type, select) {
 
 }
 
-async function setup() {
+function insertGarden(fence, building, shelf, rightObject, leftObject, 
+                        plant1, plant2, plant3, plant4, plant5, plant6) {
     insertBackground();
-    insertFence("brown");
-    insertBuilding("");
-    insertShelf("brown");
-    insertObject("", "right");
-    insertObject("", "left");
-    insertPlant("", "1")
-    insertPlant("", "2")
-    insertPlant("", "3")
-    insertPlant("", "4")
-    insertPlant("", "5")
-    insertPlant("", "6")
+    insertFence(fence);
+    insertBuilding(building);
+    insertShelf(shelf);
+    insertObject(rightObject, "right");
+    insertObject(leftObject, "left");
+    insertPlant(plant1, "1")
+    insertPlant(plant2, "2")
+    insertPlant(plant3, "3")
+    insertPlant(plant4, "4")
+    insertPlant(plant5, "5")
+    insertPlant(plant6, "6")
 }
-
-setup();
