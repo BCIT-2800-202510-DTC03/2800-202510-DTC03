@@ -1,9 +1,9 @@
-const addBtn = document.getElementById("add-task-button");
+const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
 const goalPanel = document.getElementById("goal-panel");
 const closeOverlay = document.getElementById("close-overlay");
 
-let isLoaded = false;
+let isLoaded = false; //ensure tasks are not reloaded multiple times
 
 addBtn.addEventListener("click", async () => {
     overlay.style.display = "flex";
@@ -53,6 +53,18 @@ addBtn.addEventListener("click", async () => {
         } catch (err) {
             console.error("Failed to load goals/tasks", err);
         }
+    }
+});
+
+document.addEventListener("click", (event) => {
+    if (event.target.id === "checkmark") {
+        const task = event.target.closest(".task");
+        task.classList.add("completed");
+
+        // Fade out and remove the task
+        setTimeout(() => {
+            task.remove();
+        }, 500); // Slight delay for a smooth transition
     }
 });
 
