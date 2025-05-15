@@ -26,21 +26,7 @@ addBtn.addEventListener("click", async () => {
                     btn.innerText = `Add "${task.text}"`;
 
                     btn.addEventListener("click", () => {
-                        const taskElement = document.createElement("div");
-                        taskElement.classList.add("task");
-                        taskElement.innerHTML = `
-                            <div id="task-left">
-                                <div id="task-text">${task.text}</div>
-                            </div>
-                            <div id="task-actions">
-                                <div id="sunpoints">
-                                    <span id="sun-icon">☀</span>
-                                    <span id="sun-value">${task.sunPoints}</span>
-                                </div>
-                                <div id="checkmark">✔</div>
-                            </div>
-                        `;
-                        document.getElementById("task-items").appendChild(taskElement);
+                        addTaskToHome(task.text, task.sunPoints); // Add task to homepage
                     });
 
                     goalDiv.appendChild(btn);
@@ -55,6 +41,31 @@ addBtn.addEventListener("click", async () => {
         }
     }
 });
+
+// Close overlay when button is clicked
+closeOverlay.addEventListener("click", () => {
+    overlay.style.display = "none";
+});
+
+
+// Function to add task to the home page task list
+function addTaskToHome(taskText, sunPoints) {
+    const taskElement = document.createElement("div");
+    taskElement.classList.add("task");
+    taskElement.innerHTML = `
+        <div id="task-left">
+            <div id="task-text">${taskText}</div>
+        </div>
+        <div id="task-actions">
+            <div id="sunpoints">
+                <span id="sun-icon">☀</span>
+                <span id="sun-value">${sunPoints}</span>
+            </div>
+            <div id="checkmark">✔</div>
+        </div>
+    `;
+    document.getElementById("task-items").appendChild(taskElement);
+}
 
 document.addEventListener("click", (event) => {
     if (event.target.id === "checkmark") {
