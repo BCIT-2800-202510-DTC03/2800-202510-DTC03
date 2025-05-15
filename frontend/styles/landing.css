@@ -68,7 +68,7 @@ body {
   color: gray;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  max-width: 80%;
+  /* max-width: 80%; */
 }
 .section-heading {
   box-sizing: border-box;
