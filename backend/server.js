@@ -10,10 +10,11 @@ const PORT = process.env.PORT || 3000;
 
 /* Middleware to parse JSON and form data */
 app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
+    cors(
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https://two800bloomgreener.onrender.com",
+    )
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,11 +24,27 @@ app.use(express.static("public"));
 
 /* Session setup */
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET /* from .env */,
-    resave: false,
-    saveUninitialized: false,
-  })
+    session({
+        secret: process.env.SESSION_SECRET /* from .env */,
+        resave: false,
+        saveUninitialized: false,
+
+        // for local test
+        // cookie: {
+        //     httpOnly: true,
+        //     secure: false,
+        //     sameSite: "none",
+        //     maxAge: 1000 * 60 * 60 * 24,
+        // },
+
+        // for deploy in future
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 1000 * 60 * 60 * 24,
+        }
+    })
 );
 
 connectToMongo();
@@ -49,5 +66,5 @@ app.use("/user", userRouter);
 app.get("/", (req, res) => res.redirect("/login"));
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
