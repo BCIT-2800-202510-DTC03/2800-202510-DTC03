@@ -232,12 +232,12 @@ body {
 @keyframes moveBackLayerDesktop {
   /* gradient, ground,sky */
   0% {
-    background-position: top, right 0px bottom -150px, right -200px top 0px;
-    background-size: auto, auto, 200%;
+    background-position: top, right -20px bottom -150px, right -200px top 0px;
+    background-size: auto, 110%, 200%;
   }
   100% {
-    background-position: top, right 0px bottom -300px, right -500px top -300px;
-    background-size: auto, auto, 150%;
+    background-position: top, right -60px bottom -350px, right -500px top -300px;
+    background-size: auto, 110%, 150%;
   }
 }
 
@@ -252,7 +252,7 @@ body {
       url("../assets/images/background/background-clear.png");
     background-repeat: no-repeat, no-repeat, no-repeat;
     background-position: top, bottom -200px, top;
-    background-size: auto, auto, 200%;
+    background-size: auto, 150%, 200%;
     animation: moveBackLayerDesktop 6s ease forwards;
   }
 
