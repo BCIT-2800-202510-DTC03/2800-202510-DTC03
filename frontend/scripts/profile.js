@@ -1,3 +1,4 @@
+//document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
 const buttons = document.querySelectorAll('.pfp-image-radio');
@@ -18,11 +19,13 @@ const gplnt6Elmnt = document.getElementById("six");
 const gRightElmnt = document.getElementById("garden-rightObject");
 const gLeftElmnt = document.getElementById("garden-leftObject");
 
-
+//user info variables
 var aboutContent;
 var pfpPreference;
 var userGoal;
 
+
+//garden variables
 var gardenBG;
 var gardenGRND;
 var gardenFence;
@@ -36,6 +39,9 @@ var gardenplnt5;
 var gardenplnt6;
 var gardenRight;
 var gardenLeft;
+
+
+const backendURLTest = "http://localhost:3000";
 
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
@@ -53,14 +59,30 @@ function profilePictureSetup() {
 }
 
 
-function updateUserPreference() {
-    //send stuff to DB
+async function updateUserPreference() {
+    //send information to DB
+    try {
+        aboutContent = aboutMe.value;
+        pfpPreference = pfp.src;
+        userGoal = goalSelect.value;
+
+        const response = await axios.post(backendURLTest + "/user/updateInfo",
+            {
+                aboutMe: aboutContent,
+                pfp: pfpPreference,
+                goal: userGoal,
+            },
+            {
+            withCredentials: true,
+        })
+    } catch (error) {
+        console.error("Error updating user information", error)
+    }
 }
 
 
 async function loadUserPreferences() {
     //get information from DB
-    const backendURLTest = "http://localhost:3000";
     try {
         const response = await axios.get(backendURLTest + "/user/UserInfo", {
             withCredentials: true,
@@ -121,6 +143,7 @@ function aboutMetSetup() {
 function goalSetup() {
     goalSelect.addEventListener("change", () => {
         userGoal = goalSelect.value;
+        updateUserPreference();
         // console.log(userGoal);
     })
 }
