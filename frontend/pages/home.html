@@ -30,28 +30,34 @@
 
         <div id="task-list">
             <div id="task-header">
-                <select id="filter-goals">
-                    <option value="all">All Goals</option>
-                    <option value="greenerEating">Greener Eating</option>
-                    <option value="transportation">Transportation</option>
-                    <option value="wasteReduction">Waste Reduction</option>
-                    <option value="resourceConservation">Resource Conservation</option>
-                    <option value="consciousConsumption">Conscious Consumption</option>
-                </select>
-                <button id="add-goal-tasks-btn">
-                    <img src="assets/icons/add.svg" alt="Add" class="icon" />
-                </button>
-            </div>
-            <div id="task-items">
-            </div>
-        </div>
-        <div id="task-overlay">
-            <div id="task-overlay-content">
-                <button id="close-overlay">×</button>
-                <h2>Choose a Task</h2>
-                <div id="goal-panel"></div>
+                <div id="task-title-header">
+                    <h2 id="task-title">Daily Tasks</h2>
+                </div>
+                <div id="task-controls">
+                    <select id="filter-goals">
+                        <option value="all">All Goals</option>
+                        <option value="greenerEating">Greener Eating</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="wasteReduction">Waste Reduction</option>
+                        <option value="resourceConservation">Resource Conservation</option>
+                        <option value="consciousConsumption">Conscious Consumption</option>
+                    </select>
+                    <button id="add-goal-tasks-btn">
+                        <img src="assets/icons/add.svg" alt="Add" class="icon" />
+                    </button>
+                </div>
             </div>
         </div>
+        <div id="task-items">
+        </div>
+    </div>
+    <div id="task-overlay">
+        <div id="task-overlay-content">
+            <button id="close-overlay">×</button>
+            <h2>Choose a Task</h2>
+            <div id="goal-panel"></div>
+        </div>
+    </div>
 
     </div>
     <script src="../scripts/home.js"></script>
