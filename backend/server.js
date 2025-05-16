@@ -62,6 +62,11 @@ app.use("/user", userRouter);
 /* Login */
 app.get("/", (req, res) => res.redirect("/login"));
 
+
+const gardenRouter = require("./garden");
+app.use("/garden", gardenRouter);
+
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
