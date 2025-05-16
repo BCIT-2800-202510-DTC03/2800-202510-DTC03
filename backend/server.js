@@ -90,3 +90,17 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });
+
+/* Task route for notifications */
+const { findTasksToNotify } = require("./services/taskNotification");
+
+app.get("/tasks/to-notify"),
+    async (req, res) => {
+        try {
+            const tasks = await getTaksToNotify();
+            res.json(tasks);
+        } catch (error) {
+            console.error("Failed to fetch tasks to notify", error);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    };
