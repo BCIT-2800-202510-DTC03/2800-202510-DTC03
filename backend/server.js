@@ -68,7 +68,7 @@ const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
 
 /* Import service */
-const { findTasksToNotify } = require("../services/taskService);");
+const { findTasksToNotify } = require("./services/taskService");
 
 /* Redirect to Login */
 app.get("/", (req, res) => res.redirect("/login"));
@@ -102,7 +102,7 @@ app.get("/notify-tasks/", async (req, res) => {
 
 // Setup scheduler
 /* Start notification scheduler to run in the background */
-require("./jobs/notifyTaskJob");
+require("./jobs/notifyTaskJob.js");
 
 // Setup server
 /* Socket.IO connection */
