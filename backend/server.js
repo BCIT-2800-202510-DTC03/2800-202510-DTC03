@@ -14,10 +14,10 @@ const cors = require("cors");
 
 /* Middleware to parse JSON and form data */
 app.use(
-    cors(
-        "http://127.0.0.1:5500",
-        "http://localhost:5500",
-        "https://two800bloomgreener.onrender.com",
+    cors({
+        origin: ["http://localhost:5500", "http://127.0.0.1:5500", "https://two800bloomgreener.onrender.com"],
+        credentials: true
+    }
     )
 );
 app.use(express.json());
