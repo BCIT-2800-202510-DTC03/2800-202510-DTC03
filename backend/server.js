@@ -46,6 +46,7 @@ app.use(
     })
 );
 
+// Connect database
 connectToMongo();
 
 /* Routes */
@@ -59,44 +60,46 @@ connectToMongo();
 // });
 
 // https://expressjs.com/en/guide/routing.html
+
+/* Routes (not including task routes, those come later after the server start (server.listen(...)) */
 const userRouter = require("./user");
 app.use("/user", userRouter);
-
-/* Login */
-app.get("/", (req, res) => res.redirect("/login"));
-
-/* Start notification scheduler to run in the background */
-require("./services/jobs/notifyTaskJob");
-
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
 
 /* Settings Route */
 const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
 
+/* Redirect to Login */
+app.get("/", (req, res) => res.redirect("/login"));
+
+/* Start notification scheduler to run in the background */
+require("./jobs/notifyTaskJob");
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
 // Notification related items:
 
-// First, create HTTP server to setup notifications
+// First, setup HTTP server to setup notifications. Using Socket.io instead of Express.
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 
 const io = new Server(server);
-// Connect to MongoDB
 
+// Socket.IO connection
 io.on("connection", (socket) => {
     console.log("A user connected");
 });
 
+// Start server
+// (Note: please do not replace with app.listen because this will be used instead of express starting the server for us. This allows constant two way communication to let notifications work)
 server.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
 
-/* Task route for find which tasks to notify */
-const { findTasksToNotify } = require("./services/taskService");
-
+// Task routes
 app.get("/tasks/to-notify", async (req, res) => {
     try {
         const tasks = await findTasksToNotify();
