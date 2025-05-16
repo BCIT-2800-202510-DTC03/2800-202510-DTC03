@@ -1,18 +1,28 @@
+// Dotenv Needs to be 1 directory up from where server.js is
 require("dotenv").config({
     path: "../.env",
-}); /* Needs to be 1 directory up from where server.js is */
-const connectToMongo = require("./db"); /* Reference db.js */
+});
 
+// Modules and libraries
+const connectToMongo = require("./db"); /* Reference db.js */
 const express = require("express");
 const session = require("express-session");
-const path = require("path"); /* Needed for working with directories and file paths */
-// const path = require("path"); /* Needed for working with directories and file paths */
-
-const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 
-/* Middleware to parse JSON and form data */
+/* First, setup HTTP server to setup notifications. Using Socket.io instead of Express. */
+const http = require("http");
+const { Server } = require("socket.io");
+
+// Start express and server
+const app = express();
+const server = http.createServer(app); /* Create HTTP server */
+const socketIo = new Server(server);
+
+// Connect to database
+connectToMongo();
+
+// Setup middleware
 app.use(
     cors({
         origin: [
@@ -23,6 +33,7 @@ app.use(
         credentials: true,
     })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -46,22 +57,9 @@ app.use(
     })
 );
 
-// Connect database
-connectToMongo();
+// Static files (if any)
 
-/* Routes */
-// app.use("/", authRoutes); /* These aren't made yet, so just placeholders */
-// app.use("/tasks", taskRoutes);
-// app.use("/rewards", rewardRoutes);
-
-/* Testing purposes */
-// app.get("/", (req, res) => {
-//     res.send("Server connected to MongoDB");
-// });
-
-// https://expressjs.com/en/guide/routing.html
-
-/* Routes (not including task routes, those come later after the server start (server.listen(...)) */
+// Routes
 const userRouter = require("./user");
 app.use("/user", userRouter);
 
@@ -69,37 +67,15 @@ app.use("/user", userRouter);
 const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
 
+/* Import service */
+const { findTasksToNotify } = require("../services/taskService);");
+
 /* Redirect to Login */
 app.get("/", (req, res) => res.redirect("/login"));
 
-/* Start notification scheduler to run in the background */
-require("./jobs/notifyTaskJob");
-
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
-
-// Notification related items:
-
-// First, setup HTTP server to setup notifications. Using Socket.io instead of Express.
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-
-const io = new Server(server);
-
-// Socket.IO connection
-io.on("connection", (socket) => {
-    console.log("A user connected");
-});
-
-// Start server
-// (Note: please do not replace with app.listen because this will be used instead of express starting the server for us. This allows constant two way communication to let notifications work)
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
-
 // Task routes
+const Task = require("./models/Task");
+/* Fetch tasks to notify */
 app.get("/tasks/to-notify", async (req, res) => {
     try {
         const tasks = await findTasksToNotify();
@@ -122,4 +98,20 @@ app.get("/notify-tasks/", async (req, res) => {
         console.error("Error fetching task notifications:", error);
         res.status(500).json({ error: "Internal server error" });
     }
+});
+
+// Setup scheduler
+/* Start notification scheduler to run in the background */
+require("./jobs/notifyTaskJob");
+
+// Setup server
+/* Socket.IO connection */
+socketIo.on("connection", (socket) => {
+    console.log("A user connected");
+});
+
+// Start server
+// (Note: please do not replace with app.listen because this will be used instead of express starting the server for us. This allows constant two way communication to let notifications work)
+server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });
