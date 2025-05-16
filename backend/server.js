@@ -65,6 +65,9 @@ app.use("/user", userRouter);
 /* Login */
 app.get("/", (req, res) => res.redirect("/login"));
 
+/* Start notification scheduler to run in the background */
+require("./services/jobs/notifyTaskJob");
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
@@ -92,7 +95,7 @@ server.listen(PORT, () => {
 });
 
 /* Task route for notifications */
-const { findTasksToNotify } = require("./services/taskNotification");
+const { findTasksToNotify } = require("./services/taskService");
 
 app.get("/tasks/to-notify"),
     async (req, res) => {
