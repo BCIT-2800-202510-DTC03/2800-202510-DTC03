@@ -1,3 +1,4 @@
+//document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
 const buttons = document.querySelectorAll('.pfp-image-radio');
@@ -18,11 +19,13 @@ const gplnt6Elmnt = document.getElementById("six");
 const gRightElmnt = document.getElementById("garden-rightObject");
 const gLeftElmnt = document.getElementById("garden-leftObject");
 
-
+//user info variables
 var aboutContent;
 var pfpPreference;
 var userGoal;
 
+
+//garden variables
 var gardenBG;
 var gardenGRND;
 var gardenFence;
@@ -36,6 +39,9 @@ var gardenplnt5;
 var gardenplnt6;
 var gardenRight;
 var gardenLeft;
+
+
+const backendURLTest = "http://localhost:3000";
 
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
@@ -53,31 +59,65 @@ function profilePictureSetup() {
 }
 
 
-function updateUserPreference() {
-    //send stuff to DB
+async function updateUserPreference() {
+    //send information to DB
+    try {
+        //get latest values
+        aboutContent = aboutMe.value;
+        pfpPreference = pfp.src;
+        userGoal = goalSelect.value;
+
+        const response = await axios.post(backendURLTest + "/user/updateInfo",
+            {
+                aboutMe: aboutContent,
+                pfp: pfpPreference,
+                goal: userGoal,
+            },
+            {
+            withCredentials: true,
+        })
+    } catch (error) {
+        console.error("Error updating user information", error)
+    }
 }
 
 
-function loadUserPreferences() {
-    //get stuff from DB
+async function loadUserPreferences() {
+    //get information from DB
+    try {
+        const response = await axios.get(backendURLTest + "/user/UserInfo", {
+            withCredentials: true,
+        })
 
-    if(aboutContent){
-        aboutMe.value = aboutContent;
-    }
-    if(pfpPreference){
-        pfp.src = pfpPreference;
-    } else {
-        //update this with the default image we want to use
-        pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+        const data = response.data;
+        //get all needed information
+        aboutContent = data.aboutMe;
+        pfpPreference = data.profilePicture;
+        userGoal = data.goal;
+
+        if (aboutContent) {
+            aboutMe.value = aboutContent;
+        }
+        if (pfpPreference) {
+            pfp.src = pfpPreference;
+        } else {
+            //update this with the default image we want to use
+            pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+        }
+
+        if (userGoal) {
+            goalSelect.value = userGoal;
+        }
+    } catch (error) {
+        //replace with on screen message
+        console.error("Error getting user information", error);
     }
 
-    if (userGoal){
-        goalSelect.value = userGoal;
-    }
 }
 
 function radioButtonSetup() {
     buttons.forEach(btn => {
+        //event listener for profile picture options
         btn.addEventListener("change", () => {
             if (btn.checked) {
                 pfp.src = btn.value;
@@ -104,12 +144,13 @@ function aboutMetSetup() {
 function goalSetup() {
     goalSelect.addEventListener("change", () => {
         userGoal = goalSelect.value;
+        updateUserPreference();
         // console.log(userGoal);
     })
 }
 
 function gardenSetup() {
-
+    //set up garden
 }
 
 function main() {
@@ -121,4 +162,7 @@ function main() {
     gardenSetup();
 }
 
-main();
+
+document.addEventListener("DOMContentLoaded", () => {
+    main();
+})

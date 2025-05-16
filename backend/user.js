@@ -3,6 +3,7 @@ const router = express.Router();
 
 // import user model
 const User = require("./models/User");
+const Garden = require("./models/Garden")
 
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
@@ -105,6 +106,13 @@ router.post("/register", async (req, res) => {
         await newUser.save();
         console.log("save user");
 
+        // New Garden
+        const newGarden = new Garden({
+          userID: newUser._id 
+        });
+        await newGarden.save();
+        console.log("save garden");
+
         // if success
         // update session
         if (newUser) {
@@ -129,5 +137,71 @@ router.post("/register", async (req, res) => {
 router.get("/test", (req, res) => {
     res.send("Router working");
 });
+
+router.get("/UserInfo", async (req, res) => {
+    try{
+        // const id = req.session.userId;
+        const id = "681c3160d5c4e9bd78788441";
+
+        if(!id) {
+            return res.status(401).json({
+                error_message: "User ID not available."
+            })
+        }
+
+        const user = await User.findById(id);
+
+        if(!user){
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Failed to fetch user information: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+
+router.post("/updateInfo", async (req, res) => {
+    try{
+        const {aboutMe, pfp, goal} = req.body;
+        // const id = req.session.userId;
+        //testing Id
+        const id = "681c3160d5c4e9bd78788441";
+        if(!id){
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        const user = await User.findById(id);
+
+        if(!user){
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        //update user information
+        user.aboutMe = aboutMe;
+        user.profilePicture = pfp;
+        user.goal = goal;
+
+        //save changes
+        await user.save();
+
+        res.status(200).json({message: "Successfully updated user."});
+    } catch (error) {
+        console.error("Failed to update user information: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
 
 module.exports = router;
