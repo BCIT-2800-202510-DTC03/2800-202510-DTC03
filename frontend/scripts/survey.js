@@ -333,4 +333,7 @@ function getResults() {
 
     return highest;
 }
-main();
+
+document.addEventListener("DOMContentLoaded", () => {
+    main();
+})
