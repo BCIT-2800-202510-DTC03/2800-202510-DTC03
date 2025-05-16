@@ -14,4 +14,8 @@ async function findTasksToNotify() {
     }
 }
 
+async function markAsNotified(taskId) {
+    await Task.findByIdAndUpdate(taskId, { notified: true });
+}
+
 module.exports = { findTasksToNotify };
