@@ -183,7 +183,7 @@ router.post("/updateInfo", async (req, res) => {
         user.aboutMe = aboutMe;
         user.profilePicture = pfp;
         user.goal = goal;
-
+        console.log("assigned");
         //save changes
         await user.save();
 
