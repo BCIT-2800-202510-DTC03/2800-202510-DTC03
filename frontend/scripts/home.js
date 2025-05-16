@@ -10,26 +10,45 @@ addBtn.addEventListener("click", async () => {
 
     if (!isLoaded) {
         try {
-            const response = await fetch('...');
+            const response = await fetch("http://localhost:3000/task");
             const goals = await response.json();
 
-            for (const [goalName, tasks] of Object.entries(goals)) {
-                const goalDiv = document.createElement("div");
-                goalDiv.classList.add("goal");
-                goalDiv.innerHTML = `<p><strong>${goalName}</strong></p>`;
+            for (const [category, tasks] of Object.entries(goals)) {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.classList.add("goal");
 
+                // Heading for category
+                const title = document.createElement("h3");
+                title.textContent = category;
+                categoryDiv.appendChild(title)
+
+                // Tasks under each category
                 tasks.forEach(task => {
-                    const btn = document.createElement("button");
-                    btn.classList.add("add-goal-task");
-                    btn.setAttribute("data-task", task.text);
-                    btn.setAttribute("data-points", task.sunPoints);
-                    btn.innerText = `Add "${task.text}"`;
+                    const taskContainer = document.createElement("div");
+                    taskContainer.style.display = "flex";
+                    taskContainer.style.alignItems = "centre";
+                    taskContainer.style.marginBottom = "8px";
+
+                    // add button
+                    const addBtn = document.createElement("button");
+                    addBtn.textContent = "+";
+                    addBtn.classList.add("add-goal-task");
+                    addBtn.setAttribute("data-task", task.text);
+                    addBtn.setAttribute("data-points", task.sunPoints);
+                    addBtn.innerText = `Add "${task.text}"`;
+                    addBtn.textContent = "+";
 
                     btn.addEventListener("click", () => {
                         addTaskToHome(task.text, task.sunPoints); // Add task to homepage
                     });
 
-                    goalDiv.appendChild(btn);
+                    // Task text
+                    const taskText = document.createElement("span");
+                    taskText.textContent = `${task.text} (${task.sunPoints}☀)`;
+
+                    taskContainer.appendChild(addBtn);
+                    taskContainer.appendChild(taskText);
+                    categoryDiv.appendChild(taskContainer);
                 });
 
                 goalPanel.appendChild(goalDiv);
