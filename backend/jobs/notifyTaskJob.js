@@ -1,8 +1,7 @@
 // Node Cron is a task scheduler module for notification management. Went with this over setInterval() because node cron has easier to read time syntax. ie:
 // Minute / Hour / Day / Month / Day of Week (0-6, Sunday being 0)
 const cron = require("node-cron");
-const { findTasksToNotify } = require("../services/findTasksToNotify");
-const { markAsNotified } = require("../services/markAsNotified"); // Didn't need this because task is already loaded in this one function but may use later
+const { findTasksToNotify } = require("../services/taskService");
 
 // Scheduling one notification for every minute as a test
 cron.schedule("*/1 * * * *", async () => {
