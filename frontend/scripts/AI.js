@@ -24,7 +24,7 @@ const previousWasteReduction = "Here are some examples of perfect tasks to give 
 
 const previousResourceConservaton = "Here are some examples of perfect tasks to give as responses. *   Reduce shower time.*   Collect excess tap water for plants.*   Unplug electronics when not charging.*   Wash clothes with cold water.*   Air dry laundry.*   Turn off lights leaving a room.*   Conserve water while brushing teeth.*   Limit appliance usage.*   Turn off unnecessary lights. You may provide ones from this list, but should mainly create your own. Keep tasks realistic."
 
-const previousConsciousConsumption = ""
+const previousConsciousConsumption = "Here are some examples of perfect tasks to give as responses.*Skip one non-essential purchase today.Find an item on your list that can be bought secondhand.Declutter one area and donate unused items.Borrow something instead of buying it.Research a sustainable brand before purchasing.Resist an impulse buy today. *   Visit a local thrift store.*   Buy produce at a farmers market. *   Make a list of what you need to buy. You may provide ones from this list, but should mainly create your own. Keep tasks realistic."
 
 //formatting prompt
 const formatSpecification = " Do not include any pleasantries and only provide the task. Make the task a simple action statement like: 'Plan your meals for the week' Keep the wording simple, and use as few words as possible while still conveying the full message. Keep the tasks to something that can be done in a day. Avoid using words like 'my' or 'you' keep to action statements. Tasks should be a complete-able action that I can check off."
@@ -32,27 +32,60 @@ const formatSpecification = " Do not include any pleasantries and only provide t
 const model = "gemini-2.0-flash";
 var previousResponse = "";
 
+function getGoal() {
+    //get user goal
+    const userGoal = "";
+    //determine prompt that should be used
+    switch(userGoal){
+        // case "greenerEating":
+        //     return greenerEatingPrompt;
+        case "transportation":
+            return transportationPrompt + " " + previousTransport;
+        case "wasteReduction":
+            return wasteReductionPrompt + " " + previousWasteReduction;
+        case "resourceConservation":
+            return resourceConservationPrompt + " " + previousResourceConservaton;
+        case "consciousConsumption":
+            return consciousConsumptionPrompt + " " + previousConsciousConsumption;
+        default:
+            return greenerEatingPrompt + " " + previousGreenerEating;
+    }
+}
+
+
 async function callAI() {
     var task = "";
     if (!previousResponse){
         task = await ai.models.generateContent({
             model: model,
-            contents: consciousConsumptionPrompt + " " + formatSpecification,
+            contents: getGoal() + " " + formatSpecification,
         });
     } else{
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
-            contents: consciousConsumptionPrompt + " " + formatSpecification + " " + priorResponse,
+            contents: getGoal + " " + formatSpecification + " " + priorResponse,
         })
     }
     return task;
 }
 
-async function main() {
+function createTask(task) {
+//create the task card here
+}
+
+
+async function getTask() {
     const response = await callAI();
     console.log(response.text);
     previousResponse = response;
+    createTask(response);
+}
+
+
+function main() {
+    const trigger = document.getElementById("AI-task-btn");
+    trigger.addEventListener("click", getTask);
 }
 
 main();
