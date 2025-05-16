@@ -7,6 +7,8 @@ const taskSchema = new mongoose.Schema({
     notifyAt: Date,
     notified: Boolean,
 });
+// Indexing helps us query the db faster when looking through all tasks for notification status
+taskSchema.index({ notifyAt: 1, notified: 1 });
 
 const Task = mongoose.model("Task", taskSchema);
 
