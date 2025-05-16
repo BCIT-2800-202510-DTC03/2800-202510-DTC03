@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/navbar.css" />
+</head>
+
+<body>
+    <!--  Header -->
+    <header id="placeholder-header">
+        <!--  Header will be inserted here -->
+    </header>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <div id="shop-showcase"></div>
+        <div id="shop-inventory">
+            <div>
+                <button class="shop-tabs" onclick="getItems('fence')">Fences</button>
+                <button class="shop-tabs" onclick="getItems('shelf')">Shelves</button>
+                <button class="shop-tabs" onclick="getItems('plant')">Plants</button>
+                <button class="shop-tabs" onclick="getItems('object')">Objects</button>
+                <button class="shop-tabs" onclick="getItems('building')">Buildings</button>
+            </div>
+            <div id="shop-grid"></div>
+        </div>
+    </div>
+</body>
+
+<!-- JavaScript -->
+<script src="../scripts/skeleton.js"></script>
+<script src="../scripts/navbar.js"></script>
+
+</html>
