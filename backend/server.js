@@ -69,3 +69,5 @@ app.listen(PORT, () => {
 /* Settings Route */
 const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
+
+/* Tasks Route */
