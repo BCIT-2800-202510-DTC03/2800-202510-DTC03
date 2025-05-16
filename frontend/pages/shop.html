@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/navbar.css" />
+    <link rel="stylesheet" href="../styles/shop.css" />
 </head>
 
 <body>
@@ -18,16 +19,37 @@
 
     <!-- Main Content -->
     <div id="main-content">
-        <div id="shop-showcase"></div>
-        <div id="shop-inventory">
-            <div>
-                <button class="shop-tabs" onclick="getItems('fence')">Fences</button>
-                <button class="shop-tabs" onclick="getItems('shelf')">Shelves</button>
-                <button class="shop-tabs" onclick="getItems('plant')">Plants</button>
-                <button class="shop-tabs" onclick="getItems('object')">Objects</button>
-                <button class="shop-tabs" onclick="getItems('building')">Buildings</button>
+        <div id="shop-content">
+            <div id="shop-showcase">
+                <img id="showcase-item" src="../assets/garden/shelf-white.png">
             </div>
-            <div id="shop-grid"></div>
+            <div id="shop-inventory">
+                <div id="shop-tabs">
+                    <button class="shop-tab" onclick="getItems('fence')">Fence</button>
+                    <button class="shop-tab" onclick="getItems('shelf')">Shelf</button>
+                    <button class="shop-tab" onclick="getItems('plant')">Plant</button>
+                    <button class="shop-tab" onclick="getItems('object')">Object</button>
+                    <button class="shop-tab" onclick="getItems('building')">Building</button>
+                </div>
+                <div id="wallet">
+                    Sun Points: 1000
+                </div>
+                <div id="shop-grid">
+                    <div class="shop-cards">
+                        <p>Cost</p>
+                        <img src="../assets/garden/fence-black.png">
+                        <hr />
+                        <p>Name</p>
+                    </div>
+                    <div class="shop-cards">2</div>
+                    <div class="shop-cards">3</div>
+                    <div class="shop-cards">4</div>
+                    <div class="shop-cards">5</div>
+                    <div class="shop-cards">6</div>
+                    <div class="shop-cards">7</div>
+                    <div class="shop-cards">8</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
