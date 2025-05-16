@@ -108,3 +108,15 @@ app.get("/tasks/to-notify", async (req, res) => {
 });
 
 /* Route for showing user which task notifications they will see */
+app.get("/notify-tasks/", async (req, res) => {
+    try {
+        const notifyTasks = await Task.find({
+            username: req.session.user.username,
+            notified: true,
+        }).sort({ notifyAt: -1 }); // sort tasks by the tasks that need to be notified the soonest
+        res.json(notifyTasks);
+    } catch (error) {
+        console.error("Error fetching task notifications:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
