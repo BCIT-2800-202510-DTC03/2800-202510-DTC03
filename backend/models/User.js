@@ -19,6 +19,18 @@ const usersSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  aboutMe: {
+    type: String,
+    default: "",
+  },
+  profilePicture: {
+    type: String,
+    default: "",
+  },
+  goal: {
+    type: String,
+    default: "greenerEating",
+  }
 });
 const User = mongoose.model("User", usersSchema);
 
