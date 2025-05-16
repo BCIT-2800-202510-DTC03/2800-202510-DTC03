@@ -58,22 +58,39 @@ function updateUserPreference() {
 }
 
 
-function loadUserPreferences() {
-    //get stuff from DB
+async function loadUserPreferences() {
+    //get information from DB
+    const backendURLTest = "http://localhost:3000";
+    try {
+        const response = await axios.get(backendURLTest + "/user/UserInfo", {
+            withCredentials: true,
+        })
 
-    if(aboutContent){
-        aboutMe.value = aboutContent;
-    }
-    if(pfpPreference){
-        pfp.src = pfpPreference;
-    } else {
-        //update this with the default image we want to use
-        pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+        const data = response.data;
+
+        console.log("getting info!");
+        aboutContent = data.aboutMe;
+        pfpPreference = data.profilePicture;
+        userGoal = data.goal;
+
+        if (aboutContent) {
+            aboutMe.value = aboutContent;
+        }
+        if (pfpPreference) {
+            pfp.src = pfpPreference;
+        } else {
+            //update this with the default image we want to use
+            pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+        }
+
+        if (userGoal) {
+            goalSelect.value = userGoal;
+        }
+    } catch (error) {
+        //replace with on screen message
+        console.error("Error getting user information", error);
     }
 
-    if (userGoal){
-        goalSelect.value = userGoal;
-    }
 }
 
 function radioButtonSetup() {
@@ -121,4 +138,7 @@ function main() {
     gardenSetup();
 }
 
-main();
+
+document.addEventListener("DOMContentLoaded", () => {
+    main();
+})
