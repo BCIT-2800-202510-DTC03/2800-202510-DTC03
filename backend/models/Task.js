@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
+const { type } = require("os");
 
 const taskSchema = new mongoose.Schema({
-    name: String,
-    description: String,
     category: String,
+    description: String,
+    worth: {
+        type: Number,
+        integer: true
+    }
 });
 
 const Task = mongoose.model("Task", taskSchema);
