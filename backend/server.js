@@ -78,7 +78,7 @@ app.use("/settings", settingsRouter);
 
 // Notification related items:
 
-// First, create HTTP server
+// First, create HTTP server to setup notifications
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -94,16 +94,17 @@ server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });
 
-/* Task route for notifications */
+/* Task route for find which tasks to notify */
 const { findTasksToNotify } = require("./services/taskService");
 
-app.get("/tasks/to-notify"),
-    async (req, res) => {
-        try {
-            const tasks = await getTaksToNotify();
-            res.json(tasks);
-        } catch (error) {
-            console.error("Failed to fetch tasks to notify", error);
-            res.status(500).json({ error: "Internal server error" });
-        }
-    };
+app.get("/tasks/to-notify", async (req, res) => {
+    try {
+        const tasks = await findTasksToNotify();
+        res.json(tasks);
+    } catch (error) {
+        console.error("Failed to fetch tasks to notify", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+/* Route for showing user which task notifications they will see */
