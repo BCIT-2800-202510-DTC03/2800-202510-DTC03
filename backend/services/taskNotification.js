@@ -13,3 +13,5 @@ async function findTasksToNotify() {
         return []; // adding a fallback return value in case an error occurs so we don't get undefined
     }
 }
+
+module.exports = { findTasksToNotify };
