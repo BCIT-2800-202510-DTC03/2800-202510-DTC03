@@ -14,7 +14,9 @@ function insertBackground() {
 function insertFence(type) {
     const fence = document.getElementById("garden-fence");
 
-    fence.style.backgroundImage = "url('../assets/garden/fence-" + type + ".png')";
+    if (type) {
+        fence.style.backgroundImage = "url('../assets/garden/fence-" + type + ".png')";
+    }
     
     if (fence.style.backgroundImage || !type) {
         fence.style.backgroundColor = "transparent";
@@ -25,7 +27,9 @@ function insertFence(type) {
 function insertBuilding(type) {
     const building = document.getElementById("garden-building");
 
-    building.style.backgroundImage = "url('../assets/garden/building-" + type + ".png')";
+    if (type) {
+        building.style.backgroundImage = "url('../assets/garden/building-" + type + ".png')";
+    }
     
     if (building.style.backgroundImage && type) {
         building.style.backgroundColor = "transparent";
@@ -36,8 +40,10 @@ function insertBuilding(type) {
 function insertShelf(type) {
     const shelf = document.getElementById("garden-shelf");
 
-    shelf.style.backgroundImage = "url('../assets/garden/shelf-" + type + ".png')";
-    
+    if (type) {
+        shelf.style.backgroundImage = "url('../assets/garden/shelf-" + type + ".png')";
+    }
+
     if (shelf.style.backgroundImage && type) {
         shelf.style.backgroundColor = "transparent";
     }
@@ -48,8 +54,10 @@ function insertObject(type, select) {
     const elementID = `garden-${select}Object`;
     const object = document.getElementById(elementID);
 
-    object.style.backgroundImage = "url('../assets/garden/object-" + type + ".png')";
-    
+    if (type) {
+        object.style.backgroundImage = "url('../assets/garden/object-" + type + ".png')";
+    }
+
     if (object.style.backgroundImage && type) {
         object.style.backgroundColor = "transparent";
     }
@@ -60,15 +68,17 @@ function insertPlant(type, select) {
     const elementID = `#plant-${select}.garden-plant`;
     const plant = document.querySelector(elementID);
 
-    plant.style.backgroundImage = "url('../assets/garden/plant-" + type + ".png')";
-    
+    if (type) {
+        plant.style.backgroundImage = "url('../assets/garden/plant-" + type + ".png')";
+    }
+
     if (plant.style.backgroundImage && type) {
         plant.style.backgroundColor = "transparent";
     }
 
 }
 
-function insertGarden(fence, building, shelf, rightObject, leftObject, 
+export function insertGarden(fence, building, shelf, rightObject, leftObject, 
                         plant1, plant2, plant3, plant4, plant5, plant6) {
     insertBackground();
     insertFence(fence);
