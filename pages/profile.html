@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/profile.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit" />
+    <link rel="stylesheet" href="../styles/home.css" />
+</head>
+<body>
+    <nav id="pfp-nav">
+        <span class="material-symbols-outlined" id="back-arrow" onclick="history.back();">
+         arrow_back
+        </span>
+    </nav>
+    <div id="profile-wrapper">
+        <div id="picture-wrapper">
+            <div id="pfp-container">
+                <img id="profile-picture" src="https://dummyimage.com/300/a3ab87/fff.png&text=+">
+                <div id="picture-input">
+                    <!-- <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
+                    <input type="file" id="pfp-img" name="pfp-img" accept="image/*"> -->
+                    <span class="material-symbols-outlined" id="edit-pencil">edit</span>
+                </div>
+                <div id="pfp-choices-wrap">
+                    <h2 class="section-title">Choose a Profile Picture</h2>
+                    <div id="pfp-choices">
+                        <label>
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/606c38/dadbe6" name="pfp-choice">
+                            <img class="pfp-img-choice" src="https://dummyimage.com/100/606c38/dadbe6">
+                        </label>
+                        <label>
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/b6bf97/dadbe6" name="pfp-choice">
+                            <img class="pfp-img-choice" src="https://dummyimage.com/100/b6bf97/dadbe6">
+                        </label>
+                        <label>
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/6265a6/dadbe6" name="pfp-choice">
+                            <img class="pfp-img-choice" src="https://dummyimage.com/100/6265a6/dadbe6">
+                        </label>
+                        <label>
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/de9338/dadbe6" name="pfp-choice">
+                            <img class="pfp-img-choice" src="https://dummyimage.com/100/de9338/dadbe6">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="username-wrapper">
+            <h2 id="username">Username</h2>
+        </div>
+        <div id="about-me-wrapper">
+            <h2 class="section-title">About me</h2>
+            <div id="about-me-txt-wrap">
+                <textarea id="about-me-txt" name="about-me" placeholder="I like..." maxlength="300"></textarea>
+            </div>
+        </div>
+        <div id="goal-wrapper">
+            <h2 class="section-title">My goal</h2>
+            <div id="goal-select-wrap">
+                <select id="goals" name="goals">
+                    <option value="greenerEating">To eat greener</option>
+                    <option value="wasteReduction">To reduce my waste</option>
+                    <option value="resourceConservation">To conserve more resources</option>
+                    <option value="consciousConsumption">To consume consciously</option>
+                    <option value="transportation">To use eco-friendly transit options</option>
+                    </select>
+            </div>
+        </div>
+        <div id="garden-display-wrapper">
+            <h2 class="section-title">My Garden</h2>
+            <div id="garden-display">
+                <div id="garden-container">
+                <div id="garden-background">Background</div>
+                <div id="garden-ground">Ground</div>
+                <div id="garden-fence">Fence</div> 
+                <div id="garden-building">Large Building</div> 
+                <div id="garden-shelf">
+                <div class="garden-plant" id="four">Plant 4</div> 
+                <div class="garden-plant" id="five">Plant 5</div> 
+                <div class="garden-plant" id="six">Plant 6</div> 
+                <div class="garden-plant" id="one">Plant 1</div> 
+                <div class="garden-plant" id="two">Plant 2</div> 
+                <div class="garden-plant" id="three">Plant 3</div>
+                </div>  
+                <div id="garden-rightObject">Small Object Right</div> 
+                <div id="garden-leftObject">Small Object Left</div> 
+            </div>
+            </div>
+        </div>
+    </div> 
+
+    <script src="/scripts/profile.js"></script>
+</body>
+</html>
