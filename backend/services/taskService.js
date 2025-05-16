@@ -4,7 +4,7 @@ const Task = require("../models/Task");
 async function findTasksToNotify() {
     try {
         const tasks = await Task.find({
-            notifyAt: { $lte: newDate() },
+            notifyAt: { $lte: new Date() },
             notified: false,
         });
         return tasks;
