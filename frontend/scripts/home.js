@@ -2,9 +2,13 @@ const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
 const goalPanel = document.getElementById("goal-panel");
 const closeOverlay = document.getElementById("close-overlay");
+const filterGoals = document.getElementById("filter-goals");
+const taskItems = document.getElementById("task-items");
 
-let isLoaded = false; //ensure tasks are not reloaded multiple times
+let isLoaded = false;
+let allTasks = []; // Will store all tasks with their category
 
+// Open overlay and load tasks if not loaded
 addBtn.addEventListener("click", async () => {
     overlay.style.display = "flex";
 
@@ -17,41 +21,39 @@ addBtn.addEventListener("click", async () => {
                 const categoryDiv = document.createElement("div");
                 categoryDiv.classList.add("goal");
 
-                // Heading for category
                 const title = document.createElement("h3");
                 title.textContent = category;
-                categoryDiv.appendChild(title)
+                categoryDiv.appendChild(title);
 
-                // Tasks under each category
                 tasks.forEach(task => {
+                    // Store task with category for filtering later
+                    allTasks.push({ ...task, category });
+
                     const taskContainer = document.createElement("div");
                     taskContainer.style.display = "flex";
-                    taskContainer.style.alignItems = "centre";
+                    taskContainer.style.alignItems = "center";
                     taskContainer.style.marginBottom = "8px";
 
-                    // add button
                     const addBtn = document.createElement("button");
-                    addBtn.textContent = "+";
                     addBtn.classList.add("add-goal-task");
+                    addBtn.textContent = `+ Add "${task.text}"`;
                     addBtn.setAttribute("data-task", task.text);
                     addBtn.setAttribute("data-points", task.sunPoints);
-                    addBtn.innerText = `Add "${task.text}"`;
-                    addBtn.textContent = "+";
 
-                    btn.addEventListener("click", () => {
-                        addTaskToHome(task.text, task.sunPoints); // Add task to homepage
+                    addBtn.addEventListener("click", () => {
+                        addTaskToHome(task.text, task.sunPoints, category);
                     });
 
-                    // Task text
                     const taskText = document.createElement("span");
                     taskText.textContent = `${task.text} (${task.sunPoints}☀)`;
+                    taskText.style.marginLeft = "8px";
 
                     taskContainer.appendChild(addBtn);
                     taskContainer.appendChild(taskText);
                     categoryDiv.appendChild(taskContainer);
                 });
 
-                goalPanel.appendChild(goalDiv);
+                goalPanel.appendChild(categoryDiv);
             }
 
             isLoaded = true;
@@ -61,43 +63,53 @@ addBtn.addEventListener("click", async () => {
     }
 });
 
-// Close overlay when button is clicked
-closeOverlay.addEventListener("click", () => {
-    overlay.style.display = "none";
-});
+// Add task to homepage list with category info stored as attribute
+function addTaskToHome(taskText, sunPoints, category) {
+    const template = document.getElementById("task-template");
+    const taskElement = template.content.cloneNode(true);
 
-
-// Function to add task to the home page task list
-function addTaskToHome(taskText, sunPoints) {
-    const taskElement = document.createElement("div");
-    taskElement.classList.add("task");
-    taskElement.innerHTML = `
-        <div id="task-left">
-            <div id="task-text">${taskText}</div>
-        </div>
-        <div id="task-actions">
-            <div id="sunpoints">
-                <span id="sun-icon">☀</span>
-                <span id="sun-value">${sunPoints}</span>
-            </div>
-            <div id="checkmark">✔</div>
-        </div>
-    `;
+    const taskDiv = taskElement.querySelector("#task");
+    taskDiv.classList.add("task");
+    taskDiv.setAttribute("data-category", category);
+    taskDiv.querySelector("#task-text").textContent = taskText;
+    taskDiv.querySelector("#sun-value").textContent = sunPoints;
+    
     document.getElementById("task-items").appendChild(taskElement);
 }
 
+
+
+// Filter tasks on homepage based on category select
+filterGoals.addEventListener("change", () => {
+    const selectedCategory = filterGoals.value;
+
+    // Clear current tasks on homepage
+    taskItems.innerHTML = "";
+
+    // Filter tasks to show
+    const filteredTasks = selectedCategory === "all"
+        ? allTasks
+        : allTasks.filter(task => task.category === selectedCategory);
+
+    // Add filtered tasks to homepage
+    filteredTasks.forEach(task => {
+        addTaskToHome(task.text, task.sunPoints, task.category);
+    });
+});
+
+// Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
     if (event.target.id === "checkmark") {
         const task = event.target.closest(".task");
         task.classList.add("completed");
 
-        // Fade out and remove the task
         setTimeout(() => {
             task.remove();
-        }, 500); // Slight delay for a smooth transition
+        }, 500);
     }
 });
 
+// Close overlay
 closeOverlay.addEventListener("click", () => {
     overlay.style.display = "none";
 });
