@@ -1,4 +1,4 @@
-#task {
+.task {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,14 +12,14 @@
     box-sizing: border-box;
 }
 
-#task-left {
+.task-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex: 1;
 }
 
-#task-text {
+.task-text {
     font-size: 1.2rem;
     color: #333;
     font-weight: 600;
@@ -27,30 +27,30 @@
     word-break: break-word;
 }
 
-#task-actions {
+.task-actions {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-left: 16px;
 }
 
-#sunpoints {
+.sunpoints {
     display: flex;
     align-items: center;
     font-size: 1rem;
     color: #333;
 }
 
-#sun-icon {
+.sun-icon {
     margin-right: 4px;
     font-size: 1.2rem;
 }
 
-#sun-value {
+.sun-value {
     font-weight: 500;
 }
 
-#checkmark {
+.checkmark {
     width: 32px;
     height: 32px;
     border: 2px solid #333;
