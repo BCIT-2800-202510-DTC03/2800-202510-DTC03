@@ -1,0 +1,8 @@
+#notification-banner {
+    display: none;
+    position: fixed;
+    width: auto;
+    min-width: 75%;
+    text-align: left;
+    z-index: 100;
+}
