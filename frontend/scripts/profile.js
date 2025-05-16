@@ -62,6 +62,7 @@ function profilePictureSetup() {
 async function updateUserPreference() {
     //send information to DB
     try {
+        //get latest values
         aboutContent = aboutMe.value;
         pfpPreference = pfp.src;
         userGoal = goalSelect.value;
@@ -89,8 +90,7 @@ async function loadUserPreferences() {
         })
 
         const data = response.data;
-
-        console.log("getting info!");
+        //get all needed information
         aboutContent = data.aboutMe;
         pfpPreference = data.profilePicture;
         userGoal = data.goal;
@@ -117,6 +117,7 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach(btn => {
+        //event listener for profile picture options
         btn.addEventListener("change", () => {
             if (btn.checked) {
                 pfp.src = btn.value;
@@ -149,7 +150,7 @@ function goalSetup() {
 }
 
 function gardenSetup() {
-
+    //set up garden
 }
 
 function main() {
