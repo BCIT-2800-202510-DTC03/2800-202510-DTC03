@@ -71,3 +71,5 @@ const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
 
 /* Tasks Route */
+const taskRouter = require("./routes/tasks");
+app.use("/task", taskRouter);
