@@ -2,7 +2,7 @@
 // Minute / Hour / Day / Month / Day of Week (0-6, Sunday being 0)
 const cron = require("node-cron");
 const { findTasksToNotify } = require("../services/findTasksToNotify");
-const { markAsNotified } = require("../services/markAsNotified");
+const { markAsNotified } = require("../services/markAsNotified"); // Didn't need this because task is already loaded in this one function but may use later
 
 // Scheduling one notification for every minute as a test
 cron.schedule("*/1 * * * *", async () => {
@@ -23,5 +23,9 @@ cron.schedule("*/1 * * * *", async () => {
 
     for (const task of tasksToNotify) {
         console.log("Notification for:", task.name);
+
+        // Mark task as notified
+        task.notified = true;
+        await task.save();
     }
 });
