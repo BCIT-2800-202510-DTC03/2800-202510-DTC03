@@ -1,5 +1,5 @@
 /* Task route for notifications */
-const Task = require("./models/Task");
+const Task = require("../models/Task");
 
 async function findTasksToNotify() {
     try {
