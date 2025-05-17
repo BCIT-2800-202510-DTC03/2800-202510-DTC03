@@ -3,6 +3,7 @@ const router = express.Router();
 
 // import DB models
 const Garden = require("./models/Garden");
+const Decoration = require("./models/Decoration");
 
 router.get("/getGarden", async (req, res) => {
     console.log("CHECK FOR SESSIONS");
@@ -19,6 +20,19 @@ router.get("/getGarden", async (req, res) => {
     } else {
         console.log("FAIL")
         res.status(400).send(req.session.userId);
+    }
+})
+
+router.get("/getShopItem/:tab", async (req, res) => {
+    console.log("TAB NAME: " + req.params.tab);
+    const response = await Decoration.find({position: req.params.tab});
+    
+    if (response) {
+        console.log("SUCCESS")
+        res.json(response);
+    } else {
+        console.log("FAIL")
+        res.status(400).send(req.params.tab);
     }
 })
 
