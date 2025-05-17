@@ -140,8 +140,8 @@ router.get("/test", (req, res) => {
 
 router.get("/UserInfo", async (req, res) => {
     try{
-        // const id = req.session.userId;
-        const id = "681c3160d5c4e9bd78788441";
+        const id = req.session.userId;
+        // const id = "681c3160d5c4e9bd78788441";
 
         if(!id) {
             return res.status(401).json({
@@ -170,16 +170,18 @@ router.get("/UserInfo", async (req, res) => {
 router.post("/updateInfo", async (req, res) => {
     try{
         const {aboutMe, pfp, goal} = req.body;
-        // const id = req.session.userId;
+        const id = req.session.userId;
+
+        console.log(id); //printing as undefined for some reason
         //testing Id
-        const id = "681c3160d5c4e9bd78788441";
+        // const id = "681c3160d5c4e9bd78788441";
         if(!id){
             return res.status(401).json({
                 error_message: "No active user session."
             })
         }
 
-        const user = await User.findById(id);
+        const user = await User.findOne({_id: id});
 
         if(!user){
             return res.status(401).json({
@@ -191,7 +193,7 @@ router.post("/updateInfo", async (req, res) => {
         user.aboutMe = aboutMe;
         user.profilePicture = pfp;
         user.goal = goal;
-
+        console.log("assigned");
         //save changes
         await user.save();
 
