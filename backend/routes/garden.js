@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // import DB models
-const Garden = require("./models/Garden");
+const Garden = require("../models/Garden");
 
 router.get("/getGarden", async (req, res) => {
     console.log("CHECK FOR SESSIONS");
