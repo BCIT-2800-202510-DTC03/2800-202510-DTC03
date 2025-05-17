@@ -63,3 +63,103 @@
     opacity: 0;
     transition: opacity 0.5s ease-out;
 }
+
+
+
+
+
+/* AI task CSS */
+
+#Ai-btn{
+    flex-shrink: 0;
+    /* don't shrink the button */
+    width: 50px;
+    height: 50px;
+    background-color: #606c38;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+#AI-task-btn{
+    border: none;
+    outline:none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+#AI-task-display{
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vh;
+    height: 40vh;
+    box-shadow: #33333348 0 0 5px 5px;
+    background-color: #606c38;
+    border-radius: 2vh;
+    box-sizing: border-box;
+    padding: 5vh;
+    color:white;
+
+    h2{
+        padding-top: 5vh;
+    }
+}
+
+
+
+#AI-btn-wrapper{
+    position: absolute;
+    top:60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AI-btn{
+    padding:1vh;
+    cursor: pointer;
+    background-color: #DFCFBF;
+    color: #606c38;
+    border-radius: 1vh;
+    width: 100%;
+    text-align: center;
+    margin: 1vh;
+
+}
+
+.AI-btn:hover{
+    transition: 0.2s;
+    opacity: 0.8;
+}
+
+#AI-task-desc{
+    padding: 2vh;
+}
+
+.AI-sunpoints{
+    font-size: x-large;
+}
+
+
+#AI-task-wrap{
+    position: absolute;
+    top:53%;
+    display: flex;
+    width:100%;
+    justify-content: center;
+}
+.AI-task{
+    width: 60%;
+    border-radius: 1vh;
+}
