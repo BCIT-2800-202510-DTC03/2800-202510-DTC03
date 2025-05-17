@@ -35,7 +35,7 @@ app.use(
         cookie: {
             httpOnly: true,
             secure: false,
-            sameSite: "none",
+            sameSite: "lax", // Only set to lax for local deployment. Set none for split
             maxAge: 1000 * 60 * 60 * 24,
         },
         // for deploy in future
