@@ -40,7 +40,13 @@ async function getItems(tab) {
                 card.appendChild(top);
                 card.appendChild(name);
 
-                // card.addEventListener();
+                card.addEventListener("click", () => {
+                    console.log("Click");
+
+                    const showcase = document.getElementById("showcase-item");
+                    showcase.style.display = "initial";
+                    showcase.src = `../assets/garden/${tab}-${item.typeName}.png`;
+                });
 
                 itemList.appendChild(card);
             });
