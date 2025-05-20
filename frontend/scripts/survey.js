@@ -306,6 +306,48 @@ function displayResults() {
             console.error("Failed to store user goal.", error);
         }
     })
+
+    const choosebtn = document.getElementById("choose-btn");
+    choosebtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        surveyContainer.innerHTML = `<p class="result-p">${resultText}</p>
+        <button id="ctn-btn">Looks good!</button><br/>
+        <div id="result-b-wrapper">
+        <p class="result-p" id="again-p">Choose a goal</p>
+        <div id="goal-select-wrap">
+            <select id="goal-select">
+                <option value="greenerEating">To eat greener!</option>
+                <option value="transportation">To change up my transit!</option>
+                <option value="wasteReduction">To reduce my waste!</option>
+                <option value="resourceConservation">To conserve more resources!</option>
+                <option value="consciousConsumption">To consume more environmentally conscious products!</option>
+            </select>
+        </div>
+        <button id="choose-ctn-btn">Select Goal</button>
+        </div>`
+        chooseOwnGoal();
+    })
+}
+
+function chooseOwnGoal(){
+    const ctnChoose = document.getElementById("choose-ctn-btn");
+    ctnChoose.addEventListener("click", async (event) => {
+        event.preventDefault();
+        const chosenGoal = document.getElementById("goal-select").value;
+        console.log(chosenGoal);
+        try{
+            const response = await axios.post(backendURLTest + "/user/updateInfo", {
+                aboutMe: "",
+                pfp: "",
+                goal: chosenGoal,
+            }, {
+            withCredentials: true,
+            })
+            window.location.href = "../pages/home.html";
+        } catch(error) {
+            console.error("Failed to store user goal.", error);
+        }
+    })
 }
 
 function getResults() {

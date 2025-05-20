@@ -149,7 +149,7 @@ body{
     width:100%;
     position: absolute;
     left:0;
-    top:65%;
+    top:50%;
 }
 
 .result-b {
@@ -174,7 +174,7 @@ body{
 
 #ctn-btn {
     width: 50%;
-    margin:1vh 1vh 1vh 1vh;
+    margin:2vh 1vh;
     padding: 2vh 1vw;
     background-color: #606C38;
     border: none;
@@ -188,4 +188,42 @@ body{
     left:50%;
     top: 50%;
     transform: translate(-55%, -170%);
+}
+
+#goal-select-wrap{
+    width: 50%;
+    margin:0.5vh;
+    padding: 2vh;
+    border-radius: 3vh;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    :focus{
+        outline: none;
+    }
+}
+
+#goal-select{
+    border: none;
+    background-color: transparent;
+    color: #606C38;
+    font-weight: 600;
+    font-size: 2vh;
+    width: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis;
+}
+
+#choose-ctn-btn{
+    width: 50%;
+    margin:1vh;
+    padding: 2vh 1vw;
+    background-color: #606C38;
+    border: none;
+    border-radius: 3vh;
+    color: white;
+    font-size: 2vh;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
 }
