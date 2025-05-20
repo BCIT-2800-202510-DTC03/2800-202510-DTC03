@@ -25,4 +25,17 @@ router.get("/", async (req, res) => {
     }
 });
 
+// POST route to create a new task
+router.post("/", async (req, res) => {
+    try {
+        const { category, description, worth } = req.body;
+        const newTask = new Task({ category, description, worth });
+        await newTask.save();
+        res.status(201).json({ message: "Task created successfully", task: newTask });
+    } catch (err) {
+        console.error("Error creating task:", err);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
 module.exports = router;
