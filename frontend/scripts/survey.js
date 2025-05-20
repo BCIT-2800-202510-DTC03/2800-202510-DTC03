@@ -205,6 +205,8 @@ const userResponses = [];
 const startButton = document.getElementById("start-button");
 const questionName = document.getElementById("question-title");
 const surveyContainer = document.getElementById("questions-form");
+const backendURLTest = "http://localhost:3000";
+
 
 function main() {
     startButton.addEventListener("click", getNextQuestion);
@@ -288,8 +290,21 @@ function displayResults() {
         </div>`;
 
     const continuebtn = document.getElementById("ctn-btn");
-    continuebtn.addEventListener("click", () => {
+    continuebtn.addEventListener("click", async (event) => {
+        event.preventDefault();
         // Redirect user to home page + store user goal
+        try{
+            const response = await axios.post(backendURLTest + "/user/updateInfo", {
+                aboutMe: "",
+                pfp: "",
+                goal: resultCategory,
+            }, {
+            withCredentials: true,
+            })
+            window.location.href = "../pages/home.html";
+        } catch(error) {
+            console.error("Failed to store user goal.", error);
+        }
     })
 }
 
@@ -333,4 +348,7 @@ function getResults() {
 
     return highest;
 }
-main();
+
+document.addEventListener("DOMContentLoaded", () => {
+    main();
+})
