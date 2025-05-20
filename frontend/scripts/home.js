@@ -113,24 +113,24 @@ document.addEventListener("click", (event) => {
 closeOverlay.addEventListener("click", () => {
     overlay.style.display = "none";
 });
-import {insertGarden} from "./garden.js"
+import { insertGarden } from "./garden.js"
 
 async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    fetch("http://localhost:3000/garden/getGarden", {method: "GET"})
+    fetch("http://localhost:3000/garden/getGarden", { method: "GET" })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
             console.log(data);
             insertGarden(data.fence, data.building, data.shelf,
-                            data.rightObject, data.leftObject,
-                            data.plant1, data.plant2, data.plant3, 
-                            data.plant4, data.plant5, data.plant6);
+                data.rightObject, data.leftObject,
+                data.plant1, data.plant2, data.plant3,
+                data.plant4, data.plant5, data.plant6);
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-    
-    
+
+
     // const backendURLTest = "http://localhost:3000"; // waiting to be updated
     // try {
     //     const response = await axios.get(backendURLTest + "/garden/getGarden");
@@ -160,5 +160,116 @@ async function loadGarden() {
 async function setup() {
     loadGarden();
 }
+
+const premadeTask = [
+    {
+        category: "greenerEating",
+        description: "Plan meals for tomorrow.",
+    },
+    {
+        category: "greenerEating",
+        description: "Use one ingredient close to expiring.",
+    },
+    {
+        category: "greenerEating",
+        description: "Buy one unpackaged or bulk item.",
+    },
+    {
+        category: "greenerEating",
+        description: "Avoid packaged snacks all day.",
+    },
+    {
+        category: "greenerEating",
+        description: "Cook a meal using only ingredients on hand.",
+    },
+    {
+        category: "greenerEating",
+        description: "Store one perishable item properly to extend its life.",
+    },
+    {
+        category: "transportation",
+        description: "Walk or bike for one trip.",
+    },
+    {
+        category: "transportation",
+        description: "Take public transit once today.",
+    },
+    {
+        category: "transportation",
+        description: "Skip one car trip today.",
+    },
+    {
+        category: "transportation",
+        description: "Turn off engine while waiting or parked.",
+    },
+    {
+        category: "transportation",
+        description: "Check and adjust tire pressure.",
+    },
+    {
+        category: "transportation",
+        description: "Combine two errands into one trip.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Use a reusable bottle or cup today.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Say no to disposable utensils or straws.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Buy one item with minimal or no packaging.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Separate and recycle one batch of waste.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Reuse a bag, container, or jar.",
+    },
+    {
+        category: "wasteReduction",
+        description: "Compost food scraps from one meal.",
+    },
+    {
+        category: "resourceConservation",
+        description: "Turn off water while brushing teeth.",
+    },
+    {
+        category: "resourceConservation",
+        description: "Turn off lights in unused rooms.",
+    },
+    {
+        category: "resourceConservation",
+        description: "Take a shower five minutes shorter than usual.",
+    },
+    {
+        category: "resourceConservation",
+        description: "Fully fill the dishwasher before running it.",
+    },
+    {
+        category: "resourceConservation",
+        description: "Unplug or power off one unused device.",
+    },
+    {
+        category: "consciousConsumption",
+        description: "Skip one non-essential purchase today.",
+    },
+    {
+        category: "consciousConsumption",
+        description: "Find an item on your list that can be bought secondhand.",
+    },
+    {
+        category: "consciousConsumption",
+        description: "Declutter one area and donate unused items.",
+    },
+    {
+        category: "consciousConsumption",
+        description: "Borrow something instead of buying it.",
+    },
+]
 
 setup();
