@@ -11,7 +11,7 @@ router.get("/getGarden", async (req, res) => {
     console.log(req.session);
     console.log(req.session.user);
     console.log(req.session.userId);
-    const response = await Garden.findOne({userID: req.session.userId});
+    const response = await Garden.findOne({userID: req.session.user._id});
     
     if (response) {
         console.log("SUCCESS")
@@ -38,16 +38,18 @@ router.get("/getShopItem/:tab", async (req, res) => {
 })
 
 router.get("/getWallet", async (req, res) => {
-    const user = await User.findOne({userID: req.session.userId});
-    const userWallet = user.currency;
+    console.log("Getting Wallet for: " + req.session.user._id)
 
-    req.session.user.currency = user.currency;
+    const user = await User.findOne({userID: req.session.user._id});
+    console.log("USER \n" + user);
     
-    if (userWallet != null) {
-        console.log("SUCCESS")
+    req.session.user = user;
+    
+    if (user) {
+        console.log("Wallet: SUCCESS")
         res.json(user);
     }   else {
-        console.log("FAIL")
+        console.log("Wallet: FAIL")
         res.status(400);
     }
 })
