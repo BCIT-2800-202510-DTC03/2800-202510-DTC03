@@ -1,7 +1,7 @@
-import {GoogleGenAI} from "@google/genai";
+import { GoogleGenAI } from "https://esm.run/@google/genai";
 
 //replace this with a value from .env
-const ai = new GoogleGenAI({apiKey: "AIzaSyBSz-vEzZ4TJD8Xwt4DQfcdWDUvipqG2xA"});
+const ai = new GoogleGenAI({ apiKey: "AIzaSyBSz-vEzZ4TJD8Xwt4DQfcdWDUvipqG2xA" });
 
 //goal prompts
 const greenerEatingPrompt = "Give me a task I can do to eat in a way that reduces my wastage or is healthier for me. Do not suggest things like reducing portion size or anything related to diets. keep tasks related to things like zero-waste eating, adding more nutrients to meals, or eating less processed food. Do not suggest anything that requires a huge change in lifestyle."
@@ -36,7 +36,7 @@ function getGoal() {
     //get user goal
     const userGoal = "";
     //determine prompt that should be used
-    switch(userGoal){
+    switch (userGoal) {
         // case "greenerEating":
         //     return greenerEatingPrompt;
         case "transportation":
@@ -55,12 +55,13 @@ function getGoal() {
 
 async function callAI() {
     var task = "";
-    if (!previousResponse){
+    if (!previousResponse) {
         task = await ai.models.generateContent({
+
             model: model,
             contents: getGoal() + " " + formatSpecification,
-        });
-    } else{
+        }); console.log("fetching first AI");
+    } else {
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
@@ -71,7 +72,7 @@ async function callAI() {
 }
 
 function createTask(task) {
-//create the task card here
+    console.log(task);
 }
 
 
@@ -79,12 +80,16 @@ async function getTask() {
     const response = await callAI();
     console.log(response.text);
     previousResponse = response;
+    // console.log(previousResponse);
     createTask(response);
 }
 
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
+    if (trigger) {
+        console.log("there is a ai wand button")
+    }
     trigger.addEventListener("click", getTask);
 }
 
