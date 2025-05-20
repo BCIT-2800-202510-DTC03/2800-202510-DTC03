@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Task = require("../models/task");
+const Task = require("../models/Task");
 
 // Gets all the tasks grouped by category
 router.get("/", async (req, res) => {
@@ -8,13 +8,13 @@ router.get("/", async (req, res) => {
         const tasks = await Task.find();
         const grouped = {};
 
-        tasks.forEach(task => {
+        tasks.forEach((task) => {
             if (!grouped[task.category]) {
                 grouped[task.category] = [];
             }
             grouped[task.category].push({
                 text: task.description,
-                sunPoints: task.worth
+                sunPoints: task.worth,
             });
         });
 
