@@ -1,3 +1,16 @@
+let totalWallet = 0;
+
+async function getWallet() {
+    const wallet = document.getElementById("wallet");
+
+    fetch(`http://localhost:3000/garden/getShopItem/${tab}`, {method: "GET"})
+        .then((response) => {
+            totalWallet = response
+            wallet.inner = `Sun Points: ${totalWallet}`;
+        })
+        .catch((error) => console.error("Error fetching user wallet:", error));
+}
+
 async function getItems(tab) {
     const itemList = document.getElementById("shop-grid");
     itemList.innerHTML = "";
@@ -54,6 +67,60 @@ async function getItems(tab) {
         .catch((error) => console.error("Error fetching user garden:", error));
     
 }
+
+// async function openPurchaseScreen() {
+//     const purchaseScreen = document.getElementById("purchase-overlay");
+//     purchaseScreen.style.display = "initial";
+
+//     purchaseScreen.style.animation = "none";
+
+//     purchaseScreen.style.animationName = "togglePurchaseScreen";
+//     purchaseScreen.style.animationDuration = "0.5s";
+//     purchaseScreen.style.animationFillMode = "forwards";
+//     purchaseScreen.style.animationDirection = "normal";
+// }
+
+// async function closePurchaseScreen() {
+//     const purchaseScreen = document.getElementById("purchase-overlay");
+//     purchaseScreen.style.display = "none";
+
+//     purchaseScreen.style.animation = "none";
+
+//     purchaseScreen.style.animationName = "togglePurchaseScreen";
+//     purchaseScreen.style.animationDuration = "0.5s";
+//     purchaseScreen.style.animationFillMode = "forwards";
+//     purchaseScreen.style.animationDirection = "reverse";
+// }
+
+
+function openPurchaseScreen() {
+    console.log("Open");
+
+    const purchaseConfirmation = document.getElementById("purchase-confirmation");
+    purchaseConfirmation.style.display = "flex";
+    
+    const purchaseOverlay = document.getElementById("purchase-overlay");
+    purchaseOverlay.style.animation = "openPurchaseScreen 0.5s normal";
+    purchaseOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
+    purchaseOverlay.style.display = "initial";
+}
+
+function closePurchaseScreen() {
+    console.log("Close");
+
+    const purchaseConfirmation = document.getElementById("purchase-confirmation");
+    purchaseConfirmation.style.display = "none";
+
+    const purchaseOverlay = document.getElementById("purchase-overlay");
+    purchaseOverlay.style.animation = "closePurchaseScreen 0.5s normal";
+    purchaseOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.0)";
+
+    setTimeout(() => {
+        purchaseOverlay.style.display = "none";
+    }, 300)
+}
+
+
 
 function resizeWindow() {
     document.getElementById("shop-inventory").style.height = `${(screen.height) - 300}px`;
