@@ -66,14 +66,26 @@ body {
     background-color: #606C38;
 }
 
-#shop-showcase #purchase-item:hover{
+#shop-showcase #purchase-item:enabled:hover{
     width: 31%;
     font-weight: bold;
 
     background-color: #7d913b;
 }
 
+#shop-showcase #purchase-item:disabled{
+    background-color: #949789;
+}
+
 /* Inventory */
+#wallet {
+    color: white;
+}
+
+#wallet span {
+    font-weight: bold;
+}
+
 #shop-inventory {
     width: 100%;
     height: auto;
@@ -219,6 +231,7 @@ body {
 #purchase-overlay {
     width: 100%;
     height: 100%;
+    z-index: 50;
 
     display: none;
 
@@ -252,6 +265,10 @@ body {
 #purchase-details h1 {
     text-align: center;
     font-size: x-large;
+}
+
+#purchase-details span {
+    font-weight: bold;
 }
 
 #purchase-buttons {

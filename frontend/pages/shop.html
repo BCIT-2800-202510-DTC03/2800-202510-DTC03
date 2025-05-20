@@ -37,7 +37,7 @@
         <div id="shop-showcase">
             <!-- <img id="showcase-item"> -->
             <img id="showcase-item">
-            <button id="purchase-item" onclick="openPurchaseScreen()">Buy</button>
+            <button id="purchase-item" onclick="openPurchaseScreen()" disabled>Buy</button>
         </div>
         <div id="shop-inventory">
             <div id="shop-tabs">
@@ -48,7 +48,7 @@
                 <button class="shop-tab" id="tab-building" onclick="getItems('building')">Building</button>
             </div>
             <p id="wallet">
-                Sun Points: 0
+                Sun Points: <span>0</span>
             </p>
             <div id="shop-grid"></div>
         </div>
