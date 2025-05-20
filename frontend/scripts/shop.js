@@ -3,9 +3,10 @@ let totalWallet = 0;
 async function getWallet() {
     const wallet = document.getElementById("wallet");
 
-    fetch(`http://localhost:3000/garden/getShopItem/${tab}`, {method: "GET"})
-        .then((response) => {
-            totalWallet = response
+    fetch(`http://localhost:3000/garden/getWallet`, {method: "GET", credentials: "include"})
+        .then((response) => response.json())    
+        .then((data) => {
+            totalWallet = data.currency;
             wallet.inner = `Sun Points: ${totalWallet}`;
         })
         .catch((error) => console.error("Error fetching user wallet:", error));
@@ -67,31 +68,6 @@ async function getItems(tab) {
         .catch((error) => console.error("Error fetching user garden:", error));
     
 }
-
-// async function openPurchaseScreen() {
-//     const purchaseScreen = document.getElementById("purchase-overlay");
-//     purchaseScreen.style.display = "initial";
-
-//     purchaseScreen.style.animation = "none";
-
-//     purchaseScreen.style.animationName = "togglePurchaseScreen";
-//     purchaseScreen.style.animationDuration = "0.5s";
-//     purchaseScreen.style.animationFillMode = "forwards";
-//     purchaseScreen.style.animationDirection = "normal";
-// }
-
-// async function closePurchaseScreen() {
-//     const purchaseScreen = document.getElementById("purchase-overlay");
-//     purchaseScreen.style.display = "none";
-
-//     purchaseScreen.style.animation = "none";
-
-//     purchaseScreen.style.animationName = "togglePurchaseScreen";
-//     purchaseScreen.style.animationDuration = "0.5s";
-//     purchaseScreen.style.animationFillMode = "forwards";
-//     purchaseScreen.style.animationDirection = "reverse";
-// }
-
 
 function openPurchaseScreen() {
     console.log("Open");
