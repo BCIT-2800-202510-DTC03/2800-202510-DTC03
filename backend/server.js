@@ -68,6 +68,10 @@ app.get("/", (req, res) => res.redirect("/login"));
 const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);
 
+
+const apiRouter = require("./API");
+app.use("/API", apiRouter);
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
