@@ -1,7 +1,12 @@
 let longitude = 0;
 let latitude = 0;
 let weather = "";
-const API_key = "58b3a513722542c30fc78c2f02a5c896"
+
+const backendURLTest = "http://localhost:3000";
+const APIResponse = await axios.get(backendURLTest + "/API/weatherAPI", {
+            withCredentials: true,
+        });
+const API_key = APIResponse.data.apiKey;
 
 let css_file = "";
 let js_file = "";
@@ -21,7 +26,6 @@ function getWeather() {
     return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`)
     .then((response) => response.json())
     .then(data => {
-        console.log(data);
         return data.weather[0].main;
     });
 }
@@ -52,8 +56,8 @@ function AssignAnimation() {
     switch(weather) {
         case "Rain":
             // credits: https://codepen.io/arickle/pen/XKjMZY
-            css_file = "/weather/rain.css";
-            js_file = "/weather/rain.js";
+            css_file = "../weather/rain.css";
+            js_file = "../weather/rain.js";
             html_layout = `
         <body class="back-row-toggle splat-toggle">
         <div class="rain front-row"></div>
@@ -62,7 +66,7 @@ function AssignAnimation() {
         break;
         case "Snow":
             // credits: https://pajasevi.github.io/CSSnowflakes/
-            css_file = "/weather/snow.css";
+            css_file = "../weather/snow.css";
             html_layout = `
             <div class="snowflakes" aria-hidden="true">
   <div class="snowflake">
@@ -138,6 +142,3 @@ async function main() {
     }
 }
 main();
-
-//weather API key
-//58b3a513722542c30fc78c2f02a5c896
