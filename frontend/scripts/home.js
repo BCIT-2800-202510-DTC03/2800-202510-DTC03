@@ -69,15 +69,15 @@ function addTaskToHome(taskText, sunPoints, category) {
     const taskElement = template.content.cloneNode(true);
 
     const taskDiv = taskElement.querySelector("#task");
+    taskDiv.dataset.category = category;
     taskDiv.classList.add("task");
-    taskDiv.setAttribute("data-category", category);
     taskDiv.querySelector("#task-text").textContent = taskText;
     taskDiv.querySelector("#sun-value").textContent = sunPoints;
 
+    allTasks.push({ text: taskText, sunPoints, category });
+
     document.getElementById("task-items").appendChild(taskElement);
 }
-
-
 
 // Filter tasks on homepage based on category select
 filterGoals.addEventListener("change", () => {
@@ -99,7 +99,7 @@ filterGoals.addEventListener("change", () => {
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
-    if (event.target.id === "checkmark") {
+    if (event.target.classList.contains("checkmark")) {
         const task = event.target.closest(".task");
         task.classList.add("completed");
 
