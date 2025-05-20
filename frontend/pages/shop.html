@@ -19,37 +19,38 @@
 
     <!-- Main Content -->
     <div id="main-content">
-        <div id="shop-content">
-            <div id="shop-showcase">
-                <img id="showcase-item" src="../assets/garden/shelf-white.png">
-            </div>
-            <div id="shop-inventory">
-                <div id="shop-tabs">
-                    <button class="shop-tab" onclick="getItems('fence')">Fence</button>
-                    <button class="shop-tab" onclick="getItems('shelf')">Shelf</button>
-                    <button class="shop-tab" onclick="getItems('plant')">Plant</button>
-                    <button class="shop-tab" onclick="getItems('object')">Object</button>
-                    <button class="shop-tab" onclick="getItems('building')">Building</button>
+        <div id="purchase-overlay">
+            <div id="purchase-confirmation">
+                <div id="purchase-details">
+                    <h1>Confirm Purchase</h1>
+                    <p id="purchase-name">Item Name:</p>
+                    <p id="purchase-cost">Cost:</p>
                 </div>
-                <div id="wallet">
-                    Sun Points: 1000
-                </div>
-                <div id="shop-grid">
-                    <div class="shop-cards">
-                        <p>Cost</p>
-                        <img src="../assets/garden/fence-black.png">
-                        <hr />
-                        <p>Name</p>
-                    </div>
-                    <div class="shop-cards">2</div>
-                    <div class="shop-cards">3</div>
-                    <div class="shop-cards">4</div>
-                    <div class="shop-cards">5</div>
-                    <div class="shop-cards">6</div>
-                    <div class="shop-cards">7</div>
-                    <div class="shop-cards">8</div>
+                <br />
+                <div id="purchase-buttons">
+                    <button id="purchase-confirm">Yes</button>
+                    <button id="purchase-cancel">Cancel</button>
                 </div>
             </div>
+        </div>
+
+        <div id="shop-showcase">
+            <!-- <img id="showcase-item"> -->
+            <img id="showcase-item" src="../assets/garden/shelf-white.png">
+            <button id="purchase-item">Buy</button>
+        </div>
+        <div id="shop-inventory">
+            <div id="shop-tabs">
+                <button class="shop-tab" id="tab-fence" onclick="getItems('fence')">Fence</button>
+                <button class="shop-tab" id="tab-shelf" onclick="getItems('shelf')">Shelf</button>
+                <button class="shop-tab" id="tab-plant" onclick="getItems('plant')">Plant</button>
+                <button class="shop-tab" id="tab-object" onclick="getItems('object')">Object</button>
+                <button class="shop-tab" id="tab-building" onclick="getItems('building')">Building</button>
+            </div>
+            <p id="wallet">
+                Sun Points: 0
+            </p>
+            <div id="shop-grid"></div>
         </div>
     </div>
 </body>
@@ -57,5 +58,6 @@
 <!-- JavaScript -->
 <script src="../scripts/skeleton.js"></script>
 <script src="../scripts/navbar.js"></script>
+<script src="../scripts/shop.js"></script>
 
 </html>
