@@ -141,7 +141,6 @@ router.get("/test", (req, res) => {
 router.get("/UserInfo", async (req, res) => {
     try{
         const id = req.session.userId;
-        // const id = "681c3160d5c4e9bd78788441";
 
         if(!id) {
             return res.status(401).json({
@@ -172,9 +171,6 @@ router.post("/updateInfo", async (req, res) => {
         const {aboutMe, pfp, goal} = req.body;
         const id = req.session.userId;
 
-        console.log(id); //printing as undefined for some reason
-        //testing Id
-        // const id = "681c3160d5c4e9bd78788441";
         if(!id){
             return res.status(401).json({
                 error_message: "No active user session."
