@@ -46,7 +46,7 @@ body {
 
     margin: 25px;
 
-    /* display: none; */
+    visibility: hidden; 
     
     object-fit: contain;
     object-position: center;
@@ -202,8 +202,16 @@ body {
 
 .item-cost {
     position: absolute;
+}
 
+.item-buyable {
     color: white;
+}
+
+.item-expensive {
+    color: rgb(200, 200, 200);
+
+    text-decoration: line-through;
 }
 
 
