@@ -121,6 +121,8 @@ router.post("/register", async (req, res) => {
             req.session.userId = newUser._id.toString();
         }
 
+        req.session.touch();
+
         res.status(200).json({
             message: `Welcome ${newUser.username}`,
             email: newUser.email,
@@ -135,6 +137,9 @@ router.post("/register", async (req, res) => {
 });
 // route for testing
 router.get("/test", (req, res) => {
+    if (req.session.userId) {
+        return res.status(200).json({ session: req.session });
+    }
     res.send("Router working");
 });
 
