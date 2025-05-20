@@ -4,8 +4,10 @@ async function getWallet() {
     const wallet = document.getElementById("wallet");
 
     fetch(`http://localhost:3000/garden/getWallet`, {method: "GET", credentials: "include"})
-        .then((response) => response.json())    
+        .then((response) => response.json())
         .then((data) => {
+            console.log(data)
+            console.log("WALLET: " + data.currency)
             totalWallet = data.currency;
             wallet.inner = `Sun Points: ${totalWallet}`;
         })
@@ -39,6 +41,11 @@ async function getItems(tab) {
 
                 const cost = document.createElement("p");
                 cost.classList.add("item-cost");
+                if (totalWallet < item.cost) {
+                    cost.classList.add("item-expensive");
+                } else {
+                    cost.classList.add("item-buyable");
+                };
                 cost.innerText = item.cost;
 
                 const picture = document.createElement("img");
@@ -54,13 +61,15 @@ async function getItems(tab) {
                 card.appendChild(top);
                 card.appendChild(name);
 
-                card.addEventListener("click", () => {
-                    console.log("Click");
+                if (totalWallet >= item.cost) {
+                    card.addEventListener("click", () => {
+                        console.log("Click");
 
-                    const showcase = document.getElementById("showcase-item");
-                    showcase.style.display = "initial";
-                    showcase.src = `../assets/garden/${tab}-${item.typeName}.png`;
-                });
+                        const showcase = document.getElementById("showcase-item");
+                        showcase.style.visibility = "initial";
+                        showcase.src = `../assets/garden/${tab}-${item.typeName}.png`;
+                    });
+                };
 
                 itemList.appendChild(card);
             });
@@ -103,6 +112,7 @@ function resizeWindow() {
 }
 
 function setup() {
+    // getWallet();
     getItems("fence");
     resizeWindow();
     window.onresize = resizeWindow;
