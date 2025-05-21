@@ -152,7 +152,7 @@ addBtn.addEventListener("click", () => {
             categoryDiv.marginBottom = "15px";
 
             const title = document.createElement("h3");
-            title.textContent = category;
+            title.textContent = formatCategory(category);
             categoryDiv.appendChild(title);
 
             tasks.forEach(task => {
@@ -160,8 +160,10 @@ addBtn.addEventListener("click", () => {
 
                 const taskContainer = document.createElement("div");
                 taskContainer.style.display = "flex";
+                taskContainer.style.justifyContent = "space-between";
                 taskContainer.style.alignItems = "center";
                 taskContainer.style.marginBottom = "8px";
+                taskContainer.style.gap = "10px;"
 
                 const addButton = document.createElement("button");
                 addButton.textContent = `+ Add "${task.description}"`;
