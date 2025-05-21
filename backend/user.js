@@ -265,7 +265,7 @@ router.get("/getFriends", async (req, res) => {
 
 router.get("/getInfo", async (req, res) => {
     try{
-        const id = req.query.id;
+        const id = req.query.friendId;
         
         if (!id){
             return res.status(401).json({
@@ -286,6 +286,7 @@ router.get("/getInfo", async (req, res) => {
             pfp: user.profilePicture,
             goal: user.goal,
             about: user.aboutMe,
+            id: user._id,
         })
     } catch (error) {
         console.error("Failed to fetch user: ", error);
@@ -298,8 +299,8 @@ router.get("/getInfo", async (req, res) => {
 
 router.post("/addFriend", async (req, res) => {
     try{
-        const id = req.session.userId;
-        const friendId = req.body;
+        const id = "681d758b7ca8a10aecec3284";
+        const { friendId } = req.body;
 
         if (!id){
             return res.status(401).json({

@@ -47,6 +47,8 @@
 #friend-body{
     overflow-y: auto;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .friend{
@@ -55,6 +57,7 @@
     justify-content: center;
     width: 100%;
     cursor:pointer;
+    padding-top: 1vh;
 }
 
 .friend-main{
@@ -63,10 +66,11 @@
 }
 
 .friend-pfp{
-    max-width: 70px;
-    max-height: 70px;
+    width: 70px;
+    height: 70px;
     border-radius: 100%;
     object-fit: cover;
+    background-color: #606c38;
 }
 
 .friend-name{
@@ -86,12 +90,16 @@
 /* Search friends */
 
 #search-friend-wrap{
+    position: absolute;
+    top:30%;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height:30vh;
     min-width:30vh;
     border: solid 0.1vh grey;
+    background-color: #fff;
+    box-shadow:0 0 0 100vh rgba(58, 58, 58, 0.411);
     border-radius: 10px;
 }
 

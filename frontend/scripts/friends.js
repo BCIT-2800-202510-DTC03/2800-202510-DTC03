@@ -1,4 +1,5 @@
 
+
 function setUpAddListener() {
     const wrapper = document.getElementById("friend-wrapper");
     const addbtn = document.getElementById("add")
@@ -54,7 +55,7 @@ function setUpAddListener() {
 function setUpInputListener() {
     const searchbar = document.getElementById("search");
     searchbar.addEventListener("change", async () => {
-        if(await checkForFriend(searchbar.value));
+        if (await checkForFriend(searchbar.value));
     })
 }
 
@@ -62,15 +63,27 @@ const backendURLTest = "http://localhost:3000";
 
 var addActive = false;
 
-function addFriend() {
+async function addFriend() {
     if (!addActive) {
         return;
     }
+    const toolTip = document.getElementById("errorMsg");
+    const friendId = document.getElementById("search").value;
 
-    try{
+    try {
         const response = await axios.post(backendURLTest + "/user/addFriend", {
-
-        })
+            friendId
+        },
+            {
+                withCredentials: true,
+            })
+        if (response.status === 200) {
+            getFriends();
+            wrapper.removeChild(document.getElementById("search-friend-wrap"));
+        }
+    } catch (error) {
+        toolTip.style.display = "block";
+        toolTip.innerText = error.response.data.error_message;
     }
 
 }
@@ -80,6 +93,7 @@ async function getFriends() {
         const response = await axios.get(backendURLTest + "/user/getFriends", { withCredentials: true, })
         const friendsList = response.data.friends;
         const wrapper = document.getElementById("friend-body");
+        wrapper.innerHTML = "";
         friendsList.forEach(async (friend) => {
             const div = document.createElement("div");
             div.className = "friend";
@@ -87,13 +101,12 @@ async function getFriends() {
             wrapper.appendChild(div);
         });
     } catch (error) {
-        // handle error
     }
 }
 
 
 async function getInfo(friendId) {
-    try{
+    try {
         const response = await axios.get(backendURLTest + "/user/getInfo", {
             params: { friendId },
             withCredentials: true,
@@ -101,12 +114,12 @@ async function getInfo(friendId) {
         const friend = response.data;
         if (response.status === 200) {
             return `<div class="friend-main">
-                    <img class="friend-pfp" src="${friend.pfp}">
+                    <img class="friend-pfp" src="${friend.pfp || "../assets/profile/material_design_account_circle.svg"}">
                     <h2 class="friend-name">${friend.name}</h2>
                 </div>
                 <hr class="divider">`
         }
-    } catch(error) {
+    } catch (error) {
         // handle error
     }
 }
@@ -114,7 +127,6 @@ async function getInfo(friendId) {
 async function checkForFriend(id) {
     const toolTip = document.getElementById("errorMsg");
     try {
-
         const response = await axios.get(backendURLTest + "/user/checkForUser", {
             params: { id },
             withCredentials: true,
