@@ -124,22 +124,32 @@ let userTasks = []; // tasks shown on home page
 console.log("home.js loaded");
 
 // Open overlay and load premade tasks if not loaded
-
 addBtn.addEventListener("click", () => {
     overlay.style.display = "flex";
     console.log("button is clicked")
 
     if (!isLoaded) {
-        
         const groupedByCategory = premadeTask.reduce((acc, task) => {
             if (!acc[task.category]) acc[task.category] = [];
             acc[task.category].push(task);
             return acc;
         }, {});
 
+        const formatCategory = (category) => {
+            switch(category) {
+                case "greenerEating": return "Greener Eating";
+                case "transportation": return "Transportation";
+                case "wasteReduction": return "Waste Reduction";
+                case "resourceConservation": return "Resource Conservation";
+                case "consciousConsumption": return "Conscious Consumption";
+                default: return category.charAt(0).toUpperCase() + category.slice(1);
+            }
+        };
+
         for (const [category, tasks] of Object.entries(groupedByCategory)) {
             const categoryDiv = document.createElement("div");
             categoryDiv.classList.add("goal");
+            categoryDiv.marginBottom = "15px";
 
             const title = document.createElement("h3");
             title.textContent = category;
