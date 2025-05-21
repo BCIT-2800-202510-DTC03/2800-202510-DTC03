@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
+
 const backendURLTest = "http://localhost:3000";
 
 const apiKeyResponse = await axios.get(backendURLTest + "/API/AIAPI", {
@@ -40,9 +41,24 @@ const formatSpecification = " Do not include any pleasantries and only provide t
 const model = "gemini-2.0-flash";
 var previousResponse = "";
 
-function getGoal() {
+
+async function readUserGoal() {
+    let userInfo;
+    try {
+        userInfo = await axios.get(backendURLTest + "/user/UserInfo", {
+            withCredentials: true,
+        });
+        console.log("userinfo", userInfo.data.goal);
+    } catch (error) {
+        console.error("cannot read user's goal", error);
+    }
+    if (userInfo) {
+        return userInfo.data.goal;
+    }
+}
+
+async function getGoal(userGoal) {
     //get user goal
-    const userGoal = "";
     //determine prompt that should be used
     switch (userGoal) {
         // case "greenerEating":
@@ -67,13 +83,13 @@ async function callAI() {
         task = await ai.models.generateContent({
 
             model: model,
-            contents: getGoal() + " " + formatSpecification,
+            contents: await getGoal() + " " + formatSpecification,
         }); console.log("fetching first AI");
     } else {
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
-            contents: getGoal() + " " + formatSpecification + " " + priorResponse,
+            contents: await getGoal() + " " + formatSpecification + " " + priorResponse,
         })
     }
     return task;
@@ -84,17 +100,20 @@ function createTask(task) {
     const aiTask = document.getElementById("AI-task-desc")
     aiTask.innerHTML = `Your new task is:<br>${task}`;
     // get another new task
-
-
 }
 
 
 async function getTask() {
-    const response = await callAI();
-    console.log(response.text);
-    previousResponse = response;
-    createTask(response.text);
+    try {
+        const response = await callAI();
+        console.log(response.text);
+        previousResponse = response;
+        createTask(response.text);
+    } catch (err) {
+        console.error("Error in getTask:", err);
+    }
 }
+
 
 async function saveTask() {
     // here we need to save the task to mongodb
@@ -108,6 +127,7 @@ function main() {
     document.getElementById("AI-reroll").addEventListener("click", getTask)
     // bind taskAccept to accept button
     document.getElementById("AI-accept").addEventListener("click", saveTask)
-}
 
+}
+const userGoal = await readUserGoal()
 main();
