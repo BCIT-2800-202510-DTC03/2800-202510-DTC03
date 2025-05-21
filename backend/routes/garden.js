@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 // import DB models
-const User = require("./models/User");
-const Garden = require("./models/Garden");
-const Decoration = require("./models/Decoration");
-const Inventory = require("./models/Inventory");
+const User = require("../models/User");
+const Garden = require("../models/Garden");
+const Decoration = require("../models/Decoration");
+const Inventory = require("../models/Inventory");
 
 router.get("/getGarden", async (req, res) => {
     console.log("CHECK FOR SESSIONS");

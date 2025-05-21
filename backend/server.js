@@ -63,7 +63,7 @@ app.use("/user", userRouter);
 app.get("/", (req, res) => res.redirect("/login"));
 
 
-const gardenRouter = require("./garden");
+const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);
 
 
