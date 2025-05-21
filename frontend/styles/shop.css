@@ -212,6 +212,10 @@ body {
     background-color: rgb(245, 230, 220);
 }
 
+.item-purchased {
+    color: rgb(197, 83, 65);
+}
+
 .item-cost {
     position: absolute;
 }

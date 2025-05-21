@@ -1,29 +1,26 @@
 const mongoose = require("mongoose");
-const Decoration = require("./Decoration");
 
 const inventorySchema = new mongoose.Schema({
     userId: String,
-    inventory: {
-        fence: {
-            type: [Decoration],
-            default: []
-        },
-        building: {
-            type: [Decoration],
-            default: []
-        },
-        shelf: {
-            type: [Decoration],
-            default: []
-        },
-        object: {
-            type: [Decoration],
-            default: []
-        },
-        plant: {
-            type: [Decoration],
-            default: []
-        }
+    fence: {
+        type: [Map],
+        default: []
+    },
+    building: {
+        type: [Map],
+        default: []
+    },
+    shelf: {
+        type: [Map],
+        default: []
+    },
+    object: {
+        type: [Map],
+        default: []
+    },
+    plant: {
+        type: [Map],
+        default: []
     }
 });
 

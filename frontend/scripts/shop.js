@@ -1,5 +1,6 @@
 let totalWallet = 0;
 let currentTab = "fence";
+let userInventory;
 
 async function getWallet() {
     const wallet = document.getElementById("wallet");
@@ -12,6 +13,16 @@ async function getWallet() {
             wallet.innerHTML = `Sun Points: <span>${totalWallet}</span>`;
         })
         .catch((error) => console.error("Error fetching user wallet:", error));
+}
+
+async function geInventory() {
+    fetch("http://localhost:3000/garden/geInventory", {method: "GET"})
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            userInventory = data;
+        })
+        .catch((error) => console.error("Error fetching user inventory:", error));
 }
 
 async function getItems(tab) {
@@ -36,6 +47,31 @@ async function getItems(tab) {
             console.log("FETCH FROM DATABASE");
             console.log(data);
             data.forEach(item => {
+                let alreadyPurchased;
+
+                switch (tab) {
+                    case "fence": {
+                        alreadyPurchased = userInventory.fence.includes(item);
+                        break;
+                    }
+                    case "building": {
+                        alreadyPurchased = userInventory.building.includes(item);
+                        break;
+                    }
+                    case "shelf": {
+                        alreadyPurchased = userInventory.shelf.includes(item);
+                        break;
+                    }
+                    case "object": {
+                        alreadyPurchased = userInventory.object.includes(item);
+                        break;
+                    }
+                    case "plant": {
+                        alreadyPurchased = userInventory.plant.includes(item);
+                        break;
+                    }
+                }
+
                 const card = document.createElement("div");
                 card.classList.add("shop-cards");
 
@@ -58,7 +94,13 @@ async function getItems(tab) {
 
                 const name = document.createElement("p");
                 name.classList.add("item-name");
-                name.innerText = item.displayName;
+
+                if (alreadyPurchased) {
+                    name.innerTest = "PURCHASED";
+                    name.classList.add("item-purchased");
+                } else {
+                    name.innerText = item.displayName;
+                }
                 
                 card.appendChild(top);
                 card.appendChild(name);

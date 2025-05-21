@@ -16,6 +16,7 @@ router.get("/getGarden", async (req, res) => {
     
     if (response) {
         console.log("SUCCESS")
+        console.log(response.userId)
         const garden = response.garden;
 
         res.json(garden);
@@ -51,6 +52,21 @@ router.get("/getWallet", async (req, res) => {
         res.json(user.currency);
     }   else {
         console.log("Wallet: FAIL")
+        res.status(400).send("FAIL");
+    }
+})
+
+router.get("/getInventory", async (req, res) => {
+    console.log("Getting Inventory for: ")
+    console.log(req.session.userId)
+
+    const inventory = await Inventory.findOne({userId: req.session.user._id});
+    
+    if (inventory) {
+        console.log("Inventory: SUCCESS")
+        res.json(inventory);
+    }   else {
+        console.log("Inventory: FAIL")
         res.status(400).send("FAIL");
     }
 })
