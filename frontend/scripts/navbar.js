@@ -1,3 +1,5 @@
+import { backendURL } from "./config.js";
+
 console.log("Start");
 
 function openSidebar() {
