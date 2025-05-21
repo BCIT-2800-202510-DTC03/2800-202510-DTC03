@@ -60,12 +60,14 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
     
     const user = await User.findOne({_id: req.session.user._id});
     const item = await Decoration.findOne({position: req.params.position, typeName: req.params.type});
+    const inventory = await Inventory.findOne({userId: req.session.userId});
 
     console.log("BUYING 2");
     console.log(user);
     console.log(item);
+    console.log(inventory);
 
-    if (user && item) {
+    if (user && item && inventory) {
         console.log("BUYING 2.5");
         let totalCurrency = user.currency - item.cost;
     
@@ -79,33 +81,44 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
         )
         console.log("BUYING 3");
 
-        const inInventory = await Inventory.findOne({userId: user._id.toString(), position: item.position, typeName: item.typeName})
-
-        if (inInventory) {
-            console.log("EXISTS");
-
-            currentQuantity = inInventory.quantity + 1;
-            console.log("CURRENT QUANTITY")
-            console.log(currentQuantity)
-
-            await Inventory.updateOne(
-                {userId: user._id.toString(), position: item.position, typeName: item.typeName}, 
-                {$set: 
-                    {
-                        quantity: currentQuantity
-                    }
-                }
-            )
-        } else if (inInventory == null) {
-            const newInventory = await new Inventory({
-                userId: user._id.toString(),
-                displayName: item.displayName,
-                typeName: item.typeName,
-                position: item.position
-            });
-
-            await newInventory.save();
+        switch (req.params.position) {
+            case "fence": {
+                await Inventory.updateOne(
+                    {userId: req.session.userId},
+                    { $push: { fence: item } }
+                )
+                break;
+            }
+            case "building": {
+                await Inventory.updateOne(
+                    {userId: req.session.userId},
+                    { $push: { building: item } }
+                )
+                break;
+            }
+            case "shelf": {
+                await Inventory.updateOne(
+                    {userId: req.session.userId},
+                    { $push: { shelf: item } }
+                )
+                break;
+            }
+            case "object": {
+                await Inventory.updateOne(
+                    {userId: req.session.userId},
+                    { $push: { object: item } }
+                )
+                break;
+            }
+            case "plant":{
+                await Inventory.updateOne(
+                    {userId: req.session.userId},
+                    { $push: { plant: item } }
+                )
+                break;
+            }
         }
+
         console.log("BUYING 4");
         
         res.status(200).send("SUCCESS");
