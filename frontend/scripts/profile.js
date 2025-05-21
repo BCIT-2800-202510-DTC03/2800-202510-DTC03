@@ -1,6 +1,3 @@
-// This swaps URLs depending on if we are deploying backend on render or localhost. This way we do not need to manually change all the URLs
-import { backendURL } from "./config.js";
-
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
@@ -41,9 +38,6 @@ var gardenplnt5;
 var gardenplnt6;
 var gardenRight;
 var gardenLeft;
-
-// Need to update with config.js later
-const backendURLTest = "http://localhost:3000";
 
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
