@@ -1,7 +1,7 @@
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
-const buttons = document.querySelectorAll('.pfp-image-radio');
+const buttons = document.querySelectorAll(".pfp-image-radio");
 const pfp = document.getElementById("profile-picture");
 const aboutMe = document.getElementById("about-me-txt");
 const goalSelect = document.getElementById("goals");
@@ -24,7 +24,6 @@ var aboutContent;
 var pfpPreference;
 var userGoal;
 
-
 //garden variables
 var gardenBG;
 var gardenGRND;
@@ -40,7 +39,6 @@ var gardenplnt6;
 var gardenRight;
 var gardenLeft;
 
-
 const backendURLTest = "http://localhost:3000";
 
 function profilePictureSetup() {
@@ -48,16 +46,37 @@ function profilePictureSetup() {
         //prevents triggering other event listener immediately
         event.stopPropagation();
         pfpOptions.style.display = "flex";
-    })
+    });
 
     document.addEventListener("click", (closeEvent) => {
         const clickedOptions = pfpOptions.contains(closeEvent.target);
         if (!clickedOptions) {
             pfpOptions.style.display = "none";
         }
-    })
+    });
 }
 
+async function loadUserGoal() {
+    try {
+        const response = await axios.get(backendURL + "/user/UserInfo", {
+            withCredentials: true,
+        });
+
+        const userData = response.data;
+
+        if (userData.error) {
+            alert(userData.error);
+            return;
+        }
+
+        const currentGoal = document.getElementById("current-goal");
+        currentGoal.value = userData.goal;
+        currentGoal.value.readOnly = true;
+    } catch (error) {
+        console.error("Failed to load user goal", error);
+        alert("Current goal could not be loaded.");
+    }
+}
 
 async function updateUserPreference() {
     //send information to DB
@@ -67,27 +86,28 @@ async function updateUserPreference() {
         pfpPreference = pfp.src;
         userGoal = goalSelect.value;
 
-        const response = await axios.post(backendURLTest + "/user/updateInfo",
+        const response = await axios.post(
+            backendURLTest + "/user/updateInfo",
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
                 goal: userGoal,
             },
             {
-            withCredentials: true,
-        })
+                withCredentials: true,
+            }
+        );
     } catch (error) {
-        console.error("Error updating user information", error)
+        console.error("Error updating user information", error);
     }
 }
-
 
 async function loadUserPreferences() {
     //get information from DB
     try {
         const response = await axios.get(backendURLTest + "/user/UserInfo", {
             withCredentials: true,
-        })
+        });
 
         const data = response.data;
         //get all needed information
@@ -112,11 +132,10 @@ async function loadUserPreferences() {
         //replace with on screen message
         console.error("Error getting user information", error);
     }
-
 }
 
 function radioButtonSetup() {
-    buttons.forEach(btn => {
+    buttons.forEach((btn) => {
         //event listener for profile picture options
         btn.addEventListener("change", () => {
             if (btn.checked) {
@@ -124,8 +143,8 @@ function radioButtonSetup() {
                 pfpOptions.style.display = "none";
                 updateUserPreference();
             }
-        })
-    })
+        });
+    });
 }
 
 function aboutMetSetup() {
@@ -133,12 +152,12 @@ function aboutMetSetup() {
         //update as the user types
         aboutContent = aboutMe.value;
         // console.log(aboutContent);
-    })
+    });
     aboutMe.addEventListener("change", () => {
         //when user finished typing/clicks off of input: update user info
         updateUserPreference();
         // console.log(aboutContent);
-    })
+    });
 }
 
 function goalSetup() {
@@ -146,7 +165,7 @@ function goalSetup() {
         userGoal = goalSelect.value;
         updateUserPreference();
         // console.log(userGoal);
-    })
+    });
 }
 
 function gardenSetup() {
@@ -158,11 +177,11 @@ function main() {
     profilePictureSetup();
     radioButtonSetup();
     aboutMetSetup();
+    loadUserGoal();
     goalSetup();
     gardenSetup();
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
     main();
-})
+});
