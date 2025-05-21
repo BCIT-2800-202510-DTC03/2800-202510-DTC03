@@ -50,3 +50,7 @@ async function loadProfilePicture() {
         console.error("Couldn't load profile picture: ", error);
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadProfilePicture();
+});
