@@ -156,7 +156,7 @@ addBtn.addEventListener("click", () => {
             categoryDiv.appendChild(title);
 
             tasks.forEach(task => {
-                allTasks.push({ ...task, sunPoints: 5 }); // default points if not specified
+                allTasks.push({ ...task, sunPoints: 5 });
 
                 const taskContainer = document.createElement("div");
                 taskContainer.style.display = "flex";
@@ -165,21 +165,24 @@ addBtn.addEventListener("click", () => {
                 taskContainer.style.marginBottom = "8px";
                 taskContainer.style.gap = "10px;"
 
+
+                const taskDesc =  document.createElement("span");
+                taskDesc.textContent = `${task.description} 5☀`;
+                taskDesc.style.flex = "1";
+                taskDesc.style.width = "90%"
+
                 const addButton = document.createElement("button");
-                addButton.textContent = `+ Add "${task.description}"`;
+                addButton.textContent = `+`;
                 addButton.classList.add("add-goal-task");
-                addButton.style.marginRight = "8px";
+                addButton.style.width = "10%"
 
                 addButton.addEventListener("click", async () => {
-                    await addTaskToUser(task.description, 5, task.category); // Save to DB
-                    addTaskToHome(task.description, 5, task.category); // Show in UI
+                    await addTaskToUser(task.description, task.category);
+                    addTaskToHome(task.description, task.category);
                 });
 
-                const taskText = document.createElement("span");
-                taskText.textContent = `${task.description} (5☀)`;
-
+                taskContainer.appendChild(taskDesc);
                 taskContainer.appendChild(addButton);
-                taskContainer.appendChild(taskText);
                 categoryDiv.appendChild(taskContainer);
             });
 
