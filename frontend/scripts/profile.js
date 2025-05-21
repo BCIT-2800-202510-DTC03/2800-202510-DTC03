@@ -126,9 +126,9 @@ async function loadUserPreferences() {
                 "/frontend/assets/profile/material_design_account_circle.svg";
         }
 
-        if (userGoal) {
-            goalSelect.value = userGoal;
-        }
+        // if (userGoal) {
+        //     goalSelect.value = userGoal;
+        // }
     } catch (error) {
         //replace with on screen message
         console.error("Error getting user information", error);
@@ -170,9 +170,13 @@ function aboutMetSetup() {
 
 function goalSetup() {
     goalSelect.addEventListener("change", () => {
-        userGoal = goalSelect.value;
+        const selectedGoal = goalSelect.value;
+        if (!selectedGoal) {
+            return;
+        }
+        userGoal = selectedGoal;
         updateUserPreference();
-        // console.log(userGoal);
+        console.log(userGoal);
     });
 }
 
