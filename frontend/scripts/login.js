@@ -40,14 +40,12 @@ function handleLogin() {
     loginForm.addEventListener("submit", loginSubmit);
 }
 
-const backendURLTest = "http://localhost:3000"; // waiting to be updated
-
 function handleLogout() {
     const logoutButton = document.getElementById("logoutButton");
     logoutButton.addEventListener("click", async () => {
         try {
             const response = await axios.post(
-                backendURLTest + "/user/logout",
+                backendURL + "/user/logout",
                 {},
                 { withCredentials: true }
             );
@@ -57,7 +55,7 @@ function handleLogout() {
             alert("Could not log out. Please try again.");
         }
     });
-} // Make logout only appear for logged in people later
+}
 
 function handleRegister() {
     signupForm = document.getElementById("signup_form");
@@ -79,7 +77,7 @@ async function loginSubmit(event) {
 
     try {
         const response = await axios.post(
-            backendURLTest + "/user/login",
+            backendURL + "/user/login",
             userData,
             { withCredentials: true }
         );
@@ -122,10 +120,9 @@ async function signUpSubmit(event) {
             email: emailAddress,
             password: password,
         };
-        const backendURLTest = "http://localhost:3000"; // https://bloomgreener.onrender.com waiting to be updated
         try {
             const response = await axios.post(
-                backendURLTest + "/user/register",
+                backendURL + "/user/register",
                 userData,
                 { withCredentials: true }
             );
@@ -148,7 +145,7 @@ async function signUpSubmit(event) {
 // Toggle login and logout buttons
 async function checkLoginStatus() {
     try {
-        const response = await axios.get(backendURLTest + "/user/status", {
+        const response = await axios.get(backendURL + "/user/status", {
             withCredentials: true,
         });
         const logoutButton = document.getElementById("logoutButton");
