@@ -2,6 +2,21 @@
 * {
     font-family: "Poppins", sans-serif;
 }
+#settings-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.field {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.input {
+    text-indent: 15px;
+}
+
 .heading {
     margin-top: 10vh;
     font-size: 1.75rem;
@@ -19,4 +34,6 @@
     background-color: #606c38;
     color: #fff;
     font-weight: 600;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
