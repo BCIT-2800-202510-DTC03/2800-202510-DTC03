@@ -3,7 +3,7 @@ import {insertGarden} from "./garden.js"
 async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    fetch("http://localhost:3000/garden/getGarden", {method: "GET"})
+    fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
