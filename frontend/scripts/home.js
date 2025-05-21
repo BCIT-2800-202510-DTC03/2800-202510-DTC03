@@ -1,4 +1,4 @@
-import { insertGarden } from "./garden.js"
+import { insertGarden } from "./garden.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
@@ -115,7 +115,7 @@ const premadeTask = [
         category: "consciousConsumption",
         description: "Borrow something instead of buying it.",
     },
-]
+];
 
 let isLoaded = false;
 let allTasks = []; // for filtering
@@ -127,10 +127,9 @@ console.log("home.js loaded");
 
 addBtn.addEventListener("click", () => {
     overlay.style.display = "flex";
-    console.log("button is clicked")
+    console.log("button is clicked");
 
     if (!isLoaded) {
-        
         const groupedByCategory = premadeTask.reduce((acc, task) => {
             if (!acc[task.category]) acc[task.category] = [];
             acc[task.category].push(task);
@@ -145,7 +144,7 @@ addBtn.addEventListener("click", () => {
             title.textContent = category;
             categoryDiv.appendChild(title);
 
-            tasks.forEach(task => {
+            tasks.forEach((task) => {
                 allTasks.push({ ...task, sunPoints: 5 }); // default points if not specified
 
                 const taskContainer = document.createElement("div");
@@ -221,11 +220,12 @@ filterGoals.addEventListener("change", () => {
     const selected = filterGoals.value;
     taskItems.innerHTML = "";
 
-    const filtered = selected === "all"
-        ? userTasks
-        : userTasks.filter(t => t.category === selected);
+    const filtered =
+        selected === "all"
+            ? userTasks
+            : userTasks.filter((t) => t.category === selected);
 
-    filtered.forEach(t => addTaskToHome(t.text, t.category));
+    filtered.forEach((t) => addTaskToHome(t.text, t.category));
 });
 
 // Mark tasks completed
@@ -240,9 +240,8 @@ document.addEventListener("click", (e) => {
 // Close overlay
 closeOverlay.addEventListener("click", () => {
     overlay.style.display = "none";
-    console.log("button closed")
+    console.log("button closed");
 });
-
 
 // Filter tasks on homepage based on category select
 filterGoals.addEventListener("change", () => {
@@ -252,12 +251,13 @@ filterGoals.addEventListener("change", () => {
     taskItems.innerHTML = "";
 
     // Filter tasks to show
-    const filteredTasks = selectedCategory === "all"
-        ? allTasks
-        : allTasks.filter(task => task.category === selectedCategory);
+    const filteredTasks =
+        selectedCategory === "all"
+            ? allTasks
+            : allTasks.filter((task) => task.category === selectedCategory);
 
     // Add filtered tasks to homepage
-    filteredTasks.forEach(task => {
+    filteredTasks.forEach((task) => {
         addTaskToHome(task.text, task.category);
     });
 });
@@ -277,25 +277,36 @@ document.addEventListener("click", (event) => {
 async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    fetch("http://localhost:3000/garden/getGarden", { method: "GET" })
+    fetch("http://localhost:3000/garden/getGarden", {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
             console.log(data);
-            insertGarden(data.fence, data.building, data.shelf,
-                data.rightObject, data.leftObject,
-                data.plant1, data.plant2, data.plant3,
-                data.plant4, data.plant5, data.plant6);
+            insertGarden(
+                data.fence,
+                data.building,
+                data.shelf,
+                data.rightObject,
+                data.leftObject,
+                data.plant1,
+                data.plant2,
+                data.plant3,
+                data.plant4,
+                data.plant5,
+                data.plant6
+            );
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-
 
     // const backendURLTest = "http://localhost:3000"; // waiting to be updated
     // try {
     //     const response = await axios.get(backendURLTest + "/garden/getGarden");
     //     insertGarden(fence=response.data.fence, building=response.data.building, shelf=response.data.shelf,
     //                     rightObject=response.data.rightObject, leftObject=response.data.leftObject,
-    //                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3, 
+    //                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3,
     //                     plant4=response.data.plant4, plant5=response.data.plant5, plant6=response.data.plant6);
     //     if (response.status === 200) {
     //         window.location.href = "../pages/home.html";
@@ -311,10 +322,9 @@ async function loadGarden() {
 
     // insertGarden(fence="blue", building="tent-pink", shelf="brown",
     //                     rightObject="", leftObject="",
-    //                     plant1="", plant2="", plant3="", 
+    //                     plant1="", plant2="", plant3="",
     //                     plant4="tulip-orange", plant5="", plant6="");
 }
-
 
 async function setup() {
     loadGarden();

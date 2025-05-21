@@ -1,23 +1,23 @@
 // function help to switch the login/ signup form
 function switchForm() {
-  const toggleBtn = document.getElementById("toggle_form_btn");
-  const loginForm = document.getElementById("login_form_wrapper");
-  const signupForm = document.getElementById("signup_form_wrapper");
+    const toggleBtn = document.getElementById("toggle_form_btn");
+    const loginForm = document.getElementById("login_form_wrapper");
+    const signupForm = document.getElementById("signup_form_wrapper");
 
-  let isLogin = true;
-  toggleBtn.addEventListener("click", () => {
-    isLogin = !isLogin;
-    // switch between login btn & signup btn
-    if (isLogin) {
-      loginForm.classList.remove("hidden");
-      signupForm.classList.add("hidden");
-      toggleBtn.textContent = "New User?";
-    } else {
-      loginForm.classList.add("hidden");
-      signupForm.classList.remove("hidden");
-      toggleBtn.textContent = "Already have an account?";
-    }
-  });
+    let isLogin = true;
+    toggleBtn.addEventListener("click", () => {
+        isLogin = !isLogin;
+        // switch between login btn & signup btn
+        if (isLogin) {
+            loginForm.classList.remove("hidden");
+            signupForm.classList.add("hidden");
+            toggleBtn.textContent = "New User?";
+        } else {
+            loginForm.classList.add("hidden");
+            signupForm.classList.remove("hidden");
+            toggleBtn.textContent = "Already have an account?";
+        }
+    });
 }
 
 let signupErrorMessage;
@@ -36,46 +36,48 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function handleLogin() {
-  loginForm = document.getElementById("login_form");
-  loginForm.addEventListener("submit", loginSubmit);
+    loginForm = document.getElementById("login_form");
+    loginForm.addEventListener("submit", loginSubmit);
 }
-
-const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
 function handleLogout() {
     const logoutButton = document.getElementById("logoutButton");
     logoutButton.addEventListener("click", async () => {
         try {
-            const response = await axios.post(backendURLTest + "/user/logout");
+            const response = await axios.post(
+                backendURL + "/user/logout",
+                {},
+                { withCredentials: true }
+            );
             window.location.reload();
         } catch (error) {
-            console.error("Logout failed:", err);
+            console.error("Logout failed:", error);
             alert("Could not log out. Please try again.");
         }
     });
-} // Make logout only appear for logged in people later
+}
 
 function handleRegister() {
-  signupForm = document.getElementById("signup_form");
-  signupForm.addEventListener("submit", signUpSubmit);
+    signupForm = document.getElementById("signup_form");
+    signupForm.addEventListener("submit", signUpSubmit);
 }
 
 // login
 async function loginSubmit(event) {
-  event.preventDefault();
-  loginErrorMessage.textContent = "";
-  let emailAddress = document.getElementById("input_login_id").value;
-  let password = document.getElementById("input_login_password").value;
-  // waiting to be updated: set the email as username for now
-  const userData = {
-    username: emailAddress,
-    email: emailAddress,
-    password: password,
-  };
+    event.preventDefault();
+    loginErrorMessage.textContent = "";
+    let emailAddress = document.getElementById("input_login_id").value;
+    let password = document.getElementById("input_login_password").value;
+    // waiting to be updated: set the email as username for now
+    const userData = {
+        username: emailAddress,
+        email: emailAddress,
+        password: password,
+    };
 
     try {
         const response = await axios.post(
-            backendURLTest + "/user/login",
+            backendURL + "/user/login",
             userData,
             { withCredentials: true }
         );
@@ -118,10 +120,9 @@ async function signUpSubmit(event) {
             email: emailAddress,
             password: password,
         };
-        const backendURLTest = "http://localhost:3000"; // https://bloomgreener.onrender.com waiting to be updated
         try {
             const response = await axios.post(
-                backendURLTest + "/user/register",
+                backendURL + "/user/register",
                 userData,
                 { withCredentials: true }
             );
@@ -144,7 +145,7 @@ async function signUpSubmit(event) {
 // Toggle login and logout buttons
 async function checkLoginStatus() {
     try {
-        const response = await axios.get(backendURLTest + "/user/status", {
+        const response = await axios.get(backendURL + "/user/status", {
             withCredentials: true,
         });
         const logoutButton = document.getElementById("logoutButton");
