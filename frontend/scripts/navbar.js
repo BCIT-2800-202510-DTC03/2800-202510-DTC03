@@ -55,20 +55,18 @@ async function navbarLogout() {
     const logoutNav = document.getElementById("logout-nav");
     logoutNav.addEventListener("click", async () => {
         try {
-            const response = await axios.post(
-                backendURL + "/user/logout",
+            await axios.post(
+                `${backendURL}/user/logout`,
                 {},
                 { withCredentials: true }
             );
-            window.location.replace("/frontend/pages/login.html");
+            if (response.status === 200) {
+                console.log("Logged out.");
+                window.location.replace("/frontend/pages/login.html");
+            }
         } catch (error) {
             console.error("Error logging out: ", error);
             alert("Could not log out. Please try again.");
         }
     });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadProfilePicture();
-    navbarLogout();
-});
