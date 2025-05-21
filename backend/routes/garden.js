@@ -145,4 +145,113 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
     }    
 })
 
+router.post("/selectGardenItem/:position/:type", async (req, res) => {
+    const garden = await Garden.findOne({userId: req.session.userId});
+
+    console.log("SELECTED")
+    console.log(req.params.position)
+    console.log(req.params.type)
+    console.log(garden)
+
+    let selectedType = req.params.type;
+    if (req.params.type == "none") {
+        selectedType = "";
+    }
+
+    if (garden) {
+        switch (req.params.position) {
+            case "fence": {
+                console.log("FENCE")
+                console.log(req.session.userId)
+                response = Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: 
+                        {
+                            "garden.fence": "white" 
+                        } 
+                    }
+                )
+                if (response) {
+                    res.status(200).send(response.modifiedCount)
+                }
+                break;
+            }
+            case "building": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.building": selectedType } }
+                )
+                break;
+            }
+            case "shelf": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.shelf": selectedType } } 
+                )
+                break;
+            }
+            case "rightObject": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.rightObject": selectedType } } 
+                )
+                break;
+            }
+            case "leftObject": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.leftObject": selectedType } } 
+                )
+                break;
+            }
+            case "plant1": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant1": selectedType } } 
+                )
+                break;
+            }
+            case "plant2": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant2": selectedType } } 
+                )
+                break;
+            }
+            case "plant3": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant3": selectedType } } 
+                )
+                break;
+            }
+            case "plant4": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant4": selectedType } } 
+                )
+                break;
+            }
+            case "plant5": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant5": selectedType } } 
+                )
+                break;
+            }
+            case "plant6": {
+                Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { "garden.plant6": selectedType } } 
+                )
+                break;
+            }
+        }
+        res.status(200).send(await Garden.findOne({userId: req.session.userId}));
+    } else {
+        res.status(400).send("FAIL");
+    }
+
+})
+
 module.exports = router;

@@ -7,7 +7,7 @@ let currentPosition = "fence";
 async function getGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
+    await fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
         .then((response) => response.json())
         .then((data) => {
             console.log("GET GARDEN")
@@ -115,56 +115,82 @@ async function getInventoryItems(tab, position) {
         }
     }
 
-    itemArray.forEach(item => {
-        // Card 
-        const card = document.createElement("div");
-        card.classList.add("inventory-cards");
+    if (itemArray.length > 0) {
+        itemArray.forEach(item => {
+            // Card 
+            const card = document.createElement("div");
+            card.classList.add("inventory-cards");
+    
+            // Card Content
+            //Top Section
+            const top = document.createElement("div");
+            top.classList.add("inventory-cards-top");
+    
+            let isSelected;
+            isSelected = currentSelect === item.typeName;
+    
+            // If item is selected...
+            const selected = document.createElement("p");
+    
+            const picture = document.createElement("img");
+            picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
+    
+            if (isSelected) {
+                selected.innerText = 'SELECTED';
+                selected.classList.add("inventory-selected");
+    
+                top.classList.add("inventory-selected-image")
+                //Event Listener
+                card.addEventListener("click", () => {
+                    console.log("Click");
+                    selectGardenItem(tab, item.typeName);
+                });
+            } else {
+                //Event Listener
+                card.addEventListener("click", () => {
+                    console.log("Click");
+                    selectGardenItem(tab, "none");
+                });
+            };
+    
+            top.appendChild(selected);
+            top.appendChild(picture);
+    
+            //Bottom Section
+            const name = document.createElement("p");
+            name.classList.add("inventory-name");
+            name.innerText = item.displayName;
+            
+            card.appendChild(top);
+            card.appendChild(name);
+    
+            itemList.appendChild(card);
+        });
+    }
+}
 
-        // Card Content
-        //Top Section
-        const top = document.createElement("div");
-        top.classList.add("inventory-cards-top");
+function selectGardenItem(position, type) {
+    fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, {method: "POST", credentials: "include"})
+        .then((response) => {
+            if (response.ok) {
+                setup();
+                // loadGarden();
+            }
+        })
+        .catch((error) => console.error("Error buying decoration:", error));
+}
 
-        let isSelected;
-        isSelected = currentSelect === item.typeName;
 
-        // If item is selected...
-        const selected = document.createElement("p");
-
-        const picture = document.createElement("img");
-        picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
-
-        if (isSelected) {
-            selected.innerText = 'SELECTED';
-            selected.classList.add("inventory-selected");
-
-            top.classList.add("inventory-selected-image")
-        } else {
-            //Event Listener
-            card.addEventListener("click", () => {
-                console.log("Click");
-            });
-        };
-
-        top.appendChild(selected);
-        top.appendChild(picture);
-
-        //Bottom Section
-        const name = document.createElement("p");
-        name.classList.add("inventory-name");
-        name.innerText = item.displayName;
-        
-        card.appendChild(top);
-        card.appendChild(name);
-
-        itemList.appendChild(card);
-    });
+function resizeWindow() {
+    document.getElementById("custom-inventory").style.height = `${(screen.height) - 300}px`;
 }
 
 async function setup() {
     await getGarden();
     await getInventory();
     await getInventoryItems(currentTab, currentPosition);
+    resizeWindow();
+    window.onresize = resizeWindow;
 }
 
 setup();
