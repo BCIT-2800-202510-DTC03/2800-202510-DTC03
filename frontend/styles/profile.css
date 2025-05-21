@@ -74,6 +74,19 @@ body {
     padding-top: 2vh;
     margin: 0;
     max-width: 100%;
+    box-sizing: border-box;
+}
+
+#current-goal {
+    text-indent: 5px;
+    width: 100%;
+    height: 2.5em; /* or something like 40px */
+    padding: 0.4em;
+    font-size: 1rem;
+    text-indent: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 0.3em;
+    box-sizing: border-box;
 }
 
 #about-me-txt-wrap {
@@ -101,7 +114,6 @@ body {
 #goal-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
     max-width: 100%;
 }
 
@@ -230,8 +242,12 @@ body {
 #garden-display-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    /* align-items: center; */
+
+    width: 70vw;
+    padding-top: 2vh;
+    margin: 0;
+    max-width: 100%;
 }
 
 #garden-display {

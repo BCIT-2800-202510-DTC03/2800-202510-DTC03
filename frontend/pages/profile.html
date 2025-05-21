@@ -79,9 +79,14 @@
             </div>
         </div>
         <div id="goal-wrapper">
-            <h2 class="section-title">My goal</h2>
+            <h2 class="section-title">My current goal</h2>
+            <div class="mb-4">
+                <input id="current-goal" type="text" name="current-goal" class="input" required disabled>
+            </div>
+            <h2 class="section-title">Change goal</h2>
             <div id="goal-select-wrap">
                 <select id="goals" name="goals">
+                    <option value="Select a goal" disable selected>Select a new goal:</option>
                     <option value="greenerEating">To eat greener</option>
                     <option value="wasteReduction">To reduce my waste</option>
                     <option value="resourceConservation">To conserve more resources</option>
@@ -91,7 +96,7 @@
             </div>
         </div>
         <div id="garden-display-wrapper">
-            <h2 class="section-title">My Garden</h2>
+            <h2 class="section-title">My Garden Items</h2>
             <div id="garden-display">
                 <div id="garden-container">
                     <div id="garden-background" title="Background"></div>

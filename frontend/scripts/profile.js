@@ -39,6 +39,8 @@ var gardenplnt6;
 var gardenRight;
 var gardenLeft;
 
+const backendURLTest = "http://localhost:3000";
+
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
         //prevents triggering other event listener immediately
@@ -52,6 +54,28 @@ function profilePictureSetup() {
             pfpOptions.style.display = "none";
         }
     });
+}
+
+async function loadUserGoal() {
+    try {
+        const response = await axios.get(backendURL + "/user/UserInfo", {
+            withCredentials: true,
+        });
+
+        const userData = response.data;
+
+        if (userData.error) {
+            alert(userData.error);
+            return;
+        }
+
+        const currentGoal = document.getElementById("current-goal");
+        currentGoal.value = userData.goal;
+        currentGoal.value.readOnly = true;
+    } catch (error) {
+        console.error("Failed to load user goal", error);
+        alert("Current goal could not be loaded.");
+    }
 }
 
 async function updateUserPreference() {
@@ -101,10 +125,6 @@ async function loadUserPreferences() {
             pfp.src =
                 "/frontend/assets/profile/material_design_account_circle.svg";
         }
-
-        if (userGoal) {
-            goalSelect.value = userGoal;
-        }
     } catch (error) {
         //replace with on screen message
         console.error("Error getting user information", error);
@@ -113,18 +133,20 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach((btn) => {
-        //event listener for profile picture options
-        btn.addEventListener("change", () => {
-            if (btn.checked) {
-                const newImageSource = btn.value;
-                pfp.src = newImageSource;
-                pfpOptions.style.display = "none";
-                updateUserPreference();
-                const headerPfp = document.getElementById("header-profile");
-                if (headerPfp) {
-                    headerPfp.style.backgroundImage = `url('${newImageSource}')`;
+        buttons.forEach((btn) => {
+            //event listener for profile picture options
+            btn.addEventListener("change", () => {
+                if (btn.checked) {
+                    const newImageSource = btn.value;
+                    pfp.src = newImageSource;
+                    pfpOptions.style.display = "none";
+                    updateUserPreference();
+                    const headerPfp = document.getElementById("header-profile");
+                    if (headerPfp) {
+                        headerPfp.style.backgroundImage = `url('${newImageSource}')`;
+                    }
                 }
-            }
+            });
         });
     });
 }
@@ -144,9 +166,17 @@ function aboutMetSetup() {
 
 function goalSetup() {
     goalSelect.addEventListener("change", () => {
-        userGoal = goalSelect.value;
+        const selectedGoal = goalSelect.value;
+        if (selectedGoal === "Select a goal") {
+            return;
+        }
+        userGoal = selectedGoal;
+
+        const currentGoal = document.getElementById("current-goal");
+        currentGoal.value = selectedGoal;
+
         updateUserPreference();
-        // console.log(userGoal);
+        console.log(userGoal);
     });
 }
 
@@ -159,6 +189,7 @@ function main() {
     profilePictureSetup();
     radioButtonSetup();
     aboutMetSetup();
+    loadUserGoal();
     goalSetup();
     gardenSetup();
 }
