@@ -129,6 +129,8 @@ router.post("/register", async (req, res) => {
             req.session.userId = newUser._id.toString();
         }
 
+        req.session.touch();
+
         res.status(200).json({
             message: `Welcome ${newUser.username}`,
             email: newUser.email,
@@ -143,13 +145,15 @@ router.post("/register", async (req, res) => {
 });
 // route for testing
 router.get("/test", (req, res) => {
+    if (req.session.userId) {
+        return res.status(200).json({ session: req.session });
+    }
     res.send("Router working");
 });
 
 router.get("/UserInfo", async (req, res) => {
     try{
-        // const id = req.session.userId;
-        const id = "681c3160d5c4e9bd78788441";
+        const id = req.session.userId;
 
         if(!id) {
             return res.status(401).json({
@@ -178,16 +182,15 @@ router.get("/UserInfo", async (req, res) => {
 router.post("/updateInfo", async (req, res) => {
     try{
         const {aboutMe, pfp, goal} = req.body;
-        // const id = req.session.userId;
-        //testing Id
-        const id = "681c3160d5c4e9bd78788441";
+        const id = req.session.userId;
+
         if(!id){
             return res.status(401).json({
                 error_message: "No active user session."
             })
         }
 
-        const user = await User.findById(id);
+        const user = await User.findOne({_id: id});
 
         if(!user){
             return res.status(401).json({
@@ -199,7 +202,7 @@ router.post("/updateInfo", async (req, res) => {
         user.aboutMe = aboutMe;
         user.profilePicture = pfp;
         user.goal = goal;
-
+        console.log("assigned");
         //save changes
         await user.save();
 

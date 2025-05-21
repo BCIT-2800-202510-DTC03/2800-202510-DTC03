@@ -32,7 +32,7 @@ app.use(
         cookie: {
             httpOnly: true,
             secure: false,
-            sameSite: "none",
+            sameSite: "lax", // Only set to lax for local deployment. Set none for split
             maxAge: 1000 * 60 * 60 * 24,
         },
         // for deploy in future
@@ -66,6 +66,9 @@ app.get("/", (req, res) => res.redirect("/login"));
 const gardenRouter = require("./garden");
 app.use("/garden", gardenRouter);
 
+
+const apiRouter = require("./API");
+app.use("/API", apiRouter);
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
