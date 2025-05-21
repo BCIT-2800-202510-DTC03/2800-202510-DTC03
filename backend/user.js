@@ -4,6 +4,7 @@ const router = express.Router();
 // import user model
 const User = require("./models/User");
 const Garden = require("./models/Garden")
+const Inventory = require("./models/Inventory")
 
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
@@ -108,10 +109,17 @@ router.post("/register", async (req, res) => {
 
         // New Garden
         const newGarden = new Garden({
-          userID: newUser._id 
+          userId: newUser._id 
         });
         await newGarden.save();
         console.log("save garden");
+
+        // New Inventory
+        const newInventory = new Inventory({
+          userId: newUser._id 
+        });
+        await newInventory.save();
+        console.log("save inventory");
 
         // if success
         // update session
