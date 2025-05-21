@@ -143,6 +143,26 @@ router.get("/test", (req, res) => {
     res.send("Router working");
 });
 
+router.post("/userID", async (req, res) => {
+    try{
+        const {} = req.body;
+        const userId = req.session.userId;
+
+        if(!userId){
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        return res.status(200).json({userId: userId})
+    } catch (error) {
+        console.error("Failed to get user ID: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
 router.get("/UserInfo", async (req, res) => {
     try{
         const id = req.session.userId;
