@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const UserTasks = require("../models/UserTasks");
 
-router.get("userTasks", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const userId = req.session.userId;
 
