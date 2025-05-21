@@ -207,6 +207,28 @@ function addTaskToHome(taskText, sunPoints, category) {
     taskItems.appendChild(taskElement);
 }
 
+// Check User current tasks
+async function fetchUserTask() {
+    try {
+        const response = await fetch("http://localhost:3000/userTask/get", {
+            method: "GET",
+            credentials: "include",
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to get user tasks");
+        }
+
+        const data = await response.json();
+        return data
+            .filter(task => task.taskId && !task.completed)
+            .map(task => task.taskId);
+    } catch (error) {
+        console.error("Error fetching user tasks:", error);
+        return [];
+    }
+}
+
 // Save task to userTask collection in backend
 async function addTaskToUser(taskText, category) {
     try {
