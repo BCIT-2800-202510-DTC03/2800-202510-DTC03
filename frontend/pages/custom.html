@@ -46,8 +46,8 @@
                 <button class="custom-tab" id="tab-fence" onclick="getInventoryItems('fence', 'fence')">Fence</button>
                 <button class="custom-tab" id="tab-shelf" onclick="getInventoryItems('shelf', 'shelf')">Shelf</button>
                 <button class="custom-tab" id="tab-building" onclick="getInventoryItems('building', 'building')">Building</button>
-                <button class="custom-tab" id="tab-objectLeft" onclick="getInventoryItems('objectLeft', 'object')">Left Object</button>
-                <button class="custom-tab" id="tab-objectRight" onclick="getInventoryItems('objectRight', 'object')">Right Object</button>
+                <button class="custom-tab" id="tab-leftObject" onclick="getInventoryItems('leftObject', 'object')">Left Object</button>
+                <button class="custom-tab" id="tab-rightObject" onclick="getInventoryItems('rightObject', 'object')">Right Object</button>
                 <button class="custom-tab" id="tab-plant1" onclick="getInventoryItems('plant1', 'plant')">Plant 1</button>
                 <button class="custom-tab" id="tab-plant2" onclick="getInventoryItems('plant2', 'plant')">Plant 2</button>
                 <button class="custom-tab" id="tab-plant3" onclick="getInventoryItems('plant3', 'plant')">Plant 3</button>
@@ -57,8 +57,8 @@
                 <button class="custom-tab" disabled></button>
             </div>
             <div id="inventory-grid">
-                <!-- <div class="inventory-cards">
-                    <div>
+                <div class="inventory-cards">
+                    <div class="inventory-cards-top inventory-selected-image">
                         <p class="inventory-selected">Selected</p>
                         <img src="../assets/garden/fence-black.png">
                     </div>
@@ -98,7 +98,7 @@
                         <img src="../assets/garden/fence-black.png">
                     </div>
                     <p class="inventory-name">Item</p>
-                </div> -->
+                </div>
             </div>
         </div>
         

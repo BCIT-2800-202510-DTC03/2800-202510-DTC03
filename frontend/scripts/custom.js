@@ -4,6 +4,19 @@ let currentTab = "fence";
 let currentPosition = "fence";
 
 
+async function getGarden() {
+    const backendURLTest = "http://localhost:3000"; // waiting to be updated
+
+    fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("GET GARDEN")
+            console.log(data)
+            userGarden = data;
+        })
+        .catch((error) => console.error("Error fetching user garden:", error));
+}
+
 async function getInventory() {
     await fetch("http://localhost:3000/garden/getInventory", {method: "GET", credentials: "include"})
         .then((response) => response.json())
@@ -23,8 +36,6 @@ async function getInventoryItems(tab, position) {
     currentPosition = position;
 
     const oldTab = document.getElementsByClassName("custom-tab-active")[0];
-    console.log("TEST");
-    console.log(oldTab);
     if (oldTab) {
         oldTab.classList.remove("custom-tab-active");
     }
@@ -56,6 +67,54 @@ async function getInventoryItems(tab, position) {
         }
     }
 
+    let currentSelect = "";
+    switch (tab) {
+        case "fence": {
+            currentSelect = userGarden.fence;
+            break;
+        }
+        case "building": {
+            currentSelect = userGarden.building;
+            break;
+        }
+        case "shelf": {
+            currentSelect = userGarden.shelf;
+            break;
+        }
+        case "rightObject": {
+            currentSelect = userGarden.rightObject;
+            break;
+        }
+        case "leftObject": {
+            currentSelect = userGarden.leftObject;
+            break;
+        }
+        case "plant1": {
+            currentSelect = userGarden.plant1;
+            break;
+        }
+        case "plant2": {
+            currentSelect = userGarden.plant2;
+            break;
+        }
+        case "plant3": {
+            currentSelect = userGarden.plant3;
+            break;
+        }
+        case "plant4": {
+            currentSelect = userGarden.plant4;
+            break;
+        }
+        case "plant5": {
+            currentSelect = userGarden.plant5;
+            break;
+        }
+        case "plant6": {
+            currentSelect = userGarden.plant6;
+            break;
+        }
+    }
+
     itemArray.forEach(item => {
         // Card 
         const card = document.createElement("div");
@@ -64,23 +123,28 @@ async function getInventoryItems(tab, position) {
         // Card Content
         //Top Section
         const top = document.createElement("div");
+        top.classList.add("inventory-cards-top");
 
         let isSelected;
+        isSelected = currentSelect === item.typeName;
 
         // If item is selected...
         const selected = document.createElement("p");
+
+        const picture = document.createElement("img");
+        picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
+
         if (isSelected) {
             selected.innerText = 'SELECTED';
             selected.classList.add("inventory-selected");
+
+            top.classList.add("inventory-selected-image")
         } else {
             //Event Listener
             card.addEventListener("click", () => {
                 console.log("Click");
             });
         };
-
-        const picture = document.createElement("img");
-        picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
 
         top.appendChild(selected);
         top.appendChild(picture);
@@ -98,6 +162,7 @@ async function getInventoryItems(tab, position) {
 }
 
 async function setup() {
+    await getGarden();
     await getInventory();
     await getInventoryItems(currentTab, currentPosition);
 }
