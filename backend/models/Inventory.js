@@ -4,11 +4,26 @@ const Decoration = require("./Decoration");
 const inventorySchema = new mongoose.Schema({
     userId: String,
     inventory: {
-        fence: [Decoration],
-        building: [Decoration],
-        shelf: [Decoration],
-        object: [Decoration],
-        plant: [Decoration]
+        fence: {
+            type: [Decoration],
+            default: []
+        },
+        building: {
+            type: [Decoration],
+            default: []
+        },
+        shelf: {
+            type: [Decoration],
+            default: []
+        },
+        object: {
+            type: [Decoration],
+            default: []
+        },
+        plant: {
+            type: [Decoration],
+            default: []
+        }
     }
 });
 
