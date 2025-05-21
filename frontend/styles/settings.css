@@ -3,6 +3,7 @@
     font-family: "Poppins", sans-serif;
 }
 .heading {
+    margin-top: 10vh;
     font-size: 1.75rem;
     line-height: 2.5rem;
     color: #606c38;
