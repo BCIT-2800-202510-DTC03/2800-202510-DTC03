@@ -1,4 +1,4 @@
-weather = "clear"
+const weather = "clear"
 
 function insertBackground() {
     const background = document.getElementById("garden-background");
