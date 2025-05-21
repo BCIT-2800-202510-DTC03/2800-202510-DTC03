@@ -40,17 +40,16 @@ body{
 }
 
 .custom-tab {
-    width: 24%;
+    width: 25%;
     height: 30px;
 
-    margin: 2px;
-    padding: 5px;
+    padding: 0px 5px;
 
     color: rgb(235, 220, 190);
     font-size: auto;
     
-    border: none;
-    border-radius: 2px;
+    border: 2px solid rgb(55, 40, 30);
+    border-radius: 5px;
 
     background-color: rgb(205, 145, 90);
 }
