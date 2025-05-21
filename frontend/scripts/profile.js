@@ -56,7 +56,7 @@ function profilePictureSetup() {
 
 async function loadUserGoal() {
     try {
-        const response = await axios.get(backendURL + "/user/UserInfo", {
+        const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
 
