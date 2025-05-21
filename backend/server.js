@@ -68,7 +68,6 @@ app.get("/", (req, res) => res.redirect("/login"));
 const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);
 
-
 const apiRouter = require("./API");
 app.use("/API", apiRouter);
 
@@ -83,3 +82,6 @@ app.use("/settings", settingsRouter);
 /* Tasks Route */
 const taskRouter = require("./routes/tasks");
 app.use("/task", taskRouter);
+
+const userTasksRouter = require("./routes/userTasks");
+app.use("/userTasks", userTasksRouter);
