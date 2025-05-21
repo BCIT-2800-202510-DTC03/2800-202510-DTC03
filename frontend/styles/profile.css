@@ -74,6 +74,11 @@ body {
     max-width: 100%;
 }
 
+#current-goal {
+    text-indent: 5px;
+    width: 100%;
+}
+
 #about-me-txt-wrap {
     border: solid 0.1rem lightgrey;
     border-radius: 0.5vh;
