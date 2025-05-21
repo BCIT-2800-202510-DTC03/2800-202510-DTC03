@@ -1,9 +1,5 @@
 console.log("Start");
 
-// Add import to check if it should pull user profile picture later through deployed backend on render, or via localhost
-import { backendURL } from "./config.js";
-axios.get(`${backendURL}/user/userInfo`, { withCredentials: true });
-
 function openSidebar() {
     console.log("Open");
 
