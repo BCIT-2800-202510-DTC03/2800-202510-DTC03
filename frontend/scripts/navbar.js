@@ -1,5 +1,9 @@
 console.log("Start");
 
+// Add import to check if it should pull user profile picture later through deployed backend on render, or via localhost
+import { backendURL } from "./config.js";
+axios.get(`${backendURL}/user/userInfo`, { withCredentials: true });
+
 function openSidebar() {
     console.log("Open");
 
@@ -10,7 +14,7 @@ function openSidebar() {
 
     setTimeout(() => {
         sidebar.style.display = "flex";
-    }, 300)
+    }, 300);
 
     const navbar = document.getElementById("sidebar");
     navbar.style.animation = "openSidebar 1s normal";
@@ -26,10 +30,27 @@ function closeSidebar() {
 
     setTimeout(() => {
         sidebar.style.display = "none";
-    }, 600)
+    }, 600);
 
     const navbar = document.getElementById("sidebar");
     navbar.style.animation = "closeSidebar 1s normal";
     navbar.style.translate = "-250px";
+}
 
+async function loadProfilePicture() {
+    try {
+        const response = await await axios.get(`${backendURL}/user/UserInfo`, {
+            withCredentials: true,
+        });
+        const data = response.data;
+        const pfpUrl =
+            data.profilePicture ||
+            "/frontend/assets/profile/material_design_account_circle.svg";
+        const headerPfp = document.getElementById("header-profile");
+        if (headerPfp) {
+            headerPfp.style.backgroundImage = `url('${pfpUrl}')`;
+        }
+    } catch (error) {
+        console.error("Couldn't load profile picture: ", error);
+    }
 }
