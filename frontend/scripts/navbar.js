@@ -1,3 +1,4 @@
+// This swaps URLs depending on if we are deploying backend on render or localhost. This way we do not need to manually change all the URLs
 import { backendURL } from "./config.js";
 
 console.log("Start");
