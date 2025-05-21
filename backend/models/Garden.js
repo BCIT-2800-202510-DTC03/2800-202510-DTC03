@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const gardenSchema = new mongoose.Schema({
-    userID: String,
+    userId: String,
     garden: {
         fence: {
             type: String,
