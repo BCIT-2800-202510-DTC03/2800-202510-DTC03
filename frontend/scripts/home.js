@@ -136,7 +136,7 @@ addBtn.addEventListener("click", () => {
         }, {});
 
         const formatCategory = (category) => {
-            switch(category) {
+            switch (category) {
                 case "greenerEating": return "Greener Eating";
                 case "transportation": return "Transportation";
                 case "wasteReduction": return "Waste Reduction";
@@ -166,7 +166,7 @@ addBtn.addEventListener("click", () => {
                 taskContainer.style.gap = "10px;"
 
 
-                const taskDesc =  document.createElement("span");
+                const taskDesc = document.createElement("span");
                 taskDesc.textContent = `${task.description}`;
                 taskDesc.style.flex = "1";
                 taskDesc.style.width = "90%"
@@ -185,16 +185,14 @@ addBtn.addEventListener("click", () => {
                 taskContainer.appendChild(addButton);
                 categoryDiv.appendChild(taskContainer);
             });
-
             goalPanel.appendChild(categoryDiv);
         }
-
         isLoaded = true;
     }
 });
 
 // Add task to homepage UI
-function addTaskToHome(taskText, sunPoints, category) {
+function addTaskToHome(taskText, category) {
     const template = document.getElementById("task-template");
     const taskElement = template.content.cloneNode(true);
 
@@ -208,26 +206,26 @@ function addTaskToHome(taskText, sunPoints, category) {
 }
 
 // Check User current tasks
-async function fetchUserTask() {
-    try {
-        const response = await fetch("http://localhost:3000/userTask/get", {
-            method: "GET",
-            credentials: "include",
-        });
+// async function fetchUserTask() {
+//     try {
+//         const response = await fetch("http://localhost:3000/userTask/get", {
+//             method: "GET",
+//             credentials: "include",
+//         });
 
-        if (!response.ok) {
-            throw new Error("Failed to get user tasks");
-        }
+//         if (!response.ok) {
+//             throw new Error("Failed to get user tasks");
+//         }
 
-        const data = await response.json();
-        return data
-            .filter(task => task.taskId && !task.completed)
-            .map(task => task.taskId);
-    } catch (error) {
-        console.error("Error fetching user tasks:", error);
-        return [];
-    }
-}
+//         const data = await response.json();
+//         return data
+//             .filter(task => task.taskId && !task.completed)
+//             .map(task => task.taskId);
+//     } catch (error) {
+//         console.error("Error fetching user tasks:", error);
+//         return [];
+//     }
+// }
 
 // Save task to userTask collection in backend
 async function addTaskToUser(taskText, category) {
@@ -278,7 +276,7 @@ document.addEventListener("click", (e) => {
 //close overlay when clicking off
 document.getElementById("task-overlay").addEventListener("click", (event) => {
     const overlayContent = document.getElementById("task-overlay-content");
-    if(!overlayContent.contains(event.target)) {
+    if (!overlayContent.contains(event.target)) {
         document.getElementById("task-overlay").style.display = "none";
     }
 })
@@ -323,7 +321,7 @@ document.addEventListener("click", (event) => {
 async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
+    fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
