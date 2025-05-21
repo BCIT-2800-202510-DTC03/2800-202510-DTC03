@@ -8,7 +8,10 @@ const inventorySchema = new mongoose.Schema({
         type: String,
         enum: ["fence", "building", "shelf", "object", "plant"]
     },
-    quantity: Number
+    quantity: {
+        type: Number,
+        default: 1,
+    }
 });
 
 const Inventory = mongoose.model("Inventory", inventorySchema);
