@@ -66,9 +66,8 @@
 
 /* AI task CSS */
 
-#Ai-btn {
+#AI-task-btn {
   flex-shrink: 0;
-  /* don't shrink the button */
   width: 50px;
   height: 50px;
   background-color: #606c38;
@@ -79,15 +78,15 @@
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease;
-}
-
-#AI-task-btn {
   border: none;
   outline: none;
-  background-color: transparent;
   color: white;
   cursor: pointer;
   user-select: none;
+}
+
+#AI-task-btn:hover {
+  background-color: #506026;
 }
 
 #AI-task-display {
@@ -138,7 +137,7 @@
 .AI-btn {
   padding: 1vh;
   cursor: pointer;
-  background-color: #dfcfbf;
+  background-color: #f1e2d2;
   color: #606c38;
   border-radius: 1vh;
   width: 100%;
@@ -167,6 +166,7 @@
   width: 100%;
   justify-content: center;
 }
+
 .AI-task {
   width: 60%;
   border-radius: 1vh;

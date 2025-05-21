@@ -190,16 +190,14 @@ addBtn.addEventListener("click", () => {
                 taskContainer.appendChild(addButton);
                 categoryDiv.appendChild(taskContainer);
             });
-
             goalPanel.appendChild(categoryDiv);
         }
-
         isLoaded = true;
     }
 });
 
 // Add task to homepage UI
-function addTaskToHome(taskText, sunPoints, category) {
+function addTaskToHome(taskText, category) {
     const template = document.getElementById("task-template");
     const taskElement = template.content.cloneNode(true);
 
@@ -213,26 +211,26 @@ function addTaskToHome(taskText, sunPoints, category) {
 }
 
 // Check User current tasks
-async function fetchUserTask() {
-    try {
-        const response = await fetch("http://localhost:3000/userTask/get", {
-            method: "GET",
-            credentials: "include",
-        });
+// async function fetchUserTask() {
+//     try {
+//         const response = await fetch("http://localhost:3000/userTask/get", {
+//             method: "GET",
+//             credentials: "include",
+//         });
 
-        if (!response.ok) {
-            throw new Error("Failed to get user tasks");
-        }
+//         if (!response.ok) {
+//             throw new Error("Failed to get user tasks");
+//         }
 
-        const data = await response.json();
-        return data
-            .filter((task) => task.taskId && !task.completed)
-            .map((task) => task.taskId);
-    } catch (error) {
-        console.error("Error fetching user tasks:", error);
-        return [];
-    }
-}
+//         const data = await response.json();
+//         return data
+//             .filter(task => task.taskId && !task.completed)
+//             .map(task => task.taskId);
+//     } catch (error) {
+//         console.error("Error fetching user tasks:", error);
+//         return [];
+//     }
+// }
 
 // Save task to userTask collection in backend
 async function addTaskToUser(taskText, category) {

@@ -187,8 +187,6 @@ function main() {
 
 }
 
-
-}
 userGoal = await readUserGoal()
 userID = await getUserId()
 if (userID) { console.log(userID) }
