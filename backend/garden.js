@@ -62,6 +62,8 @@ router.get("/getInventory", async (req, res) => {
 
     const inventory = await Inventory.findOne({userId: req.session.user._id});
     
+    console.log("FOUND INVENTORY")
+    console.log(inventory)
     if (inventory) {
         console.log("Inventory: SUCCESS")
         res.json(inventory);

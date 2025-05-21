@@ -28,8 +28,8 @@
                 </div>
                 <br />
                 <div id="purchase-buttons">
-                    <button id="purchase-confirm">Yes</button>
-                    <button id="purchase-cancel" onclick="closePurchaseScreen()">Cancel</button>
+                    <button id="confirm-button">Yes</button>
+                    <button id="cancel-button" onclick="closePurchaseScreen()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -47,9 +47,7 @@
                 <button class="shop-tab" id="tab-object" onclick="getItems('object')">Object</button>
                 <button class="shop-tab" id="tab-building" onclick="getItems('building')">Building</button>
             </div>
-            <p id="wallet">
-                Sun Points: <span>0</span>
-            </p>
+            <p id="wallet"></p>
             <div id="shop-grid"></div>
         </div>
     </div>
