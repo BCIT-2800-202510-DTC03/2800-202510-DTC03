@@ -156,6 +156,11 @@ async function saveTask() {
         )
         if (response.status === 200) {
             console.log("sent ai task data to server")
+
+            // a pop up to show the new
+            // const popup = document.getElementById("New-task-popup");
+            // popup.style.display = "block";
+
         }
     } catch (error) {
         console.error("failed to sent ai task data to server", error)
