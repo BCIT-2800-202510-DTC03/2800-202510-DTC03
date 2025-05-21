@@ -327,7 +327,7 @@ async function loadGarden() {
 }
 
 async function setup() {
-    loadGarden();
+    await loadGarden();
 }
 
 setup();
