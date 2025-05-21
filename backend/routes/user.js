@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 // import user model
-const User = require("./models/User");
-const Garden = require("./models/Garden");
-const Inventory = require("./models/Inventory");
+const User = require("../models/User");
+const Garden = require("../models/Garden");
+const Inventory = require("../models/Inventory");
 
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
