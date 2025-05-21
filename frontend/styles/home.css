@@ -124,11 +124,12 @@ body {
     border-radius: 20px;
     width: 100%;
     max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 85vh;
+    padding-bottom: 2rem;
     padding: 1.5rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     position: relative;
+    overflow-y: auto;
 }
 
 #task-overlay-content h2 {
@@ -143,7 +144,7 @@ body {
     position: absolute;
     top: 10px;
     right: 16px;
-    font-size: 28px;
+    font-size: 35px;
     background: none;
     border: none;
     color: #606C38;

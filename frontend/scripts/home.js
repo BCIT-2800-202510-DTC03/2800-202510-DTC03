@@ -124,7 +124,6 @@ let userTasks = []; // tasks shown on home page
 console.log("home.js loaded");
 
 // Open overlay and load premade tasks if not loaded
-
 addBtn.addEventListener("click", () => {
     overlay.style.display = "flex";
     console.log("button is clicked");
@@ -136,37 +135,59 @@ addBtn.addEventListener("click", () => {
             return acc;
         }, {});
 
+        const formatCategory = (category) => {
+            switch (category) {
+                case "greenerEating":
+                    return "Greener Eating";
+                case "transportation":
+                    return "Transportation";
+                case "wasteReduction":
+                    return "Waste Reduction";
+                case "resourceConservation":
+                    return "Resource Conservation";
+                case "consciousConsumption":
+                    return "Conscious Consumption";
+                default:
+                    return category.charAt(0).toUpperCase() + category.slice(1);
+            }
+        };
+
         for (const [category, tasks] of Object.entries(groupedByCategory)) {
             const categoryDiv = document.createElement("div");
             categoryDiv.classList.add("goal");
+            categoryDiv.marginBottom = "15px";
 
             const title = document.createElement("h3");
-            title.textContent = category;
+            title.textContent = formatCategory(category);
             categoryDiv.appendChild(title);
 
             tasks.forEach((task) => {
-                allTasks.push({ ...task, sunPoints: 5 }); // default points if not specified
+                allTasks.push({ ...task, sunPoints: 5 });
 
                 const taskContainer = document.createElement("div");
                 taskContainer.style.display = "flex";
+                taskContainer.style.justifyContent = "space-between";
                 taskContainer.style.alignItems = "center";
                 taskContainer.style.marginBottom = "8px";
+                taskContainer.style.gap = "10px;";
+
+                const taskDesc = document.createElement("span");
+                taskDesc.textContent = `${task.description}`;
+                taskDesc.style.flex = "1";
+                taskDesc.style.width = "90%";
 
                 const addButton = document.createElement("button");
-                addButton.textContent = `+ Add "${task.description}"`;
+                addButton.textContent = `+`;
                 addButton.classList.add("add-goal-task");
-                addButton.style.marginRight = "8px";
+                addButton.style.width = "10%";
 
                 addButton.addEventListener("click", async () => {
-                    await addTaskToUser(task.description, 5, task.category); // Save to DB
-                    addTaskToHome(task.description, 5, task.category); // Show in UI
+                    await addTaskToUser(task.description, task.category);
+                    addTaskToHome(task.description, task.category);
                 });
 
-                const taskText = document.createElement("span");
-                taskText.textContent = `${task.description} (5☀)`;
-
+                taskContainer.appendChild(taskDesc);
                 taskContainer.appendChild(addButton);
-                taskContainer.appendChild(taskText);
                 categoryDiv.appendChild(taskContainer);
             });
 
@@ -189,6 +210,28 @@ function addTaskToHome(taskText, sunPoints, category) {
     userTasks.push({ text: taskText, category });
 
     taskItems.appendChild(taskElement);
+}
+
+// Check User current tasks
+async function fetchUserTask() {
+    try {
+        const response = await fetch("http://localhost:3000/userTask/get", {
+            method: "GET",
+            credentials: "include",
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to get user tasks");
+        }
+
+        const data = await response.json();
+        return data
+            .filter((task) => task.taskId && !task.completed)
+            .map((task) => task.taskId);
+    } catch (error) {
+        console.error("Error fetching user tasks:", error);
+        return [];
+    }
 }
 
 // Save task to userTask collection in backend
@@ -234,6 +277,14 @@ document.addEventListener("click", (e) => {
         const task = e.target.closest(".task");
         task.classList.add("completed");
         setTimeout(() => task.remove(), 500);
+    }
+});
+
+//close overlay when clicking off
+document.getElementById("task-overlay").addEventListener("click", (event) => {
+    const overlayContent = document.getElementById("task-overlay-content");
+    if (!overlayContent.contains(event.target)) {
+        document.getElementById("task-overlay").style.display = "none";
     }
 });
 

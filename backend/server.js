@@ -85,3 +85,11 @@ app.use("/task", taskRouter);
 
 const userTasksRouter = require("./routes/userTasks");
 app.use("/userTasks", userTasksRouter);
+
+/*Ai tasks Route*/
+const aiTaskRouter = require("./routes/aiTask");
+app.use("/task/ai", aiTaskRouter);
+
+/*Ai tasks Route*/
+const aiTaskRouter = require("./routes/aiTask");
+app.use("/task/ai", aiTaskRouter);

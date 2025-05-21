@@ -141,6 +141,7 @@ async function main() {
         weather = "Clear";
     }
 }
+
 main();
 
 function getWeather() {
@@ -148,3 +149,4 @@ function getWeather() {
 }
 
 module.exports = { getWeather };
+

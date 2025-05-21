@@ -74,6 +74,7 @@ body {
     padding-top: 2vh;
     margin: 0;
     max-width: 100%;
+
     box-sizing: border-box;
 }
 
@@ -114,6 +115,8 @@ body {
 #goal-wrapper {
     display: flex;
     flex-direction: column;
+
+    align-items: center;
     max-width: 100%;
 }
 
@@ -160,7 +163,10 @@ body {
     height: fit-content;
     padding: 1vh;
     border-radius: 100%;
+
+
     border: white 0.2vh solid;
+
     color: white;
     font-size: x-large;
     cursor: pointer;
@@ -242,12 +248,14 @@ body {
 #garden-display-wrapper {
     display: flex;
     flex-direction: column;
+
     /* align-items: center; */
 
     width: 70vw;
     padding-top: 2vh;
     margin: 0;
     max-width: 100%;
+
 }
 
 #garden-display {
