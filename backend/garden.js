@@ -39,7 +39,8 @@ router.get("/getShopItem/:tab", async (req, res) => {
 })
 
 router.get("/getWallet", async (req, res) => {
-    console.log("Getting Wallet for: " + req.session.user._id)
+    console.log("Getting Wallet for: ")
+    console.log(req.session.userId)
 
     const user = await User.findOne({_id: req.session.user._id});
     
@@ -55,10 +56,17 @@ router.get("/getWallet", async (req, res) => {
 })
 
 router.post("/buyShopItem/:position/:type", async (req, res) => {
+    console.log("BUYING 1");
+    
     const user = await User.findOne({_id: req.session.user._id});
-    const item = await Decoration.findOne({position: req.params.tab, typeName: req.params.type});
+    const item = await Decoration.findOne({position: req.params.position, typeName: req.params.type});
+
+    console.log("BUYING 2");
+    console.log(user);
+    console.log(item);
 
     if (user && item) {
+        console.log("BUYING 2.5");
         let totalCurrency = user.currency - item.cost;
     
         await User.updateOne(
@@ -69,25 +77,25 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
                 }
             }
         )
+        console.log("BUYING 3");
 
         const inInventory = await Inventory.findOne({userId: user._id.toString(), position: item.position, typeName: item.typeName})
 
         if (inInventory) {
-            currentQuantity = inInventory.quantity + 1;
+            console.log("EXISTS");
 
-            await User.updateOne(
-                {
-                    userId: user._id.toString(),
-                    position: item.position,
-                    typeName: item.typeName
-                }, 
+            currentQuantity = inInventory.quantity + 1;
+            console.log("CURRENT QUANTITY")
+            console.log(currentQuantity)
+
+            await Inventory.updateOne(
+                {userId: user._id.toString(), position: item.position, typeName: item.typeName}, 
                 {$set: 
                     {
                         quantity: currentQuantity
                     }
                 }
             )
-            res.status(200);
         } else if (inInventory == null) {
             const newInventory = await new Inventory({
                 userId: user._id.toString(),
@@ -97,13 +105,13 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
             });
 
             await newInventory.save();
-            res.status(200);
         }
+        console.log("BUYING 4");
         
-        res.status(400);
-    }
-
-    
+        res.status(200).send("SUCCESS");
+    } else {
+        res.status(400).send("FAIL");
+    }    
 })
 
 module.exports = router;
