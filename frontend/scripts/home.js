@@ -167,7 +167,7 @@ addBtn.addEventListener("click", () => {
 
 
                 const taskDesc =  document.createElement("span");
-                taskDesc.textContent = `${task.description} 5☀`;
+                taskDesc.textContent = `${task.description}`;
                 taskDesc.style.flex = "1";
                 taskDesc.style.width = "90%"
 
@@ -243,6 +243,7 @@ filterGoals.addEventListener("change", () => {
     filtered.forEach(t => addTaskToHome(t.text, t.category));
 });
 
+
 // Mark tasks completed
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("checkmark")) {
@@ -251,6 +252,14 @@ document.addEventListener("click", (e) => {
         setTimeout(() => task.remove(), 500);
     }
 });
+
+//close overlay when clicking off
+document.getElementById("task-overlay").addEventListener("click", (event) => {
+    const overlayContent = document.getElementById("task-overlay-content");
+    if(!overlayContent.contains(event.target)) {
+        document.getElementById("task-overlay").style.display = "none";
+    }
+})
 
 // Close overlay
 closeOverlay.addEventListener("click", () => {
