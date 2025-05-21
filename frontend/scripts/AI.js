@@ -74,7 +74,9 @@ async function readUserGoal() {
         return userInfo.data.goal;
     }
 }
-let userGoal
+let userGoal;
+let thisTask;
+let userID;
 async function getGoal(userGoal) {
     //get user goal
     //determine prompt that should be used
@@ -114,6 +116,7 @@ async function callAI() {
 }
 
 function createTask(task) {
+    thisTask = task;
     // populate the tasks in the pop-up cards
     const aiTask = document.getElementById("AI-task-desc")
     aiTask.innerHTML = `Your new task is:<br>${task}`;
@@ -134,7 +137,29 @@ async function getTask() {
 
 
 async function saveTask() {
-    // here we need to save the task to mongodb
+    //save the task to mongodb
+    const AiTask = {
+        userId: "",
+        isAIGenerated: true,
+        taskId: "",
+        taskDescription: thisTask,
+        taskCategory: userGoal,
+        completed: false,
+    }
+    console.log("task created", AiTask)
+
+    try {
+        const response = await axios.post(
+            currentBackEndUrl + "/task/ai",
+            AiTask,
+            { withCredentials: true }
+        )
+        if (response.status === 200) {
+            console.log("sent ai task data to server")
+        }
+    } catch (error) {
+        console.error("failed to sent ai task data to server", error)
+    }
     // and we need to rerender the tasklist, maybe we need to pass it to home.js
 }
 
@@ -148,6 +173,6 @@ function main() {
 
 }
 userGoal = await readUserGoal()
-const userID = await getUserId()
+userID = await getUserId()
 if (userID) { console.log(userID) }
 main();

@@ -1,16 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const UserTasks = require("../models/UserTasks");
+const User = require("../models/User");
 
-const userId = req.session.userId;
-if (!userId) {
-    return res.status(401).json({ error: "User not logged in" });
-}
-const user = await User.findById(userId);
 
 router.post("/", async (req, res) => {
     try {
-        const { userId, isAIGenerated, taskId, description, category, worth, completed } = req.body;
+        const userId = req.session.userId;
+        if (!userId) {
+            return res.status(401).json({ error: "User not logged in" });
+        }
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+
+        const { isAIGenerated, taskId, taskDescription, taskCategory, worth, completed } = req.body;
         const newAITask = new UserTasks({
             userId: userId,
             isAIGenerated: true,
@@ -26,3 +32,5 @@ router.post("/", async (req, res) => {
         console.error("post ai task error:", error);
     }
 })
+
+module.exports = router;
