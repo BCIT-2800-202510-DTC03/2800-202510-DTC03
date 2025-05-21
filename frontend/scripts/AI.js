@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
-
+import { currentBackEndUrl } from "../util.js"
 
 const backendURLTest = "http://localhost:3000";
 
@@ -41,7 +41,25 @@ const formatSpecification = " Do not include any pleasantries and only provide t
 const model = "gemini-2.0-flash";
 var previousResponse = "";
 
-
+async function getUserId() {
+    try {
+        const response = await axios.post(
+            `${currentBackEndUrl}/user/userID`,
+            {},
+            {
+                withCredentials: true
+            }
+        )
+        return response.data.userId;
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            console.log(error.response.data.error_message);
+        } else {
+            console.log(
+                "Something is going wrong. Please try again.");
+        }
+    }
+}
 async function readUserGoal() {
     let userInfo;
     try {
@@ -56,7 +74,7 @@ async function readUserGoal() {
         return userInfo.data.goal;
     }
 }
-
+let userGoal
 async function getGoal(userGoal) {
     //get user goal
     //determine prompt that should be used
@@ -129,5 +147,7 @@ function main() {
     document.getElementById("AI-accept").addEventListener("click", saveTask)
 
 }
-const userGoal = await readUserGoal()
+userGoal = await readUserGoal()
+const userID = await getUserId()
+if (userID) { console.log(userID) }
 main();
