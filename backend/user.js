@@ -295,4 +295,56 @@ router.get("/getInfo", async (req, res) => {
     }
 })
 
+
+router.post("/addFriend", async (req, res) => {
+    try{
+        const id = req.session.userId;
+        const friendId = req.body;
+
+        if (!id){
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+        if(!friendId){
+            return res.status(401).json({
+                error_message: "No friend Id provided."
+            })
+        }
+
+        if (id === friendId){
+            return res.status(400).json({
+                error_message: "You cannot add yourself as a friend."
+            });
+        }
+
+        const user = await User.findOne({_id: id});
+
+        if(!user){
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        if(user.friends.includes(friendId)) {
+            return res.status(400).json({
+                error_message: "User is already in friends list."
+            });
+        }
+
+
+        user.friends.push(friendId);
+        await user.save();
+
+        res.status(200).json({
+            message: "Successfully added friend."
+        })
+    } catch (error) {
+        console.error("Failed to add friend: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
 module.exports = router;

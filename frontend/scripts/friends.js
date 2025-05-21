@@ -54,7 +54,7 @@ function setUpAddListener() {
 function setUpInputListener() {
     const searchbar = document.getElementById("search");
     searchbar.addEventListener("change", async () => {
-        await checkForFriend(searchbar.value);
+        if(await checkForFriend(searchbar.value));
     })
 }
 
@@ -65,6 +65,12 @@ var addActive = false;
 function addFriend() {
     if (!addActive) {
         return;
+    }
+
+    try{
+        const response = await axios.post(backendURLTest + "/user/addFriend", {
+
+        })
     }
 
 }
