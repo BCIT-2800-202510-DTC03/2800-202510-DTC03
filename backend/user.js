@@ -108,7 +108,7 @@ router.post("/register", async (req, res) => {
 
         // New Garden
         const newGarden = new Garden({
-          userID: newUser._id 
+          userId: newUser._id 
         });
         await newGarden.save();
         console.log("save garden");
