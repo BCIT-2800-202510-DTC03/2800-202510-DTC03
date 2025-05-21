@@ -59,7 +59,7 @@ connectToMongo();
 // });
 
 // https://expressjs.com/en/guide/routing.html
-const userRouter = require("./user");
+const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
 /* Login */
