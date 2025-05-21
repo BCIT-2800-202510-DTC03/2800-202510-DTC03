@@ -1,4 +1,5 @@
-const weather = "clear"
+const { getWeather } = require('./weatherData');
+var weather = getWeather();
 
 function insertBackground() {
     const background = document.getElementById("garden-background");
