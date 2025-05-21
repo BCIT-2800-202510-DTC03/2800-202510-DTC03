@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const mongoose = require('mongoose');
 // import user model
 const User = require("./models/User");
 const Garden = require("./models/Garden")
@@ -201,6 +201,60 @@ router.post("/updateInfo", async (req, res) => {
         res.status(200).json({message: "Successfully updated user."});
     } catch (error) {
         console.error("Failed to update user information: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+
+router.get("/checkForUser", async (req, res) => {
+    try{
+        const userId = req.query.id;
+        if(!userId){
+           return res.status(400).json({
+                message: "No userID provided"
+            })
+        } else if (!mongoose.Types.ObjectId.isValid(userId)){
+            return res.status(400).json({message: "Invalid ID format."});
+        }
+        const user = await User.findOne({_id: userId});
+
+        if(!user){
+            return res.status(400).json({
+                message: "No user found.",
+            })
+        }
+        res.status(200).json({message: "User found!"});
+    } catch (error) {
+        console.error("Failed to fetch user: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+router.get("/getFriends", async (req, res) => {
+    try{
+        const id = req.session.userId;
+        if (!id){
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        const user = await User.findOne({_id: id});
+
+        if(!user){
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        res.status(200).json({friends: user.friends});
+
+    } catch(error) {
+        console.error("Failed to fetch user: ", error);
         res.status(500).json({
             error_message: "Server error",
         })
