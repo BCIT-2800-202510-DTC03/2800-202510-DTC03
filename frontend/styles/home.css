@@ -90,9 +90,9 @@ body {
 }
 
 #add-goal-tasks-btn .icon {
-    width: 20px;
-    height: 20px;
-    filter: invert(1);
+    width: 24px;
+    height: 24px;
+
 }
 
 #task-items {
