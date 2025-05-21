@@ -1,165 +1,158 @@
 .task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #DFCFBF;
-    border-radius: 2rem;
-    padding: 18px 20px;
-    margin: 12px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: sans-serif;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #dfcfbf;
+  border-radius: 2rem;
+  padding: 18px 20px;
+  margin: 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .task-text {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 600;
-    line-height: 1.4;
-    word-break: break-word;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 .task-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 16px;
 }
 
 .sunpoints {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: #333;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #333;
 }
 
 .sun-icon {
-    margin-right: 4px;
-    font-size: 1.2rem;
+  margin-right: 4px;
+  font-size: 1.2rem;
 }
 
 .sun-value {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .checkmark {
-    width: 32px;
-    height: 32px;
-    border: 2px solid #333;
-    border-radius: 25%;
-    flex-shrink: 0;
-    background-color: #F5F0E6;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #333;
+  border-radius: 25%;
+  flex-shrink: 0;
+  background-color: #f5f0e6;
 }
 
 .completed {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }
-
-
-
-
 
 /* AI task CSS */
 
-#Ai-btn{
-    flex-shrink: 0;
-    /* don't shrink the button */
-    width: 50px;
-    height: 50px;
-    background-color: #606c38;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
+#Ai-btn {
+  flex-shrink: 0;
+  /* don't shrink the button */
+  width: 50px;
+  height: 50px;
+  background-color: #606c38;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
 }
 
-#AI-task-btn{
-    border: none;
-    outline:none;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    user-select: none;
+#AI-task-btn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  user-select: none;
 }
 
-#AI-task-display{
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40vh;
-    height: 40vh;
-    box-shadow: #33333348 0 0 5px 5px;
-    background-color: #606c38;
-    border-radius: 2vh;
-    box-sizing: border-box;
-    padding: 5vh;
-    color:white;
+#AI-task-display {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vh;
+  height: 45vh;
+  box-shadow: #33333348 0 0 5px 5px;
+  background-color: #606c38;
+  border-radius: 2vh;
+  box-sizing: border-box;
+  padding: 3vh;
+  color: white;
 
-    h2{
-        padding-top: 5vh;
-    }
+  h2 {
+    padding-top: 5vh;
+  }
 }
 
-
-
-#AI-btn-wrapper{
-    position: absolute;
-    top:60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#AI-btn-wrapper {
+  position: absolute;
+  top: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.AI-btn{
-    padding:1vh;
-    cursor: pointer;
-    background-color: #DFCFBF;
-    color: #606c38;
-    border-radius: 1vh;
-    width: 100%;
-    text-align: center;
-    margin: 1vh;
-
+.AI-btn {
+  padding: 1vh;
+  cursor: pointer;
+  background-color: #dfcfbf;
+  color: #606c38;
+  border-radius: 1vh;
+  width: 100%;
+  text-align: center;
+  margin: 1vh;
 }
 
-.AI-btn:hover{
-    transition: 0.2s;
-    opacity: 0.8;
+.AI-btn:hover {
+  transition: 0.2s;
+  opacity: 0.8;
 }
 
-#AI-task-desc{
-    padding: 2vh;
+#AI-task-desc {
+  padding: 1.5rem;
+  font-size: larger;
 }
 
-.AI-sunpoints{
-    font-size: x-large;
+.AI-sunpoints {
+  font-size: x-large;
 }
 
-
-#AI-task-wrap{
-    position: absolute;
-    top:53%;
-    display: flex;
-    width:100%;
-    justify-content: center;
+#AI-task-wrap {
+  position: absolute;
+  top: 53%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
-.AI-task{
-    width: 60%;
-    border-radius: 1vh;
+.AI-task {
+  width: 60%;
+  border-radius: 1vh;
 }

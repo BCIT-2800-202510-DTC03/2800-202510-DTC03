@@ -80,7 +80,15 @@ async function callAI() {
 }
 
 function createTask(task) {
-    console.log(task);
+    // populate the tasks in the pop-up cards
+    const aiTask = document.getElementById("AI-task-desc")
+    aiTask.innerHTML = `Your new task is:<br>${task}`;
+    // get another new task
+    const getAnotherTask = document.getElementById("AI-reroll")
+
+    // accept the task
+    document.getElementById("AI-accept")
+
 }
 
 
@@ -88,15 +96,14 @@ async function getTask() {
     const response = await callAI();
     console.log(response.text);
     previousResponse = response;
-    // console.log(previousResponse);
-    createTask(response);
+    createTask(response.text);
 }
 
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
-    // trigger.addEventListener("click", getTask);
-    getTask();
+    trigger.addEventListener("click", getTask);
+    // getTask();
 }
 
 main();

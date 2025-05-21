@@ -1,150 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
 
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/navbar.css" />
     <link rel="stylesheet" href="../styles/home.css" />
     <link rel="stylesheet" href="../styles/garden.css" />
-    <link rel="stylesheet" href="../styles/task.css">
+    <link rel="stylesheet" href="../styles/task.css" />
 
     <!-- AI icon :) -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=wand_stars" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=wand_stars"
+    />
+  </head>
 
-
-<body>
+  <body>
     <!--  Header -->
     <header id="placeholder-header">
-        <!--  Header will be inserted here -->
+      <!--  Header will be inserted here -->
     </header>
 
     <!-- Main Content -->
     <div id="main-content">
-        <div id="home-content">
-            <div id="garden-container">
-                <div id="garden-background" title="Background"></div>
-                <div id="garden-fence" title="Fence"></div>
-                <div id="garden-ground" title="Ground"></div>
-                <div id="garden-building" title="Building"></div>
-                <div id="garden-shelf" title="Shelf">
-                    <div class="garden-plant" id="plant-4" title="Plant 4"></div>
-                    <div class="garden-plant" id="plant-5" title="Plant 5"></div>
-                    <div class="garden-plant" id="plant-6" title="Plant 6"></div>
-                    <div class="garden-plant" id="plant-1" title="Plant 1"></div>
-                    <div class="garden-plant" id="plant-2" title="Plant 2"></div>
-                    <div class="garden-plant" id="plant-3" title="Plant 3"></div>
-                </div>
-                <div id="garden-rightObject" title="Right Object"></div>
-                <div id="garden-leftObject" title="Left Object"></div>
-                <!-- <div id="garden-weather" title="Weather"></div> -->
-                <div id="garden-shadow"></div>
-            </div>
-
-            <div id="task-list">
-                <div id="task-header">
-                    <div id="task-title-header">
-                        <h2 id="task-title">Daily Tasks</h2>
-                    </div>
-                    <div id="task-controls">
-                        <select id="filter-goals">
-                            <option value="all">All Goals</option>
-                            <option value="greenerEating">Greener Eating</option>
-                            <option value="transportation">Transportation</option>
-                            <option value="wasteReduction">Waste Reduction</option>
-                            <option value="resourceConservation">Resource Conservation</option>
-                            <option value="consciousConsumption">Conscious Consumption</option>
-                        </select>
-                        <button id="add-goal-tasks-btn">
-                            <img src="../assets/icons/add.svg" alt="Add" class="icon" />
-                        </button>
-                        <!-- AI btn -->
-                        <div id="Ai-btn">
-                            <button id="AI-task-btn">
-                                <span class="material-symbols-outlined">
-                                    wand_stars
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="task-items">
-            </div>
-            <!-- AI task pop up -->
-            <div id="AI-task-display">
-                <h2>Greener Eating Task</h2>
-                <p id="AI-task-desc">Cook one meal from scratch.</p>
-                <div class="AI-sunpoints">
-                    <span class="sun-icon">☀</span>
-                    <span class="sun-value">5</span>
-                </div>
-                <div id="AI-btn-wrapper">
-                    <btn id="AI-accept" class="AI-btn">Accept task</btn>
-                    <btn id="AI-reroll" class="AI-btn">Generate new task</btn>
-                </div>
-            </div>
-
-            <!-- AI task -->
-                <div id="AI-task-wrap">
-                    <div class="task AI-task">
-                        <div class="task-left">
-                            <div class="task-text">Cook one meal from scratch.</div>
-                        </div>
-                        <div class="task-actions">
-                            <div class="sunpoints">
-                                <span class="sun-icon">☀</span>
-                                <span class="sun-value">5</span>
-                            </div>
-                            <div class="checkmark"></div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div id="task-overlay">
-            <div id="task-overlay-content">
-                <button id="close-overlay">×</button>
-                <h2>Choose a Task</h2>
-                <div id="goal-panel"></div>
-            </div>
+      <div id="home-content">
+        <div id="garden-container">
+          <div id="garden-background" title="Background"></div>
+          <div id="garden-fence" title="Fence"></div>
+          <div id="garden-ground" title="Ground"></div>
+          <div id="garden-building" title="Building"></div>
+          <div id="garden-shelf" title="Shelf">
+            <div class="garden-plant" id="plant-4" title="Plant 4"></div>
+            <div class="garden-plant" id="plant-5" title="Plant 5"></div>
+            <div class="garden-plant" id="plant-6" title="Plant 6"></div>
+            <div class="garden-plant" id="plant-1" title="Plant 1"></div>
+            <div class="garden-plant" id="plant-2" title="Plant 2"></div>
+            <div class="garden-plant" id="plant-3" title="Plant 3"></div>
+          </div>
+          <div id="garden-rightObject" title="Right Object"></div>
+          <div id="garden-leftObject" title="Left Object"></div>
+          <!-- <div id="garden-weather" title="Weather"></div> -->
+          <div id="garden-shadow"></div>
         </div>
 
-    </div>
-    <template id="task-template">
-        <div class="task">
+        <div id="task-list">
+          <div id="task-header">
+            <div id="task-title-header">
+              <h2 id="task-title">Daily Tasks</h2>
+            </div>
+            <div id="task-controls">
+              <select id="filter-goals">
+                <option value="all">All Goals</option>
+                <option value="greenerEating">Greener Eating</option>
+                <option value="transportation">Transportation</option>
+                <option value="wasteReduction">Waste Reduction</option>
+                <option value="resourceConservation">
+                  Resource Conservation
+                </option>
+                <option value="consciousConsumption">
+                  Conscious Consumption
+                </option>
+              </select>
+              <button id="add-goal-tasks-btn">
+                <img src="../assets/icons/add.svg" alt="Add" class="icon" />
+              </button>
+              <!-- AI btn -->
+              <div id="Ai-btn">
+                <button id="AI-task-btn">
+                  <span class="material-symbols-outlined"> wand_stars </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="task-items"></div>
+        <!-- AI task pop up -->
+        <div id="AI-task-display">
+          <!-- <h2>Greener Eating Task</h2> -->
+          <p id="AI-task-desc"></p>
+          <div class="AI-sunpoints">
+            <span class="sun-icon">☀</span>
+            <span class="sun-value">5</span>
+          </div>
+          <div id="AI-btn-wrapper">
+            <btn id="AI-accept" class="AI-btn">Accept task</btn>
+            <btn id="AI-reroll" class="AI-btn">Generate new task</btn>
+          </div>
+        </div>
+
+        <!-- AI task -->
+        <!-- <div id="AI-task-wrap">
+          <div class="task AI-task">
             <div class="task-left">
-                <div class="task-text">Task placeholder</div>
+              <div class="task-text">Cook one meal from scratch.</div>
             </div>
             <div class="task-actions">
-                <div class="sunpoints">
-                    <span class="sun-icon">☀</span>
-                    <span class="sun-value">5</span>
-                </div>
-                <div class="checkmark">✔</div>
+              <div class="sunpoints">
+                <span class="sun-icon">☀</span>
+                <span class="sun-value">5</span>
+              </div>
+              <div class="checkmark"></div>
             </div>
+          </div>
+        </div> -->
+      </div>
+      <div id="task-overlay">
+        <div id="task-overlay-content">
+          <button id="close-overlay">×</button>
+          <h2>Choose a Task</h2>
+          <div id="goal-panel"></div>
         </div>
-    </template>
+      </div>
     </div>
-</body>
+    <template id="task-template">
+      <div class="task">
+        <div class="task-left">
+          <div class="task-text">Task placeholder</div>
+        </div>
+        <div class="task-actions">
+          <div class="sunpoints">
+            <span class="sun-icon">☀</span>
+            <span class="sun-value">5</span>
+          </div>
+          <div class="checkmark">✔</div>
+        </div>
+      </div>
+    </template>
+  </body>
 
-<!-- JavaScript -->
-<!-- Need this for loading profile picture in header -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- JavaScript -->
+  <!-- Need this for loading profile picture in header -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!-- This swaps backend URLs depending on deployment type (local vs render) -->
-<script src="../scripts/config.js"></script>
+  <!-- This swaps backend URLs depending on deployment type (local vs render) -->
+  <script src="../scripts/config.js"></script>
 
-<script src="../scripts/skeleton.js"></script>
-<script src="../scripts/navbar.js"></script>
-<script src="../scripts/weather.js"></script>
-<script type="module" src="../scripts/garden.js"></script>
-<script type="module" src="../scripts/home.js"></script>
-<script type="module" src="../scripts/task.js"></script>
-<script type="module" src="../scripts/AI.js"></script>
-
+  <script src="../scripts/skeleton.js"></script>
+  <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/weather.js"></script>
+  <script type="module" src="../scripts/garden.js"></script>
+  <script type="module" src="../scripts/home.js"></script>
+  <script type="module" src="../scripts/task.js"></script>
+  <script type="module" src="../scripts/AI.js"></script>
 </html>
