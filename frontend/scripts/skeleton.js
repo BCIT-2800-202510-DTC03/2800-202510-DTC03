@@ -5,7 +5,7 @@ async function insertHTML(filePath, element) {
             return;
         }
         const text = await response.text();
-        
+
         element.innerHTML = text;
         console.log("Successfully inserted");
     } catch (err) {
@@ -13,13 +13,14 @@ async function insertHTML(filePath, element) {
     }
 }
 
-function insertHeader() {
+async function insertHeader() {
     const filePath = "../pages/text/navbar.html";
     const element = document.getElementById("placeholder-header");
 
-    insertHTML(filePath, element);
+    await insertHTML(filePath, element);
+    navbarLogout();
+    loadProfilePicture();
 }
-
 
 function setup() {
     insertHeader();
