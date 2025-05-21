@@ -87,7 +87,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            backendURLTest + "/user/updateInfo",
+            backgroundURL + "/user/updateInfo",
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
@@ -105,7 +105,7 @@ async function updateUserPreference() {
 async function loadUserPreferences() {
     //get information from DB
     try {
-        const response = await axios.get(backendURLTest + "/user/UserInfo", {
+        const response = await axios.get(backendURL + "/user/UserInfo", {
             withCredentials: true,
         });
 
@@ -122,7 +122,8 @@ async function loadUserPreferences() {
             pfp.src = pfpPreference;
         } else {
             //update this with the default image we want to use
-            pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+            pfp.src =
+                "/frontend/assets/profile/material_design_account_circle.svg";
         }
 
         if (userGoal) {
@@ -136,13 +137,20 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach((btn) => {
-        //event listener for profile picture options
-        btn.addEventListener("change", () => {
-            if (btn.checked) {
-                pfp.src = btn.value;
-                pfpOptions.style.display = "none";
-                updateUserPreference();
-            }
+        buttons.forEach((btn) => {
+            //event listener for profile picture options
+            btn.addEventListener("change", () => {
+                if (btn.checked) {
+                    const newImageSource = btn.value;
+                    pfp.src = newImageSource;
+                    pfpOptions.style.display = "none";
+                    updateUserPreference();
+                    const headerPfp = document.getElementById("header-profile");
+                    if (headerPfp) {
+                        headerPfp.style.backgroundImage = `url('${newImageSource}')`;
+                    }
+                }
+            });
         });
     });
 }

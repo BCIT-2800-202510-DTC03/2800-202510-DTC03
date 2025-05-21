@@ -46,7 +46,7 @@
                             <img class="pfp-img-choice" src="../assets/profile/avatar2.png">
                         </label>
                         <label>
-                            <input type="radio" class="pfp-image-radio" value=".../assets/profile/avatar3.png"
+                            <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar3.png"
                                 name="pfp-choice">
                             <img class="pfp-img-choice" src="../assets/profile/avatar3.png">
                         </label>
@@ -118,9 +118,12 @@
         </div>
     </div>
 
+    <!-- Need this for loading profile picture in header -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- Currently backendURL isn't working but only because I need to pull changes from dev -->
-    <!-- <script src="../scripts/config.js"></script>  -->
+
+    <!-- This swaps backend URLs depending on deployment type (local vs render) -->
+    <script src="../scripts/config.js"></script>
+
     <script src="../scripts/profile.js"></script>
     <script src="../scripts/navbar.js"></script>
     <script src="../scripts/skeleton.js"></script>
