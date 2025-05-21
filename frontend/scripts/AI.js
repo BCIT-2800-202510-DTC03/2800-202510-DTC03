@@ -1,16 +1,22 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
+
 import { currentBackEndUrl } from "../util.js"
+
 
 const backendURLTest = "http://localhost:3000";
 
 const apiKeyResponse = await axios.get(backendURLTest + "/API/AIAPI", {
+
     withCredentials: true,
 });
+
 
 const apiKey = apiKeyResponse.data.apiKey;
 
 //replace this with a value from .env
+
 const ai = new GoogleGenAI({ apiKey: `${apiKey}` });
+
 
 //goal prompts
 const greenerEatingPrompt = "Give me a task I can do to eat in a way that reduces my wastage or is healthier for me. Do not suggest things like reducing portion size or anything related to diets. keep tasks related to things like zero-waste eating, adding more nutrients to meals, or eating less processed food. Do not suggest anything that requires a huge change in lifestyle."
@@ -109,7 +115,9 @@ async function callAI() {
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
+
             contents: await getGoal() + " " + formatSpecification + " " + priorResponse,
+
         })
     }
     return task;
@@ -170,11 +178,15 @@ async function saveTask() {
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
+
     trigger.addEventListener("click", getTask);
     // bind getTask to reroll button
     document.getElementById("AI-reroll").addEventListener("click", getTask)
     // bind taskAccept to accept button
     document.getElementById("AI-accept").addEventListener("click", saveTask)
+
+}
+
 
 }
 userGoal = await readUserGoal()

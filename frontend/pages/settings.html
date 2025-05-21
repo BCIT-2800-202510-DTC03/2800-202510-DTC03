@@ -30,49 +30,47 @@
     <header id="placeholder-header">
         <!--  Header will be inserted here -->
     </header>
-
-    <div class="max-w-md mx-auto px-4"> <!-- Card is from daisyUI -->
-
+    <div id="settings-wrapper" class="max-w-md mx-auto px-4 ">
         <h1 class="heading pt-4"> Account Settings </h1>
         <!-- Need to add card styling later -->
         <form id="settingsForm">
 
             <!-- Username -->
-            <div class="mb-4">
+            <div class="field">
                 <label class="label flex flex-col items-start"> User ID </label>
-                <input id="userId" type="text" name="userId" class="input" required>
+                <input id="userId" type="text" name="userId" class="input" required disabled>
             </div>
 
             <!-- Email -->
-            <div class="">
+            <div class="field">
                 <label class="label flex flex-col items-start">
                     <span id="email" class="label-text">Email</span>
                 </label>
-                <input id="emailInput" type="email" name="email" class="input" required>
+                <input id="emailInput" class="input" type="email" name="email" class="input" required>
             </div>
 
             <!-- Old Password-->
-            <div class="">
+            <div class="field">
                 <label class="label flex flex-col items-start">
                     <span id="oldPassword" class="label-text">Old Password</span>
                 </label>
-                <input type="password" name="oldPassword" class="input input-bordered">
+                <input type="password" class="input" name="oldPassword" class="input input-bordered">
             </div>
 
             <!-- New Password -->
-            <div class="">
+            <div class="field">
                 <label class="label flex flex-col items-start">
                     <span id="newPassword" class="label-text">New Password</span>
                 </label>
-                <input type="password" name="newPassword" class="input">
+                <input type="password" class="input" name="newPassword" class="input">
             </div>
 
             <!-- Confirm Password -->
-            <div class="">
+            <div class="field">
                 <label class="label flex flex-col items-start">
                     <span id="confirmPassword" class="label-text">Confirm Password</span>
                 </label>
-                <input type="password" name="confirmPassword" class="input">
+                <input type="password" class="input" name="confirmPassword" class="input">
             </div>
 
             <button type="submit" class="btn btn-primary px-5" id="updateSettingsBtn">Update Settings</button>
