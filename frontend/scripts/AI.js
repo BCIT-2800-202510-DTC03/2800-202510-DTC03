@@ -84,10 +84,7 @@ function createTask(task) {
     const aiTask = document.getElementById("AI-task-desc")
     aiTask.innerHTML = `Your new task is:<br>${task}`;
     // get another new task
-    const getAnotherTask = document.getElementById("AI-reroll")
 
-    // accept the task
-    document.getElementById("AI-accept")
 
 }
 
@@ -99,11 +96,18 @@ async function getTask() {
     createTask(response.text);
 }
 
+async function saveTask() {
+    // here we need to save the task to mongodb
+    // and we need to rerender the tasklist, maybe we need to pass it to home.js
+}
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
     trigger.addEventListener("click", getTask);
-    // getTask();
+    // bind getTask to reroll button
+    document.getElementById("AI-reroll").addEventListener("click", getTask)
+    // bind taskAccept to accept button
+    document.getElementById("AI-accept").addEventListener("click", saveTask)
 }
 
 main();
