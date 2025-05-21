@@ -5,7 +5,7 @@ const gardenSchema = new mongoose.Schema({
     garden: {
         fence: {
             type: String,
-            default: "brown",
+            default: "",
         },
         building: {
             type: String,
@@ -13,7 +13,7 @@ const gardenSchema = new mongoose.Schema({
         },
         shelf: {
             type: String,
-            default: "brown",
+            default: "",
         },
         rightObject: {
             type: String,

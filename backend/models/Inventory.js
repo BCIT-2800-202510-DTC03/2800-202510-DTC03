@@ -1,16 +1,14 @@
 const mongoose = require("mongoose");
+const Decoration = require("./Decoration");
 
 const inventorySchema = new mongoose.Schema({
     userId: String,
-    displayName: String,
-    typeName: String,
-    position: {
-        type: String,
-        enum: ["fence", "building", "shelf", "object", "plant"]
-    },
-    quantity: {
-        type: Number,
-        default: 1,
+    inventory: {
+        fence: [Decoration],
+        building: [Decoration],
+        shelf: [Decoration],
+        object: [Decoration],
+        plant: [Decoration]
     }
 });
 
