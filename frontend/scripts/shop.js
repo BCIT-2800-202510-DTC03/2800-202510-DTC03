@@ -3,8 +3,7 @@ let currentTab = "fence";
 
 async function getWallet() {
     const wallet = document.getElementById("wallet");
-
-    fetch(`http://localhost:3000/garden/getWallet`, {method: "GET", credentials: "include"})
+    fetch("http://localhost:3000/garden/getWallet", {method: "GET"})
         .then((response) => response.json())
         .then((data) => {
             console.log(data)
@@ -121,7 +120,7 @@ function closePurchaseScreen() {
 }
 
 async function purchaseItem(tab, type) {
-    fetch(`http://localhost:3000/garden/buyShopItem/${tab}/${type}`, {method: "POST", credentials: "include"})
+    fetch(`http://localhost:3000/garden/buyShopItem/${tab}/${type}`, {method: "POST"})
         .then((response) => {
             if (response.ok) {
                 getWallet();
