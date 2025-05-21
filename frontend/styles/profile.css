@@ -9,6 +9,7 @@
 * {
     font-family: "Poppins", sans-serif;
     user-select: none;
+    -webkit-user-drag: none;
 }
 
 body {
@@ -41,6 +42,7 @@ body {
     height: 20vh;
     object-fit: cover;
     border-radius: 100%;
+    background-color: #606c38;
 }
 
 #username-wrapper {
@@ -146,6 +148,7 @@ body {
     height: fit-content;
     padding: 1vh;
     border-radius: 100%;
+    border: white 0.2vh solid;
     color: white;
     font-size: x-large;
     cursor: pointer;
