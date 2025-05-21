@@ -1,4 +1,5 @@
 let totalWallet = 0;
+let currentTab = "fence";
 
 async function getWallet() {
     const wallet = document.getElementById("wallet");
@@ -9,7 +10,7 @@ async function getWallet() {
             console.log(data)
             console.log("WALLET: " + data.currency)
             totalWallet = data.currency;
-            wallet.inner = `Sun Points: ${totalWallet}`;
+            wallet.innerHTML = `Sun Points: <span>${totalWallet}</span>`;
         })
         .catch((error) => console.error("Error fetching user wallet:", error));
 }
@@ -17,6 +18,8 @@ async function getWallet() {
 async function getItems(tab) {
     const itemList = document.getElementById("shop-grid");
     itemList.innerHTML = "";
+
+    currentTab = tab;
 
     const oldTab = document.getElementsByClassName("shop-tab-active")[0];
     console.log("TEST");
@@ -61,13 +64,25 @@ async function getItems(tab) {
                 card.appendChild(top);
                 card.appendChild(name);
 
-                if (totalWallet >= item.cost) {
+                if (totalWallet <= item.cost) {
                     card.addEventListener("click", () => {
                         console.log("Click");
+
+                        const buyButton = document.getElementById("purchase-item");
+                        buyButton.disabled = false;
 
                         const showcase = document.getElementById("showcase-item");
                         showcase.style.visibility = "initial";
                         showcase.src = `../assets/garden/${tab}-${item.typeName}.png`;
+
+                        const purchaseName = document.getElementById("purchase-name");
+                        purchaseName.innerHTML = `Item Name: ${item.displayName}`
+
+                        const purchaseCost = document.getElementById("purchase-cost");
+                        purchaseCost.innerHTML = `Cost: ${item.cost}`
+
+                        const purchaseConfirm = document.getElementById("purchase-confirm");
+                        purchaseConfirm.addEventListener("click", purchaseItem(tab, item.typeName));
                     });
                 };
 
@@ -105,6 +120,16 @@ function closePurchaseScreen() {
     }, 300)
 }
 
+async function purchaseItem(tab, type) {
+    fetch(`http://localhost:3000/garden/buyShopItem/${tab}/${type}`, {method: "POST", credentials: "include"})
+        .then((response) => {
+            if (response.ok) {
+                getWallet();
+                getItems(currentTab);
+            }
+        })
+        .catch((error) => console.error("Error buying decoration:", error));
+}
 
 
 function resizeWindow() {
@@ -112,8 +137,8 @@ function resizeWindow() {
 }
 
 function setup() {
-    // getWallet();
-    getItems("fence");
+    getWallet();
+    getItems(currentTab);
     resizeWindow();
     window.onresize = resizeWindow;
 }
