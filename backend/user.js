@@ -113,6 +113,13 @@ router.post("/register", async (req, res) => {
         await newGarden.save();
         console.log("save garden");
 
+        // New Inventory
+        const newInventory = new Inventory({
+          userId: newUser._id 
+        });
+        await newInventory.save();
+        console.log("save inventory");
+
         // if success
         // update session
         if (newUser) {
