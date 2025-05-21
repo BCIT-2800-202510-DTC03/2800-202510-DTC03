@@ -1,33 +1,33 @@
 <side id="sidebar-overlay" onclick="closeSidebar()">
-    <nav id="sidebar">        
+    <nav id="sidebar">
         <button id="sidebar-navbar" onclick="closeSidebar()">
             <div></div>
             <div></div>
             <div></div>
         </button>
 
-        <a class="sidebar-button" href="#">
+        <a id="home-nav" class="sidebar-button" href="/frontend/pages/home.html">
             Home
             <hr />
         </a>
-        <a class="sidebar-button" href="#">
+        <a id="shop-nav" class="sidebar-button" href="#">
             Shop
             <hr />
         </a>
-        <a class="sidebar-button" href="#">
-            Garden
+        <a id="profile-nav" class="sidebar-button" href="/frontend/pages/profile.html">
+            Profile
             <hr />
         </a>
-        <a class="sidebar-button" href="#">
+        <a id="friends-nav" class="sidebar-button" href="#">
             Friends
             <hr />
         </a>
-        <a class="sidebar-button" href="#">
+        <a id="settings-nav" class="sidebar-button" href="/frontend/pages/settings.html">
             Settings
             <hr />
         </a>
     </nav>
-</side> 
+</side>
 
 <header id="header">
     <button id="header-navbar" onclick="openSidebar()">
@@ -36,5 +36,5 @@
         <div></div>
     </button>
     <p id="header-text">BloomGreener</p>
-    <button id="header-profile"></button>
+    <button id="header-profile" onclick="window.location.href='/frontend/pages/profile.html'""></button>
 </header>

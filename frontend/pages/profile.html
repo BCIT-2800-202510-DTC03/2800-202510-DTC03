@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/fonts.css">
-    <link rel="stylesheet" href="../styles/profile.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=edit" />
     <link rel="stylesheet" href="../styles/home.css" />
+    <link rel="stylesheet" href="../styles/navbar.css" />
+    <link rel="stylesheet" href="../styles/profile.css">
+
+
 </head>
+
 <body>
-    <nav id="pfp-nav">
-        <span class="material-symbols-outlined" id="back-arrow" onclick="history.back();">
-         arrow_back
-        </span>
-    </nav>
+    <!--  Header -->
+    <header id="placeholder-header">
+        <!--  Header will be inserted here -->
+    </header>
+
     <div id="profile-wrapper">
         <div id="picture-wrapper">
             <div id="pfp-container">
@@ -29,19 +36,23 @@
                     <h2 class="section-title">Choose a Profile Picture</h2>
                     <div id="pfp-choices">
                         <label>
-                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/606c38/dadbe6" name="pfp-choice">
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/606c38/dadbe6"
+                                name="pfp-choice">
                             <img class="pfp-img-choice" src="https://dummyimage.com/100/606c38/dadbe6">
                         </label>
                         <label>
-                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/b6bf97/dadbe6" name="pfp-choice">
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/b6bf97/dadbe6"
+                                name="pfp-choice">
                             <img class="pfp-img-choice" src="https://dummyimage.com/100/b6bf97/dadbe6">
                         </label>
                         <label>
-                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/6265a6/dadbe6" name="pfp-choice">
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/6265a6/dadbe6"
+                                name="pfp-choice">
                             <img class="pfp-img-choice" src="https://dummyimage.com/100/6265a6/dadbe6">
                         </label>
                         <label>
-                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/de9338/dadbe6" name="pfp-choice">
+                            <input type="radio" class="pfp-image-radio" value="https://dummyimage.com/100/de9338/dadbe6"
+                                name="pfp-choice">
                             <img class="pfp-img-choice" src="https://dummyimage.com/100/de9338/dadbe6">
                         </label>
                     </div>
@@ -66,33 +77,36 @@
                     <option value="resourceConservation">To conserve more resources</option>
                     <option value="consciousConsumption">To consume consciously</option>
                     <option value="transportation">To use eco-friendly transit options</option>
-                    </select>
+                </select>
             </div>
         </div>
         <div id="garden-display-wrapper">
             <h2 class="section-title">My Garden</h2>
             <div id="garden-display">
                 <div id="garden-container">
-                <div id="garden-background">Background</div>
-                <div id="garden-ground">Ground</div>
-                <div id="garden-fence">Fence</div> 
-                <div id="garden-building">Large Building</div> 
-                <div id="garden-shelf">
-                <div class="garden-plant" id="four">Plant 4</div> 
-                <div class="garden-plant" id="five">Plant 5</div> 
-                <div class="garden-plant" id="six">Plant 6</div> 
-                <div class="garden-plant" id="one">Plant 1</div> 
-                <div class="garden-plant" id="two">Plant 2</div> 
-                <div class="garden-plant" id="three">Plant 3</div>
-                </div>  
-                <div id="garden-rightObject">Small Object Right</div> 
-                <div id="garden-leftObject">Small Object Left</div> 
-            </div>
+                    <div id="garden-background">Background</div>
+                    <div id="garden-ground">Ground</div>
+                    <div id="garden-fence">Fence</div>
+                    <div id="garden-building">Large Building</div>
+                    <div id="garden-shelf">
+                        <div class="garden-plant" id="four">Plant 4</div>
+                        <div class="garden-plant" id="five">Plant 5</div>
+                        <div class="garden-plant" id="six">Plant 6</div>
+                        <div class="garden-plant" id="one">Plant 1</div>
+                        <div class="garden-plant" id="two">Plant 2</div>
+                        <div class="garden-plant" id="three">Plant 3</div>
+                    </div>
+                    <div id="garden-rightObject">Small Object Right</div>
+                    <div id="garden-leftObject">Small Object Left</div>
+                </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/profile.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/skeleton.js"></script>
 </body>
+
 </html>
