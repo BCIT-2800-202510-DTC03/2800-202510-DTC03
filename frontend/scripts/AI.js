@@ -1,7 +1,15 @@
-import {GoogleGenAI} from "@google/genai";
+import { GoogleGenAI } from "https://esm.run/@google/genai";
+
+const backendURLTest = "http://localhost:3000";
+
+const apiKeyResponse = await axios.get(backendURLTest + "/API/AIAPI", {
+            withCredentials: true,
+        });
+
+const apiKey = apiKeyResponse.data.apiKey;
 
 //replace this with a value from .env
-const ai = new GoogleGenAI({apiKey: "AIzaSyBSz-vEzZ4TJD8Xwt4DQfcdWDUvipqG2xA"});
+const ai = new GoogleGenAI({apiKey: `${apiKey}`});
 
 //goal prompts
 const greenerEatingPrompt = "Give me a task I can do to eat in a way that reduces my wastage or is healthier for me. Do not suggest things like reducing portion size or anything related to diets. keep tasks related to things like zero-waste eating, adding more nutrients to meals, or eating less processed food. Do not suggest anything that requires a huge change in lifestyle."
@@ -12,7 +20,7 @@ const wasteReductionPrompt = "Give me a task I can do to improve my environmenta
 
 const resourceConservationPrompt = "Give me a task I can do to improve my environmental impact related to my resource consumption. Do not suggest things that may require large purchases. Keep tasks related to things like turning off the tap, shortening shower times, and turning off lights when not in use. Tasks may be something that I may do over a longer period of time but should be written in a way that is immediate. Keep tasks related to reducing water or electricity usage."
 
-const consciousConsumptionPrompt = "Give me a list of 3 tasks I can do to improve my environmental impact related to my purchases of new items. Do not suggest things that require a huge change in lifestyle. Keep tasks related to things like thrifting clothes, buying used items, and other activities that promote buying used or from local stores as opposed to large corporate stores. These should be actionable, like visit your local thrift store, or go to a farmers market. Keep wording simple. Tasks should encourage reducing spending."
+const consciousConsumptionPrompt = "Give me a task I can do to improve my environmental impact related to my purchases of new items. Do not suggest things that require a huge change in lifestyle. Keep tasks related to things like thrifting clothes, buying used items, and other activities that promote buying used or from local stores as opposed to large corporate stores. These should be actionable, like visit your local thrift store, or go to a farmers market. Keep wording simple. Tasks should encourage reducing spending."
 
 
 //previous acceptable tasks for it to reference.
@@ -27,7 +35,7 @@ const previousResourceConservaton = "Here are some examples of perfect tasks to 
 const previousConsciousConsumption = "Here are some examples of perfect tasks to give as responses.*Skip one non-essential purchase today.Find an item on your list that can be bought secondhand.Declutter one area and donate unused items.Borrow something instead of buying it.Research a sustainable brand before purchasing.Resist an impulse buy today. *   Visit a local thrift store.*   Buy produce at a farmers market. *   Make a list of what you need to buy. You may provide ones from this list, but should mainly create your own. Keep tasks realistic."
 
 //formatting prompt
-const formatSpecification = " Do not include any pleasantries and only provide the task. Make the task a simple action statement like: 'Plan your meals for the week' Keep the wording simple, and use as few words as possible while still conveying the full message. Keep the tasks to something that can be done in a day. Avoid using words like 'my' or 'you' keep to action statements. Tasks should be a complete-able action that I can check off."
+const formatSpecification = " Do not include any pleasantries and only provide the task. Make the task a simple action statement like: 'Plan your meals for the week' Keep the wording simple, and use as few words as possible while still conveying the full message. Keep the tasks to something that can be done in a day. Avoid using words like 'my' or 'you' keep to action statements. Tasks should be a complete-able action that I can check off. Give a SINGULAR TASK."
 
 const model = "gemini-2.0-flash";
 var previousResponse = "";
@@ -64,7 +72,7 @@ async function callAI() {
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
-            contents: getGoal + " " + formatSpecification + " " + priorResponse,
+            contents: getGoal() + " " + formatSpecification + " " + priorResponse,
         })
     }
     return task;
@@ -85,7 +93,8 @@ async function getTask() {
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
-    trigger.addEventListener("click", getTask);
+    // trigger.addEventListener("click", getTask);
+    getTask();
 }
 
 main();
