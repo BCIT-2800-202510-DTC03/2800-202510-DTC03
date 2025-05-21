@@ -1,3 +1,6 @@
+// This swaps URLs depending on if we are deploying backend on render or localhost. This way we do not need to manually change all the URLs
+import { backendURL } from "./config.js";
+
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
@@ -39,6 +42,7 @@ var gardenplnt6;
 var gardenRight;
 var gardenLeft;
 
+// Need to update with config.js later
 const backendURLTest = "http://localhost:3000";
 
 function profilePictureSetup() {
@@ -65,7 +69,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            backendURLTest + "/user/updateInfo",
+            backgroundURL + "/user/updateInfo",
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
@@ -83,7 +87,7 @@ async function updateUserPreference() {
 async function loadUserPreferences() {
     //get information from DB
     try {
-        const response = await axios.get(backendURLTest + "/user/UserInfo", {
+        const response = await axios.get(backendURL + "/user/UserInfo", {
             withCredentials: true,
         });
 
@@ -100,7 +104,8 @@ async function loadUserPreferences() {
             pfp.src = pfpPreference;
         } else {
             //update this with the default image we want to use
-            pfp.src = "https://dummyimage.com/100/606c38/dadbe6";
+            pfp.src =
+                "/frontend/assets/profile/material_design_account_circle.svg";
         }
 
         if (userGoal) {
