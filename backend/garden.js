@@ -5,6 +5,7 @@ const router = express.Router();
 const User = require("./models/User");
 const Garden = require("./models/Garden");
 const Decoration = require("./models/Decoration");
+const Inventory = require("./models/Inventory");
 
 router.get("/getGarden", async (req, res) => {
     console.log("CHECK FOR SESSIONS");
@@ -54,7 +55,55 @@ router.get("/getWallet", async (req, res) => {
 })
 
 router.post("/buyShopItem/:position/:type", async (req, res) => {
+    const user = await User.findOne({_id: req.session.user._id});
+    const item = await Decoration.findOne({position: req.params.tab, typeName: req.params.type});
 
+    if (user && item) {
+        let totalCurrency = user.currency - item.cost;
+    
+        await User.updateOne(
+            {_id: user._id}, 
+            {$set: 
+                {
+                    currency: totalCurrency
+                }
+            }
+        )
+
+        const inInventory = await Inventory.findOne({userId: user._id.toString(), position: item.position, typeName: item.typeName})
+
+        if (inInventory) {
+            currentQuantity = inInventory.quantity + 1;
+
+            await User.updateOne(
+                {
+                    userId: user._id.toString(),
+                    position: item.position,
+                    typeName: item.typeName
+                }, 
+                {$set: 
+                    {
+                        quantity: currentQuantity
+                    }
+                }
+            )
+            res.status(200);
+        } else if (inInventory == null) {
+            const newInventory = await new Inventory({
+                userId: user._id.toString(),
+                displayName: item.displayName,
+                typeName: item.typeName,
+                position: item.position
+            });
+
+            await newInventory.save();
+            res.status(200);
+        }
+        
+        res.status(400);
+    }
+
+    
 })
 
 module.exports = router;
