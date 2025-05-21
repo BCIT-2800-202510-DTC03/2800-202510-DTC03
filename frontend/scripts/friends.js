@@ -63,23 +63,35 @@ const backendURLTest = "http://localhost:3000";
 var addActive = false;
 
 function addFriend() {
-    if(!addActive){
+    if (!addActive) {
         return;
     }
 
 }
 
 async function getFriends() {
-    try{
-        const response = await axios.get(backendURLTest + "/user/getFriends",
-            { withCredentials: true,
-
-            })
-    } catch (error){
-        
+    try {
+        const response = await axios.get(backendURLTest + "/user/getFriends", { withCredentials: true, })
+        const friendsList = response.data.friends;
+        const wrapper = document.getElementById("friend-body");
+        friendsList.forEach(async (friend) => {
+            const div = document.createElement("div");
+            div.className = "friend";
+            div.innerHTML = await getInfo(friend);
+        });
+    } catch (error) {
+        // handle error
     }
 }
 
+
+async function getInfo() {
+    try{
+        
+    } catch(error) {
+        // handle error
+    }
+}
 
 async function checkForFriend(id) {
     const toolTip = document.getElementById("errorMsg");
