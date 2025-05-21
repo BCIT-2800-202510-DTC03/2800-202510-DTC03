@@ -56,4 +56,54 @@ router.post("/", async (req, res) => {
     }
 });
 
+
+
+// POST route to update an existing task
+router.post("/update/:userTasksId", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        if (!userId) {
+            return res.status(401).json({ error: "User not logged in" });
+        }
+
+        const userTasksId = req.params.userTasksId;
+        const { description, category, worth, completed } = req.body;
+
+        const userTask = await UserTasks.findOne({ _id: userTasksId, userId: userId });
+        if (!userTask) {
+            return res.status(404).json({ error: "Task not found or access denied" });
+        }
+        userTask.completed = completed; // completed is a boolean, true for completed
+        await userTask.save();
+        res.status(200).json({ message: "Task updated successfully", userTask });
+    } catch (err) {
+        console.error("Error updating task:", err);
+
+    }
+});
+// POST route to delete a task 
+router.post("/delete/:taskId", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        if (!userId) {
+            return res.status(401).json({ error: "User not logged in" });
+        }
+
+        const userTasksId = req.params.userTasksId;
+
+        const deletedTask = await UserTasks.findOneAndDelete({
+            _id: userTasksId,
+            userId: userId,
+        });
+        if (!deletedTask) {
+            return res.status(404).json({ error: "Task not found or access denied" });
+        }
+
+        res.status(200).json({ message: "Task deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting task:", err);
+
+    }
+});
+
 module.exports = router;
