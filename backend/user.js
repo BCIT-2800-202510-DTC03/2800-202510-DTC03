@@ -236,7 +236,9 @@ router.get("/checkForUser", async (req, res) => {
 
 router.get("/getFriends", async (req, res) => {
     try{
-        const id = req.session.userId;
+        // const id = req.session.userId;
+        // test ID
+        const id = "681d758b7ca8a10aecec3284";
         if (!id){
             return res.status(401).json({
                 error_message: "No active user session."
@@ -254,6 +256,38 @@ router.get("/getFriends", async (req, res) => {
         res.status(200).json({friends: user.friends});
 
     } catch(error) {
+        console.error("Failed to fetch user: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+router.get("/getInfo", async (req, res) => {
+    try{
+        const id = req.query.id;
+        
+        if (!id){
+            return res.status(401).json({
+                error_message: "No userID provided."
+            })
+        }
+
+        const user = await User.findOne({_id: id});
+
+        if(!user){
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        return res.status(200).json({
+            name: user.username,
+            pfp: user.profilePicture,
+            goal: user.goal,
+            about: user.aboutMe,
+        })
+    } catch (error) {
         console.error("Failed to fetch user: ", error);
         res.status(500).json({
             error_message: "Server error",

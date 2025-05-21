@@ -78,6 +78,7 @@ async function getFriends() {
             const div = document.createElement("div");
             div.className = "friend";
             div.innerHTML = await getInfo(friend);
+            wrapper.appendChild(div);
         });
     } catch (error) {
         // handle error
@@ -85,9 +86,20 @@ async function getFriends() {
 }
 
 
-async function getInfo() {
+async function getInfo(friendId) {
     try{
-        
+        const response = await axios.get(backendURLTest + "/user/getInfo", {
+            params: { friendId },
+            withCredentials: true,
+        })
+        const friend = response.data;
+        if (response.status === 200) {
+            return `<div class="friend-main">
+                    <img class="friend-pfp" src="${friend.pfp}">
+                    <h2 class="friend-name">${friend.name}</h2>
+                </div>
+                <hr class="divider">`
+        }
     } catch(error) {
         // handle error
     }
@@ -136,6 +148,7 @@ function updateAddBtn() {
 
 function main() {
     setUpAddListener();
+    getFriends();
 }
 
 main();
