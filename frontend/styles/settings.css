@@ -12,6 +12,20 @@
 .input {
     text-indent: 15px;
 }
+#settings-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.field {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.input {
+    text-indent: 15px;
+}
 
 .heading {
     margin-top: 10vh;
