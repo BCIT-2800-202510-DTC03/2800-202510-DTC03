@@ -125,10 +125,6 @@ async function loadUserPreferences() {
             pfp.src =
                 "/frontend/assets/profile/material_design_account_circle.svg";
         }
-
-        // if (userGoal) {
-        //     goalSelect.value = userGoal;
-        // }
     } catch (error) {
         //replace with on screen message
         console.error("Error getting user information", error);
@@ -171,10 +167,14 @@ function aboutMetSetup() {
 function goalSetup() {
     goalSelect.addEventListener("change", () => {
         const selectedGoal = goalSelect.value;
-        if (!selectedGoal) {
+        if (selectedGoal === "Select a goal") {
             return;
         }
         userGoal = selectedGoal;
+
+        const currentGoal = document.getElementById("current-goal");
+        currentGoal.value = selectedGoal;
+
         updateUserPreference();
         console.log(userGoal);
     });
