@@ -1,15 +1,22 @@
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
+import { currentBackEndUrl } from "../util.js"
+
+
 const backendURLTest = "http://localhost:3000";
 
 const apiKeyResponse = await axios.get(backendURLTest + "/API/AIAPI", {
-            withCredentials: true,
-        });
+
+    withCredentials: true,
+});
+
 
 const apiKey = apiKeyResponse.data.apiKey;
 
 //replace this with a value from .env
-const ai = new GoogleGenAI({apiKey: `${apiKey}`});
+
+const ai = new GoogleGenAI({ apiKey: `${apiKey}` });
+
 
 //goal prompts
 const greenerEatingPrompt = "Give me a task I can do to eat in a way that reduces my wastage or is healthier for me. Do not suggest things like reducing portion size or anything related to diets. keep tasks related to things like zero-waste eating, adding more nutrients to meals, or eating less processed food. Do not suggest anything that requires a huge change in lifestyle."
@@ -40,11 +47,46 @@ const formatSpecification = " Do not include any pleasantries and only provide t
 const model = "gemini-2.0-flash";
 var previousResponse = "";
 
-function getGoal() {
+async function getUserId() {
+    try {
+        const response = await axios.post(
+            `${currentBackEndUrl}/user/userID`,
+            {},
+            {
+                withCredentials: true
+            }
+        )
+        return response.data.userId;
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            console.log(error.response.data.error_message);
+        } else {
+            console.log(
+                "Something is going wrong. Please try again.");
+        }
+    }
+}
+async function readUserGoal() {
+    let userInfo;
+    try {
+        userInfo = await axios.get(backendURLTest + "/user/UserInfo", {
+            withCredentials: true,
+        });
+        console.log("userinfo", userInfo.data.goal);
+    } catch (error) {
+        console.error("cannot read user's goal", error);
+    }
+    if (userInfo) {
+        return userInfo.data.goal;
+    }
+}
+let userGoal;
+let thisTask;
+let userID;
+async function getGoal(userGoal) {
     //get user goal
-    const userGoal = "";
     //determine prompt that should be used
-    switch(userGoal){
+    switch (userGoal) {
         // case "greenerEating":
         //     return greenerEatingPrompt;
         case "transportation":
@@ -63,38 +105,91 @@ function getGoal() {
 
 async function callAI() {
     var task = "";
-    if (!previousResponse){
+    if (!previousResponse) {
         task = await ai.models.generateContent({
+
             model: model,
-            contents: getGoal() + " " + formatSpecification,
-        });
-    } else{
+            contents: await getGoal() + " " + formatSpecification,
+        }); console.log("fetching first AI");
+    } else {
         const priorResponse = "Provide a different response than your previous response which was: " + previousResponse;
         task = await ai.models.generateContent({
             model: model,
-            contents: getGoal() + " " + formatSpecification + " " + priorResponse,
+
+            contents: await getGoal() + " " + formatSpecification + " " + priorResponse,
+
         })
     }
     return task;
 }
 
 function createTask(task) {
-//create the task card here
+    thisTask = task;
+    // populate the tasks in the pop-up cards
+    const aiTask = document.getElementById("AI-task-desc")
+    aiTask.innerHTML = `Your new task is:<br>${task}`;
+    // get another new task
 }
 
 
 async function getTask() {
-    const response = await callAI();
-    console.log(response.text);
-    previousResponse = response;
-    createTask(response);
+    try {
+        const response = await callAI();
+        console.log(response.text);
+        previousResponse = response;
+        createTask(response.text);
+    } catch (err) {
+        console.error("Error in getTask:", err);
+    }
 }
 
+
+async function saveTask() {
+    //save the task to mongodb
+    const AiTask = {
+        userId: "",
+        isAIGenerated: true,
+        taskId: "",
+        taskDescription: thisTask,
+        taskCategory: userGoal,
+        completed: false,
+    }
+    console.log("task created", AiTask)
+
+    try {
+        const response = await axios.post(
+            currentBackEndUrl + "/task/ai",
+            AiTask,
+            { withCredentials: true }
+        )
+        if (response.status === 200) {
+            console.log("sent ai task data to server")
+
+            // a pop up to show the new
+            // const popup = document.getElementById("New-task-popup");
+            // popup.style.display = "block";
+
+        }
+    } catch (error) {
+        console.error("failed to sent ai task data to server", error)
+    }
+    // and we need to rerender the tasklist, maybe we need to pass it to home.js
+}
 
 function main() {
     const trigger = document.getElementById("AI-task-btn");
-    // trigger.addEventListener("click", getTask);
-    getTask();
+
+    trigger.addEventListener("click", getTask);
+    // bind getTask to reroll button
+    document.getElementById("AI-reroll").addEventListener("click", getTask)
+    // bind taskAccept to accept button
+    document.getElementById("AI-accept").addEventListener("click", saveTask)
+
 }
 
+
+}
+userGoal = await readUserGoal()
+userID = await getUserId()
+if (userID) { console.log(userID) }
 main();
