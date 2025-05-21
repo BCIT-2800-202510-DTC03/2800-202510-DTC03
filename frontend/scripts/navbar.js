@@ -39,7 +39,7 @@ function closeSidebar() {
 
 async function loadProfilePicture() {
     try {
-        const response = await await axios.get(`${backendURL}/user/UserInfo`, {
+        const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
         const data = response.data;
