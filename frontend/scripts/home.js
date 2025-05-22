@@ -394,12 +394,12 @@ filterGoals.addEventListener("change", () => {
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
-    console.log("Task is marked as complete");
+    console.log("Task checkmark is clicked");
     const task = event.target.closest(".task");
-    const taskText = task.querySelector(".task-text").textContent;
-    task.classList.add("completed");
+    if (!task || task.classList.contains("completed")) return;
 
-    completeUserTask();
+    const taskText = task.querySelector(".task-text").textContent;
+    completeUserTask(taskText, task, userTasks);
 });
 
 async function loadGarden() {
