@@ -143,18 +143,12 @@ addBtn.addEventListener("click", () => {
 
         const formatCategory = (category) => {
             switch (category) {
-                case "greenerEating":
-                    return "Greener Eating";
-                case "transportation":
-                    return "Transportation";
-                case "wasteReduction":
-                    return "Waste Reduction";
-                case "resourceConservation":
-                    return "Resource Conservation";
-                case "consciousConsumption":
-                    return "Conscious Consumption";
-                default:
-                    return category.charAt(0).toUpperCase() + category.slice(1);
+                case "greenerEating": return "Greener Eating";
+                case "transportation": return "Transportation";
+                case "wasteReduction": return "Waste Reduction";
+                case "resourceConservation": return "Resource Conservation";
+                case "consciousConsumption": return "Conscious Consumption";
+                default: return category.charAt(0).toUpperCase() + category.slice(1);
             }
         };
 
@@ -172,8 +166,6 @@ addBtn.addEventListener("click", () => {
                     (t) => t.text === task.description && !t.completed
                 );
                 if (isAlreadyAdded) return;
-
-                allTasks.push({ ...task, sunPoints: 5 });
 
                 const taskContainer = document.createElement("div");
                 taskContainer.style.display = "flex";
@@ -202,9 +194,10 @@ addBtn.addEventListener("click", () => {
                 taskContainer.appendChild(addButton);
                 categoryDiv.appendChild(taskContainer);
             });
-            goalPanel.appendChild(categoryDiv);
+            if (categoryDiv.children.length > 1) {
+                goalPanel.appendChild(categoryDiv);
+            }
         }
-        isLoaded = true;
     }
 });
 
