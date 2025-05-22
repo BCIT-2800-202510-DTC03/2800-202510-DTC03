@@ -65,6 +65,12 @@ body{
     background-color: rgb(150, 90, 35);
 }
 
+.custom-tab:disabled {
+    background-color: rgb(185, 155, 130);
+}
+
+
+
 
 /* Items */
 #inventory-grid {
