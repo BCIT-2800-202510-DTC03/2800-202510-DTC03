@@ -65,6 +65,7 @@ app.use("/user", userRouter);
 /* Login */
 app.get("/", (req, res) => res.redirect("/login"));
 
+
 const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);
 

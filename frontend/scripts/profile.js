@@ -39,8 +39,6 @@ var gardenplnt6;
 var gardenRight;
 var gardenLeft;
 
-const backendURLTest = "http://localhost:3000";
-
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
         //prevents triggering other event listener immediately
@@ -58,7 +56,7 @@ function profilePictureSetup() {
 
 async function loadUserGoal() {
     try {
-        const response = await axios.get(backendURL + "/user/UserInfo", {
+        const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
 
@@ -88,7 +86,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            backgroundURL + "/user/updateInfo",
+            `${backgroundURL}/user/updateInfo`,
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
@@ -106,7 +104,7 @@ async function updateUserPreference() {
 async function loadUserPreferences() {
     //get information from DB
     try {
-        const response = await axios.get(backendURL + "/user/UserInfo", {
+        const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
 
