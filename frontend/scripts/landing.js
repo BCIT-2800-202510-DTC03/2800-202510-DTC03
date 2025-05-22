@@ -1,6 +1,6 @@
-import { DEPLOYED_FRONTEND_URL } from '../util.js';
+import { backendURL } from "../util.js";
 
-document.getElementById('CTA_button').addEventListener("click", () => {
-    window.location.href = `${DEPLOYED_FRONTEND_URL}/pages/login.html`
+document.getElementById("CTA_button").addEventListener("click", () => {
+    window.location.href = `${backendURL}/pages/login.html`;
     console.log("CTA button clicked");
-})
+});
