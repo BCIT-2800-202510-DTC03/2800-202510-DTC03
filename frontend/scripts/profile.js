@@ -62,8 +62,9 @@ async function loadUserGoal() {
             withCredentials: true,
         });
 
-        const userData = response.data;
 
+        const userData = response.data;
+        console.log(userData)
         if (userData.error) {
             alert(userData.error);
             return;

@@ -2,12 +2,12 @@
 // var weather = getWeather();
 // const { getWeather } = require('./weather.js');
 // const weather = await getWeather();
-import { getWeather } from "./weather.js"
+// import { getWeather } from "./weather.js"
 
-// var weather = "clear";
+var weather = "clear";
 
 async function insertBackground() {
-    const weather = await getWeather();
+    // const weather = await getWeather();
     const background = document.getElementById("garden-background");
 
     background.style.backgroundImage = "url('../assets/garden/background-" + weather + ".png')";

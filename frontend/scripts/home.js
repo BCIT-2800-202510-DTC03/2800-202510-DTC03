@@ -241,30 +241,30 @@ function taskVisibility() {
 }
 
 // loads user tasks
-async function loadUserTasks() {
-    try {
-        const response = await axios.get(`${backendURL}/userTasks/`, {
-            withCredentials: true,
-        });
+// async function loadUserTasks() {
+//     try {
+//         const response = await axios.get(`${backendURL}/userTasks/`, {
+//             withCredentials: true,
+//         });
 
-        const tasks = response.data;
-        userTasks = [];
+//         const tasks = response.data;
+//         userTasks = [];
 
-        tasks.forEach((task) => {
-            const isCompleted = task.completed || false;
-            addTaskToHome(task.description, task.category, isCompleted);
+//         tasks.forEach((task) => {
+//             const isCompleted = task.completed || false;
+//             addTaskToHome(task.description, task.category, isCompleted);
 
-            userTasks.push({
-                id: task._id,
-                text: task.description,
-                category: task.category,
-                completed: isCompleted
-            });
-        });
-    } catch (err) {
-        console.error("Failed to load user tasks", err);
-    }
-}
+//             userTasks.push({
+//                 id: task._id,
+//                 text: task.description,
+//                 category: task.category,
+//                 completed: isCompleted
+//             });
+//         });
+//     } catch (err) {
+//         console.error("Failed to load user tasks", err);
+//     }
+// }
 
 
 
@@ -415,6 +415,7 @@ document.addEventListener("click", (event) => {
 
 export async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
+    console.log("load garden function is called")
 
     await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
         .then((response) => response.json())
@@ -455,6 +456,7 @@ export async function loadGarden() {
 // }
 
 async function setup() {
+    console.log("setup function in home.js is called")
     await loadUserTasks().then(updateTaskCounter);
     await loadGarden();
     taskVisibility();
