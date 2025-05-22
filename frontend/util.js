@@ -9,3 +9,5 @@ export const backendURL = isLocalHost
     : "https://two800bloomgreener.onrender.com";
 export const DEPLOYED_FRONTEND_URL = "https://two800bloomgreener.onrender.com"
 export const LOCAL_FRONTEND_URL = "http://localhost:5500/frontend"
+export const currentFrontEndUrl = "http://localhost:5500/frontend"
+export const currentBackEndUrl = "http://localhost:3000"
