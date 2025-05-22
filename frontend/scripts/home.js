@@ -8,6 +8,7 @@ let toggleBtn;
 let menu;
 let title;
 let closeOverlay;
+let userCurrency;
 if (document.getElementById("close-overlay")) {
     closeOverlay = document.getElementById("close-overlay")
 };
@@ -216,7 +217,7 @@ if (addBtn) {
                             return;
                         }
                         await addTaskToUser(task.description, task.category);
-                        addTaskToHome(task.description, task.category);
+                        await reloadUserTasks();
                         taskContainer.remove();
                     });
 
@@ -250,6 +251,16 @@ function addTaskToHome(taskText, category, completed = false) {
         taskItems.appendChild(taskElement);
     }
 
+    updateTaskCounter();
+    taskVisibility();
+}
+
+async function reloadUserTasks() {
+    userTasks = [];
+    taskItems.innerHTML = "";
+    completedTasks.innerHTML = "";
+
+    await loadUserTasks();
     updateTaskCounter();
     taskVisibility();
 }
@@ -328,9 +339,22 @@ async function completeUserTask(taskText, task, userTasks) {
         await axios.post(`${backendURL}/userTasks/complete`, {
             taskId: targetTask.id
         }, { withCredentials: true });
+        await axios.post(`${backendURL}/user/updateInfo`, {
+            amount: 5
+        }, { withCredentials: true });
 
         // Visually mark as complete
         task.classList.add("completed");
+        setTimeout(() => {
+            document.getElementById("popup_sunpoints_rewards").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("popup_sunpoints_rewards").style.display = "none";
+            }, 2000);
+
+        }, 500)
+
+
+
 
         setTimeout(() => {
             task.remove();
@@ -349,6 +373,8 @@ async function completeUserTask(taskText, task, userTasks) {
         console.error("Failed to mark task complete:", err);
     }
 }
+
+
 
 // Changes what the counter says for number tasks left for user
 function updateTaskCounter() {
@@ -450,6 +476,24 @@ document.addEventListener("click", (event) => {
     completeUserTask(taskText, task, userTasks);
 });
 
+async function loadUserCurrency() {
+    try {
+        const response = await axios.get(`${backendURL}/user/UserInfo`, {
+            withCredentials: true,
+        });
+
+        const userCurrency = response.data.currency;
+        console.log(userCurrency)
+        //get all needed information
+        return userCurrency
+
+    } catch (error) {
+        //replace with on screen message
+        console.error("Error getting user information", error);
+    }
+
+}
+
 export async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
     console.log("load garden function is called")
@@ -469,6 +513,7 @@ export async function loadGarden() {
 }
 
 async function setup() {
+    userCurrency = await loadUserCurrency()
     await loadGarden();
     console.log("setup function in home.js is called")
     await loadUserTasks().then(updateTaskCounter);
