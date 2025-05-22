@@ -177,13 +177,14 @@ if (addBtn) {
                 title.textContent = formatCategory(category);
                 categoryDiv.appendChild(title);
 
-            tasks.forEach((task) => {
-                const isAlreadyAdded = userTasks.some(
-                    (t) => t.text === task.description
-                );
-                if (isAlreadyAdded) return;
+                tasks.forEach((task) => {
+                    const isAlreadyAdded = userTasks.some(
+                        (t) => t.text === task.description
+                    );
+                    if (isAlreadyAdded) return;
 
                     const taskContainer = document.createElement("div");
+                    taskContainer.innerHTML = "";
                     taskContainer.style.display = "flex";
                     taskContainer.style.justifyContent = "space-between";
                     taskContainer.style.alignItems = "center";
@@ -200,25 +201,24 @@ if (addBtn) {
                     addButton.classList.add("add-goal-task");
                     addButton.style.width = "10%";
 
-                addButton.addEventListener("click", async () => {
-                    const alreadyExists = userTasks.find(
-                        (t) => t.text === task.description
-                    );
-                    if (alreadyExists) {
-                        if (alreadyExists.completed) {
-                            console.log("Task already completed in userTasks. Skipping add.");
-                            alert("Task is already completed!");
-                        } else {
-                            console.log("Task already exists in userTasks. Skipping add.");
-                            alert("Task already exists!");
+                    addButton.addEventListener("click", async () => {
+                        const alreadyExists = userTasks.find(
+                            (t) => t.text === task.description
+                        );
+                        if (alreadyExists) {
+                            if (alreadyExists.completed) {
+                                console.log("Task already completed in userTasks. Skipping add.");
+                                alert("Task is already completed!");
+                            } else {
+                                console.log("Task already exists in userTasks. Skipping add.");
+                                alert("Task already exists!");
+                            }
+                            return;
                         }
-                        return;
-                    }
-                    await addTaskToUser(task.description, task.category);
-                    addTaskToHome(task.description, task.category);
-                    loadUserTasks();
-                    taskContainer.remove();
-                });
+                        await addTaskToUser(task.description, task.category);
+                        addTaskToHome(task.description, task.category);
+                        taskContainer.remove();
+                    });
 
                     taskContainer.appendChild(taskDesc);
                     taskContainer.appendChild(addButton);
@@ -258,7 +258,8 @@ function addTaskToHome(taskText, category, completed = false) {
 
 function taskVisibility() {
     const message = document.getElementById("no-task-message");
-    if (userTasks.length === 0) {
+    const activeTasks = userTasks.filter(t => !t.completed);
+    if (activeTasks.length === 0) {
         console.log("There are no tasks saved to the user db");
         message.style.display = "block";
     } else {
