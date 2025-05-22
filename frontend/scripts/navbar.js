@@ -1,5 +1,44 @@
+import { frontendURL } from "../util.js";
+import { backendURL } from "../util.js";
 
 console.log("Start");
+
+export function setupListeners() {
+    const homeNav = document.getElementById("home-nav");
+    if (homeNav) {
+        homeNav.href = `${frontendURL}/pages/home.html`;
+    }
+
+    const shopNav = document.getElementById("shop-nav");
+    if (shopNav) {
+        shopNav.href = `${frontendURL}/pages/shop.html`;
+    }
+
+    const profileNav = document.getElementById("profile-nav");
+    if (profileNav) {
+        profileNav.href = `${frontendURL}/pages/profile.html`;
+    }
+    const customNav = document.getElementById("custom-nav");
+    if (customNav) {
+        customNav.href = `${frontendURL}/pages/custom.html`;
+    }
+    const settingsNav = document.getElementById("settings-nav");
+    if (settingsNav) {
+        settingsNav.href = `${frontendURL}/pages/settings.html`;
+    }
+
+    const logoutNav = document.getElementById("logout-nav");
+    if (logoutNav) {
+        logoutNav.href = `${frontendURL}/pages/login.html`;
+    }
+
+    const headerProfile = document.getElementById("header-profile");
+    if (headerProfile) {
+        headerProfile.onclick = () => {
+            window.location.href = `${frontendURL}/pages/profile.html`;
+        };
+    }
+}
 
 function openSidebar() {
     console.log("Open");
@@ -17,6 +56,7 @@ function openSidebar() {
     navbar.style.animation = "openSidebar 1s normal";
     navbar.style.translate = "0px";
 }
+window.openSidebar = openSidebar;
 
 function closeSidebar() {
     console.log("Close");
@@ -33,15 +73,15 @@ function closeSidebar() {
     navbar.style.animation = "closeSidebar 1s normal";
     navbar.style.translate = "-250px";
 }
+window.closeSidebar = closeSidebar;
 
-async function loadProfilePicture() {
+export async function loadProfilePicture() {
     try {
         const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
         const data = response.data;
-        const pfpUrl =
-            data.profilePicture
+        const pfpUrl = data.profilePicture;
         // ||
         // "/frontend/assets/profile/material_design_account_circle.svg";
         const headerPfp = document.getElementById("header-profile");
@@ -53,19 +93,18 @@ async function loadProfilePicture() {
     }
 }
 
-
-async function navbarLogout() {
+export async function navbarLogout() {
     const logoutNav = document.getElementById("logout-nav");
     logoutNav.addEventListener("click", async () => {
         try {
-            await axios.post(
+            const response = await axios.post(
                 `${backendURL}/user/logout`,
                 {},
                 { withCredentials: true }
             );
             if (response.status === 200) {
                 console.log("Logged out.");
-                window.location.replace("/frontend/pages/login.html");
+                window.location.replace(`${frontendURL}/pages/login.html`);
             }
         } catch (error) {
             console.error("Error logging out: ", error);
@@ -73,4 +112,3 @@ async function navbarLogout() {
         }
     });
 }
-
