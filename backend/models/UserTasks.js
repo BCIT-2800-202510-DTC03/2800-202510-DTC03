@@ -1,9 +1,9 @@
-
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const UserTaskSchema = new mongoose.Schema({
+const UserTaskSchema = new Schema({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
     },
     isAIGenerated: {
@@ -11,31 +11,25 @@ const UserTaskSchema = new mongoose.Schema({
         default: false,
         required: true,
     },
-    taskId: {
-        type: String,
-        default: ""
-    },
-    // taskId is empty for AI generated task
-
     description: {
         type: String,
-        default: ""
+        default: "",
     },
     // description is empty for preMade task
 
     category: {
-        type: String
+        type: String,
     },
     worth: {
         type: Number,
-        integer: true
+        integer: true,
     },
     completed: {
         type: Boolean,
         default: false,
-        required: true
+        required: true,
     },
-})
+});
 
 const UserTasks = mongoose.model("UserTasks", UserTaskSchema);
 

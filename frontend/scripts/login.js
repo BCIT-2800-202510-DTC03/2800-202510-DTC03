@@ -45,7 +45,10 @@ function handleLogout() {
     logoutButton.addEventListener("click", async () => {
         try {
             const response = await axios.post(
-                backendURL + "/user/logout",
+
+                backendURLTest + "/user/logout",
+
+
                 {},
                 { withCredentials: true }
             );
