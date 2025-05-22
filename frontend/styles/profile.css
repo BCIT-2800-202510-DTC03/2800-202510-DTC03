@@ -242,7 +242,7 @@ body {
 #garden-display-wrapper {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
 
     width: 70vw;
     padding-top: 2vh;
