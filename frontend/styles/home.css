@@ -24,7 +24,6 @@ body {
     row-gap: 20px;
 }
 
-
 #task-list {
     width: 100%;
     padding: 1rem;
@@ -63,7 +62,7 @@ body {
     padding: 0.75rem;
     border-radius: 12px;
     border: 1px solid #ccc;
-    background-color: #DFCFBF;
+    background-color: #dfcfbf;
     font-size: 1rem;
     color: #333;
     flex-grow: 1;
@@ -92,7 +91,6 @@ body {
 #add-goal-tasks-btn .icon {
     width: 24px;
     height: 24px;
-
 }
 
 #task-items {
@@ -133,7 +131,7 @@ body {
 }
 
 #task-overlay-content h2 {
-    color: #606C38;
+    color: #606c38;
     margin-bottom: 1rem;
     font-weight: 600;
     font-size: 1.5rem;
@@ -147,12 +145,12 @@ body {
     font-size: 35px;
     background: none;
     border: none;
-    color: #606C38;
+    color: #606c38;
     cursor: pointer;
 }
 
 .goal {
-    background-color: #DFCFBF;
+    background-color: #dfcfbf;
     padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1rem;
@@ -165,7 +163,7 @@ body {
     padding: 10px;
     border-radius: 12px;
     border: none;
-    background-color: #606C38;
+    background-color: #606c38;
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
