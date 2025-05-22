@@ -266,8 +266,6 @@ async function loadUserTasks() {
     }
 }
 
-
-
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
     console.log("Posting to:", `${backendURL}/userTasks/add`);
@@ -330,46 +328,6 @@ function updateTaskCounter() {
     }
 }
 
-// Open filter on click
-toggleBtn.addEventListener("click", () => {
-    const isOpen = filterDropdown.classList.toggle("open");
-    toggleBtn.setAttribute("area-expanded", isOpen);
-    if (isOpen) {
-        menu.querySelector("li").focus();
-    }
-});
-
-// Filter
-menu.querySelectorAll("li").forEach((item) => {
-    item.addEventListener("click", () => {
-        title.textContent = item.textContent;
-        filterDropdown.classList.remove("open");
-        toggleBtn.setAttribute("area-expanded", false);
-        filterTasks(item.dataset.value);
-    });
-});
-
-// Filter tasks shown on homepage
-filterGoals.addEventListener("change", () => {
-    const selected = filterGoals.value;
-    taskItems.innerHTML = "";
-
-    const filtered =
-        selected === "all"
-            ? userTasks
-            : userTasks.filter((t) => t.category === selected);
-
-    filtered.forEach((t) => addTaskToHome(t.text, t.category));
-});
-
-// Close dropdown if clicking outside
-document.addEventListener("click", (e) => {
-    if (!filterDropdown.contains(e.target)) {
-        filterDropdown.classList.remove("open");
-        toggleBtn.setAttribute("aria-expanded", false);
-    }
-});
-
 //close overlay when clicking off
 document.getElementById("task-overlay").addEventListener("click", (event) => {
     const overlayContent = document.getElementById("task-overlay-content");
@@ -390,17 +348,56 @@ filterGoals.addEventListener("change", () => {
 
     // Clear current tasks on homepage
     taskItems.innerHTML = "";
+    completedTasks.innerHTML = "";
 
     // Filter tasks to show
     const filteredTasks =
         selectedCategory === "all"
-            ? allTasks
-            : allTasks.filter((task) => task.category === selectedCategory);
+            ? userTasks
+            : userTasks.filter((task) => task.category === selectedCategory);
 
     // Add filtered tasks to homepage
     filteredTasks.forEach((task) => {
-        addTaskToHome(task.text, task.category);
+        addTaskToHome(task.text, task.category, task.completed);
     });
+    updateTaskCounter();
+});
+
+// Filter through the list of items
+menu.querySelectorAll('li').forEach(item => {
+    item.addEventListener('click', () => {
+        filterDropdown.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', false);
+        const selected = item.dataset.value;
+        taskItems.innerHTML = "";
+        completedTasks.innerHTML = "";
+
+        const filtered = selected === "all"
+            ? userTasks
+            : userTasks.filter(t => t.category === selected);
+
+        filtered.forEach(task => {
+            addTaskToHome(task.text, task.category, task.completed);
+        });
+        updateTaskCounter();
+    });
+});
+
+// Open filter on click
+toggleBtn.addEventListener('click', () => {
+    const isOpen = filterDropdown.classList.toggle('open');
+    toggleBtn.setAttribute('aria-expanded', isOpen);
+    if (isOpen) {
+        menu.querySelector('li').focus();
+    }
+});
+
+// Close dropdown if clicking outside
+document.addEventListener('click', e => {
+    if (!filterDropdown.contains(e.target)) {
+        filterDropdown.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', false);
+    }
 });
 
 // Mark tasks completed and fade out
