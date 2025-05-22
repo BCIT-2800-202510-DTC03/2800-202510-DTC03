@@ -1,5 +1,5 @@
 import { insertGarden } from "./garden.js";
-import { loadUserTasks } from "./userTasks.js";
+// import { loadUserTasks } from "./userTasks.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
@@ -179,11 +179,12 @@ if (addBtn) {
 
                 tasks.forEach((task) => {
                     const isAlreadyAdded = userTasks.some(
-                        (t) => t.text === task.description && !t.completed
+                        (t) => t.text === task.description
                     );
                     if (isAlreadyAdded) return;
 
                     const taskContainer = document.createElement("div");
+                    taskContainer.innerHTML = "";
                     taskContainer.style.display = "flex";
                     taskContainer.style.justifyContent = "space-between";
                     taskContainer.style.alignItems = "center";
@@ -201,6 +202,19 @@ if (addBtn) {
                     addButton.style.width = "10%";
 
                     addButton.addEventListener("click", async () => {
+                        const alreadyExists = userTasks.find(
+                            (t) => t.text === task.description
+                        );
+                        if (alreadyExists) {
+                            if (alreadyExists.completed) {
+                                console.log("Task already completed in userTasks. Skipping add.");
+                                alert("Task is already completed!");
+                            } else {
+                                console.log("Task already exists in userTasks. Skipping add.");
+                                alert("Task already exists!");
+                            }
+                            return;
+                        }
                         await addTaskToUser(task.description, task.category);
                         addTaskToHome(task.description, task.category);
                         taskContainer.remove();
@@ -244,7 +258,8 @@ function addTaskToHome(taskText, category, completed = false) {
 
 function taskVisibility() {
     const message = document.getElementById("no-task-message");
-    if (userTasks.length === 0) {
+    const activeTasks = userTasks.filter(t => !t.completed);
+    if (activeTasks.length === 0) {
         console.log("There are no tasks saved to the user db");
         message.style.display = "block";
     } else {
@@ -255,32 +270,30 @@ function taskVisibility() {
 }
 
 // loads user tasks
-// async function loadUserTasks() {
-//     try {
-//         const response = await axios.get(`${backendURL}/userTasks/`, {
-//             withCredentials: true,
-//         });
+async function loadUserTasks() {
+    try {
+        const response = await axios.get(`${backendURL}/userTasks/`, {
+            withCredentials: true,
+        });
 
-//         const tasks = response.data;
-//         userTasks = [];
+        const tasks = response.data;
+        userTasks = [];
 
-//         tasks.forEach((task) => {
-//             const isCompleted = task.completed || false;
-//             addTaskToHome(task.description, task.category, isCompleted);
+        tasks.forEach((task) => {
+            const isCompleted = task.completed || false;
+            addTaskToHome(task.description, task.category, isCompleted);
 
-//             userTasks.push({
-//                 id: task._id,
-//                 text: task.description,
-//                 category: task.category,
-//                 completed: isCompleted
-//             });
-//         });
-//     } catch (err) {
-//         console.error("Failed to load user tasks", err);
-//     }
-// }
-
-
+            userTasks.push({
+                id: task._id,
+                text: task.description,
+                category: task.category,
+                completed: isCompleted
+            });
+        });
+    } catch (err) {
+        console.error("Failed to load user tasks", err);
+    }
+}
 
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
@@ -302,12 +315,16 @@ async function addTaskToUser(description, category) {
 
 // changes the user tasks to complete
 async function completeUserTask(taskText, task, userTasks) {
-    const targetTask = userTasks.find(t => t.text === taskText);
+    const targetTask = userTasks.find(
+        t => t.text.trim().toLowerCase() === taskText.trim().toLowerCase()
+    );
     if (!targetTask || !targetTask.id) {
         console.error("Task ID not found for completion");
         return;
     }
     try {
+        console.log("Trying to match:", taskText);
+        console.log("In userTasks:", userTasks.map(t => t.text));
         await axios.post(`${backendURL}/userTasks/complete`, {
             taskId: targetTask.id
         }, { withCredentials: true });
@@ -344,52 +361,6 @@ function updateTaskCounter() {
     }
 }
 
-// Open filter on click
-if (filterDropdown) {
-    toggleBtn.addEventListener("click", () => {
-        const isOpen = filterDropdown.classList.toggle("open");
-        toggleBtn.setAttribute("area-expanded", isOpen);
-        if (isOpen) {
-            menu.querySelector("li").focus();
-        }
-    })
-};
-
-// Filter
-if (filterDropdown) {
-    menu.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("click", () => {
-            title.textContent = item.textContent;
-            filterDropdown.classList.remove("open");
-            toggleBtn.setAttribute("area-expanded", false);
-            filterTasks(item.dataset.value);
-        });
-    })
-};
-
-// Filter tasks shown on homepage
-if (filterDropdown) {
-    filterGoals.addEventListener("change", () => {
-        const selected = filterGoals.value;
-        taskItems.innerHTML = "";
-
-        const filtered =
-            selected === "all"
-                ? userTasks
-                : userTasks.filter((t) => t.category === selected);
-
-        filtered.forEach((t) => addTaskToHome(t.text, t.category));
-    })
-};
-
-// Close dropdown if clicking outside
-document.addEventListener("click", (e) => {
-    if (!filterDropdown.contains(e.target)) {
-        filterDropdown.classList.remove("open");
-        toggleBtn.setAttribute("aria-expanded", false);
-    }
-});
-
 //close overlay when clicking off
 if (document.getElementById("task-overlay")) {
     document.getElementById("task-overlay").addEventListener("click", (event) => {
@@ -415,19 +386,59 @@ if (filterGoals) {
 
         // Clear current tasks on homepage
         taskItems.innerHTML = "";
+        completedTasks.innerHTML = "";
 
         // Filter tasks to show
         const filteredTasks =
             selectedCategory === "all"
-                ? allTasks
-                : allTasks.filter((task) => task.category === selectedCategory);
+                ? userTasks
+                : userTasks.filter((task) => task.category === selectedCategory);
 
         // Add filtered tasks to homepage
         filteredTasks.forEach((task) => {
-            addTaskToHome(task.text, task.category);
+            addTaskToHome(task.text, task.category, task.completed);
         });
-    })
-};
+        updateTaskCounter();
+    });
+
+
+    // Filter through the list of items
+    menu.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', () => {
+            filterDropdown.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', false);
+            const selected = item.dataset.value;
+            taskItems.innerHTML = "";
+            completedTasks.innerHTML = "";
+
+            const filtered = selected === "all"
+                ? userTasks
+                : userTasks.filter(t => t.category === selected);
+
+            filtered.forEach(task => {
+                addTaskToHome(task.text, task.category, task.completed);
+            });
+            updateTaskCounter();
+        });
+    });
+
+    // Open filter on click
+    toggleBtn.addEventListener('click', () => {
+        const isOpen = filterDropdown.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+            menu.querySelector('li').focus();
+        }
+    });
+}
+
+// Close dropdown if clicking outside
+document.addEventListener('click', e => {
+    if (!filterDropdown.contains(e.target)) {
+        filterDropdown.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', false);
+    }
+});
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
