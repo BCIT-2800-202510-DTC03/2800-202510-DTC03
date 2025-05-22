@@ -114,6 +114,10 @@ body {
     position: relative;
 }
 
+.filter-toggle:hover {
+    background-color: #d1c1b0;
+}
+
 .dropdown .icon {
     width: 20px;
     height: 20px;
