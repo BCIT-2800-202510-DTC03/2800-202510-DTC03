@@ -233,28 +233,45 @@ function addTaskToHome(taskText, category) {
 // }
 
 // Save task to userTask collection in backend
-async function addTaskToUser(taskText, category) {
+async function addTaskToUser(description, category) {
+    console.log("Posting to:", `${backendURL}/userTasks/add`);
+
     try {
-        const response = await fetch("http://localhost:3000/userTask/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                text: taskText,
-                category: category,
-            }),
-        });
+        const response = await axios.post(
+            `${backendURL}/userTasks/add`,
+            { description: description, category: category },
+            { withCredentials: true }
+        );
 
-        if (!response.ok) {
-            throw new Error("Failed to save task");
-        }
-
-        console.log("Task saved to userTask DB");
+        const taskData = response.data;
+        console.log("Task saved to DB:", response.data);
     } catch (error) {
-        console.error("Error adding task to DB:", error);
+        console.error("Couldn't save task to DB.");
     }
 }
+
+// async function addTaskToUser(taskText, category) {
+//     try {
+//         const response = await fetch("http://localhost:3000/userTask/add", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 text: taskText,
+//                 category: category,
+//             }),
+//         });
+
+//         if (!response.ok) {
+//             throw new Error("Failed to save task");
+//         }
+
+//         console.log("Task saved to userTask DB");
+//     } catch (error) {
+//         console.error("Error adding task to DB:", error);
+//     }
+// }
 
 // Filter tasks shown on homepage
 filterGoals.addEventListener("change", () => {
@@ -324,58 +341,84 @@ document.addEventListener("click", (event) => {
 });
 
 async function loadGarden() {
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
-
-    fetch("http://localhost:3000/garden/getGarden", {
-        method: "GET",
-        credentials: "include",
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("FETCH FROM DATABASE");
-            console.log(data);
-            insertGarden(
-                data.fence,
-                data.building,
-                data.shelf,
-                data.rightObject,
-                data.leftObject,
-                data.plant1,
-                data.plant2,
-                data.plant3,
-                data.plant4,
-                data.plant5,
-                data.plant6
-            );
-        })
-        .catch((error) => console.error("Error fetching user garden:", error));
-
-    // const backendURLTest = "http://localhost:3000"; // waiting to be updated
-    // try {
-    //     const response = await axios.get(backendURLTest + "/garden/getGarden");
-    //     insertGarden(fence=response.data.fence, building=response.data.building, shelf=response.data.shelf,
-    //                     rightObject=response.data.rightObject, leftObject=response.data.leftObject,
-    //                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3,
-    //                     plant4=response.data.plant4, plant5=response.data.plant5, plant6=response.data.plant6);
-    //     if (response.status === 200) {
-    //         window.location.href = "../pages/home.html";
-    //     }
-    // } catch (error) {
-    //     if (error.response && error.response.status === 401) {
-    //     gardenErrorMessage.textContent = error.response.data.error_message;
-    //     } else {
-    //     gardenErrorMessage.textContent =
-    //         "Something is going wrong. Please try again.";
-    //     }
-    // }
-
-    // insertGarden(fence="blue", building="tent-pink", shelf="brown",
-    //                     rightObject="", leftObject="",
-    //                     plant1="", plant2="", plant3="",
-    //                     plant4="tulip-orange", plant5="", plant6="");
+    try {
+        const response = await axios.get(`${backendURL}/garden/getGarden`, {
+            withCredentials: true,
+        });
+        const gardenData = response.data;
+        insertGarden(
+            gardenData.fence,
+            gardenData.building,
+            gardenData.shelf,
+            gardenData.rightObject,
+            gardenData.leftObject,
+            gardenData.plant1,
+            gardenData.plant2,
+            gardenData.plant3,
+            gardenData.plant4,
+            gardenData.plant5,
+            gardenData.plant6
+        );
+        console.log("Garden data:", gardenData);
+    } catch (error) {
+        console.error("Problem fetching user's garden.", error);
+    }
 }
 
+// async function loadGarden() {
+//     const backendURLTest = "http://localhost:3000"; // waiting to be updated
+
+//     fetch("http://localhost:3000/garden/getGarden", {
+//         method: "GET",
+//         credentials: "include",
+//     })
+//         .then((response) => response.json())
+//         .then((data) => {
+//             console.log("FETCH FROM DATABASE");
+//             console.log(data);
+//             insertGarden(
+//                 data.fence,
+//                 data.building,
+//                 data.shelf,
+//                 data.rightObject,
+//                 data.leftObject,
+//                 data.plant1,
+//                 data.plant2,
+//                 data.plant3,
+//                 data.plant4,
+//                 data.plant5,
+//                 data.plant6
+//             );
+//         })
+//         .catch((error) => console.error("Error fetching user garden:", error));
+
+// const backendURLTest = "http://localhost:3000"; // waiting to be updated
+// try {
+//     const response = await axios.get(backendURLTest + "/garden/getGarden");
+//     insertGarden(fence=response.data.fence, building=response.data.building, shelf=response.data.shelf,
+//                     rightObject=response.data.rightObject, leftObject=response.data.leftObject,
+//                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3,
+//                     plant4=response.data.plant4, plant5=response.data.plant5, plant6=response.data.plant6);
+//     if (response.status === 200) {
+//         window.location.href = "../pages/home.html";
+//     }
+// } catch (error) {
+//     if (error.response && error.response.status === 401) {
+//     gardenErrorMessage.textContent = error.response.data.error_message;
+//     } else {
+//     gardenErrorMessage.textContent =
+//         "Something is going wrong. Please try again.";
+//     }
+// }
+
+// insertGarden(fence="blue", building="tent-pink", shelf="brown",
+//                     rightObject="", leftObject="",
+//                     plant1="", plant2="", plant3="",
+//                     plant4="tulip-orange", plant5="", plant6="");
+// }
+
 async function setup() {
+    await loadUserTasks();
     await loadGarden();
 }
 
