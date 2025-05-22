@@ -53,18 +53,27 @@
 .checkmark {
   width: 32px;
   height: 32px;
-  border: 2px solid #333;
+  border: 1px solid #333;
   border-radius: 25%;
-  flex-shrink: 0;
   background-color: #f5f0e6;
+  position: relative;
+  cursor: pointer;
 }
 
-.completed {
+.checkmark .icon {
+  width: 40px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.4s ease;
 }
 
-/* AI task CSS */
+.checkmark:hover .icon {
+  opacity: 1;
+}
 
 #AI-task-btn {
   flex-shrink: 0;
