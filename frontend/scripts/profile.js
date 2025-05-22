@@ -85,7 +85,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            `${backgroundURL}/user/updateInfo`,
+            `${backendURL}/user/updateInfo`,
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
