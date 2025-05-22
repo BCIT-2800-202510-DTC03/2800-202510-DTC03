@@ -311,11 +311,12 @@ async function completeUserTask(taskText, task, userTasks) {
 
 // Changes what the counter says for number tasks left for user
 function updateTaskCounter() {
-    if (userTasks.length === 1) {
-        console.log("there is 1 task")
-        taskCounter.textContent = `${userTasks.length} task left to do!`;
+    console.log("counter");
+    const activeTasks = userTasks.filter(t => !t.completed);
+    if (activeTasks.length === 1) {
+        taskCounter.textContent = `${activeTasks.length} task left to do!`;
     } else {
-        taskCounter.textContent = `${userTasks.length} tasks left to do!`;
+        taskCounter.textContent = `${activeTasks.length} tasks left to do!`;
     }
 }
 
