@@ -11,6 +11,7 @@ const toggleBtn = filterDropdown.querySelector('.filter-toggle');
 const menu = filterDropdown.querySelector('.dropdown-menu');
 const title = filterDropdown.querySelector('.dropdown-title');
 const taskCounter = document.getElementById("task-counter");
+const completedTasks = document.getElementById("completed-tasks");
 const premadeTask = [
     {
         category: "greenerEating",
@@ -167,6 +168,11 @@ addBtn.addEventListener("click", () => {
             categoryDiv.appendChild(title);
 
             tasks.forEach((task) => {
+                const isAlreadyAdded = userTasks.some(
+                    (t) => t.text === task.description && !t.completed
+                );
+                if(isAlreadyAdded) return;
+
                 allTasks.push({ ...task, sunPoints: 5 });
 
                 const taskContainer = document.createElement("div");
@@ -189,6 +195,7 @@ addBtn.addEventListener("click", () => {
                 addButton.addEventListener("click", async () => {
                     await addTaskToUser(task.description, task.category);
                     addTaskToHome(task.description, task.category);
+                    taskContainer.remove();
                 });
 
                 taskContainer.appendChild(taskDesc);
@@ -202,7 +209,7 @@ addBtn.addEventListener("click", () => {
 });
 
 // Add task to homepage UI
-function addTaskToHome(taskText, category) {
+function addTaskToHome(taskText, category, completed = false) {
     const template = document.getElementById("task-template");
     const taskElement = template.content.cloneNode(true);
 
@@ -210,9 +217,14 @@ function addTaskToHome(taskText, category) {
     taskDiv.dataset.category = category;
     taskDiv.querySelector(".task-text").textContent = taskText;
 
-    userTasks.push({ text: taskText, category });
+    if (completed) {
+        taskDiv.classList.add("completed");
+        completedTasks.appendChild(taskElement);
+    } else {
+        taskItems.appendChild(taskElement);
+    }
 
-    taskItems.appendChild(taskElement);
+    userTasks.push({ text: taskText, category, completed });
     updateTaskCounter();
     taskVisibility();
 }
@@ -229,6 +241,26 @@ function taskVisibility() {
     }
 
 }
+
+// loads user tasks
+async function loadUserTasks() {
+    try {
+        const response = await axios.get(`${backendURL}/userTasks/`, {
+            withCredentials: true,
+        });
+
+        const tasks = response.data;
+        userTasks = [];
+
+        tasks.forEach((task) => {
+            const isCompleted = task.completed || false;
+            addTaskToHome(task.description, task.category, isCompleted);
+        });
+    } catch (err) {
+        console.error("Failed to load user tasks", err);
+    }
+}
+
 
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
@@ -248,8 +280,38 @@ async function addTaskToUser(description, category) {
     }
 }
 
+// changes the usertaks to complete
+async function completeUserTask(taskText, task, userTasks) {
+    try {
+        await axios.post(`${backendURL}/userTasks/complete`, {
+            description: taskText
+        }, { withCredentials: true });
+
+        // Visually mark as complete
+        task.classList.add("completed");
+
+        // Move it to completed section
+        setTimeout(() => {
+            task.remove();
+
+            // Update local array
+            const index = userTasks.findIndex(t => t.text === taskText);
+            if (index !== -1) {
+                userTasks[index].completed = true;
+                addTaskToHome(userTasks[index].text, userTasks[index].category, true);
+                userTasks.splice(index, 1); // remove from active list
+            }
+
+            taskVisibility();
+        }, 500);
+    } catch (err) {
+        console.error("Failed to mark task complete:", err);
+    }
+}
+
+// Changes what the counter says for number tasks left for user
 function updateTaskCounter() {
-    if(userTasks.length === 1) {
+    if (userTasks.length === 1) {
         console.log("there is 1 task")
         taskCounter.textContent = `${userTasks.length} task left to do!`;
     } else {
@@ -332,20 +394,12 @@ filterGoals.addEventListener("change", () => {
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("checkmark")) {
-        const task = event.target.closest(".task");
-        task.classList.add("completed");
+    console.log("Task is marked as complete");
+    const task = event.target.closest(".task");
+    const taskText = task.querySelector(".task-text").textContent;
+    task.classList.add("completed");
 
-        setTimeout(() => {
-            task.remove();
-            const index = userTasks.findIndex(t =>
-                t.text === task.querySelector(".task-text").textContent
-            );
-            if (index !== -1) userTasks.splice(index, 1);
-
-            taskVisibility();
-        }, 500);
-    }
+    completeUserTask();
 });
 
 async function loadGarden() {
