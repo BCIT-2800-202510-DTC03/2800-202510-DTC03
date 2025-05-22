@@ -71,6 +71,11 @@
     color: red;
 }
 
+#friendmsg{
+    color:red;
+    font-size: 0.75rem;
+}
+
 .friend-pfp{
     width: 70px;
     height: 70px;

@@ -108,11 +108,31 @@ async function getFriends() {
             }
         });
     } catch (error) {
+        const msg = document.getElementById("friendmsg");
+        msg.innerText = "";
+        msg.innerText = error.data.error_message;
+        getFriends();
     }
 }
 
-function deleteFriend(friend) {
-    console.log(friend);
+async function deleteFriend(friend) {
+    try{
+
+        const response = await axios.post(backendURLTest + "/user/removeFriend", {
+            friend
+        },
+        {
+            withCredentials: true,
+        })
+
+        if(response.status === 200){
+            getFriends();
+        }
+    } catch (error) {
+        const msg = document.getElementById("friendmsg");
+        msg.innerText = "";
+        msg.innerText = error.data.error_message;
+    }
 }
 
 
@@ -139,7 +159,9 @@ async function getInfo(friendId) {
                 `
         }
     } catch (error) {
-        // handle error
+        const msg = document.getElementById("friendmsg");
+        msg.innerText = "";
+        msg.innerText = error.data.error_message;
     }
 }
 
