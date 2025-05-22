@@ -153,17 +153,17 @@ router.get("/test", (req, res) => {
 });
 
 router.post("/userID", async (req, res) => {
-    try{
-        const {} = req.body;
+    try {
+        const { } = req.body;
         const userId = req.session.userId;
 
-        if(!userId){
+        if (!userId) {
             return res.status(401).json({
                 error_message: "No active user session."
             })
         }
 
-        return res.status(200).json({userId: userId})
+        return res.status(200).json({ userId: userId })
     } catch (error) {
         console.error("Failed to get user ID: ", error);
         res.status(500).json({
@@ -201,7 +201,7 @@ router.get("/UserInfo", async (req, res) => {
 
 router.post("/updateInfo", async (req, res) => {
     try {
-        const { aboutMe, pfp, goal } = req.body;
+        const { aboutMe, pfp, goal, amount } = req.body;
         const id = req.session.userId;
 
         if (!id) {
@@ -222,6 +222,10 @@ router.post("/updateInfo", async (req, res) => {
         user.aboutMe = aboutMe;
         user.profilePicture = pfp;
         user.goal = goal;
+        if (typeof amount === "number") {
+            user.currency += amount;
+        }
+        console.log("user's currency is ", user.currency)
         console.log("assigned");
         //save changes
         await user.save();
@@ -290,7 +294,7 @@ router.post("/removeFriend", async (req, res) => {
             { $pull: { friends: objectId } }
         );
 
-        if(result.modifiedCount === 0){
+        if (result.modifiedCount === 0) {
             return res.status(400).json({
                 error_message: "Friend not found or already removed."
             });
