@@ -3,7 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 // import user model
 const User = require("./models/User");
-const Garden = require("./models/Garden")
+const Garden = require("./models/Garden");
+const Inventory = require("./models/Inventory");
 
 // hashing function from nodejs
 // https://nodejs.org/api/crypto.html#class-hash
@@ -71,6 +72,7 @@ router.post("/logout", async (req, res) => {
             console.error("Logout error:", err);
             return res.status(500).send("Logout failed");
         }
+        res.clearCookie("connect.sid");
         console.log("You hit the logout.");
         res.sendStatus(200);
     });
@@ -108,10 +110,17 @@ router.post("/register", async (req, res) => {
 
         // New Garden
         const newGarden = new Garden({
-            userID: newUser._id
+            userId: newUser._id,
         });
         await newGarden.save();
         console.log("save garden");
+
+        // New Inventory
+        const newInventory = new Inventory({
+            userId: newUser._id,
+        });
+        await newInventory.save();
+        console.log("save inventory");
 
         // if success
         // update session
@@ -149,8 +158,8 @@ router.get("/UserInfo", async (req, res) => {
 
         if (!id) {
             return res.status(401).json({
-                error_message: "User ID not available."
-            })
+                error_message: "User ID not available.",
+            });
         }
 
         const user = await User.findById(id);
@@ -158,7 +167,7 @@ router.get("/UserInfo", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         res.status(200).json(user);
@@ -166,10 +175,9 @@ router.get("/UserInfo", async (req, res) => {
         console.error("Failed to fetch user information: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
-
+});
 
 router.post("/updateInfo", async (req, res) => {
     try {
@@ -178,8 +186,8 @@ router.post("/updateInfo", async (req, res) => {
 
         if (!id) {
             return res.status(401).json({
-                error_message: "No active user session."
-            })
+                error_message: "No active user session.",
+            });
         }
 
         const user = await User.findOne({ _id: id });
@@ -187,7 +195,7 @@ router.post("/updateInfo", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         //update user information
@@ -203,7 +211,7 @@ router.post("/updateInfo", async (req, res) => {
         console.error("Failed to update user information: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
 })
 

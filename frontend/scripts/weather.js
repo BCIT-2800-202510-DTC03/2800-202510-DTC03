@@ -31,7 +31,7 @@ function getWeather() {
 }
 
 function PlaceAnimation() {
-    const container = document.getElementById("weather-overlay");
+    const container = document.getElementById("garden-weather");
     const head = document.head;
     const body = document.body;
 
@@ -142,3 +142,9 @@ async function main() {
     }
 }
 main();
+
+function getWeather() {
+  return weather;
+}
+
+module.exports = { getWeather };
