@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const mongoose = require('mongoose');
 // import user model
 const User = require("./models/User");
 const Garden = require("./models/Garden");
@@ -213,6 +213,192 @@ router.post("/updateInfo", async (req, res) => {
             error_message: "Server error",
         });
     }
-});
+})
+
+
+router.get("/checkForUser", async (req, res) => {
+    try {
+        const userId = req.query.id;
+        if (!userId) {
+            return res.status(400).json({
+                message: "No userID provided"
+            })
+        } else if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid ID format." });
+        }
+        const user = await User.findOne({ _id: userId });
+
+        if (!user) {
+            return res.status(400).json({
+                message: "No user found.",
+            })
+        }
+        res.status(200).json({ message: "User found!" });
+    } catch (error) {
+        console.error("Failed to fetch user: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+
+router.post("/removeFriend", async (req, res) => {
+    try {
+        // const id = req.session.userId;
+        // test ID
+        const id = "681d758b7ca8a10aecec3284";
+        const { friendId } = req.body;
+
+        if (!id) {
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        const objectId = new mongoose.Types.ObjectId(friendId);
+        const user = await User.findOne({ _id: id });
+
+        if (!user) {
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        const result = await User.updateOne(
+            { _id: id },
+            { $pull: { friends: objectId } }
+        );
+
+        if(result.modifiedCount === 0){
+            return res.status(400).json({
+                error_message: "Friend not found or already removed."
+            });
+        }
+
+        res.status(200).json({ message: "Removed Friend." });
+
+    } catch (error) {
+        console.error("Failed to remove friend: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+router.get("/getFriends", async (req, res) => {
+    try {
+        // const id = req.session.userId;
+        // test ID
+        const id = "681d758b7ca8a10aecec3284";
+        if (!id) {
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        const user = await User.findOne({ _id: id });
+
+        if (!user) {
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        res.status(200).json({ friends: user.friends });
+
+    } catch (error) {
+        console.error("Failed to fetch user: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+router.get("/getInfo", async (req, res) => {
+    try {
+        const id = req.query.friendId;
+
+        if (!id) {
+            return res.status(401).json({
+                error_message: "No userID provided."
+            })
+        }
+
+        const user = await User.findOne({ _id: id });
+
+        if (!user) {
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        return res.status(200).json({
+            name: user.username,
+            pfp: user.profilePicture,
+            goal: user.goal,
+            about: user.aboutMe,
+            id: user._id,
+        })
+    } catch (error) {
+        console.error("Failed to fetch user: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
+
+router.post("/addFriend", async (req, res) => {
+    try {
+        // const id = req.session.userId;
+        const id = "681d758b7ca8a10aecec3284";
+        const { friendId } = req.body;
+
+        if (!id) {
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+        if (!friendId) {
+            return res.status(401).json({
+                error_message: "No friend Id provided."
+            })
+        }
+
+        if (id === friendId) {
+            return res.status(400).json({
+                error_message: "You cannot add yourself as a friend."
+            });
+        }
+
+        const user = await User.findOne({ _id: id });
+
+        if (!user) {
+            return res.status(401).json({
+                error_message: "Failed to find user.",
+            })
+        }
+
+        if (user.friends.includes(friendId)) {
+            return res.status(400).json({
+                error_message: "User is already in friends list."
+            });
+        }
+
+
+        user.friends.push(friendId);
+        await user.save();
+
+        res.status(200).json({
+            message: "Successfully added friend."
+        })
+    } catch (error) {
+        console.error("Failed to add friend: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
 
 module.exports = router;
