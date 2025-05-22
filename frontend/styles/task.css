@@ -77,6 +77,10 @@
   opacity: 1;
 }
 
+.task.completed .checkmark .icon {
+  opacity: 1;
+}
+
 #AI-task-btn {
   flex-shrink: 0;
   width: 50px;

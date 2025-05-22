@@ -171,7 +171,7 @@ addBtn.addEventListener("click", () => {
                 const isAlreadyAdded = userTasks.some(
                     (t) => t.text === task.description && !t.completed
                 );
-                if(isAlreadyAdded) return;
+                if (isAlreadyAdded) return;
 
                 allTasks.push({ ...task, sunPoints: 5 });
 
