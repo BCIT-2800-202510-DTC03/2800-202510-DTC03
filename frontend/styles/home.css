@@ -20,20 +20,19 @@ body {
     flex-direction: column;
 }
 
+#task-list {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
 #task-controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     position: relative;
-}
-
-
-#task-list {
-    width: 100%;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
 }
 
 #task-header {
@@ -133,7 +132,7 @@ body {
     width: 200px;
     max-height: 190px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto
+    overflow-y: auto;
 }
 
 .dropdown-menu li {
@@ -195,11 +194,11 @@ body {
 #task-items {
     width: 100%;
     max-width: 600px;
+    max-height: 450px;
     margin: 0 auto;
-    background-color: #fff;
     border-radius: 16px;
     padding: 1rem;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 }
 
 #empty-task-items {
