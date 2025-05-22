@@ -1,3 +1,4 @@
+const backendURL = "http://localhost:3000"
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");

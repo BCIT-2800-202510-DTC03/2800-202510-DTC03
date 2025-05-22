@@ -1,3 +1,4 @@
+
 console.log("Start");
 
 function openSidebar() {
@@ -40,8 +41,9 @@ async function loadProfilePicture() {
         });
         const data = response.data;
         const pfpUrl =
-            data.profilePicture ||
-            "/frontend/assets/profile/material_design_account_circle.svg";
+            data.profilePicture
+        // ||
+        // "/frontend/assets/profile/material_design_account_circle.svg";
         const headerPfp = document.getElementById("header-profile");
         if (headerPfp) {
             headerPfp.style.backgroundImage = `url('${pfpUrl}')`;
