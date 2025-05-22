@@ -212,34 +212,21 @@ function addTaskToHome(taskText, category) {
     userTasks.push({ text: taskText, category });
 
     taskItems.appendChild(taskElement);
+    taskVisibility();
 }
 
 // puts a message for the user to add tasks when there are none stored in their database
 function taskVisibility() {
-    
+    const message = document.getElementById("no-task-message");
+    if (userTasks.length === 0) {
+        console.log("There are no tasks saved to the user db");
+        message.style.display = "block";
+    } else {
+        console.log("There are tasks in the users db!");
+        message.style.display = "none";
+    }
+
 }
-
-// Check User current tasks
-// async function fetchUserTask() {
-//     try {
-//         const response = await fetch("http://localhost:3000/userTask/get", {
-//             method: "GET",
-//             credentials: "include",
-//         });
-
-//         if (!response.ok) {
-//             throw new Error("Failed to get user tasks");
-//         }
-
-//         const data = await response.json();
-//         return data
-//             .filter(task => task.taskId && !task.completed)
-//             .map(task => task.taskId);
-//     } catch (error) {
-//         console.error("Error fetching user tasks:", error);
-//         return [];
-//     }
-// }
 
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
@@ -276,29 +263,6 @@ menu.querySelectorAll('li').forEach(item => {
         filterTasks(item.dataset.value);
     });
 });
-
-// async function addTaskToUser(taskText, category) {
-//     try {
-//         const response = await fetch("http://localhost:3000/userTask/add", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 text: taskText,
-//                 category: category,
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             throw new Error("Failed to save task");
-//         }
-
-//         console.log("Task saved to userTask DB");
-//     } catch (error) {
-//         console.error("Error adding task to DB:", error);
-//     }
-// }
 
 // Filter tasks shown on homepage
 filterGoals.addEventListener("change", () => {
@@ -371,6 +335,12 @@ document.addEventListener("click", (event) => {
 
         setTimeout(() => {
             task.remove();
+            const index = userTasks.findIndex(t =>
+                t.text === task.querySelector(".task-text").textContent
+            );
+            if (index !== -1) userTasks.splice(index, 1);
+
+            taskVisibility();
         }, 500);
     }
 });
@@ -455,6 +425,7 @@ async function loadGarden() {
 async function setup() {
     await loadUserTasks();
     await loadGarden();
+    taskVisibility();
 }
 
 setup();
