@@ -1,3 +1,5 @@
+import { backgroundURL } from "../util.js";
+
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
@@ -76,7 +78,6 @@ async function loadUserGoal() {
     }
 }
 
-
 async function updateUserPreference() {
     //send information to DB
     try {
@@ -123,12 +124,10 @@ async function loadUserPreferences() {
             //update this with the default image we want to use
             pfp.src =
                 "/frontend/assets/profile/material_design_account_circle.svg";
-
         }
 
         if (userGoal) {
             goalSelect.value = userGoal;
-
         }
     } catch (error) {
         //replace with on screen message
@@ -138,7 +137,6 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach((btn) => {
-
         buttons.forEach((btn) => {
             //event listener for profile picture options
             btn.addEventListener("change", () => {
@@ -183,9 +181,7 @@ function goalSetup() {
 
         updateUserPreference();
 
-
         console.log(userGoal);
-
     });
 }
 
