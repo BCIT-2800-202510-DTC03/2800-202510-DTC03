@@ -1,3 +1,7 @@
+import { navbarLogout } from "./navbar.js";
+import { loadProfilePicture } from "./navbar.js";
+import { setupListeners } from "./navbar.js";
+
 async function insertHTML(filePath, element) {
     try {
         const response = await fetch(filePath);
@@ -18,8 +22,14 @@ async function insertHeader() {
     const element = document.getElementById("placeholder-header");
 
     await insertHTML(filePath, element);
+
+    setupListeners();
     navbarLogout();
     loadProfilePicture();
+    // requestAnimationFrame(() => {
+    //     navbarLogout();
+    //     loadProfilePicture();
+    // });
 }
 
 function setup() {
