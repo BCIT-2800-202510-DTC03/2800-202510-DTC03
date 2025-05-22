@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function handleLogin() {
-    loginForm = document.getElementById("login_form");
+    const loginForm = document.getElementById("login_form");
     loginForm.addEventListener("submit", loginSubmit);
 }
 
@@ -62,7 +62,7 @@ function handleLogout() {
 }
 
 function handleRegister() {
-    signupForm = document.getElementById("signup_form");
+    const signupForm = document.getElementById("signup_form");
     signupForm.addEventListener("submit", signUpSubmit);
 }
 
