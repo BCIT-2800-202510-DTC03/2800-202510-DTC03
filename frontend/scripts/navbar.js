@@ -14,6 +14,11 @@ export function setupListeners() {
         shopNav.href = `${frontendURL}/pages/shop.html`;
     }
 
+    const friendsNav = document.getElementById("friends-nav");
+    if (friendsNav) {
+        friendsNav.href = `${frontendURL}/pages/friends.html`;
+    }
+
     const profileNav = document.getElementById("profile-nav");
     if (profileNav) {
         profileNav.href = `${frontendURL}/pages/profile.html`;
@@ -80,13 +85,23 @@ export async function loadProfilePicture() {
         const response = await axios.get(`${backendURL}/user/UserInfo`, {
             withCredentials: true,
         });
+        console.log("UserInfo response:", response.data);
         const data = response.data;
         const pfpUrl = data.profilePicture;
         // ||
         // "/frontend/assets/profile/material_design_account_circle.svg";
         const headerPfp = document.getElementById("header-profile");
-        if (headerPfp) {
+        console.log("Header-pfp:", headerPfp);
+        console.log("pfp url:", pfpUrl);
+        if (!headerPfp) {
+            return;
+        }
+        if (pfpUrl && pfpUrl.trim() !== "") {
             headerPfp.style.backgroundImage = `url('${pfpUrl}')`;
+        } else {
+            console.log(
+                "No profile picture found. Using default fallback image."
+            );
         }
     } catch (error) {
         console.error("Couldn't load profile picture: ", error);
@@ -95,6 +110,9 @@ export async function loadProfilePicture() {
 
 export async function navbarLogout() {
     const logoutNav = document.getElementById("logout-nav");
+    if (!logoutNav) {
+        console.error("Logout nav has not been found in DOM");
+    }
     logoutNav.addEventListener("click", async () => {
         try {
             const response = await axios.post(
