@@ -216,7 +216,7 @@ if (addBtn) {
                             return;
                         }
                         await addTaskToUser(task.description, task.category);
-                        addTaskToHome(task.description, task.category);
+                        await reloadUserTasks();
                         taskContainer.remove();
                     });
 
@@ -252,6 +252,16 @@ function addTaskToHome(taskText, category, completed = false) {
 
     updateTaskCounter();
     taskVisibility();
+}
+
+async function reloadUserTasks() {
+        userTasks = [];
+        taskItems.innerHTML = "";
+        completedTasks.innerHTML = "";
+
+        await loadUserTasks();
+        updateTaskCounter();
+        taskVisibility();  
 }
 
 // puts a message for the user to add tasks when there are none stored in their database
