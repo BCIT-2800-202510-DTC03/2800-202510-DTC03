@@ -256,6 +256,7 @@ router.post("/removeFriend", async (req, res) => {
             })
         }
 
+        const objectId = new mongoose.Types.ObjectId(friendId);
         const user = await User.findOne({ _id: id });
 
         if (!user) {
@@ -264,10 +265,16 @@ router.post("/removeFriend", async (req, res) => {
             })
         }
 
+        const result = await User.updateOne(
+            { _id: id },
+            { $pull: { friends: objectId } }
+        );
 
-        user.friends = user.friends.filter(frID => frID.toString() !== friendId);
-
-        await user.save();
+        if(result.modifiedCount === 0){
+            return res.status(400).json({
+                error_message: "Friend not found or already removed."
+            });
+        }
 
         res.status(200).json({ message: "Removed Friend." });
 

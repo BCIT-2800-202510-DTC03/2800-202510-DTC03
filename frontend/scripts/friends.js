@@ -110,16 +110,15 @@ async function getFriends() {
     } catch (error) {
         const msg = document.getElementById("friendmsg");
         msg.innerText = "";
-        msg.innerText = error.data.error_message;
+        msg.innerText = error.response.data.error_message;
         getFriends();
     }
 }
 
 async function deleteFriend(friend) {
     try{
-
         const response = await axios.post(backendURLTest + "/user/removeFriend", {
-            friend
+            friendId: friend
         },
         {
             withCredentials: true,
@@ -131,7 +130,7 @@ async function deleteFriend(friend) {
     } catch (error) {
         const msg = document.getElementById("friendmsg");
         msg.innerText = "";
-        msg.innerText = error.data.error_message;
+        msg.innerText = error.response.data.error_message;
     }
 }
 
