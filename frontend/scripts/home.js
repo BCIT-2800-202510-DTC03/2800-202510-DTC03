@@ -6,6 +6,10 @@ const goalPanel = document.getElementById("goal-panel");
 const closeOverlay = document.getElementById("close-overlay");
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
+const filterDropdown = document.getElementById('filter-goals');
+const toggleBtn = filterDropdown.querySelector('.filter-toggle');
+const menu = filterDropdown.querySelector('.dropdown-menu');
+const title = filterDropdown.querySelector('.dropdown-title');
 const premadeTask = [
     {
         category: "greenerEating",
@@ -205,6 +209,11 @@ function addTaskToHome(taskText, category) {
     taskItems.appendChild(taskElement);
 }
 
+// puts a message for the user to add tasks when there are none stored in their database
+function taskVisibility() {
+    
+}
+
 // Check User current tasks
 // async function fetchUserTask() {
 //     try {
@@ -250,6 +259,24 @@ async function addTaskToUser(taskText, category) {
         console.error("Error adding task to DB:", error);
     }
 }
+// Open filter on click
+toggleBtn.addEventListener('click', () => {
+    const isOpen = filterDropdown.classList.toggle('open');
+    toggleBtn.setAttribute('area-expanded', isOpen);
+    if (isOpen) {
+        menu.querySelector('li').focus();
+    }
+});
+
+// Filter
+menu.querySelectorAll('li').forEach(item => {
+    item.addEventListener('click', () => {
+        title.textContent = item.textContent;
+        filterDropdown.classList.remove('open');
+        toggleBtn.setAttribute('area-expanded', false);
+        filterTasks(item.dataset.value);
+    });
+});
 
 // Filter tasks shown on homepage
 filterGoals.addEventListener("change", () => {
@@ -270,6 +297,14 @@ document.addEventListener("click", (e) => {
         const task = e.target.closest(".task");
         task.classList.add("completed");
         setTimeout(() => task.remove(), 500);
+    }
+});
+
+// Close dropdown if clicking outside
+document.addEventListener('click', e => {
+    if (!filterDropdown.contains(e.target)) {
+        filterDropdown.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', false);
     }
 });
 
