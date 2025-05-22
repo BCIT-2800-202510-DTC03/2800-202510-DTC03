@@ -1,12 +1,16 @@
 // const { getWeather } = require('./weatherData');
 // var weather = getWeather();
+// const { getWeather } = require('./weather.js');
+// const weather = await getWeather();
+// import { getWeather } from "./weather.js"
+
 var weather = "clear";
 
-function insertBackground() {
+async function insertBackground() {
+    // const weather = await getWeather();
     const background = document.getElementById("garden-background");
 
-    background.style.backgroundImage =
-        "url('../assets/garden/background-" + weather + ".png')";
+    background.style.backgroundImage = "url('../assets/garden/background-" + weather + ".png')";
 
     if (background.style.backgroundImage && weather) {
         background.style.backgroundColor = "transparent";
@@ -22,6 +26,7 @@ function insertFence(type) {
         fence.style.backgroundImage = null;
     }
 
+
     if (fence.style.backgroundImage || !type) {
         fence.style.backgroundColor = "transparent";
     }
@@ -35,6 +40,7 @@ function insertBuilding(type) {
     } else {
         building.style.backgroundImage = null;
     }
+
 
     if (building.style.backgroundImage && type) {
         building.style.backgroundColor = "transparent";
@@ -85,19 +91,8 @@ function insertPlant(type, select) {
     }
 }
 
-export function insertGarden(
-    fence,
-    building,
-    shelf,
-    rightObject,
-    leftObject,
-    plant1,
-    plant2,
-    plant3,
-    plant4,
-    plant5,
-    plant6
-) {
+export function insertGarden(fence, building, shelf, rightObject, leftObject,
+    plant1, plant2, plant3, plant4, plant5, plant6) {
     insertBackground();
     insertFence(fence);
     insertBuilding(building);
