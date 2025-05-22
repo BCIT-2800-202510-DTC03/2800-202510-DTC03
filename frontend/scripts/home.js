@@ -219,12 +219,13 @@ function addTaskToHome(taskText, category, completed = false) {
 
     if (completed) {
         taskDiv.classList.add("completed");
+        const header = document.getElementById("completedHeader");
+        if (header) header.style.display = "block";
         completedTasks.appendChild(taskElement);
     } else {
         taskItems.appendChild(taskElement);
     }
 
-    userTasks.push({ text: taskText, category, completed });
     updateTaskCounter();
     taskVisibility();
 }
@@ -255,6 +256,13 @@ async function loadUserTasks() {
         tasks.forEach((task) => {
             const isCompleted = task.completed || false;
             addTaskToHome(task.description, task.category, isCompleted);
+
+            userTasks.push({
+                id: task._id,
+                text: task.description,
+                category: task.category,
+                completed: isCompleted
+            });
         });
     } catch (err) {
         console.error("Failed to load user tasks", err);
@@ -280,26 +288,30 @@ async function addTaskToUser(description, category) {
     }
 }
 
-// changes the usertaks to complete
+// changes the user tasks to complete
 async function completeUserTask(taskText, task, userTasks) {
+    const targetTask = userTasks.find(t => t.text === taskText);
+    if (!targetTask || !targetTask.id) {
+        console.error("Task ID not found for completion");
+        return;
+    }
     try {
         await axios.post(`${backendURL}/userTasks/complete`, {
-            description: taskText
+            taskId: targetTask.id
         }, { withCredentials: true });
 
         // Visually mark as complete
         task.classList.add("completed");
 
-        // Move it to completed section
         setTimeout(() => {
             task.remove();
 
             // Update local array
-            const index = userTasks.findIndex(t => t.text === taskText);
+            const index = userTasks.findIndex(t => t.id === targetTask.id);
             if (index !== -1) {
-                userTasks[index].completed = true;
-                addTaskToHome(userTasks[index].text, userTasks[index].category, true);
-                userTasks.splice(index, 1); // remove from active list
+                const completedTask = userTasks.splice(index, 1)[0];
+                completedTask.completed = true;
+                addTaskToHome(completedTask.text, completedTask.category, true);
             }
 
             taskVisibility();
