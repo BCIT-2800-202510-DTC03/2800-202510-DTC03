@@ -1,6 +1,9 @@
-export const currentFrontEndUrl = "http://localhost:5500/frontend"
-export const currentBackEndUrl = "http://localhost:3000"
+// This checks if it is local host by whats in the URL
+const isLocalHost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.01";
 
-export const DEPLOYED_FRONTEND_URL = "https://two800bloomgreener.onrender.com"
-// const LOCAL_FRONTEND_URL = "http://localhost:5500/frontend"
-// DEPLOYED_BACKEND_URL = https://bloomgreener.onrender.com
+// This decides what the URL will be depending if its deployed on render or is localhost
+export const backendURL = isLocalHost
+    ? "http://localhost:3000"
+    : "https://two800bloomgreener.onrender.com";
