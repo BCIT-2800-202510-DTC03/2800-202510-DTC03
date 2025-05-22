@@ -1,4 +1,4 @@
-import { backgroundURL } from "../util.js";
+import { backendURL } from "../util.js";
 
 //document elements
 const editPencil = document.getElementById("edit-pencil");
@@ -87,7 +87,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            `${backgroundURL}/user/updateInfo`,
+            `${backendURL}/user/updateInfo`,
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
