@@ -1,3 +1,5 @@
+import { loadGarden } from "./home.js";
+
 import { backendURL } from "../util.js";
 
 //document elements
@@ -55,7 +57,7 @@ function profilePictureSetup() {
         }
     });
 }
-
+// load user's goal and fetch their username
 async function loadUserGoal() {
     try {
         const response = await axios.get(`${backendURL}/user/UserInfo`, {
@@ -63,7 +65,7 @@ async function loadUserGoal() {
         });
 
         const userData = response.data;
-
+        console.log(userData);
         if (userData.error) {
             alert(userData.error);
             return;
@@ -71,7 +73,10 @@ async function loadUserGoal() {
 
         const currentGoal = document.getElementById("current-goal");
         currentGoal.value = userData.goal;
-        currentGoal.value.readOnly = true;
+        currentGoal.readOnly = true;
+
+        const userName = document.getElementById("username");
+        userName.innerHTML = userData.username.split("@")[0];
     } catch (error) {
         console.error("Failed to load user goal", error);
         alert("Current goal could not be loaded.");
@@ -189,7 +194,7 @@ function gardenSetup() {
     //set up garden
 }
 
-function main() {
+async function main() {
     loadUserPreferences();
     profilePictureSetup();
     radioButtonSetup();
@@ -197,6 +202,7 @@ function main() {
     loadUserGoal();
     goalSetup();
     gardenSetup();
+    await loadGarden();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,5 +1,5 @@
 
-
+const backendURL = "http://localhost:3000"
 function setUpAddListener() {
     const wrapper = document.getElementById("friend-wrapper");
     const addbtn = document.getElementById("add")
@@ -117,15 +117,15 @@ async function getFriends() {
 }
 
 async function deleteFriend(friend) {
-    try{
+    try {
         const response = await axios.post(backendURLTest + "/user/removeFriend", {
             friendId: friend
         },
-        {
-            withCredentials: true,
-        })
+            {
+                withCredentials: true,
+            })
 
-        if(response.status === 200){
+        if (response.status === 200) {
             getFriends();
         }
     } catch (error) {

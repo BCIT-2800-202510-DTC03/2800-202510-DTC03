@@ -1,5 +1,5 @@
-import {loadGarden} from "./home.js"
-
+import { loadGarden } from "./home.js"
+const backendURL = "http://localhost:3000"
 let userGarden = {};
 let userInventory = {};
 let currentTab = "fence";
@@ -9,7 +9,7 @@ let currentPosition = "fence";
 async function getGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    await fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
+    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
         .then((response) => response.json())
         .then((data) => {
             console.log("GET GARDEN")
@@ -20,7 +20,7 @@ async function getGarden() {
 }
 
 async function getInventory() {
-    await fetch("http://localhost:3000/garden/getInventory", {method: "GET", credentials: "include"})
+    await fetch("http://localhost:3000/garden/getInventory", { method: "GET", credentials: "include" })
         .then((response) => response.json())
         .then((data) => {
             console.log("GET INVENTORY")
@@ -160,25 +160,25 @@ export async function getInventoryItems(tab, position) {
             // Card 
             const card = document.createElement("div");
             card.classList.add("inventory-cards");
-    
+
             // Card Content
             //Top Section
             const top = document.createElement("div");
             top.classList.add("inventory-cards-top");
-    
+
             let isSelected;
             isSelected = currentSelect === item.typeName;
-    
+
             // If item is selected...
             const selected = document.createElement("p");
-    
+
             const picture = document.createElement("img");
             picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
-    
+
             if (isSelected) {
                 selected.innerText = 'SELECTED';
                 selected.classList.add("inventory-selected");
-    
+
                 top.classList.add("inventory-selected-image")
                 //Event Listener
                 card.addEventListener("click", () => {
@@ -193,18 +193,18 @@ export async function getInventoryItems(tab, position) {
                     loadGarden();
                 });
             };
-    
+
             top.appendChild(selected);
             top.appendChild(picture);
-    
+
             //Bottom Section
             const name = document.createElement("p");
             name.classList.add("inventory-name");
             name.innerText = item.displayName;
-            
+
             card.appendChild(top);
             card.appendChild(name);
-    
+
             itemList.appendChild(card);
         });
     }
@@ -212,8 +212,8 @@ export async function getInventoryItems(tab, position) {
 
 async function selectGardenItem(position, type) {
     try {
-        const response = await fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, {method: "POST", credentials: "include"})
-    
+        const response = await fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, { method: "POST", credentials: "include" })
+
         if (response.ok) {
             console.log("SELECT 1")
             await setup();
@@ -223,7 +223,7 @@ async function selectGardenItem(position, type) {
     } catch (error) {
         console.error("Error buying decoration:", error);
     }
-    
+
 }
 
 
