@@ -16,9 +16,7 @@
     <link rel="stylesheet" href="../styles/garden.css" />
 
     <link rel="stylesheet" href="../styles/navbar.css" />
-    <link rel="stylesheet" href="../styles/profile.css">
-
-
+    <link rel="stylesheet" href="../styles/profile.css" />
 </head>
 
 <body>
@@ -30,7 +28,7 @@
     <div id="profile-wrapper">
         <div id="picture-wrapper">
             <div id="pfp-container">
-                <img id="profile-picture" src="https://dummyimage.com/300/a3ab87/fff.png&text=+">
+                <img id="profile-picture" src="https://dummyimage.com/300/a3ab87/fff.png&text=+" />
                 <div id="picture-input">
                     <!-- <img id="camera-img" src="https://dummyimage.com/100/606C38/fff.png&text=[%E2%97%89%C2%B0]" onclick="document.getElementById('pfp-img').click();">
                     <input type="file" id="pfp-img" name="pfp-img" accept="image/*"> -->
@@ -41,35 +39,33 @@
                     <div id="pfp-choices">
                         <label>
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar1.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar1.png">
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar1.png" />
                         </label>
                         <label>
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar2.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar2.png">
-
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar2.png" />
                         </label>
                         <label>
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar3.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar3.png">
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar3.png" />
                         </label>
                         <label>
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar4.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar4.png">
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar4.png" />
                         </label>
                         <label>
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar5.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar5.png">
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar5.png" />
                         </label>
                         <label>
-
                             <input type="radio" class="pfp-image-radio" value="../assets/profile/avatar6.png"
-                                name="pfp-choice">
-                            <img class="pfp-img-choice" src="../assets/profile/avatar6.png">
+                                name="pfp-choice" />
+                            <img class="pfp-img-choice" src="../assets/profile/avatar6.png" />
                         </label>
                     </div>
                 </div>
@@ -87,17 +83,23 @@
         <div id="goal-wrapper">
             <h2 class="section-title">My current goal</h2>
             <div class="mb-4">
-                <input id="current-goal" type="text" name="current-goal" class="input" required disabled>
+                <input id="current-goal" type="text" name="current-goal" class="input" required disabled />
             </div>
             <h2 class="section-title">Change goal</h2>
             <div id="goal-select-wrap">
                 <select id="goals" name="goals">
-                    <option value="Select a goal" disable selected>Select a new goal:</option>
+                    <option value="Select a goal" disable selected>
+                        Select a new goal:
+                    </option>
                     <option value="greenerEating">To eat greener</option>
                     <option value="wasteReduction">To reduce my waste</option>
-                    <option value="resourceConservation">To conserve more resources</option>
+                    <option value="resourceConservation">
+                        To conserve more resources
+                    </option>
                     <option value="consciousConsumption">To consume consciously</option>
-                    <option value="transportation">To use eco-friendly transit options</option>
+                    <option value="transportation">
+                        To use eco-friendly transit options
+                    </option>
                 </select>
             </div>
         </div>
@@ -105,7 +107,6 @@
             <h2 class="section-title">My Garden Items</h2>
             <div id="garden-display">
                 <div id="garden-container">
-
                     <div id="garden-background" title="Background"></div>
                     <div id="garden-fence" title="Fence"></div>
                     <div id="garden-ground" title="Ground"></div>
@@ -122,7 +123,6 @@
                     <div id="garden-leftObject" title="Left Object"></div>
                     <!-- <div id="garden-weather" title="Weather"></div> -->
                     <div id="garden-shadow"></div>
-
                 </div>
             </div>
         </div>
@@ -133,13 +133,18 @@
 
     <!-- This swaps backend URLs depending on deployment type (local vs render) -->
     <script src="../scripts/config.js"></script>
+    <script type="module" src="../util.js"></script>
 
-    <script src="../scripts/profile.js"></script>
+    <script type="module" src="../scripts/profile.js"></script>
     <script src="../scripts/navbar.js"></script>
     <script src="../scripts/skeleton.js"></script>
 
-    <script type="module" src ="../scripts/garden.js"></script>
+    <script type="module" src="../scripts/garden.js"></script>
 
+</body>
+
+<script type="module" src="../scripts/home.js"></script>
+<script type="module" src="../scripts/garden.js"></script>
 </body>
 
 </html>

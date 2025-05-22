@@ -1,92 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link rel="stylesheet" href="../styles/fonts.css" />
-  <link rel="stylesheet" href="../styles/login.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+    ></script>
+    <!-- This swaps backend URLs depending on deployment type (local vs render) -->
+    <script defer src="../scripts/config.js"></script>
+    <script defer src="../scripts/login.js"></script>
+  </head>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <!-- This swaps backend URLs depending on deployment type (local vs render) -->
-  <script defer src="../scripts/config.js"></script>
-  <script defer src="../scripts/login.js"></script>
-
-
-</head>
-
-<body>
-  <div class="container">
-    <img class="login_logo" src="../assets/images/Sticker_250509230055.png" height="200px" />
-    <div class="login_title_box">
-      <h1 class="login_title">
-        BloomGreener,<br />
-        live greener.
-      </h1>
-      <p class="login_content">
-        Cultivate good habits. Complete tasks with motivation.
-      </p>
-      <p></p>
+  <body style="display: flex; flex-direction: row">
+    <div class="login_screenshot_wrapper">
+      <img
+        class="login_screenshot_wrapper_phone"
+        src="../assets/images/screenshot/iPhone-13-PRO-localhost.png"
+      />
+      <img
+        class="login_screenshot_wrapper_phone2"
+        src="../assets/images/screenshot/iPhone-13-PRO-localhost (1).png"
+      />
+      <div class="login_screenshot_wrapper_background"></div>
     </div>
-    <div class="form_wrapper">
-      <button id="toggle_form_btn" class="toggle_btn">New User?</button>
-      <div class="loginpage_form" id="login_form_wrapper">
-        <form name="login_form" id="login_form">
-          <p>Log in</p>
-          <p id="login_error" class="error_message"></p>
-          <div class="input_with_icon">
-            <img src="../assets/icons/mail.svg" class="input_icon" />
-            <input id="input_login_id" class="textbox" type="text" name="email" placeholder="Email Address" required />
-          </div>
-          <div class="input_with_icon">
-            <img src="../assets/icons/key.svg" class="input_icon" />
-            <input id="input_login_password" class="textbox" type="password" name="password" placeholder="Password"
-              required />
-          </div>
-
-          <!-- Logged out state -->
-          <div id="authButton">
-            <input id="input_login_submit" class="loginPage_btn btn" type="submit" name="login" value="Log In" />
-          </div>
-
-        </form>
+    <div class="container">
+      <img
+        class="login_logo"
+        src="../assets/images/Sticker_250509230055.png"
+        height="200px"
+      />
+      <div class="login_title_box">
+        <h1 class="login_title">
+          BloomGreener,<br />
+          live greener.
+        </h1>
+        <p class="login_content">
+          Cultivate good habits. Complete tasks with motivation.
+        </p>
+        <p></p>
       </div>
+      <div class="form_wrapper">
+        <button id="toggle_form_btn" class="toggle_btn">New User?</button>
+        <div class="loginpage_form" id="login_form_wrapper">
+          <form name="login_form" id="login_form">
+            <p>Log in</p>
+            <p id="login_error" class="error_message"></p>
+            <div class="input_with_icon">
+              <img src="../assets/icons/mail.svg" class="input_icon" />
+              <input
+                id="input_login_id"
+                class="textbox"
+                type="text"
+                name="email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+            <div class="input_with_icon">
+              <img src="../assets/icons/key.svg" class="input_icon" />
+              <input
+                id="input_login_password"
+                class="textbox"
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-      <!-- Logged in state -->
-      <button id="logoutButton" class="loginPage_btn btn hidden"> Logout
-      </button>
+            <!-- Logged out state -->
+            <div id="authButton">
+              <input
+                id="input_login_submit"
+                class="loginPage_btn btn"
+                type="submit"
+                name="login"
+                value="Log In"
+              />
+            </div>
+          </form>
+        </div>
 
+        <!-- Logged in state -->
+        <button id="logoutButton" class="loginPage_btn btn hidden">
+          Logout
+        </button>
 
+        <div class="loginpage_form hidden" id="signup_form_wrapper">
+          <form name="signup_form" id="signup_form">
+            <p>Sign Up</p>
+            <p id="signup_error" class="error_message"></p>
+            <div class="input_with_icon">
+              <img src="../assets/icons/mail.svg" class="input_icon" />
+              <input
+                id="input_signup_id"
+                class="textbox"
+                type="text"
+                name="email"
+                placeholder="Email Address"
+                required
+              />
+            </div>
 
-      <div class="loginpage_form hidden" id="signup_form_wrapper">
-        <form name="signup_form" id="signup_form">
-          <p>Sign Up</p>
-          <p id="signup_error" class="error_message"></p>
-          <div class="input_with_icon">
-            <img src="../assets/icons/mail.svg" class="input_icon" />
-            <input id="input_signup_id" class="textbox" type="text" name="email" placeholder="Email Address" required />
-          </div>
+            <div class="input_with_icon">
+              <img src="../assets/icons/key.svg" class="input_icon" />
+              <input
+                id="input_signup_password"
+                class="textbox"
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-          <div class="input_with_icon">
-            <img src="../assets/icons/key.svg" class="input_icon" />
-            <input id="input_signup_password" class="textbox" type="password" name="password" placeholder="Password"
-              required />
-          </div>
+            <div class="input_with_icon">
+              <img src="../assets/icons/key.svg" class="input_icon" />
+              <input
+                id="input_signup_password_repeat"
+                class="textbox"
+                type="password"
+                name="password_repeat"
+                placeholder="Repeat Password"
+                required
+              />
+            </div>
 
-          <div class="input_with_icon">
-            <img src="../assets/icons/key.svg" class="input_icon" />
-            <input id="input_signup_password_repeat" class="textbox" type="password" name="password_repeat"
-              placeholder="Repeat Password" required />
-          </div>
-
-          <input id="input_signup_submit" class="loginPage_btn btn" type="submit" name="login" value="Sign Up" />
-        </form>
+            <input
+              id="input_signup_submit"
+              class="loginPage_btn btn"
+              type="submit"
+              name="login"
+              value="Sign Up"
+            />
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

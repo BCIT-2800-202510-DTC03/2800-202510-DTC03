@@ -469,10 +469,30 @@ h2:after {
 }
 
 .content_image {
-  object-fit: cover;
+  max-height: 30vh;
+  padding-bottom: 3rem;
+  z-index: 100;
 }
-
+.content_image_phone {
+  max-height: 25vh;
+  padding-bottom: 3rem;
+  z-index: 200;
+}
+/* .content_image_background {
+  position: absolute;
+  height: 200px;
+  width: 300px;
+  border-radius: 300px;
+  background-color: #dfcfbf;
+} */
 @media (min-width: 633px) {
+  .content_image_phone {
+    max-height: 25vh;
+    padding-bottom: 3rem;
+    position: relative;
+    right: -110px;
+    top: 50px;
+  }
   .content_section {
     height: 100vh;
     flex-direction: row;

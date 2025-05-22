@@ -4,14 +4,26 @@ import { insertGarden } from "./garden.js";
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
 const goalPanel = document.getElementById("goal-panel");
-const closeOverlay = document.getElementById("close-overlay");
+let toggleBtn;
+let menu;
+let title;
+let closeOverlay;
+if (document.getElementById("close-overlay")) {
+    closeOverlay = document.getElementById("close-overlay")
+};
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
 
 const filterDropdown = document.getElementById('filter-goals');
-const toggleBtn = filterDropdown.querySelector('.filter-toggle');
-const menu = filterDropdown.querySelector('.dropdown-menu');
-const title = filterDropdown.querySelector('.dropdown-title');
+if (filterDropdown) {
+    toggleBtn = filterDropdown.querySelector('.filter-toggle')
+    menu = filterDropdown.querySelector('.dropdown-menu');
+    title = filterDropdown.querySelector('.dropdown-title');
+};
+
+
+
+
 const taskCounter = document.getElementById("task-counter");
 const completedTasks = document.getElementById("completed-tasks");
 
@@ -133,36 +145,37 @@ let userTasks = []; // tasks shown on home page
 console.log("home.js loaded");
 
 // Open overlay and load premade tasks if not loaded
-addBtn.addEventListener("click", () => {
-    overlay.style.display = "flex";
-    console.log("button is clicked");
+if (addBtn) {
+    addBtn.addEventListener("click", () => {
+        overlay.style.display = "flex";
+        console.log("button is clicked");
 
-    if (!isLoaded) {
-        const groupedByCategory = premadeTask.reduce((acc, task) => {
-            if (!acc[task.category]) acc[task.category] = [];
-            acc[task.category].push(task);
-            return acc;
-        }, {});
+        if (!isLoaded) {
+            const groupedByCategory = premadeTask.reduce((acc, task) => {
+                if (!acc[task.category]) acc[task.category] = [];
+                acc[task.category].push(task);
+                return acc;
+            }, {});
 
-        const formatCategory = (category) => {
-            switch (category) {
-                case "greenerEating": return "Greener Eating";
-                case "transportation": return "Transportation";
-                case "wasteReduction": return "Waste Reduction";
-                case "resourceConservation": return "Resource Conservation";
-                case "consciousConsumption": return "Conscious Consumption";
-                default: return category.charAt(0).toUpperCase() + category.slice(1);
-            }
-        };
+            const formatCategory = (category) => {
+                switch (category) {
+                    case "greenerEating": return "Greener Eating";
+                    case "transportation": return "Transportation";
+                    case "wasteReduction": return "Waste Reduction";
+                    case "resourceConservation": return "Resource Conservation";
+                    case "consciousConsumption": return "Conscious Consumption";
+                    default: return category.charAt(0).toUpperCase() + category.slice(1);
+                }
+            };
 
-        for (const [category, tasks] of Object.entries(groupedByCategory)) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.classList.add("goal");
-            categoryDiv.marginBottom = "15px";
+            for (const [category, tasks] of Object.entries(groupedByCategory)) {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.classList.add("goal");
+                categoryDiv.marginBottom = "15px";
 
-            const title = document.createElement("h3");
-            title.textContent = formatCategory(category);
-            categoryDiv.appendChild(title);
+                const title = document.createElement("h3");
+                title.textContent = formatCategory(category);
+                categoryDiv.appendChild(title);
 
             tasks.forEach((task) => {
                 const isAlreadyAdded = userTasks.some(
@@ -170,22 +183,22 @@ addBtn.addEventListener("click", () => {
                 );
                 if (isAlreadyAdded) return;
 
-                const taskContainer = document.createElement("div");
-                taskContainer.style.display = "flex";
-                taskContainer.style.justifyContent = "space-between";
-                taskContainer.style.alignItems = "center";
-                taskContainer.style.marginBottom = "8px";
-                taskContainer.style.gap = "10px;";
+                    const taskContainer = document.createElement("div");
+                    taskContainer.style.display = "flex";
+                    taskContainer.style.justifyContent = "space-between";
+                    taskContainer.style.alignItems = "center";
+                    taskContainer.style.marginBottom = "8px";
+                    taskContainer.style.gap = "10px;";
 
-                const taskDesc = document.createElement("span");
-                taskDesc.textContent = `${task.description}`;
-                taskDesc.style.flex = "1";
-                taskDesc.style.width = "90%";
+                    const taskDesc = document.createElement("span");
+                    taskDesc.textContent = `${task.description}`;
+                    taskDesc.style.flex = "1";
+                    taskDesc.style.width = "90%";
 
-                const addButton = document.createElement("button");
-                addButton.textContent = `+`;
-                addButton.classList.add("add-goal-task");
-                addButton.style.width = "10%";
+                    const addButton = document.createElement("button");
+                    addButton.textContent = `+`;
+                    addButton.classList.add("add-goal-task");
+                    addButton.style.width = "10%";
 
                 addButton.addEventListener("click", async () => {
                     const alreadyExists = userTasks.find(
@@ -207,16 +220,17 @@ addBtn.addEventListener("click", () => {
                     taskContainer.remove();
                 });
 
-                taskContainer.appendChild(taskDesc);
-                taskContainer.appendChild(addButton);
-                categoryDiv.appendChild(taskContainer);
-            });
-            if (categoryDiv.children.length > 1) {
-                goalPanel.appendChild(categoryDiv);
+                    taskContainer.appendChild(taskDesc);
+                    taskContainer.appendChild(addButton);
+                    categoryDiv.appendChild(taskContainer);
+                });
+                if (categoryDiv.children.length > 1) {
+                    goalPanel.appendChild(categoryDiv);
+                }
             }
         }
-    }
-});
+    })
+};
 
 // Add task to homepage UI
 function addTaskToHome(taskText, category, completed = false) {
@@ -347,18 +361,22 @@ function updateTaskCounter() {
 }
 
 //close overlay when clicking off
-document.getElementById("task-overlay").addEventListener("click", (event) => {
-    const overlayContent = document.getElementById("task-overlay-content");
-    if (!overlayContent.contains(event.target)) {
-        document.getElementById("task-overlay").style.display = "none";
-    }
-});
+if (document.getElementById("task-overlay")) {
+    document.getElementById("task-overlay").addEventListener("click", (event) => {
+        const overlayContent = document.getElementById("task-overlay-content");
+        if (!overlayContent.contains(event.target)) {
+            document.getElementById("task-overlay").style.display = "none";
+        }
+    })
+};
 
 // Close overlay
-closeOverlay.addEventListener("click", () => {
-    overlay.style.display = "none";
-    console.log("button closed");
-});
+if (document.getElementById("close-overlay")) {
+    closeOverlay.addEventListener("click", () => {
+        overlay.style.display = "none";
+        console.log("button closed");
+    })
+};
 
 // Filter tasks on homepage based on category select
 filterGoals.addEventListener("change", () => {
@@ -430,6 +448,7 @@ document.addEventListener("click", (event) => {
 
 export async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
+    console.log("load garden function is called")
 
     await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
         .then((response) => response.json())
@@ -470,8 +489,10 @@ export async function loadGarden() {
 // }
 
 async function setup() {
-    await loadUserTasks().then(updateTaskCounter);
     await loadGarden();
+    console.log("setup function in home.js is called")
+    await loadUserTasks().then(updateTaskCounter);
+
     taskVisibility();
 }
 

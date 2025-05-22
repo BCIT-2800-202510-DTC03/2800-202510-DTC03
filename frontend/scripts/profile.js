@@ -1,3 +1,7 @@
+import { loadGarden } from "./home.js";
+
+import { backendURL } from "../util.js";
+
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
@@ -53,7 +57,7 @@ function profilePictureSetup() {
         }
     });
 }
-
+// load user's goal and fetch their username
 async function loadUserGoal() {
     try {
         const response = await axios.get(`${backendURL}/user/UserInfo`, {
@@ -61,7 +65,7 @@ async function loadUserGoal() {
         });
 
         const userData = response.data;
-
+        console.log(userData);
         if (userData.error) {
             alert(userData.error);
             return;
@@ -69,13 +73,15 @@ async function loadUserGoal() {
 
         const currentGoal = document.getElementById("current-goal");
         currentGoal.value = userData.goal;
-        currentGoal.value.readOnly = true;
+        currentGoal.readOnly = true;
+
+        const userName = document.getElementById("username");
+        userName.innerHTML = userData.username.split("@")[0];
     } catch (error) {
         console.error("Failed to load user goal", error);
         alert("Current goal could not be loaded.");
     }
 }
-
 
 async function updateUserPreference() {
     //send information to DB
@@ -86,7 +92,7 @@ async function updateUserPreference() {
         userGoal = goalSelect.value;
 
         const response = await axios.post(
-            `${backgroundURL}/user/updateInfo`,
+            `${backendURL}/user/updateInfo`,
             {
                 aboutMe: aboutContent,
                 pfp: pfpPreference,
@@ -123,12 +129,10 @@ async function loadUserPreferences() {
             //update this with the default image we want to use
             pfp.src =
                 "/frontend/assets/profile/material_design_account_circle.svg";
-
         }
 
         if (userGoal) {
             goalSelect.value = userGoal;
-
         }
     } catch (error) {
         //replace with on screen message
@@ -138,7 +142,6 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach((btn) => {
-
         buttons.forEach((btn) => {
             //event listener for profile picture options
             btn.addEventListener("change", () => {
@@ -183,9 +186,7 @@ function goalSetup() {
 
         updateUserPreference();
 
-
         console.log(userGoal);
-
     });
 }
 
@@ -193,7 +194,7 @@ function gardenSetup() {
     //set up garden
 }
 
-function main() {
+async function main() {
     loadUserPreferences();
     profilePictureSetup();
     radioButtonSetup();
@@ -201,6 +202,7 @@ function main() {
     loadUserGoal();
     goalSetup();
     gardenSetup();
+    await loadGarden();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
