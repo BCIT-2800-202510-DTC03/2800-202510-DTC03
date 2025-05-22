@@ -3,9 +3,10 @@ let latitude = 0;
 let weather = "";
 
 const backendURLTest = "http://localhost:3000";
-const APIResponse = await axios.get(backendURLTest + "/API/weatherAPI", {
-    withCredentials: true,
-});
+// const APIResponse = await axios.get(backendURLTest + "/API/weatherAPI", {
+//     withCredentials: true,
+// });
+const APIResponse ="fake"
 const API_key = APIResponse.data.apiKey;
 
 let css_file = "";
