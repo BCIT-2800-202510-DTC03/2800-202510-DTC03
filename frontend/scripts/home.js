@@ -1,4 +1,5 @@
 import { insertGarden } from "./garden.js";
+import { loadUserTasks } from "./userTasks.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
@@ -6,12 +7,14 @@ const goalPanel = document.getElementById("goal-panel");
 const closeOverlay = document.getElementById("close-overlay");
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
+
 const filterDropdown = document.getElementById('filter-goals');
 const toggleBtn = filterDropdown.querySelector('.filter-toggle');
 const menu = filterDropdown.querySelector('.dropdown-menu');
 const title = filterDropdown.querySelector('.dropdown-title');
 const taskCounter = document.getElementById("task-counter");
 const completedTasks = document.getElementById("completed-tasks");
+
 const premadeTask = [
     {
         category: "greenerEating",
@@ -224,6 +227,7 @@ function addTaskToHome(taskText, category, completed = false) {
 }
 
 // puts a message for the user to add tasks when there are none stored in their database
+
 function taskVisibility() {
     const message = document.getElementById("no-task-message");
     if (userTasks.length === 0) {
@@ -261,6 +265,7 @@ async function loadUserTasks() {
         console.error("Failed to load user tasks", err);
     }
 }
+
 
 
 // Save task to userTask collection in backend
@@ -326,20 +331,20 @@ function updateTaskCounter() {
 }
 
 // Open filter on click
-toggleBtn.addEventListener('click', () => {
-    const isOpen = filterDropdown.classList.toggle('open');
-    toggleBtn.setAttribute('area-expanded', isOpen);
+toggleBtn.addEventListener("click", () => {
+    const isOpen = filterDropdown.classList.toggle("open");
+    toggleBtn.setAttribute("area-expanded", isOpen);
     if (isOpen) {
-        menu.querySelector('li').focus();
+        menu.querySelector("li").focus();
     }
 });
 
 // Filter
-menu.querySelectorAll('li').forEach(item => {
-    item.addEventListener('click', () => {
+menu.querySelectorAll("li").forEach((item) => {
+    item.addEventListener("click", () => {
         title.textContent = item.textContent;
-        filterDropdown.classList.remove('open');
-        toggleBtn.setAttribute('area-expanded', false);
+        filterDropdown.classList.remove("open");
+        toggleBtn.setAttribute("area-expanded", false);
         filterTasks(item.dataset.value);
     });
 });
@@ -358,10 +363,10 @@ filterGoals.addEventListener("change", () => {
 });
 
 // Close dropdown if clicking outside
-document.addEventListener('click', e => {
+document.addEventListener("click", (e) => {
     if (!filterDropdown.contains(e.target)) {
-        filterDropdown.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', false);
+        filterDropdown.classList.remove("open");
+        toggleBtn.setAttribute("aria-expanded", false);
     }
 });
 
