@@ -234,6 +234,35 @@ router.get("/checkForUser", async (req, res) => {
     }
 })
 
+
+router.post("/removeFriend", async (req, res) => {
+    try{
+        // const id = req.session.userId;
+        // test ID
+        const id = "681d758b7ca8a10aecec3284";
+        const { friendId } = req.body;
+
+        if (!id){
+            return res.status(401).json({
+                error_message: "No active user session."
+            })
+        }
+
+        await User.updateOne(
+            {_id: id},
+            {$pull: {friends: friendId}}
+        );
+
+        res.status(200).json({message: "Removed Friend."});
+
+    } catch(error){
+        console.error("Failed to remove friend: ", error);
+        res.status(500).json({
+            error_message: "Server error",
+        })
+    }
+})
+
 router.get("/getFriends", async (req, res) => {
     try{
         // const id = req.session.userId;
@@ -299,6 +328,7 @@ router.get("/getInfo", async (req, res) => {
 
 router.post("/addFriend", async (req, res) => {
     try{
+        // const id = req.session.userId;
         const id = "681d758b7ca8a10aecec3284";
         const { friendId } = req.body;
 
