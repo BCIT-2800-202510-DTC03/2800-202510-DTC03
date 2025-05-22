@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 // import DB models
-const User = require("./models/User");
-const Garden = require("./models/Garden");
-const Decoration = require("./models/Decoration");
-const Inventory = require("./models/Inventory");
+const User = require("../models/User");
+const Garden = require("../models/Garden");
+const Decoration = require("../models/Decoration");
+const Inventory = require("../models/Inventory");
 
 router.get("/getGarden", async (req, res) => {
     console.log("CHECK FOR SESSIONS");
@@ -17,9 +17,8 @@ router.get("/getGarden", async (req, res) => {
     if (response) {
         console.log("SUCCESS")
         console.log(response.userId)
-        const garden = response.garden;
 
-        res.json(garden);
+        res.json(response);
     } else {
         console.log("FAIL")
         res.status(400).send(req.session.userId);
@@ -143,6 +142,108 @@ router.post("/buyShopItem/:position/:type", async (req, res) => {
     } else {
         res.status(400).send("FAIL");
     }    
+})
+
+router.post("/selectGardenItem/:position/:type", async (req, res) => {
+    const garden = await Garden.findOne({userId: req.session.userId});
+
+    console.log("SELECTED")
+    console.log(req.params.position)
+    console.log(req.params.type)
+    console.log(garden)
+
+    let selectedType = req.params.type;
+    if (req.params.type == "none") {
+        selectedType = "";
+    }
+
+    if (garden) {
+        switch (req.params.position) {
+            case "fence": {
+                console.log("FENCE")
+                console.log(req.session.userId)
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { fence: selectedType } }
+                )
+                break;
+            }
+            case "building": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { building: selectedType } }
+                )
+                break;
+            }
+            case "shelf": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { shelf: selectedType } } 
+                )
+                break;
+            }
+            case "rightObject": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { rightObject: selectedType } } 
+                )
+                break;
+            }
+            case "leftObject": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { leftObject: selectedType } } 
+                )
+                break;
+            }
+            case "plant1": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant1: selectedType } } 
+                )
+                break;
+            }
+            case "plant2": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant2: selectedType } } 
+                )
+                break;
+            }
+            case "plant3": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant3: selectedType } } 
+                )
+                break;
+            }
+            case "plant4": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant4: selectedType } } 
+                )
+                break;
+            }
+            case "plant5": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant5: selectedType } } 
+                )
+                break;
+            }
+            case "plant6": {
+                await Garden.updateOne(
+                    {userId: req.session.userId},
+                    {$set: { plant6: selectedType } } 
+                )
+                break;
+            }
+        }
+        res.status(200).send(await Garden.findOne({userId: req.session.userId}));
+    } else {
+        res.status(400).send("FAIL");
+    }
+
 })
 
 module.exports = router;
