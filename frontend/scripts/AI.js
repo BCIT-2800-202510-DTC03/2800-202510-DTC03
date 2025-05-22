@@ -204,6 +204,12 @@ async function saveTask() {
             // const popup = document.getElementById("New-task-popup");
             // popup.style.display = "block";
         }
+        let reloaded = false;
+
+        if (!reloaded) {
+            window.location.reload();
+            reloaded = true;
+        }
     } catch (error) {
         console.error("failed to sent ai task data to server", error);
     }
