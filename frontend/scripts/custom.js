@@ -1,3 +1,5 @@
+import {loadGarden} from "./home.js"
+
 let userGarden = {};
 let userInventory = {};
 let currentTab = "fence";
@@ -28,7 +30,7 @@ async function getInventory() {
         .catch((error) => console.error("Error fetching user inventory:", error));
 }
 
-async function getInventoryItems(tab, position) {
+export async function getInventoryItems(tab, position) {
     const itemList = document.getElementById("inventory-grid");
     itemList.innerHTML = "";
 
@@ -38,6 +40,44 @@ async function getInventoryItems(tab, position) {
     const oldTab = document.getElementsByClassName("custom-tab-active")[0];
     if (oldTab) {
         oldTab.classList.remove("custom-tab-active");
+    }
+
+    if (userGarden.shelf == "") {
+        const plant1 = document.getElementById("tab-plant1");
+        plant1.disabled = true;
+        if (userGarden.plant1 != "") {
+            selectGardenItem("plant1", "none");
+        }
+
+        const plant2 = document.getElementById("tab-plant2");
+        plant2.disabled = true;
+        if (userGarden.plant2 != "") {
+            selectGardenItem("plant2", "none");
+        }
+
+        const plant3 = document.getElementById("tab-plant3");
+        plant3.disabled = true;
+        if (userGarden.plant3 != "") {
+            selectGardenItem("plant3", "none");
+        }
+
+        const plant4 = document.getElementById("tab-plant4");
+        plant4.disabled = true;
+        if (userGarden.plant4 != "") {
+            selectGardenItem("plant4", "none");
+        }
+
+        const plant5 = document.getElementById("tab-plant5");
+        plant5.disabled = true;
+        if (userGarden.plant5 != "") {
+            selectGardenItem("plant5", "none");
+        }
+
+        const plant6 = document.getElementById("tab-plant6");
+        plant6.disabled = true;
+        if (userGarden.plant6 != "") {
+            selectGardenItem("plant6", "none");
+        }
     }
 
     const activeTab = document.getElementById(`tab-${tab}`);
@@ -143,13 +183,14 @@ async function getInventoryItems(tab, position) {
                 //Event Listener
                 card.addEventListener("click", () => {
                     console.log("Click");
-                    selectGardenItem(tab, item.typeName);
+                    selectGardenItem(tab, "none");
                 });
             } else {
                 //Event Listener
                 card.addEventListener("click", () => {
                     console.log("Click");
-                    selectGardenItem(tab, "none");
+                    selectGardenItem(tab, item.typeName);
+                    loadGarden();
                 });
             };
     
@@ -169,15 +210,20 @@ async function getInventoryItems(tab, position) {
     }
 }
 
-function selectGardenItem(position, type) {
-    fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, {method: "POST", credentials: "include"})
-        .then((response) => {
-            if (response.ok) {
-                setup();
-                // loadGarden();
-            }
-        })
-        .catch((error) => console.error("Error buying decoration:", error));
+async function selectGardenItem(position, type) {
+    try {
+        const response = await fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, {method: "POST", credentials: "include"})
+    
+        if (response.ok) {
+            console.log("SELECT 1")
+            await setup();
+            console.log("SELECT 2")
+            loadGarden();
+        }
+    } catch (error) {
+        console.error("Error buying decoration:", error);
+    }
+    
 }
 
 
@@ -191,6 +237,8 @@ async function setup() {
     await getInventoryItems(currentTab, currentPosition);
     resizeWindow();
     window.onresize = resizeWindow;
+    window.getInventoryItems = getInventoryItems;
+
 }
 
 setup();
