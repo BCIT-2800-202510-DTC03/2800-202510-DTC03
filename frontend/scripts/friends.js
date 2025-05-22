@@ -99,9 +99,20 @@ async function getFriends() {
             div.className = "friend";
             div.innerHTML = await getInfo(friend);
             wrapper.appendChild(div);
+
+            const deletebtn = div.querySelector(".remove-friend");
+            if (deletebtn) {
+                deletebtn.addEventListener("click", () => {
+                    deleteFriend(friend);
+                })
+            }
         });
     } catch (error) {
     }
+}
+
+function deleteFriend(friend) {
+    console.log(friend);
 }
 
 
@@ -116,8 +127,16 @@ async function getInfo(friendId) {
             return `<div class="friend-main">
                     <img class="friend-pfp" src="${friend.pfp || "../assets/profile/material_design_account_circle.svg"}">
                     <h2 class="friend-name">${friend.name}</h2>
+                    <button class="remove-friend"><span class="material-symbols-outlined" style="
+                    font-variation-settings: 
+                        'FILL' 0, 
+                    'wght' 300, 
+                    'GRAD' 0, 
+                    'opsz' 24;
+                    ">delete</span></button>
                 </div>
-                <hr class="divider">`
+                <hr class="divider">
+                `
         }
     } catch (error) {
         // handle error

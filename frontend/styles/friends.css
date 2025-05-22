@@ -65,6 +65,12 @@
     padding-bottom: 0vh;
 }
 
+.remove-friend{
+    border:none;
+    cursor: pointer;
+    color: red;
+}
+
 .friend-pfp{
     width: 70px;
     height: 70px;
@@ -76,8 +82,12 @@
 .friend-name{
     box-sizing: border-box;
     padding: 0 2vh;
-    font-size: 1.5rem;
+    font-size: 2vh;
     font-weight: 400;
+    overflow: hidden;
+    width:100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .divider{
