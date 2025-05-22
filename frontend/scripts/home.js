@@ -325,7 +325,7 @@ function updateTaskCounter() {
     }
 }
 
-// Open filter on click
+// Open filter on click (working on this)
 toggleBtn.addEventListener('click', () => {
     const isOpen = filterDropdown.classList.toggle('open');
     toggleBtn.setAttribute('area-expanded', isOpen);
