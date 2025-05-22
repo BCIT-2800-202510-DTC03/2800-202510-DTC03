@@ -249,7 +249,12 @@ async function addTaskToUser(description, category) {
 }
 
 function updateTaskCounter() {
-    taskCounter.textContent = `${userTasks.length} tasks left to do!`;
+    if(userTasks.length === 1) {
+        console.log("there is 1 task")
+        taskCounter.textContent = `${userTasks.length} task left to do!`;
+    } else {
+        taskCounter.textContent = `${userTasks.length} tasks left to do!`;
+    }
 }
 
 // Open filter on click
@@ -282,15 +287,6 @@ filterGoals.addEventListener("change", () => {
             : userTasks.filter((t) => t.category === selected);
 
     filtered.forEach((t) => addTaskToHome(t.text, t.category));
-});
-
-// Mark tasks completed
-document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("checkmark")) {
-        const task = e.target.closest(".task");
-        task.classList.add("completed");
-        setTimeout(() => task.remove(), 500);
-    }
 });
 
 // Close dropdown if clicking outside
