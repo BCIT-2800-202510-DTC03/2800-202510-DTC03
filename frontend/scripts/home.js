@@ -10,6 +10,7 @@ const filterDropdown = document.getElementById('filter-goals');
 const toggleBtn = filterDropdown.querySelector('.filter-toggle');
 const menu = filterDropdown.querySelector('.dropdown-menu');
 const title = filterDropdown.querySelector('.dropdown-title');
+const taskCounter = document.getElementById("task-counter");
 const premadeTask = [
     {
         category: "greenerEating",
@@ -212,6 +213,7 @@ function addTaskToHome(taskText, category) {
     userTasks.push({ text: taskText, category });
 
     taskItems.appendChild(taskElement);
+    updateTaskCounter();
     taskVisibility();
 }
 
@@ -245,6 +247,11 @@ async function addTaskToUser(description, category) {
         console.error("Couldn't save task to DB.");
     }
 }
+
+function updateTaskCounter() {
+    taskCounter.textContent = `${userTasks.length} tasks left to do!`;
+}
+
 // Open filter on click
 toggleBtn.addEventListener('click', () => {
     const isOpen = filterDropdown.classList.toggle('open');
@@ -423,7 +430,7 @@ async function loadGarden() {
 // }
 
 async function setup() {
-    await loadUserTasks();
+    await loadUserTasks().then(updateTaskCounter);
     await loadGarden();
     taskVisibility();
 }
