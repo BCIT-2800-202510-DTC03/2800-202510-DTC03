@@ -192,14 +192,42 @@ body {
     height: 24px;
 }
 
+#all-tasks {
+    overflow-y: auto;
+    max-height: 500px;
+}
+
 #task-items {
     width: 100%;
     max-width: 600px;
-    max-height: 450px;
     margin: 0 auto;
     border-radius: 16px;
     padding: 0 1rem;
-    overflow-y: auto;
+}
+
+#completedHeader {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #606c38;
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    padding-bottom: 0.5rem;
+    position: relative;
+    display: none;
+    width: 100%;
+    max-width: 600px;
+}
+
+#completedHeader::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background-color: #a4c639;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 2px;
 }
 
 #empty-task-items {
