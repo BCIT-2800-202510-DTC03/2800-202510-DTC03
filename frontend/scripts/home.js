@@ -1,21 +1,21 @@
-import {insertGarden} from "./garden.js"
+import { insertGarden } from "./garden.js"
 
 export async function loadGarden() {
     const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
-    await fetch("http://localhost:3000/garden/getGarden", {method: "GET", credentials: "include"})
+    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
             console.log(data);
             insertGarden(data.fence, data.building, data.shelf,
-                            data.rightObject, data.leftObject,
-                            data.plant1, data.plant2, data.plant3, 
-                            data.plant4, data.plant5, data.plant6);
+                data.rightObject, data.leftObject,
+                data.plant1, data.plant2, data.plant3,
+                data.plant4, data.plant5, data.plant6);
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-    
-    
+
+
     // const backendURLTest = "http://localhost:3000"; // waiting to be updated
     // try {
     //     const response = await axios.get(backendURLTest + "/garden/getGarden");

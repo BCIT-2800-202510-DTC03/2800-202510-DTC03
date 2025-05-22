@@ -15,6 +15,7 @@ let html_layout = "";
 function getLocation() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
+            console.log(navigator.geolocation)
             navigator.geolocation.getCurrentPosition(resolve, reject);
         } else {
             reject("geolocation is not supported.");
@@ -22,12 +23,12 @@ function getLocation() {
     })
 }
 
-function getWeather() {
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`)
-        .then((response) => response.json())
-        .then(data => {
-            return data.weather[0].main;
-        });
+export async function getWeather(longitude, latitude) {
+
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`);
+    const data = await response.json();
+    console.log(data.weather[0].main)
+    return data.weather[0].main;
 }
 
 function PlaceAnimation() {
@@ -52,7 +53,7 @@ function PlaceAnimation() {
 }
 
 function AssignAnimation() {
-    weather = "Snow";
+    // weather = "Snow";
     switch (weather) {
         case "Rain":
             // credits: https://codepen.io/arickle/pen/XKjMZY
@@ -118,7 +119,8 @@ async function main() {
         const pos = await getLocation();
         longitude = pos.coords.longitude;
         latitude = pos.coords.latitude;
-        weather = await getWeather();
+        console.log(longitude, latitude)
+        weather = await getWeather(longitude, latitude);
         console.log(weather)
         switch (weather) {
             case "Thunderstorm":
@@ -144,8 +146,8 @@ async function main() {
 }
 main();
 
-function getWeather() {
-    return weather;
-}
+// function getWeather() {
+//     return weather;
+// }
 
-module.exports = { getWeather };
+// module.exports = { getWeather };

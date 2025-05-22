@@ -1,8 +1,13 @@
 // const { getWeather } = require('./weatherData');
 // var weather = getWeather();
-var weather = "clear";
+// const { getWeather } = require('./weather.js');
+// const weather = await getWeather();
+import { getWeather } from "./weather.js"
 
-function insertBackground() {
+// var weather = "clear";
+
+async function insertBackground() {
+    const weather = await getWeather();
     const background = document.getElementById("garden-background");
 
     background.style.backgroundImage = "url('../assets/garden/background-" + weather + ".png')";
