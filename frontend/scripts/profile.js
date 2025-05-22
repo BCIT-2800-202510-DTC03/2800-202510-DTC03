@@ -71,7 +71,7 @@ async function loadUserGoal() {
 
         const currentGoal = document.getElementById("current-goal");
         currentGoal.value = userData.goal;
-        currentGoal.value.readOnly = true;
+        currentGoal.readOnly = true;
 
         const userName = document.getElementById("username");
         userName.innerHTML = userData.username.split("@")[0];
