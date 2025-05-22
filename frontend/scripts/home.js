@@ -380,54 +380,57 @@ if (document.getElementById("close-overlay")) {
 };
 
 // Filter tasks on homepage based on category select
-filterGoals.addEventListener("change", () => {
-    const selectedCategory = filterGoals.value;
+if (filterGoals) {
+    filterGoals.addEventListener("change", () => {
+        const selectedCategory = filterGoals.value;
 
-    // Clear current tasks on homepage
-    taskItems.innerHTML = "";
-    completedTasks.innerHTML = "";
-
-    // Filter tasks to show
-    const filteredTasks =
-        selectedCategory === "all"
-            ? userTasks
-            : userTasks.filter((task) => task.category === selectedCategory);
-
-    // Add filtered tasks to homepage
-    filteredTasks.forEach((task) => {
-        addTaskToHome(task.text, task.category, task.completed);
-    });
-    updateTaskCounter();
-});
-
-// Filter through the list of items
-menu.querySelectorAll('li').forEach(item => {
-    item.addEventListener('click', () => {
-        filterDropdown.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', false);
-        const selected = item.dataset.value;
+        // Clear current tasks on homepage
         taskItems.innerHTML = "";
         completedTasks.innerHTML = "";
 
-        const filtered = selected === "all"
-            ? userTasks
-            : userTasks.filter(t => t.category === selected);
+        // Filter tasks to show
+        const filteredTasks =
+            selectedCategory === "all"
+                ? userTasks
+                : userTasks.filter((task) => task.category === selectedCategory);
 
-        filtered.forEach(task => {
+        // Add filtered tasks to homepage
+        filteredTasks.forEach((task) => {
             addTaskToHome(task.text, task.category, task.completed);
         });
         updateTaskCounter();
     });
-});
 
-// Open filter on click
-toggleBtn.addEventListener('click', () => {
-    const isOpen = filterDropdown.classList.toggle('open');
-    toggleBtn.setAttribute('aria-expanded', isOpen);
-    if (isOpen) {
-        menu.querySelector('li').focus();
-    }
-});
+
+    // Filter through the list of items
+    menu.querySelectorAll('li').forEach(item => {
+        item.addEventListener('click', () => {
+            filterDropdown.classList.remove('open');
+            toggleBtn.setAttribute('aria-expanded', false);
+            const selected = item.dataset.value;
+            taskItems.innerHTML = "";
+            completedTasks.innerHTML = "";
+
+            const filtered = selected === "all"
+                ? userTasks
+                : userTasks.filter(t => t.category === selected);
+
+            filtered.forEach(task => {
+                addTaskToHome(task.text, task.category, task.completed);
+            });
+            updateTaskCounter();
+        });
+    });
+
+    // Open filter on click
+    toggleBtn.addEventListener('click', () => {
+        const isOpen = filterDropdown.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+            menu.querySelector('li').focus();
+        }
+    });
+}
 
 // Close dropdown if clicking outside
 document.addEventListener('click', e => {
