@@ -6,7 +6,7 @@ function insertBackground() {
     const background = document.getElementById("garden-background");
 
     background.style.backgroundImage = "url('../assets/garden/background-" + weather + ".png')";
-    
+
     if (background.style.backgroundImage && weather) {
         background.style.backgroundColor = "transparent";
     }
@@ -21,7 +21,7 @@ function insertFence(type) {
     } else {
         fence.style.backgroundImage = null;
     }
-    
+
     if (fence.style.backgroundImage || !type) {
         fence.style.backgroundColor = "transparent";
     }
@@ -36,7 +36,7 @@ function insertBuilding(type) {
     } else {
         building.style.backgroundImage = null;
     }
-    
+
     if (building.style.backgroundImage && type) {
         building.style.backgroundColor = "transparent";
     }
@@ -90,8 +90,8 @@ function insertPlant(type, select) {
 
 }
 
-export function insertGarden(fence, building, shelf, rightObject, leftObject, 
-                        plant1, plant2, plant3, plant4, plant5, plant6) {
+export function insertGarden(fence, building, shelf, rightObject, leftObject,
+    plant1, plant2, plant3, plant4, plant5, plant6) {
     insertBackground();
     insertFence(fence);
     insertBuilding(building);

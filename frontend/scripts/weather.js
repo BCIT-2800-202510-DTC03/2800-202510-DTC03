@@ -4,8 +4,8 @@ let weather = "";
 
 const backendURLTest = "http://localhost:3000";
 const APIResponse = await axios.get(backendURLTest + "/API/weatherAPI", {
-            withCredentials: true,
-        });
+    withCredentials: true,
+});
 const API_key = APIResponse.data.apiKey;
 
 let css_file = "";
@@ -14,7 +14,7 @@ let html_layout = "";
 
 function getLocation() {
     return new Promise((resolve, reject) => {
-    if (navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(resolve, reject);
         } else {
             reject("geolocation is not supported.");
@@ -24,10 +24,10 @@ function getLocation() {
 
 function getWeather() {
     return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`)
-    .then((response) => response.json())
-    .then(data => {
-        return data.weather[0].main;
-    });
+        .then((response) => response.json())
+        .then(data => {
+            return data.weather[0].main;
+        });
 }
 
 function PlaceAnimation() {
@@ -35,14 +35,14 @@ function PlaceAnimation() {
     const head = document.head;
     const body = document.body;
 
-    if(css_file !== ""){
+    if (css_file !== "") {
         var stylesheet = document.createElement("link");
         stylesheet.href = css_file;
         stylesheet.rel = "stylesheet";
-        stylesheet.id ="weather-css";
+        stylesheet.id = "weather-css";
         head.appendChild(stylesheet);
     }
-    if(js_file !== ""){
+    if (js_file !== "") {
         var script = document.createElement("script");
         script.src = js_file;
         script.id = "weather-js";
@@ -53,7 +53,7 @@ function PlaceAnimation() {
 
 function AssignAnimation() {
     weather = "Snow";
-    switch(weather) {
+    switch (weather) {
         case "Rain":
             // credits: https://codepen.io/arickle/pen/XKjMZY
             css_file = "../weather/rain.css";
@@ -63,7 +63,7 @@ function AssignAnimation() {
         <div class="rain front-row"></div>
         <div class="rain back-row"></div>
         </body>`;
-        break;
+            break;
         case "Snow":
             // credits: https://pajasevi.github.io/CSSnowflakes/
             css_file = "../weather/snow.css";
@@ -119,7 +119,8 @@ async function main() {
         longitude = pos.coords.longitude;
         latitude = pos.coords.latitude;
         weather = await getWeather();
-        switch(weather){
+        console.log(weather)
+        switch (weather) {
             case "Thunderstorm":
                 weather = "Rain";
                 break;
@@ -144,7 +145,7 @@ async function main() {
 main();
 
 function getWeather() {
-  return weather;
+    return weather;
 }
 
 module.exports = { getWeather };

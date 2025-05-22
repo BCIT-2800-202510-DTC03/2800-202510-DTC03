@@ -1,4 +1,5 @@
-const backendURL = "http://localhost:3000"
+import { loadGarden } from "./home.js";
+
 //document elements
 const editPencil = document.getElementById("edit-pencil");
 const pfpOptions = document.getElementById("pfp-choices-wrap");
@@ -73,7 +74,6 @@ async function loadUserGoal() {
         currentGoal.value.readOnly = true;
 
         const userName = document.getElementById("username");
-        console.log(userData)
         userName.innerHTML = userData.username.split("@")[0];
 
     } catch (error) {
@@ -188,7 +188,7 @@ function gardenSetup() {
     //set up garden
 }
 
-function main() {
+async function main() {
     loadUserPreferences();
     profilePictureSetup();
     radioButtonSetup();
@@ -196,6 +196,7 @@ function main() {
     loadUserGoal();
     goalSetup();
     gardenSetup();
+    await loadGarden();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
