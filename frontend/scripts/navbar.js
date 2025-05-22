@@ -53,6 +53,7 @@ async function loadProfilePicture() {
     }
 }
 
+
 async function navbarLogout() {
     const logoutNav = document.getElementById("logout-nav");
     logoutNav.addEventListener("click", async () => {
@@ -72,3 +73,4 @@ async function navbarLogout() {
         }
     });
 }
+

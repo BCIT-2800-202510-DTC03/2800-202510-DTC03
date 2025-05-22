@@ -15,7 +15,6 @@ async function insertBackground() {
     if (background.style.backgroundImage && weather) {
         background.style.backgroundColor = "transparent";
     }
-
 }
 
 function insertFence(type) {
@@ -27,10 +26,10 @@ function insertFence(type) {
         fence.style.backgroundImage = null;
     }
 
+
     if (fence.style.backgroundImage || !type) {
         fence.style.backgroundColor = "transparent";
     }
-
 }
 
 function insertBuilding(type) {
@@ -42,10 +41,10 @@ function insertBuilding(type) {
         building.style.backgroundImage = null;
     }
 
+
     if (building.style.backgroundImage && type) {
         building.style.backgroundColor = "transparent";
     }
-
 }
 
 function insertShelf(type) {
@@ -60,7 +59,6 @@ function insertShelf(type) {
     if (shelf.style.backgroundImage && type) {
         shelf.style.backgroundColor = "transparent";
     }
-
 }
 
 function insertObject(type, select) {
@@ -76,7 +74,6 @@ function insertObject(type, select) {
     if (object.style.backgroundImage && type) {
         object.style.backgroundColor = "transparent";
     }
-
 }
 
 function insertPlant(type, select) {
@@ -92,7 +89,6 @@ function insertPlant(type, select) {
     if (plant.style.backgroundImage && type) {
         plant.style.backgroundColor = "transparent";
     }
-
 }
 
 export function insertGarden(fence, building, shelf, rightObject, leftObject,
@@ -103,10 +99,10 @@ export function insertGarden(fence, building, shelf, rightObject, leftObject,
     insertShelf(shelf);
     insertObject(rightObject, "right");
     insertObject(leftObject, "left");
-    insertPlant(plant1, "1")
-    insertPlant(plant2, "2")
-    insertPlant(plant3, "3")
-    insertPlant(plant4, "4")
-    insertPlant(plant5, "5")
-    insertPlant(plant6, "6")
+    insertPlant(plant1, "1");
+    insertPlant(plant2, "2");
+    insertPlant(plant3, "3");
+    insertPlant(plant4, "4");
+    insertPlant(plant5, "5");
+    insertPlant(plant6, "6");
 }

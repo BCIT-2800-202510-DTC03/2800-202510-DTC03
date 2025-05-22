@@ -144,6 +144,7 @@ async function main() {
         weather = "Clear";
     }
 }
+
 main();
 
 // function getWeather() {

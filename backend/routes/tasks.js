@@ -38,18 +38,28 @@ router.post("/", async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-        const { isAIGenerated, taskId, taskDescription, taskCategory, worth, completed } = req.body;
+        const {
+            isAIGenerated,
+            taskId,
+            taskDescription,
+            taskCategory,
+            worth,
+            completed,
+        } = req.body;
         const newTask = new UserTasks({
             userId: userId,
             isAIGenerated: false,
             taskId: taskId, // should be pass from the front end
-            description: taskDescription,// waiting to be passed from frontend
-            category: taskCategory,// waiting to be passed from frontend
+            description: taskDescription, // waiting to be passed from frontend
+            category: taskCategory, // waiting to be passed from frontend
             worth: 5,
-            completed: false
+            completed: false,
         });
         await newTask.save();
-        res.status(201).json({ message: "Task created successfully", task: newTask });
+        res.status(201).json({
+            message: "Task created successfully",
+            task: newTask,
+        });
     } catch (err) {
         console.error("post ai task error:", err);
         res.status(500).json({ err: "Server error" });

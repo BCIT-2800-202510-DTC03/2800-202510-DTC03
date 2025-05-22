@@ -15,10 +15,13 @@ const cors = require("cors");
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
-        origin: ["http://localhost:5500", "http://127.0.0.1:5500", "https://two800bloomgreener.onrender.com"],
-        credentials: true
-    }
-    )
+        origin: [
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "https://two800bloomgreener.onrender.com",
+        ],
+        credentials: true,
+    })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -56,7 +59,7 @@ connectToMongo();
 // });
 
 // https://expressjs.com/en/guide/routing.html
-const userRouter = require("./user");
+const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
 /* Login */
@@ -65,7 +68,6 @@ app.get("/", (req, res) => res.redirect("/login"));
 
 const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);
-
 
 const apiRouter = require("./API");
 app.use("/API", apiRouter);
@@ -77,3 +79,14 @@ app.listen(PORT, () => {
 /* Settings Route */
 const settingsRouter = require("./routes/settings");
 app.use("/settings", settingsRouter);
+
+/* Tasks Route */
+const taskRouter = require("./routes/tasks");
+app.use("/task", taskRouter);
+
+const userTasksRouter = require("./routes/userTasks");
+app.use("/userTasks", userTasksRouter);
+
+/*Ai tasks Route*/
+const aiTaskRouter = require("./routes/aiTask");
+app.use("/task/ai", aiTaskRouter);
