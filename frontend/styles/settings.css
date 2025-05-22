@@ -1,0 +1,49 @@
+#settings-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.field {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.input {
+    text-indent: 15px;
+}
+#settings-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.field {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.input {
+    text-indent: 15px;
+}
+
+.heading {
+    margin-top: 10vh;
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    color: #606c38;
+}
+#updateSettingsBtn {
+    display: block;
+    box-sizing: border-box;
+    border-radius: 1rem;
+
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: #606c38;
+    color: #fff;
+    font-weight: 600;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

@@ -1,6 +1,3 @@
-import { DEPLOYED_BACKEND_URL } from '../util.js';
-
-
 // function help to switch the login/ signup form
 function switchForm() {
     const toggleBtn = document.getElementById("toggle_form_btn");
@@ -39,27 +36,30 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function handleLogin() {
-    const loginForm = document.getElementById("login_form");
+    loginForm = document.getElementById("login_form");
     loginForm.addEventListener("submit", loginSubmit);
 }
-
-const backendURLTest = "http://localhost:3000"; // waiting to be updated
 
 function handleLogout() {
     const logoutButton = document.getElementById("logoutButton");
     logoutButton.addEventListener("click", async () => {
         try {
-            const response = await axios.post(DEPLOYED_BACKEND_URL + "/user/logout");
+            const response = await axios.post(
+                backendURLTest + "/user/logout",
+
+                {},
+                { withCredentials: true }
+            );
             window.location.reload();
         } catch (error) {
-            console.error("Logout failed:", err);
+            console.error("Logout failed:", error);
             alert("Could not log out. Please try again.");
         }
     });
-} // Make logout only appear for logged in people later
+}
 
 function handleRegister() {
-    const signupForm = document.getElementById("signup_form");
+    signupForm = document.getElementById("signup_form");
     signupForm.addEventListener("submit", signUpSubmit);
 }
 
@@ -78,7 +78,7 @@ async function loginSubmit(event) {
 
     try {
         const response = await axios.post(
-            DEPLOYED_BACKEND_URL + "/user/login",
+            backendURL + "/user/login",
             userData,
             { withCredentials: true }
         );
@@ -123,7 +123,7 @@ async function signUpSubmit(event) {
         };
         try {
             const response = await axios.post(
-                DEPLOYED_BACKEND_URL + "/user/register",
+                backendURL + "/user/register",
                 userData,
                 { withCredentials: true }
             );
@@ -146,7 +146,7 @@ async function signUpSubmit(event) {
 // Toggle login and logout buttons
 async function checkLoginStatus() {
     try {
-        const response = await axios.get(DEPLOYED_BACKEND_URL + "/user/status", {
+        const response = await axios.get(backendURL + "/user/status", {
             withCredentials: true,
         });
         const logoutButton = document.getElementById("logoutButton");
