@@ -1,3 +1,6 @@
+import { backendURL } from "../util.js";
+import { frontendURL } from "../util.js";
+
 // function help to switch the login/ signup form
 function switchForm() {
     const toggleBtn = document.getElementById("toggle_form_btn");
@@ -45,7 +48,7 @@ function handleLogout() {
     logoutButton.addEventListener("click", async () => {
         try {
             const response = await axios.post(
-                backendURLTest + "/user/logout",
+                `${backendURL}/user/logout`,
 
                 {},
                 { withCredentials: true }
@@ -123,12 +126,12 @@ async function signUpSubmit(event) {
         };
         try {
             const response = await axios.post(
-                backendURL + "/user/register",
+                `${backendURL}/user/register`,
                 userData,
                 { withCredentials: true }
             );
             if (response.status === 200) {
-                window.location.href = "../pages/register.html";
+                window.location.href = `${frontendURL}/pages/register.html`;
                 console.log(userData);
             }
         } catch (error) {
@@ -146,7 +149,7 @@ async function signUpSubmit(event) {
 // Toggle login and logout buttons
 async function checkLoginStatus() {
     try {
-        const response = await axios.get(backendURL + "/user/status", {
+        const response = await axios.get(`${backendURL}/user/status`, {
             withCredentials: true,
         });
         const logoutButton = document.getElementById("logoutButton");

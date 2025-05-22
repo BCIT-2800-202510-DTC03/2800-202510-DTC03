@@ -1,8 +1,8 @@
+import { backendURL } from "../util.js";
 
-const backendURL = "http://localhost:3000"
 function setUpAddListener() {
     const wrapper = document.getElementById("friend-wrapper");
-    const addbtn = document.getElementById("add")
+    const addbtn = document.getElementById("add");
     addbtn.addEventListener("click", (event) => {
         event.stopPropagation();
 
@@ -24,7 +24,7 @@ function setUpAddListener() {
             <div id="search-btns">
                 <button id="add-btn">Add Friend</button>
                 <button id="cancel-btn">Cancel</button>
-            </div>`
+            </div>`;
         wrapper.appendChild(div);
         setUpInputListener();
         const cancelbtn = document.getElementById("cancel-btn");
@@ -33,33 +33,30 @@ function setUpAddListener() {
                 wrapper.removeChild(div);
             }
             document.removeEventListener("click", removeOnClick);
-        }
+        };
 
         cancelbtn.addEventListener("click", () => {
             wrapper.removeChild(div);
             document.removeEventListener("click", removeOnClick);
-        })
+        });
 
         const addbtn = document.getElementById("add-btn");
         addbtn.addEventListener("click", () => {
             addFriend();
-        })
+        });
 
         //delay so it doesn't accidentally trigger
         setTimeout(() => {
             document.addEventListener("click", removeOnClick);
         }, 1);
-    })
-
+    });
 }
 function setUpInputListener() {
     const searchbar = document.getElementById("search");
     searchbar.addEventListener("change", async () => {
         if (await checkForFriend(searchbar.value));
-    })
+    });
 }
-
-const backendURLTest = "http://localhost:3000";
 
 var addActive = false;
 
@@ -72,12 +69,15 @@ async function addFriend() {
     const wrapper = document.getElementById("friend-wrapper");
 
     try {
-        const response = await axios.post(backendURLTest + "/user/addFriend", {
-            friendId
-        },
+        const response = await axios.post(
+            `${backendURL}/user/addFriend`,
+            {
+                friendId,
+            },
             {
                 withCredentials: true,
-            })
+            }
+        );
         if (response.status === 200) {
             getFriends();
             wrapper.removeChild(document.getElementById("search-friend-wrap"));
@@ -86,12 +86,13 @@ async function addFriend() {
         toolTip.style.display = "block";
         toolTip.innerText = error.response.data.error_message;
     }
-
 }
 
 async function getFriends() {
     try {
-        const response = await axios.get(backendURLTest + "/user/getFriends", { withCredentials: true, })
+        const response = await axios.get(`${backendURL}/user/getFriends`, {
+            withCredentials: true,
+        });
         const friendsList = response.data.friends;
         const wrapper = document.getElementById("friend-body");
         wrapper.innerHTML = "";
@@ -105,7 +106,7 @@ async function getFriends() {
             if (deletebtn) {
                 deletebtn.addEventListener("click", () => {
                     deleteFriend(friend);
-                })
+                });
             }
         });
     } catch (error) {
@@ -118,12 +119,15 @@ async function getFriends() {
 
 async function deleteFriend(friend) {
     try {
-        const response = await axios.post(backendURLTest + "/user/removeFriend", {
-            friendId: friend
-        },
+        const response = await axios.post(
+            `${backendURL}/user/removeFriend`,
+            {
+                friendId: friend,
+            },
             {
                 withCredentials: true,
-            })
+            }
+        );
 
         if (response.status === 200) {
             getFriends();
@@ -135,17 +139,19 @@ async function deleteFriend(friend) {
     }
 }
 
-
 async function getInfo(friendId) {
     try {
-        const response = await axios.get(backendURLTest + "/user/getInfo", {
+        const response = await axios.get(`${backendURL}/user/getInfo`, {
             params: { friendId },
             withCredentials: true,
-        })
+        });
         const friend = response.data;
         if (response.status === 200) {
             return `<div class="friend-main">
-                    <img class="friend-pfp" src="${friend.pfp || "../assets/profile/material_design_account_circle.svg"}">
+                    <img class="friend-pfp" src="${
+                        friend.pfp ||
+                        "../assets/profile/material_design_account_circle.svg"
+                    }">
                     <h2 class="friend-name">${friend.name}</h2>
                     <button class="remove-friend"><span class="material-symbols-outlined" style="
                     font-variation-settings: 
@@ -156,7 +162,7 @@ async function getInfo(friendId) {
                     ">delete</span></button>
                 </div>
                 <hr class="divider">
-                `
+                `;
         }
     } catch (error) {
         const msg = document.getElementById("friendmsg");
@@ -168,10 +174,10 @@ async function getInfo(friendId) {
 async function checkForFriend(id) {
     const toolTip = document.getElementById("errorMsg");
     try {
-        const response = await axios.get(backendURLTest + "/user/checkForUser", {
+        const response = await axios.get(`${backendURL}/user/checkForUser`, {
             params: { id },
             withCredentials: true,
-        })
+        });
         if (response.status === 200) {
             toolTip.innerText = "";
             toolTip.style.display = "none";
@@ -186,12 +192,12 @@ async function checkForFriend(id) {
             updateAddBtn();
         } else {
             toolTip.style.display = "block";
-            toolTip.innerText = "An unknown error has occurred. Please try again."
+            toolTip.innerText =
+                "An unknown error has occurred. Please try again.";
             addActive = false;
             updateAddBtn();
         }
     }
-
 }
 
 function updateAddBtn() {
@@ -203,7 +209,6 @@ function updateAddBtn() {
         addbtn.style.backgroundColor = "#afafaf";
     }
 }
-
 
 function main() {
     setUpAddListener();

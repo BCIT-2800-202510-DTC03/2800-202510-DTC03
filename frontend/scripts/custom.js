@@ -1,33 +1,39 @@
-import { loadGarden } from "./home.js"
-const backendURL = "http://localhost:3000"
+import { loadGarden } from "./home.js";
+import { backendURL } from "../util.js";
+
 let userGarden = {};
 let userInventory = {};
 let currentTab = "fence";
 let currentPosition = "fence";
 
-
 async function getGarden() {
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
-
-    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
+    await fetch(`${backendURL}/garden/getGarden`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
-            console.log("GET GARDEN")
-            console.log(data)
+            console.log("GET GARDEN");
+            console.log(data);
             userGarden = data;
         })
         .catch((error) => console.error("Error fetching user garden:", error));
 }
 
 async function getInventory() {
-    await fetch("http://localhost:3000/garden/getInventory", { method: "GET", credentials: "include" })
+    await fetch(`${backendURL}/garden/getInventory`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
-            console.log("GET INVENTORY")
-            console.log(data)
+            console.log("GET INVENTORY");
+            console.log(data);
             userInventory = data;
         })
-        .catch((error) => console.error("Error fetching user inventory:", error));
+        .catch((error) =>
+            console.error("Error fetching user inventory:", error)
+        );
 }
 
 export async function getInventoryItems(tab, position) {
@@ -156,8 +162,8 @@ export async function getInventoryItems(tab, position) {
     }
 
     if (itemArray.length > 0) {
-        itemArray.forEach(item => {
-            // Card 
+        itemArray.forEach((item) => {
+            // Card
             const card = document.createElement("div");
             card.classList.add("inventory-cards");
 
@@ -173,13 +179,13 @@ export async function getInventoryItems(tab, position) {
             const selected = document.createElement("p");
 
             const picture = document.createElement("img");
-            picture.src = `../assets/garden/${item.position}-${item.typeName}.png`
+            picture.src = `../assets/garden/${item.position}-${item.typeName}.png`;
 
             if (isSelected) {
-                selected.innerText = 'SELECTED';
+                selected.innerText = "SELECTED";
                 selected.classList.add("inventory-selected");
 
-                top.classList.add("inventory-selected-image")
+                top.classList.add("inventory-selected-image");
                 //Event Listener
                 card.addEventListener("click", () => {
                     console.log("Click");
@@ -192,7 +198,7 @@ export async function getInventoryItems(tab, position) {
                     selectGardenItem(tab, item.typeName);
                     loadGarden();
                 });
-            };
+            }
 
             top.appendChild(selected);
             top.appendChild(picture);
@@ -212,23 +218,26 @@ export async function getInventoryItems(tab, position) {
 
 async function selectGardenItem(position, type) {
     try {
-        const response = await fetch(`http://localhost:3000/garden/selectGardenItem/${position}/${type}`, { method: "POST", credentials: "include" })
+        const response = await fetch(
+            `${backendURL}/garden/selectGardenItem/${position}/${type}`,
+            { method: "POST", credentials: "include" }
+        );
 
         if (response.ok) {
-            console.log("SELECT 1")
+            console.log("SELECT 1");
             await setup();
-            console.log("SELECT 2")
+            console.log("SELECT 2");
             loadGarden();
         }
     } catch (error) {
         console.error("Error buying decoration:", error);
     }
-
 }
 
-
 function resizeWindow() {
-    document.getElementById("custom-inventory").style.height = `${(screen.height) - 300}px`;
+    document.getElementById("custom-inventory").style.height = `${
+        screen.height - 300
+    }px`;
 }
 
 async function setup() {
@@ -238,7 +247,6 @@ async function setup() {
     resizeWindow();
     window.onresize = resizeWindow;
     window.getInventoryItems = getInventoryItems;
-
 }
 
 setup();

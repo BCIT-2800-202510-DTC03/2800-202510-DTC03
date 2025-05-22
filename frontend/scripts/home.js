@@ -9,20 +9,17 @@ let menu;
 let title;
 let closeOverlay;
 if (document.getElementById("close-overlay")) {
-    closeOverlay = document.getElementById("close-overlay")
-};
+    closeOverlay = document.getElementById("close-overlay");
+}
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
 
-const filterDropdown = document.getElementById('filter-goals');
+const filterDropdown = document.getElementById("filter-goals");
 if (filterDropdown) {
-    toggleBtn = filterDropdown.querySelector('.filter-toggle')
-    menu = filterDropdown.querySelector('.dropdown-menu');
-    title = filterDropdown.querySelector('.dropdown-title');
-};
-
-
-
+    toggleBtn = filterDropdown.querySelector(".filter-toggle");
+    menu = filterDropdown.querySelector(".dropdown-menu");
+    title = filterDropdown.querySelector(".dropdown-title");
+}
 
 const taskCounter = document.getElementById("task-counter");
 const completedTasks = document.getElementById("completed-tasks");
@@ -159,12 +156,20 @@ if (addBtn) {
 
             const formatCategory = (category) => {
                 switch (category) {
-                    case "greenerEating": return "Greener Eating";
-                    case "transportation": return "Transportation";
-                    case "wasteReduction": return "Waste Reduction";
-                    case "resourceConservation": return "Resource Conservation";
-                    case "consciousConsumption": return "Conscious Consumption";
-                    default: return category.charAt(0).toUpperCase() + category.slice(1);
+                    case "greenerEating":
+                        return "Greener Eating";
+                    case "transportation":
+                        return "Transportation";
+                    case "wasteReduction":
+                        return "Waste Reduction";
+                    case "resourceConservation":
+                        return "Resource Conservation";
+                    case "consciousConsumption":
+                        return "Conscious Consumption";
+                    default:
+                        return (
+                            category.charAt(0).toUpperCase() + category.slice(1)
+                        );
                 }
             };
 
@@ -215,8 +220,8 @@ if (addBtn) {
                 }
             }
         }
-    })
-};
+    });
+}
 
 // Add task to homepage UI
 function addTaskToHome(taskText, category, completed = false) {
@@ -251,7 +256,6 @@ function taskVisibility() {
         console.log("There are tasks in the users db!");
         message.style.display = "none";
     }
-
 }
 
 // loads user tasks
@@ -280,8 +284,6 @@ function taskVisibility() {
 //     }
 // }
 
-
-
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
     console.log("Posting to:", `${backendURL}/userTasks/add`);
@@ -302,15 +304,19 @@ async function addTaskToUser(description, category) {
 
 // changes the user tasks to complete
 async function completeUserTask(taskText, task, userTasks) {
-    const targetTask = userTasks.find(t => t.text === taskText);
+    const targetTask = userTasks.find((t) => t.text === taskText);
     if (!targetTask || !targetTask.id) {
         console.error("Task ID not found for completion");
         return;
     }
     try {
-        await axios.post(`${backendURL}/userTasks/complete`, {
-            taskId: targetTask.id
-        }, { withCredentials: true });
+        await axios.post(
+            `${backendURL}/userTasks/complete`,
+            {
+                taskId: targetTask.id,
+            },
+            { withCredentials: true }
+        );
 
         // Visually mark as complete
         task.classList.add("completed");
@@ -319,7 +325,7 @@ async function completeUserTask(taskText, task, userTasks) {
             task.remove();
 
             // Update local array
-            const index = userTasks.findIndex(t => t.id === targetTask.id);
+            const index = userTasks.findIndex((t) => t.id === targetTask.id);
             if (index !== -1) {
                 const completedTask = userTasks.splice(index, 1)[0];
                 completedTask.completed = true;
@@ -336,7 +342,7 @@ async function completeUserTask(taskText, task, userTasks) {
 // Changes what the counter says for number tasks left for user
 function updateTaskCounter() {
     console.log("counter");
-    const activeTasks = userTasks.filter(t => !t.completed);
+    const activeTasks = userTasks.filter((t) => !t.completed);
     if (activeTasks.length === 1) {
         taskCounter.textContent = `${activeTasks.length} task left to do!`;
     } else {
@@ -352,8 +358,8 @@ if (filterDropdown) {
         if (isOpen) {
             menu.querySelector("li").focus();
         }
-    })
-};
+    });
+}
 
 // Filter
 if (filterDropdown) {
@@ -364,8 +370,8 @@ if (filterDropdown) {
             toggleBtn.setAttribute("area-expanded", false);
             filterTasks(item.dataset.value);
         });
-    })
-};
+    });
+}
 
 // Filter tasks shown on homepage
 if (filterDropdown) {
@@ -379,8 +385,8 @@ if (filterDropdown) {
                 : userTasks.filter((t) => t.category === selected);
 
         filtered.forEach((t) => addTaskToHome(t.text, t.category));
-    })
-};
+    });
+}
 
 // Close dropdown if clicking outside
 document.addEventListener("click", (e) => {
@@ -392,21 +398,25 @@ document.addEventListener("click", (e) => {
 
 //close overlay when clicking off
 if (document.getElementById("task-overlay")) {
-    document.getElementById("task-overlay").addEventListener("click", (event) => {
-        const overlayContent = document.getElementById("task-overlay-content");
-        if (!overlayContent.contains(event.target)) {
-            document.getElementById("task-overlay").style.display = "none";
-        }
-    })
-};
+    document
+        .getElementById("task-overlay")
+        .addEventListener("click", (event) => {
+            const overlayContent = document.getElementById(
+                "task-overlay-content"
+            );
+            if (!overlayContent.contains(event.target)) {
+                document.getElementById("task-overlay").style.display = "none";
+            }
+        });
+}
 
 // Close overlay
 if (document.getElementById("close-overlay")) {
     closeOverlay.addEventListener("click", () => {
         overlay.style.display = "none";
         console.log("button closed");
-    })
-};
+    });
+}
 
 // Filter tasks on homepage based on category select
 if (filterGoals) {
@@ -426,8 +436,8 @@ if (filterGoals) {
         filteredTasks.forEach((task) => {
             addTaskToHome(task.text, task.category);
         });
-    })
-};
+    });
+}
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
@@ -440,28 +450,38 @@ document.addEventListener("click", (event) => {
 });
 
 export async function loadGarden() {
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
-    console.log("load garden function is called")
+    console.log("load garden function is called");
 
-    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
+    await fetch(`${backendURL}garden/getGarden`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
             console.log(data);
-            insertGarden(data.fence, data.building, data.shelf,
-                data.rightObject, data.leftObject,
-                data.plant1, data.plant2, data.plant3,
-                data.plant4, data.plant5, data.plant6);
+            insertGarden(
+                data.fence,
+                data.building,
+                data.shelf,
+                data.rightObject,
+                data.leftObject,
+                data.plant1,
+                data.plant2,
+                data.plant3,
+                data.plant4,
+                data.plant5,
+                data.plant6
+            );
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-
 }
 // const backendURLTest = "http://localhost:3000"; // waiting to be updated
 // try {
 //     const response = await axios.get(backendURLTest + "/garden/getGarden");
 //     insertGarden(fence=response.data.fence, building=response.data.building, shelf=response.data.shelf,
 //                     rightObject=response.data.rightObject, leftObject=response.data.leftObject,
-//                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3, 
+//                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3,
 //                     plant4=response.data.plant4, plant5=response.data.plant5, plant6=response.data.plant6);
 //     if (response.status === 200) {
 //         window.location.href = "../pages/home.html";
@@ -483,7 +503,7 @@ export async function loadGarden() {
 
 async function setup() {
     await loadGarden();
-    console.log("setup function in home.js is called")
+    console.log("setup function in home.js is called");
     await loadUserTasks().then(updateTaskCounter);
 
     taskVisibility();

@@ -2,11 +2,10 @@ let longitude = 0;
 let latitude = 0;
 let weather = "";
 
-const backendURLTest = "http://localhost:3000";
 // const APIResponse = await axios.get(backendURLTest + "/API/weatherAPI", {
 //     withCredentials: true,
 // });
-const APIResponse ="fake"
+const APIResponse = "fake";
 const API_key = APIResponse.data.apiKey;
 
 let css_file = "";
@@ -16,19 +15,20 @@ let html_layout = "";
 function getLocation() {
     return new Promise((resolve, reject) => {
         if (navigator.geolocation) {
-            console.log(navigator.geolocation)
+            console.log(navigator.geolocation);
             navigator.geolocation.getCurrentPosition(resolve, reject);
         } else {
             reject("geolocation is not supported.");
         }
-    })
+    });
 }
 
 export async function getWeather(longitude, latitude) {
-
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`);
+    const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_key}`
+    );
     const data = await response.json();
-    console.log(data.weather[0].main)
+    console.log(data.weather[0].main);
     return data.weather[0].main;
 }
 
@@ -114,15 +114,14 @@ function AssignAnimation() {
     }
 }
 
-
 async function main() {
     try {
         const pos = await getLocation();
         longitude = pos.coords.longitude;
         latitude = pos.coords.latitude;
-        console.log(longitude, latitude)
+        console.log(longitude, latitude);
         weather = await getWeather(longitude, latitude);
-        console.log(weather)
+        console.log(weather);
         switch (weather) {
             case "Thunderstorm":
                 weather = "Rain";
