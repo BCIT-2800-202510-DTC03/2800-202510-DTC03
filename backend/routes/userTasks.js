@@ -50,4 +50,29 @@ router.post("/add", async (req, res) => {
     }
 });
 
+router.post('/complete', async (req, res) => {
+    try {
+        const { taskId } = req.body;
+
+        if (!taskId) {
+            return res.status(400).json({ message: "Task ID is required" });
+        }
+
+        const updatedTask = await UserTasks.findByIdAndUpdate(
+            taskId,
+            { completed: true },
+            { new: true }
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+
+        res.json(updatedTask);
+    } catch (err) {
+        console.error('Failed to complete task:', err);
+        res.status(500).json({ message: 'Failed to complete task' });
+    }
+});
+
 module.exports = router;

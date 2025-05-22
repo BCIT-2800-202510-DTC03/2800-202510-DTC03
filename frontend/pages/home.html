@@ -23,27 +23,27 @@
     <!--  Header will be inserted here -->
   </header>
 
-  <!-- Main Content -->
-  <div id="main-content">
-    <div id="home-content">
-      <div id="garden-container">
-        <div id="garden-background" title="Background"></div>
-        <div id="garden-fence" title="Fence"></div>
-        <div id="garden-ground" title="Ground"></div>
-        <div id="garden-building" title="Building"></div>
-        <div id="garden-shelf" title="Shelf">
-          <div class="garden-plant" id="plant-4" title="Plant 4"></div>
-          <div class="garden-plant" id="plant-5" title="Plant 5"></div>
-          <div class="garden-plant" id="plant-6" title="Plant 6"></div>
-          <div class="garden-plant" id="plant-1" title="Plant 1"></div>
-          <div class="garden-plant" id="plant-2" title="Plant 2"></div>
-          <div class="garden-plant" id="plant-3" title="Plant 3"></div>
-        </div>
-        <div id="garden-rightObject" title="Right Object"></div>
-        <div id="garden-leftObject" title="Left Object"></div>
-        <!-- <div id="garden-weather" title="Weather"></div> -->
-        <div id="garden-shadow"></div>
-      </div>
+    <!-- Main Content -->
+    <div id="main-content">
+        <div id="home-content">
+            <div id="garden-container">
+                <div id="garden-background" title="Background"></div>
+                <div id="garden-fence" title="Fence"></div>
+                <div id="garden-ground" title="Ground"></div>
+                <div id="garden-building" title="Building"></div>
+                <div id="garden-shelf" title="Shelf">
+                    <div class="garden-plant" id="plant-4" title="Plant 4"></div>
+                    <div class="garden-plant" id="plant-5" title="Plant 5"></div>
+                    <div class="garden-plant" id="plant-6" title="Plant 6"></div>
+                    <div class="garden-plant" id="plant-1" title="Plant 1"></div>
+                    <div class="garden-plant" id="plant-2" title="Plant 2"></div>
+                    <div class="garden-plant" id="plant-3" title="Plant 3"></div>
+                </div>
+                <div id="garden-rightObject" title="Right Object"></div>
+                <div id="garden-leftObject" title="Left Object"></div>
+                <div id="garden-weather" title="Weather"></div>
+                <div id="garden-shadow"></div>
+            </div>
 
       <div id="task-list">
         <div id="task-header">
@@ -63,7 +63,7 @@
                 <li role="option" data-value="consciousConsumption" tabindex="0">Conscious Consumption</li>
               </ul>
             </div>
-            <div id="task-counter">0 tasks left</div>
+            <div id="task-counter"></div>
 
             <button id="add-goal-tasks-btn">
               <img src="../assets/icons/add.svg" alt="Add" class="icon" />
@@ -85,7 +85,15 @@
               </div>
             </div>
           </div>
-          <div id="task-items"></div>
+          <div id="no-task-message" class="no-task-message" style="display: none;">
+            Click <strong>+</strong> or the wand to add more tasks.
+          </div>
+          <div id="all-tasks">
+            <div id="task-items"></div>
+            <h3 id="completedHeader" style="display: none;">Complete</h3>
+            <div id="completed-tasks"></div>
+          </div>
+
         </div>
 
         <div id="task-overlay">

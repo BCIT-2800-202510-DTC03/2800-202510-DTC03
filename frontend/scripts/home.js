@@ -7,10 +7,14 @@ const goalPanel = document.getElementById("goal-panel");
 const closeOverlay = document.getElementById("close-overlay");
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
-const filterDropdown = document.getElementById("filter-goals");
-const toggleBtn = filterDropdown.querySelector(".filter-toggle");
-const menu = filterDropdown.querySelector(".dropdown-menu");
-const title = filterDropdown.querySelector(".dropdown-title");
+
+const filterDropdown = document.getElementById('filter-goals');
+const toggleBtn = filterDropdown.querySelector('.filter-toggle');
+const menu = filterDropdown.querySelector('.dropdown-menu');
+const title = filterDropdown.querySelector('.dropdown-title');
+const taskCounter = document.getElementById("task-counter");
+const completedTasks = document.getElementById("completed-tasks");
+
 const premadeTask = [
     {
         category: "greenerEating",
@@ -142,18 +146,12 @@ addBtn.addEventListener("click", () => {
 
         const formatCategory = (category) => {
             switch (category) {
-                case "greenerEating":
-                    return "Greener Eating";
-                case "transportation":
-                    return "Transportation";
-                case "wasteReduction":
-                    return "Waste Reduction";
-                case "resourceConservation":
-                    return "Resource Conservation";
-                case "consciousConsumption":
-                    return "Conscious Consumption";
-                default:
-                    return category.charAt(0).toUpperCase() + category.slice(1);
+                case "greenerEating": return "Greener Eating";
+                case "transportation": return "Transportation";
+                case "wasteReduction": return "Waste Reduction";
+                case "resourceConservation": return "Resource Conservation";
+                case "consciousConsumption": return "Conscious Consumption";
+                default: return category.charAt(0).toUpperCase() + category.slice(1);
             }
         };
 
@@ -167,7 +165,10 @@ addBtn.addEventListener("click", () => {
             categoryDiv.appendChild(title);
 
             tasks.forEach((task) => {
-                allTasks.push({ ...task, sunPoints: 5 });
+                const isAlreadyAdded = userTasks.some(
+                    (t) => t.text === task.description && !t.completed
+                );
+                if (isAlreadyAdded) return;
 
                 const taskContainer = document.createElement("div");
                 taskContainer.style.display = "flex";
@@ -189,20 +190,22 @@ addBtn.addEventListener("click", () => {
                 addButton.addEventListener("click", async () => {
                     await addTaskToUser(task.description, task.category);
                     addTaskToHome(task.description, task.category);
+                    taskContainer.remove();
                 });
 
                 taskContainer.appendChild(taskDesc);
                 taskContainer.appendChild(addButton);
                 categoryDiv.appendChild(taskContainer);
             });
-            goalPanel.appendChild(categoryDiv);
+            if (categoryDiv.children.length > 1) {
+                goalPanel.appendChild(categoryDiv);
+            }
         }
-        isLoaded = true;
     }
 });
 
 // Add task to homepage UI
-function addTaskToHome(taskText, category) {
+function addTaskToHome(taskText, category, completed = false) {
     const template = document.getElementById("task-template");
     const taskElement = template.content.cloneNode(true);
 
@@ -210,35 +213,60 @@ function addTaskToHome(taskText, category) {
     taskDiv.dataset.category = category;
     taskDiv.querySelector(".task-text").textContent = taskText;
 
-    userTasks.push({ text: taskText, category });
+    if (completed) {
+        taskDiv.classList.add("completed");
+        const header = document.getElementById("completedHeader");
+        if (header) header.style.display = "block";
+        completedTasks.appendChild(taskElement);
+    } else {
+        taskItems.appendChild(taskElement);
+    }
 
-    taskItems.appendChild(taskElement);
+    updateTaskCounter();
+    taskVisibility();
 }
 
 // puts a message for the user to add tasks when there are none stored in their database
-function taskVisibility() {}
 
-// Check User current tasks
-// async function fetchUserTask() {
-//     try {
-//         const response = await fetch("http://localhost:3000/userTask/get", {
-//             method: "GET",
-//             credentials: "include",
-//         });
+function taskVisibility() {
+    const message = document.getElementById("no-task-message");
+    if (userTasks.length === 0) {
+        console.log("There are no tasks saved to the user db");
+        message.style.display = "block";
+    } else {
+        console.log("There are tasks in the users db!");
+        message.style.display = "none";
+    }
 
-//         if (!response.ok) {
-//             throw new Error("Failed to get user tasks");
-//         }
+}
 
-//         const data = await response.json();
-//         return data
-//             .filter(task => task.taskId && !task.completed)
-//             .map(task => task.taskId);
-//     } catch (error) {
-//         console.error("Error fetching user tasks:", error);
-//         return [];
-//     }
-// }
+// loads user tasks
+async function loadUserTasks() {
+    try {
+        const response = await axios.get(`${backendURL}/userTasks/`, {
+            withCredentials: true,
+        });
+
+        const tasks = response.data;
+        userTasks = [];
+
+        tasks.forEach((task) => {
+            const isCompleted = task.completed || false;
+            addTaskToHome(task.description, task.category, isCompleted);
+
+            userTasks.push({
+                id: task._id,
+                text: task.description,
+                category: task.category,
+                completed: isCompleted
+            });
+        });
+    } catch (err) {
+        console.error("Failed to load user tasks", err);
+    }
+}
+
+
 
 // Save task to userTask collection in backend
 async function addTaskToUser(description, category) {
@@ -257,6 +285,51 @@ async function addTaskToUser(description, category) {
         console.error("Couldn't save task to DB.");
     }
 }
+
+// changes the user tasks to complete
+async function completeUserTask(taskText, task, userTasks) {
+    const targetTask = userTasks.find(t => t.text === taskText);
+    if (!targetTask || !targetTask.id) {
+        console.error("Task ID not found for completion");
+        return;
+    }
+    try {
+        await axios.post(`${backendURL}/userTasks/complete`, {
+            taskId: targetTask.id
+        }, { withCredentials: true });
+
+        // Visually mark as complete
+        task.classList.add("completed");
+
+        setTimeout(() => {
+            task.remove();
+
+            // Update local array
+            const index = userTasks.findIndex(t => t.id === targetTask.id);
+            if (index !== -1) {
+                const completedTask = userTasks.splice(index, 1)[0];
+                completedTask.completed = true;
+                addTaskToHome(completedTask.text, completedTask.category, true);
+            }
+
+            taskVisibility();
+        }, 500);
+    } catch (err) {
+        console.error("Failed to mark task complete:", err);
+    }
+}
+
+// Changes what the counter says for number tasks left for user
+function updateTaskCounter() {
+    console.log("counter");
+    const activeTasks = userTasks.filter(t => !t.completed);
+    if (activeTasks.length === 1) {
+        taskCounter.textContent = `${activeTasks.length} task left to do!`;
+    } else {
+        taskCounter.textContent = `${activeTasks.length} tasks left to do!`;
+    }
+}
+
 // Open filter on click
 toggleBtn.addEventListener("click", () => {
     const isOpen = filterDropdown.classList.toggle("open");
@@ -276,29 +349,6 @@ menu.querySelectorAll("li").forEach((item) => {
     });
 });
 
-// async function addTaskToUser(taskText, category) {
-//     try {
-//         const response = await fetch("http://localhost:3000/userTask/add", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 text: taskText,
-//                 category: category,
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             throw new Error("Failed to save task");
-//         }
-
-//         console.log("Task saved to userTask DB");
-//     } catch (error) {
-//         console.error("Error adding task to DB:", error);
-//     }
-// }
-
 // Filter tasks shown on homepage
 filterGoals.addEventListener("change", () => {
     const selected = filterGoals.value;
@@ -310,15 +360,6 @@ filterGoals.addEventListener("change", () => {
             : userTasks.filter((t) => t.category === selected);
 
     filtered.forEach((t) => addTaskToHome(t.text, t.category));
-});
-
-// Mark tasks completed
-document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("checkmark")) {
-        const task = e.target.closest(".task");
-        task.classList.add("completed");
-        setTimeout(() => task.remove(), 500);
-    }
 });
 
 // Close dropdown if clicking outside
@@ -364,74 +405,36 @@ filterGoals.addEventListener("change", () => {
 
 // Mark tasks completed and fade out
 document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("checkmark")) {
-        const task = event.target.closest(".task");
-        task.classList.add("completed");
+    console.log("Task checkmark is clicked");
+    const task = event.target.closest(".task");
+    if (!task || task.classList.contains("completed")) return;
 
-        setTimeout(() => {
-            task.remove();
-        }, 500);
-    }
+    const taskText = task.querySelector(".task-text").textContent;
+    completeUserTask(taskText, task, userTasks);
 });
 
-async function loadGarden() {
-    try {
-        const response = await axios.get(`${backendURL}/garden/getGarden`, {
-            withCredentials: true,
-        });
-        const gardenData = response.data;
-        insertGarden(
-            gardenData.fence,
-            gardenData.building,
-            gardenData.shelf,
-            gardenData.rightObject,
-            gardenData.leftObject,
-            gardenData.plant1,
-            gardenData.plant2,
-            gardenData.plant3,
-            gardenData.plant4,
-            gardenData.plant5,
-            gardenData.plant6
-        );
-        console.log("Garden data:", gardenData);
-    } catch (error) {
-        console.error("Problem fetching user's garden.", error);
-    }
+export async function loadGarden() {
+    const backendURLTest = "http://localhost:3000"; // waiting to be updated
+
+    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("FETCH FROM DATABASE");
+            console.log(data);
+            insertGarden(data.fence, data.building, data.shelf,
+                data.rightObject, data.leftObject,
+                data.plant1, data.plant2, data.plant3,
+                data.plant4, data.plant5, data.plant6);
+        })
+        .catch((error) => console.error("Error fetching user garden:", error));
+
 }
-
-// async function loadGarden() {
-//     const backendURLTest = "http://localhost:3000"; // waiting to be updated
-
-//     fetch("http://localhost:3000/garden/getGarden", {
-//         method: "GET",
-//         credentials: "include",
-//     })
-//         .then((response) => response.json())
-//         .then((data) => {
-//             console.log("FETCH FROM DATABASE");
-//             console.log(data);
-//             insertGarden(
-//                 data.fence,
-//                 data.building,
-//                 data.shelf,
-//                 data.rightObject,
-//                 data.leftObject,
-//                 data.plant1,
-//                 data.plant2,
-//                 data.plant3,
-//                 data.plant4,
-//                 data.plant5,
-//                 data.plant6
-//             );
-//         })
-//         .catch((error) => console.error("Error fetching user garden:", error));
-
 // const backendURLTest = "http://localhost:3000"; // waiting to be updated
 // try {
 //     const response = await axios.get(backendURLTest + "/garden/getGarden");
 //     insertGarden(fence=response.data.fence, building=response.data.building, shelf=response.data.shelf,
 //                     rightObject=response.data.rightObject, leftObject=response.data.leftObject,
-//                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3,
+//                     plant1=response.data.plant1, plant2=response.data.plant2, plant3=response.data.plant3, 
 //                     plant4=response.data.plant4, plant5=response.data.plant5, plant6=response.data.plant6);
 //     if (response.status === 200) {
 //         window.location.href = "../pages/home.html";
@@ -452,8 +455,9 @@ async function loadGarden() {
 // }
 
 async function setup() {
-    await loadUserTasks();
+    await loadUserTasks().then(updateTaskCounter);
     await loadGarden();
+    taskVisibility();
 }
 
 setup();

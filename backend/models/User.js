@@ -30,7 +30,13 @@ const usersSchema = new mongoose.Schema({
   goal: {
     type: String,
     default: "greenerEating",
-  }
+  },
+  friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ]
 });
 const User = mongoose.model("User", usersSchema);
 
