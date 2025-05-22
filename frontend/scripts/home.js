@@ -1,5 +1,5 @@
 import { insertGarden } from "./garden.js";
-import { loadUserTasks } from "./userTasks.js";
+// import { loadUserTasks } from "./userTasks.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
@@ -166,7 +166,7 @@ addBtn.addEventListener("click", () => {
 
             tasks.forEach((task) => {
                 const isAlreadyAdded = userTasks.some(
-                    (t) => t.text === task.description && !t.completed
+                    (t) => t.text === task.description
                 );
                 if (isAlreadyAdded) return;
 
@@ -188,8 +188,22 @@ addBtn.addEventListener("click", () => {
                 addButton.style.width = "10%";
 
                 addButton.addEventListener("click", async () => {
+                    const alreadyExists = userTasks.find(
+                        (t) => t.text === task.description
+                    );
+                    if (alreadyExists) {
+                        if (alreadyExists.completed) {
+                            console.log("Task already completed in userTasks. Skipping add.");
+                            alert("Task is already completed!");
+                        } else {
+                            console.log("Task already exists in userTasks. Skipping add.");
+                            alert("Task already exists!");
+                        }
+                        return;
+                    }
                     await addTaskToUser(task.description, task.category);
                     addTaskToHome(task.description, task.category);
+                    loadUserTasks();
                     taskContainer.remove();
                 });
 
@@ -286,12 +300,16 @@ async function addTaskToUser(description, category) {
 
 // changes the user tasks to complete
 async function completeUserTask(taskText, task, userTasks) {
-    const targetTask = userTasks.find(t => t.text === taskText);
+    const targetTask = userTasks.find(
+        t => t.text.trim().toLowerCase() === taskText.trim().toLowerCase()
+    );
     if (!targetTask || !targetTask.id) {
         console.error("Task ID not found for completion");
         return;
     }
     try {
+        console.log("Trying to match:", taskText);
+        console.log("In userTasks:", userTasks.map(t => t.text));
         await axios.post(`${backendURL}/userTasks/complete`, {
             taskId: targetTask.id
         }, { withCredentials: true });
