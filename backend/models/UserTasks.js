@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const UserTaskSchema = new mongoose.Schema({
+const UserTaskSchema = new Schema({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
     },
     isAIGenerated: {
