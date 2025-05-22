@@ -51,82 +51,81 @@
             <h2 id="task-title">Daily Tasks</h2>
           </div>
           <div id="task-controls">
-            <select id="filter-goals">
-              <option value="all">All Goals</option>
-              <option value="greenerEating">Greener Eating</option>
-              <option value="transportation">Transportation</option>
-              <option value="wasteReduction">Waste Reduction</option>
-              <option value="resourceConservation">Resource Conservation</option>
-              <option value="consciousConsumption">Conscious Consumption</option>
-            </select>
+            <div id="filter-goals" class="dropdown">
+              <button class="filter-toggle"><img src="../assets/icons/filter.svg" alt="Filter" class="icon" />
+              </button>
+              <ul class="dropdown-menu" role="listbox" tabindex="-1">
+                <li role="option" data-value="all" tabindex="0">All Goals</li>
+                <li role="option" data-value="greenerEating" tabindex="0">Greener Eating</li>
+                <li role="option" data-value="transportation" tabindex="0">Transportation</li>
+                <li role="option" data-value="wasteReduction" tabindex="0">Waste Reduction</li>
+                <li role="option" data-value="resourceConservation" tabindex="0">Resource Conservation</li>
+                <li role="option" data-value="consciousConsumption" tabindex="0">Conscious Consumption</li>
+              </ul>
+            </div>
+            <div id="task-counter">0 tasks left</div>
+
             <button id="add-goal-tasks-btn">
               <img src="../assets/icons/add.svg" alt="Add" class="icon" />
             </button>
-
-            <!-- AI Ai-btn -->
-            <div id="Ai-btn">
-              <button id="AI-task-btn">
-                <span class="material-symbols-outlined"> wand_stars </span>
-              </button>
+            <!-- AI btn -->
+            <button id="AI-task-btn">
+              <img src="../assets/icons/wand.svg" alt="wand" class="icon" />
+            </button>
+            <!-- AI task pop up -->
+            <div id="AI-task-display">
+              <p id="AI-task-desc"></p>
+              <div class="AI-sunpoints">
+                <span class="sun-icon">☀</span>
+                <span class="sun-value">5</span>
+              </div>
+              <div id="AI-btn-wrapper">
+                <btn id="AI-accept" class="AI-btn">Accept task</btn>
+                <btn id="AI-reroll" class="AI-btn">Generate new task</btn>
+              </div>
             </div>
           </div>
+          <div id="task-items"></div>
         </div>
 
-        <!-- AI task pop up -->
-        <div id="AI-task-display">
-          <h2>Greener Eating Task</h2>
-          <p id="AI-task-desc"></p>
-          <div class="AI-sunpoints">
+        <div id="task-overlay">
+          <div id="task-overlay-content">
+            <button id="close-overlay">×</button>
+            <h2>Choose a Task</h2>
+            <div id="goal-panel"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <template id="task-template">
+      <div id="task-container" class="task">
+        <div class="task-left">
+          <div class="task-text">Task placeholder</div>
+        </div>
+        <div class="task-actions">
+          <div class="sunpoints">
             <span class="sun-icon">☀</span>
             <span class="sun-value">5</span>
           </div>
-          <div id="AI-btn-wrapper">
-            <button id="AI-accept" class="AI-btn">Accept task</button>
-            <button id="AI-reroll" class="AI-btn">Generate new task</button>
-          </div>
-        </div>
-
-        <div id="task-items"></div>
-      </div>
-
-      <div id="task-overlay">
-        <div id="task-overlay-content">
-          <button id="close-overlay">×</button>
-          <h2>Choose a Task</h2>
-          <div id="goal-panel"></div>
+          <div class="checkmark"><img src="../assets/icons/checkmark.svg" alt="check" class="icon" /></div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
 
-  <template id="task-template">
-    <div id="task-container" class="task">
-      <div class="task-left">
-        <div class="task-text">Task placeholder</div>
-      </div>
-      <div class="task-actions">
-        <div class="sunpoints">
-          <span class="sun-icon">☀</span>
-          <span class="sun-value">5</span>
-        </div>
-        <div class="checkmark">✔</div>
-      </div>
-    </div>
-  </template>
-
-  <!-- JavaScript -->
-  <!-- Need the following for loading profile picture in header -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <!-- This swaps backend URLs depending on deployment type (local vs render) -->
-  <script src="../scripts/config.js"></script>
-  <script src="../scripts/skeleton.js"></script>
-  <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/weather.js"></script>
-  <script src="../scripts/userTasks.js"></script>
-  <script type="module" src="../scripts/garden.js"></script>
-  <script type="module" src="../scripts/home.js"></script>
-  <script type="module" src="../scripts/task.js"></script>
-  <script type="module" src="../scripts/AI.js"></script>
+    <!-- JavaScript -->
+    <!-- Need the following for loading profile picture in header -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- This swaps backend URLs depending on deployment type (local vs render) -->
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/weather.js"></script>
+    <script src="../scripts/userTasks.js"></script>
+    <script type="module" src="../scripts/garden.js"></script>
+    <script type="module" src="../scripts/home.js"></script>
+    <script type="module" src="../scripts/task.js"></script>
+    <script type="module" src="../scripts/AI.js"></script>
 </body>
 
 </html>
