@@ -17,9 +17,8 @@ router.get("/getGarden", async (req, res) => {
     if (response) {
         console.log("SUCCESS")
         console.log(response.userId)
-        const garden = response.garden;
 
-        res.json(garden);
+        res.json(response);
     } else {
         console.log("FAIL")
         res.status(400).send(req.session.userId);
@@ -163,86 +162,79 @@ router.post("/selectGardenItem/:position/:type", async (req, res) => {
             case "fence": {
                 console.log("FENCE")
                 console.log(req.session.userId)
-                response = Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: 
-                        {
-                            "garden.fence": "white" 
-                        } 
-                    }
+                    {$set: { fence: selectedType } }
                 )
-                if (response) {
-                    res.status(200).send(response.modifiedCount)
-                }
                 break;
             }
             case "building": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.building": selectedType } }
+                    {$set: { building: selectedType } }
                 )
                 break;
             }
             case "shelf": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.shelf": selectedType } } 
+                    {$set: { shelf: selectedType } } 
                 )
                 break;
             }
             case "rightObject": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.rightObject": selectedType } } 
+                    {$set: { rightObject: selectedType } } 
                 )
                 break;
             }
             case "leftObject": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.leftObject": selectedType } } 
+                    {$set: { leftObject: selectedType } } 
                 )
                 break;
             }
             case "plant1": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant1": selectedType } } 
+                    {$set: { plant1: selectedType } } 
                 )
                 break;
             }
             case "plant2": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant2": selectedType } } 
+                    {$set: { plant2: selectedType } } 
                 )
                 break;
             }
             case "plant3": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant3": selectedType } } 
+                    {$set: { plant3: selectedType } } 
                 )
                 break;
             }
             case "plant4": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant4": selectedType } } 
+                    {$set: { plant4: selectedType } } 
                 )
                 break;
             }
             case "plant5": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant5": selectedType } } 
+                    {$set: { plant5: selectedType } } 
                 )
                 break;
             }
             case "plant6": {
-                Garden.updateOne(
+                await Garden.updateOne(
                     {userId: req.session.userId},
-                    {$set: { "garden.plant6": selectedType } } 
+                    {$set: { plant6: selectedType } } 
                 )
                 break;
             }
