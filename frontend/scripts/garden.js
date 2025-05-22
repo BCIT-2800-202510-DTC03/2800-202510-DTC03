@@ -18,6 +18,8 @@ function insertFence(type) {
 
     if (type) {
         fence.style.backgroundImage = "url('../assets/garden/fence-" + type + ".png')";
+    } else {
+        fence.style.backgroundImage = null;
     }
     
     if (fence.style.backgroundImage || !type) {
@@ -31,6 +33,8 @@ function insertBuilding(type) {
 
     if (type) {
         building.style.backgroundImage = "url('../assets/garden/building-" + type + ".png')";
+    } else {
+        building.style.backgroundImage = null;
     }
     
     if (building.style.backgroundImage && type) {
@@ -44,6 +48,8 @@ function insertShelf(type) {
 
     if (type) {
         shelf.style.backgroundImage = "url('../assets/garden/shelf-" + type + ".png')";
+    } else {
+        shelf.style.backgroundImage = null;
     }
 
     if (shelf.style.backgroundImage && type) {
@@ -58,6 +64,8 @@ function insertObject(type, select) {
 
     if (type) {
         object.style.backgroundImage = "url('../assets/garden/object-" + type + ".png')";
+    } else {
+        object.style.backgroundImage = null;
     }
 
     if (object.style.backgroundImage && type) {
@@ -72,6 +80,8 @@ function insertPlant(type, select) {
 
     if (type) {
         plant.style.backgroundImage = "url('../assets/garden/plant-" + type + ".png')";
+    } else {
+        plant.style.backgroundImage = null;
     }
 
     if (plant.style.backgroundImage && type) {
