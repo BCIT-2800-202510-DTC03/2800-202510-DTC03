@@ -69,6 +69,7 @@ async function addFriend() {
     }
     const toolTip = document.getElementById("errorMsg");
     const friendId = document.getElementById("search").value;
+    const wrapper = document.getElementById("friend-wrapper");
 
     try {
         const response = await axios.post(backendURLTest + "/user/addFriend", {
