@@ -196,7 +196,7 @@ function openPurchaseScreen() {
     if (document.getElementById("confirm-button")) {
         purchaseConfirm = document.getElementById("confirm-button")
     };
-    purchaseConfirm.onclick = purchaseItem;
+    purchaseConfirm.onclick = () => purchaseItem(selectedTab, selectedItem);
 }
 
 function closePurchaseScreen() {
@@ -216,7 +216,11 @@ function closePurchaseScreen() {
     }, 300);
 }
 
-async function purchaseItem(tab, type) {
+async function purchaseItem(selectedTab, selectedItem) {
+    if (!selectedTab || !selectedItem) {
+        console.log("missing info", selectedTab, selectedItem);
+        return;
+    }
     fetch(`${backendURL}/garden/buyShopItem/${selectedTab}/${selectedItem}`, {
         method: "POST",
         credentials: "include",
