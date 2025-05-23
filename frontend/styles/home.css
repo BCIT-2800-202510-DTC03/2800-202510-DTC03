@@ -1,317 +1,314 @@
-
-
 #home-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #task-list {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
 }
 
 #task-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
 }
 
 #task-header {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 1rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 #task-title-header {
-  text-align: center;
+    text-align: center;
 }
 
 #task-title {
-  font-size: xx-large;
-  height: 5vh;
-  font-weight: 650;
-  color: #606c38;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.5rem;
+    font-size: xx-large;
+    height: 5vh;
+    font-weight: 650;
+    color: #606c38;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
 }
 
 #task-title::after {
-  content: "";
-  position: absolute;
-  width: 60%;
-  height: 4px;
-  background-color: #a4c639;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  border-radius: 2px;
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 4px;
+    background-color: #a4c639;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 2px;
 }
 
 #task-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
 }
 
 #filter-goals {
-  padding: 0.75rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  color: #333;
-  flex-shrink: 0;
-  min-width: 1;
-  margin-left: 0;
-  margin-right: 0;
+    padding: 0.75rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #333;
+    flex-shrink: 0;
+    min-width: 1;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .filter-toggle .dropdown-title {
-  display: none;
+    display: none;
 }
 
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .filter-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #dfcfbf;
-  border: none;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dfcfbf;
+    border: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
 }
 
 .filter-toggle:hover {
-  background-color: #d1c1b0;
+    background-color: #d1c1b0;
 }
 
 .dropdown .icon {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 45px;
-  left: 0;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 10px;
-  z-index: 1000;
-  width: 200px;
-  max-height: 190px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+    display: none;
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 10px;
+    z-index: 1000;
+    width: 200px;
+    max-height: 190px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 }
 
 .dropdown-menu li {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
 .dropdown-menu li:hover,
 .dropdown-menu li:focus {
-  background-color: #a4c639;
-  color: white;
-  outline: none;
+    background-color: #a4c639;
+    color: white;
+    outline: none;
 }
 
 .dropdown.open .dropdown-menu {
-  display: block;
+    display: block;
 }
 
 #task-counter {
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.5rem 0;
-  font-weight: 500;
-  font-size: 17px;
-  color: #3e4623;
-  height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem 0;
+    font-weight: 500;
+    font-size: 17px;
+    color: #3e4623;
+    height: 40px;
 }
 
 #add-goal-tasks-btn {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  background-color: #606c38;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-left: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    background-color: #606c38;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
 }
 
 #add-goal-tasks-btn:hover {
-  background-color: #506026;
+    background-color: #506026;
 }
 
 #add-goal-tasks-btn .icon {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 #all-tasks {
-  overflow-y: auto;
-  max-height: 500px;
+    overflow-y: auto;
+    max-height: 500px;
 }
 
 #task-items {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  border-radius: 16px;
-  padding: 0 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 16px;
 }
 
 #completedHeader {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #606c38;
-  text-align: center;
-  margin: 2rem auto 1rem auto;
-  padding-bottom: 0.5rem;
-  position: relative;
-  display: none;
-  width: 100%;
-  max-width: 600px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #606c38;
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    padding-bottom: 0.5rem;
+    position: relative;
+    display: none;
+    width: 100%;
+    max-width: 600px;
 }
 
 #completedHeader::after {
-  content: "";
-  position: absolute;
-  width: 50%;
-  height: 3px;
-  background-color: #a4c639;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  border-radius: 2px;
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background-color: #a4c639;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 2px;
 }
 
 #empty-task-items {
-  display: none;
+    display: none;
 }
 
 #no-task-message {
-  font-style: italic;
-  text-align: center;
-  color: #555;
-  padding: 1em;
+    font-style: italic;
+    text-align: center;
+    color: #555;
+    padding: 1em;
 }
 
 #task-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 1rem;
 }
 
 #task-overlay-content {
-  background-color: #fff;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 85vh;
-  padding-bottom: 2rem;
-  padding: 1.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow-y: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    padding-bottom: 2rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-y: auto;
 }
 
 #task-overlay-content h2 {
-  color: #606c38;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  font-size: 1.5rem;
-  text-align: center;
+    color: #606c38;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 #close-overlay {
-  position: absolute;
-  top: 10px;
-  right: 16px;
-  font-size: 35px;
-  background: none;
-  border: none;
-  color: #606c38;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-size: 35px;
+    background: none;
+    border: none;
+    color: #606c38;
+    cursor: pointer;
 }
 
 .goal {
-  background-color: #dfcfbf;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-color: #dfcfbf;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .goal button.add-goal-task {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 12px;
-  border: none;
-  background-color: #606c38;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: #606c38;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 #popup_sunpoints_rewards {
-  position: fixed;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  max-width: 400px;
-  padding: 2rem;
-  background: linear-gradient(180deg, #606c38, #738a27);
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  color: #fefae0;
-  box-sizing: border-box;
-  text-align: center;
-  z-index: 1001;
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 400px;
+    padding: 2rem;
+    background: linear-gradient(180deg, #606c38, #738a27);
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    color: #fefae0;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1001;
 }
