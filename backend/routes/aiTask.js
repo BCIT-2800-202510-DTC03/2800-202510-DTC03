@@ -3,7 +3,6 @@ const router = express.Router();
 const UserTasks = require("../models/UserTasks");
 const User = require("../models/User");
 
-
 router.post("/", async (req, res) => {
     try {
         const userId = req.session.userId;
@@ -15,22 +14,21 @@ router.post("/", async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
-
-        const { isAIGenerated, taskId, taskDescription, taskCategory, worth, completed } = req.body;
+        const { taskDescription, taskCategory } = req.body;
         const newAITask = new UserTasks({
             userId: userId,
             isAIGenerated: true,
             taskId: "",
-            description: taskDescription,// waiting to be passed from frontend
-            category: taskCategory,// waiting to be passed from frontend
+            description: taskDescription, // waiting to be passed from frontend
+            category: taskCategory, // waiting to be passed from frontend
             worth: 5,
-            completed: false
+            completed: false,
         });
         await newAITask.save();
-        console.log("Saved new AI tasks", newAITask)
+        console.log("Saved new AI tasks", newAITask);
     } catch (error) {
         console.error("post ai task error:", error);
     }
-})
+});
 
 module.exports = router;
