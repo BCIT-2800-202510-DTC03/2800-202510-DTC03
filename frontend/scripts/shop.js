@@ -217,6 +217,7 @@ function closePurchaseScreen() {
 }
 
 async function purchaseItem(selectedTab, selectedItem) {
+    console.log("purchaseItem function is called");
     if (!selectedTab || !selectedItem) {
         console.log("missing info", selectedTab, selectedItem);
         return;
