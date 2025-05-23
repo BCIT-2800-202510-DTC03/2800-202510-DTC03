@@ -6,32 +6,34 @@
     <title>BloomGreener</title>
     <link rel="stylesheet" href="../styles/fonts.css">
     <link rel="stylesheet" href="../styles/error.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="error-wrapper">
         <div id="error-msg">
-            <img src="https://dummyimage.com/300/6aa863/fff&text=sad+plant">
+            <img src="../assets/error/plant-wilted.png">
             <h2>Uh Oh! <br/>An Error has occured!</h2>
+            <div id="home"><a href="../pages/home.html">Take me home!</a></div>
         </div>
         <div id="error-form-wrapper">
             <h2>Found a bug we need to squash?</h2>
             <form id="error-form">
-                <label>What issue occurred?</label>
+                <!-- <label>What issue occurred?</label> -->
                 <select name="issueType" id="issue-type" required>
-                    <option value="">Select an issue</option>
+                    <option value="">What issue occurred?</option>
                     <option value="PageLoad">Page not loading</option>
                     <option value="TaskLoad">Tasks not loading</option>
                     <option value="TaskAdd">Tasks not adding</option>
                     <option value="Purchases">Purchases not working</option>
                     <option value="Other">Other</option>
                 </select>
-                <textarea name="MoreInfo" id="more-info" placeholder="Tell us a bit more about what happened"></textarea>
+                <textarea name="moreInfo" id="more-info" placeholder="Tell us a bit more about what happened"></textarea>
                 <button id="error-submit" type="submit">Submit report</button>
             </form>
         </div>
 
     </div>
 
-    <script src="../scripts/error.js"></script>
+    <script type="module" src="../scripts/error.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const email = process.env.EMAIL_USER;
 const pass = process.env.EMAIL_PASS;
-router.post("/error/sendReport", async (req, res) => {
+router.post("/sendReport", async (req, res) => {
     try {
         const { issueType, moreInfo } = req.body;
 
