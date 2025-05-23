@@ -38,14 +38,7 @@ router.post("/", async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
-        const {
-            isAIGenerated,
-            taskId,
-            taskDescription,
-            taskCategory,
-            worth,
-            completed,
-        } = req.body;
+        const { taskId, taskDescription, taskCategory } = req.body;
         const newTask = new UserTasks({
             userId: userId,
             isAIGenerated: false,
@@ -75,7 +68,7 @@ router.post("/update/:userTasksId", async (req, res) => {
         }
 
         const userTasksId = req.params.userTasksId;
-        const { description, category, worth, completed } = req.body;
+        const { completed } = req.body;
 
         const userTask = await UserTasks.findOne({
             _id: userTasksId,
