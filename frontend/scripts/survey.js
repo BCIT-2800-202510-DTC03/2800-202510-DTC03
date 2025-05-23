@@ -1,3 +1,5 @@
+/* global axios */
+
 import { backendURL } from "../util.js";
 
 const surveyQuestions = [
@@ -146,7 +148,7 @@ function getNextQuestion() {
 
     const question = surveyQuestions[current];
     questionName.innerText = question.name;
-    Object.entries(question.options).forEach(([key, option]) => {
+    Object.values(question.options).forEach(([option]) => {
         const div = document.createElement("div");
         div.className = "question";
         div.innerHTML = `
@@ -197,7 +199,7 @@ function displayResults() {
         event.preventDefault();
         // Redirect user to home page + store user goal
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${backendURL}/user/updateInfo`,
                 {
                     aboutMe: "",
@@ -243,7 +245,7 @@ function chooseOwnGoal() {
         const chosenGoal = document.getElementById("goal-select").value;
         console.log(chosenGoal);
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${backendURL}/user/updateInfo`,
                 {
                     aboutMe: "",
