@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 /* For more information, see https://mongoosejs.com/docs/schematypes.html#objectids */
+const Schema = mongoose.Schema;
 
-const notificationSchema = new mongoose.Schema({
+const notificationSchema = new Schema({
     Task: {
         type: Schema.Types.ObjectId,
         reference: "Task",
