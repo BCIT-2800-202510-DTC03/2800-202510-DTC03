@@ -23,17 +23,17 @@ async function insertHeader() {
 
     await insertHTML(filePath, element);
 
-    setupListeners();
-    navbarLogout();
-    loadProfilePicture();
-    // requestAnimationFrame(() => {
-    //     navbarLogout();
-    //     loadProfilePicture();
-    // });
+    requestAnimationFrame(() => {
+        setupListeners();
+        navbarLogout();
+        loadProfilePicture();
+    });
 }
 
 function setup() {
     insertHeader();
+    console.log("Call profile pic");
+    loadProfilePicture();
 }
 
 setup();
