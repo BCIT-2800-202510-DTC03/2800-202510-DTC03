@@ -235,9 +235,8 @@ async function purchaseItem(tab, type) {
 }
 
 function resizeWindow() {
-    document.getElementById("shop-inventory").style.height = `${
-        screen.height - 300
-    }px`;
+    document.getElementById("shop-inventory").style.height = `${screen.height - 300
+        }px`;
 }
 
 async function setup() {
@@ -248,3 +247,5 @@ async function setup() {
     window.onresize = resizeWindow;
 }
 setup();
+
+window.getItems = getItems;
