@@ -148,7 +148,7 @@ function getNextQuestion() {
 
     const question = surveyQuestions[current];
     questionName.innerText = question.name;
-    Object.values(question.options).forEach(([option]) => {
+    Object.values(question.options).forEach((option) => {
         const div = document.createElement("div");
         div.className = "question";
         div.innerHTML = `
