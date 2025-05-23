@@ -134,21 +134,16 @@ async function main() {
                 break;
             case "Clouds":
                 weather = "Clear";
-            default:
                 break;
+            default:
         }
         AssignAnimation();
         PlaceAnimation();
     } catch (error) {
         //default weather if we can't get location/weather data
         weather = "Clear";
+        console.log("Error loading weather:", error);
     }
 }
 
 main();
-
-// function getWeather() {
-//     return weather;
-// }
-
-// module.exports = { getWeather };
