@@ -91,5 +91,6 @@ app.use("/userTasks", userTasksRouter);
 const aiTaskRouter = require("./routes/aiTask");
 app.use("/task/ai", aiTaskRouter);
 
+/*Error page Route */
 const errorRouter = require("./routes/error");
 app.use("/error", errorRouter);

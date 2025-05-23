@@ -10,6 +10,7 @@ router.post("/sendReport", async (req, res) => {
     try {
         const { issueType, moreInfo } = req.body;
 
+        // Create transport to send the email
         const mailer = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -18,6 +19,7 @@ router.post("/sendReport", async (req, res) => {
             }
         })
 
+        // format email contents
         const mailInfo = {
             from: `${email}`,
             to: `${email}`,
@@ -25,6 +27,7 @@ router.post("/sendReport", async (req, res) => {
             text: `Error Type: ${issueType}\n\nDescription:\n${moreInfo}`
         }
 
+        // send email
         await mailer.sendMail(mailInfo);
         res.status(200).send("Report sucessfully sent.");
     } catch (error) {
