@@ -1,3 +1,5 @@
+/* global axios */
+
 import { frontendURL } from "../util.js";
 import { backendURL } from "../util.js";
 
