@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    height:100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+}
+
+@media  screen and (max-height: 600px) {
+    html, body{
+        overflow: scroll;
+        
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+#error-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4vmax;
+    margin: auto;
+}
+
+#error-msg{
+    margin-bottom: 6dvh;
+    font-size: 1.5vmax;
+}
+
+#error-msg img{
+    max-height: 800px;
+    max-width: 800px;
+}
+
+#error-form-wrapper{
+    font-size: 1.2vmax;
+    display: flex;
+    flex-direction: column;
+}
+
+#error-form{
+    margin-top: 2dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#error-form label{
+    margin-bottom: 1dvh;
+}
+
+#issue-type{
+    margin-bottom: 1dvh;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 0.5dvh;
+    width: 100%;
+}
+
+#more-info{
+    max-height: 600px;
+    width: 100%;
+    height: 15vh;
+    text-align: start;
+    resize: none;
+    box-sizing: border-box;
+    padding: 1dvh;
+}
+
+#error-submit{
+    margin-top: 1dvh;
+    max-width: 45%;
+    box-sizing: border-box;
+    padding: 1dvh;
+    border-radius: 2dvh;
+    border: none;
+    cursor: pointer;
+    background-color: #606c38;
+    color: white;
+    font-size: 1.3vmax;
+}
