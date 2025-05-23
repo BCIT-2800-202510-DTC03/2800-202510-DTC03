@@ -225,6 +225,10 @@ async function purchaseItem(selectedTab, selectedItem) {
     fetch(`${backendURL}/garden/buyShopItem/${selectedTab}/${selectedItem}`, {
         method: "POST",
         credentials: "include",
+        body: JSON.stringify({
+            cost: currentItemCost,
+
+        }),
     })
         .then((response) => {
             if (response.ok) {
@@ -257,7 +261,9 @@ async function setup() {
     window.onresize = resizeWindow;
 }
 setup();
-
+setTimeout(() => {
+    setup();
+}, 500);
 window.getItems = getItems;
 window.openPurchaseScreen = openPurchaseScreen;
 window.closePurchaseScreen = closePurchaseScreen;
