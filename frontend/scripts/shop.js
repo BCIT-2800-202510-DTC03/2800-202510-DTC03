@@ -251,3 +251,5 @@ async function setup() {
 setup();
 
 window.getItems = getItems;
+window.openPurchaseScreen = openPurchaseScreen;
+window.closePurchaseScreen = closePurchaseScreen;
