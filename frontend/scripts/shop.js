@@ -242,7 +242,9 @@ function resizeWindow() {
 async function setup() {
     await getWallet();
     await getInventory();
-    getItems(currentTab);
+    if (userInventory[currentTab]) {
+        getItems(currentTab);
+    }
     resizeWindow();
     window.onresize = resizeWindow;
 }
