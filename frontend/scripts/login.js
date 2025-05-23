@@ -73,6 +73,10 @@ async function loginSubmit(event) {
     let emailAddress = document.getElementById("input_login_id").value;
     let password = document.getElementById("input_login_password").value;
     // waiting to be updated: set the email as username for now
+    if (!emailAddress.includes("@")) {
+        loginErrorMessage.textContent =
+            "Invalid Email address";
+    }
     const userData = {
         username: emailAddress,
         email: emailAddress,
