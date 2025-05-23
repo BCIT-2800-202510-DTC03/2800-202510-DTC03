@@ -1,0 +1,248 @@
+:root {
+    --dark-green: #606c38;
+    --light-beige: #dfcfbf;
+    --accent-orange: #dda15e;
+}
+
+body {
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+    margin: 0;
+}
+
+#profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 10vh;
+    height: 100%;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#picture-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#profile-picture {
+    width: 20vh;
+    height: 20vh;
+    object-fit: cover;
+    border-radius: 100%;
+    background-color: #606c38;
+}
+
+#username-wrapper {
+    height: 5vh;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+#username {
+    height: 5vh;
+    font-size: xx-large;
+    font-weight: 500;
+    margin: 0;
+    color: var(--dark-green);
+}
+
+#about-me-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#about-me-txt-wrap,
+#about-me-wrapper h2,
+#goal-wrapper h2 {
+    width: 70vw;
+    padding-top: 2vh;
+    margin: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#current-goal {
+    text-indent: 5px;
+    width: 100%;
+    height: 2.5em; /* or something like 40px */
+    padding: 0.4em;
+    font-size: 1rem;
+    text-indent: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 0.3em;
+    box-sizing: border-box;
+}
+
+#about-me-txt-wrap {
+    border: solid 0.1rem lightgrey;
+    border-radius: 0.5vh;
+    padding: 0vh 1vw;
+    height: 10vh;
+}
+
+#about-me-txt {
+    border: none;
+    background-color: transparent;
+    color: var(--dark-green);
+    width: 100%;
+    height: 100%;
+    user-select: text;
+    resize: none;
+}
+
+#about-me-txt:focus,
+#goals:focus {
+    outline: none;
+}
+
+#goal-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+#goal-select-wrap {
+    border: solid 0.1rem lightgrey;
+    border-radius: 0.7vh;
+    color: var(--dark-green);
+    width: 100%;
+    cursor: pointer;
+    padding: 0vh 1vw;
+}
+
+#goals {
+    background-color: transparent;
+    width: 100%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#picture-input {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 80%;
+    right: 5%;
+    height: 5vh;
+    width: 5vh;
+    border-radius: 100%;
+}
+/* #camera-img{
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+#pfp-img {
+   display: none;
+} */
+
+#edit-pencil {
+    background-color: #606c38;
+    height: fit-content;
+    padding: 1vh;
+    border-radius: 100%;
+    border: white 0.2vh solid;
+    color: white;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+#edit-pencil:hover,
+.pfp-img-choice:hover {
+    filter: brightness(120%);
+}
+
+#pfp-container {
+    position: relative;
+    display: inline-block;
+}
+
+#pfp-choices-wrap {
+    background-color: #fff;
+    border: #606c38 solid 0.1vh;
+    padding: 2vh;
+    position: absolute;
+    border-radius: 0.5vh;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    @media only screen and (max-width: 600px) {
+        transform: translateX(-10%);
+    }
+}
+
+#pfp-choices-wrap h2 {
+    padding-right: 0;
+}
+
+#pfp-choices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1vh;
+}
+
+.pfp-img-choice {
+    cursor: pointer;
+    -webkit-user-drag: none;
+    width: 100px;
+    height: 100px;
+}
+
+.pfp-image-radio {
+    display: none;
+}
+
+/* different navbar than usual pages since we don't need the user's pfp */
+#pfp-nav {
+    /* change this height to match the usual navbar */
+    /* position: absolute;
+    height: 7vh;
+    width: 100%;
+    background-color: var(--dark-green);
+    z-index: 100; */
+}
+
+.section-title {
+    font-weight: 400;
+    font-size: medium;
+    padding-right: 2vh;
+    color: var(--dark-green);
+}
+
+#back-arrow {
+    color: white;
+    font-size: 4vh;
+    padding: 1.5vh 2vw;
+    cursor: pointer;
+}
+
+/* Garden */
+
+#garden-display-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 70vw;
+    padding-top: 2vh;
+    margin: 0;
+    max-width: 100%;
+}
+
+#garden-display {
+    width: 90%;
+    max-width: 600px;
+}

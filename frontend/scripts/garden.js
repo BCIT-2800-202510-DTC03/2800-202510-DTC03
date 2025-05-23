@@ -1,0 +1,108 @@
+// const { getWeather } = require('./weatherData');
+// var weather = getWeather();
+// const { getWeather } = require('./weather.js');
+// const weather = await getWeather();
+// import { getWeather } from "./weather.js"
+
+var weather = "clear";
+
+async function insertBackground() {
+    // const weather = await getWeather();
+    const background = document.getElementById("garden-background");
+
+    background.style.backgroundImage = "url('../assets/garden/background-" + weather + ".png')";
+
+    if (background.style.backgroundImage && weather) {
+        background.style.backgroundColor = "transparent";
+    }
+}
+
+function insertFence(type) {
+    const fence = document.getElementById("garden-fence");
+
+    if (type) {
+        fence.style.backgroundImage = "url('../assets/garden/fence-" + type + ".png')";
+    } else {
+        fence.style.backgroundImage = null;
+    }
+
+
+    if (fence.style.backgroundImage || !type) {
+        fence.style.backgroundColor = "transparent";
+    }
+}
+
+function insertBuilding(type) {
+    const building = document.getElementById("garden-building");
+
+    if (type) {
+        building.style.backgroundImage = "url('../assets/garden/building-" + type + ".png')";
+    } else {
+        building.style.backgroundImage = null;
+    }
+
+
+    if (building.style.backgroundImage && type) {
+        building.style.backgroundColor = "transparent";
+    }
+}
+
+function insertShelf(type) {
+    const shelf = document.getElementById("garden-shelf");
+
+    if (type) {
+        shelf.style.backgroundImage = "url('../assets/garden/shelf-" + type + ".png')";
+    } else {
+        shelf.style.backgroundImage = null;
+    }
+
+    if (shelf.style.backgroundImage && type) {
+        shelf.style.backgroundColor = "transparent";
+    }
+}
+
+function insertObject(type, select) {
+    const elementID = `garden-${select}Object`;
+    const object = document.getElementById(elementID);
+
+    if (type) {
+        object.style.backgroundImage = "url('../assets/garden/object-" + type + ".png')";
+    } else {
+        object.style.backgroundImage = null;
+    }
+
+    if (object.style.backgroundImage && type) {
+        object.style.backgroundColor = "transparent";
+    }
+}
+
+function insertPlant(type, select) {
+    const elementID = `#plant-${select}.garden-plant`;
+    const plant = document.querySelector(elementID);
+
+    if (type) {
+        plant.style.backgroundImage = "url('../assets/garden/plant-" + type + ".png')";
+    } else {
+        plant.style.backgroundImage = null;
+    }
+
+    if (plant.style.backgroundImage && type) {
+        plant.style.backgroundColor = "transparent";
+    }
+}
+
+export function insertGarden(fence, building, shelf, rightObject, leftObject,
+    plant1, plant2, plant3, plant4, plant5, plant6) {
+    insertBackground();
+    insertFence(fence);
+    insertBuilding(building);
+    insertShelf(shelf);
+    insertObject(rightObject, "right");
+    insertObject(leftObject, "left");
+    insertPlant(plant1, "1");
+    insertPlant(plant2, "2");
+    insertPlant(plant3, "3");
+    insertPlant(plant4, "4");
+    insertPlant(plant5, "5");
+    insertPlant(plant6, "6");
+}

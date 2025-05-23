@@ -1,21 +1,81 @@
+require("dotenv").config({
+    path: "../.env",
+}); /* Needs to be 1 directory up from where server.js is */
+const connectToMongo = require("./db"); /* Reference db.js */
+
 const express = require("express");
+const session = require("express-session");
+const path = require("path"); /* Needed for working with directories and file paths */
+// const path = require("path"); /* Needed for working with directories and file paths */
+
 const app = express();
-
-const mongoose = require("mongoose");
-
-main().catch((err) => console.log(err));
-/* Cors is used for preventing web pages from making requests to a different domain than the one that served the web page unless specified
- */
+const PORT = process.env.PORT || 3000;
 const cors = require("cors");
-app.use(cors());
 
-async function main() {
-    await mongoose
-        .connect
-        // Local host
-        // "mongodb://127.0.0.1:27017/test"
+/* Middleware to parse JSON and form data */
+app.use(
+    cors({
+        origin: "https://two800bloomgreener.onrender.com",
+        credentials: true,
+    })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set("trust proxy", 1);
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET /* from .env */,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24, // 1天
+        },
+    })
+);
 
-        // Mongo DB Atlas
-        // mongoose.connect("mongodb+srv://mongo:mongo@cluster0.eyhty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-        ();
-}
+connectToMongo();
+
+/* Routes */
+// app.use("/", authRoutes); /* These aren't made yet, so just placeholders */
+// app.use("/tasks", taskRoutes);
+// app.use("/rewards", rewardRoutes);
+
+/* Testing purposes */
+// app.get("/", (req, res) => {
+//     res.send("Server connected to MongoDB");
+// });
+
+// https://expressjs.com/en/guide/routing.html
+const userRouter = require("./routes/user");
+app.use("/user", userRouter);
+
+/* Login */
+app.get("/", (req, res) => res.redirect("/login"));
+
+const gardenRouter = require("./routes/garden");
+app.use("/garden", gardenRouter);
+
+const apiRouter = require("./API");
+app.use("/API", apiRouter);
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
+/* Settings Route */
+const settingsRouter = require("./routes/settings");
+app.use("/settings", settingsRouter);
+
+/* Tasks Route */
+const taskRouter = require("./routes/tasks");
+app.use("/task", taskRouter);
+
+const userTasksRouter = require("./routes/userTasks");
+app.use("/userTasks", userTasksRouter);
+
+/*Ai tasks Route*/
+const aiTaskRouter = require("./routes/aiTask");
+app.use("/task/ai", aiTaskRouter);
