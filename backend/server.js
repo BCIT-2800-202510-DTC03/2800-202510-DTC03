@@ -37,8 +37,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: process.env.NODE_ENV === "production", // If production, set secure to true. If development, set secure to false.
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // If production, set same site to none. If development, set to lax.
             maxAge: 1000 * 60 * 60 * 24, // 1天
         },
     })
