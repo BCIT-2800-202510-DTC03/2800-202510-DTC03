@@ -135,6 +135,58 @@ DFCFBF light brown
     display: flex;
     height: 22rem;
     position: absolute;
+    top: 180px;
+    right: 74vw;
+    z-index: 100;
+    transform: rotate(-15deg);
+  }
+  .login_screenshot_wrapper_phone2 {
+    display: flex;
+    height: 22rem;
+    position: absolute;
+    top: 300px;
+    right: 57vw;
+    z-index: 100;
+    transform: rotate(-15deg);
+  }
+  .login_screenshot_wrapper_background {
+    background-image: linear-gradient(
+      178deg,
+      rgba(42, 123, 155, 0.2) 0%,
+      rgba(255, 179, 179, 0.5) 55%,
+      rgba(87, 199, 133, 0.2) 100%
+    );
+
+    height: 450px;
+    width: 450px;
+    position: absolute;
+    top: 200px;
+    right: 55vw;
+    border-radius: 250px;
+  }
+  .container {
+    font-size: 18px;
+    width: 40vw;
+    margin-top: 50px;
+    margin-right: 6vw;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    font-size: 18px;
+    width: 30vw;
+    margin-top: 80px;
+    margin-right: 6vw;
+  }
+}
+@media (min-width: 830px) {
+  .login_screenshot_wrapper {
+    display: flex;
+  }
+  .login_screenshot_wrapper_phone {
+    display: flex;
+    height: 22rem;
+    position: absolute;
     top: 200px;
     right: 70vw;
     z-index: 100;
@@ -184,13 +236,14 @@ DFCFBF light brown
       border-radius: 250px;
     }
   }
-  .container {
-    font-size: 18px;
-    width: 40vw;
-    margin-top: 50px;
-    margin-right: 6vw;
-  }
 }
+.container {
+  font-size: 18px;
+  width: 40vw;
+  margin-top: 50px;
+  margin-right: 6vw;
+}
+
 @media (min-width: 1024px) {
   .container {
     font-size: 18px;
