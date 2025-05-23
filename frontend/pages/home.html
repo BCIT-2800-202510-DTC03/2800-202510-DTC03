@@ -23,27 +23,27 @@
     <!--  Header will be inserted here -->
   </header>
 
-    <!-- Main Content -->
-    <div id="main-content">
-      <div id="home-content">
-        <div id="garden-container">
-          <div id="garden-background" title="Background"></div>
-          <div id="garden-fence" title="Fence"></div>
-          <div id="garden-ground" title="Ground"></div>
-          <div id="garden-building" title="Building"></div>
-          <div id="garden-shelf" title="Shelf">
-            <div class="garden-plant" id="plant-4" title="Plant 4"></div>
-            <div class="garden-plant" id="plant-5" title="Plant 5"></div>
-            <div class="garden-plant" id="plant-6" title="Plant 6"></div>
-            <div class="garden-plant" id="plant-1" title="Plant 1"></div>
-            <div class="garden-plant" id="plant-2" title="Plant 2"></div>
-            <div class="garden-plant" id="plant-3" title="Plant 3"></div>
-          </div>
-          <div id="garden-rightObject" title="Right Object"></div>
-          <div id="garden-leftObject" title="Left Object"></div>
-          <div id="garden-weather" title="Weather"></div>
-          <div id="garden-shadow"></div>
+  <!-- Main Content -->
+  <div id="main-content">
+    <div id="home-content">
+      <div id="garden-container">
+        <div id="garden-background" title="Background"></div>
+        <div id="garden-fence" title="Fence"></div>
+        <div id="garden-ground" title="Ground"></div>
+        <div id="garden-building" title="Building"></div>
+        <div id="garden-shelf" title="Shelf">
+          <div class="garden-plant" id="plant-4" title="Plant 4"></div>
+          <div class="garden-plant" id="plant-5" title="Plant 5"></div>
+          <div class="garden-plant" id="plant-6" title="Plant 6"></div>
+          <div class="garden-plant" id="plant-1" title="Plant 1"></div>
+          <div class="garden-plant" id="plant-2" title="Plant 2"></div>
+          <div class="garden-plant" id="plant-3" title="Plant 3"></div>
         </div>
+        <div id="garden-rightObject" title="Right Object"></div>
+        <div id="garden-leftObject" title="Left Object"></div>
+        <div id="garden-weather" title="Weather"></div>
+        <div id="garden-shadow"></div>
+      </div>
 
       <div id="task-list">
         <div id="task-header">
@@ -129,8 +129,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- This swaps backend URLs depending on deployment type (local vs render) -->
     <script src="../scripts/config.js"></script>
-    <script src="../scripts/skeleton.js"></script>
-    <script src="../scripts/navbar.js"></script>
+
+    <script type="module" src="../scripts/navbar.js"></script>
+    <script type="module" src="../scripts/skeleton.js"></script>
     <!-- <script  type="module" src="../scripts/weather.js"></script> -->
     <script type="module" src="../scripts/userTasks.js"></script>
     <script type="module" src="../scripts/garden.js"></script>
@@ -138,4 +139,5 @@
     <script type="module" src="../scripts/task.js"></script>
     <script type="module" src="../scripts/AI.js"></script>
 </body>
+
 </html>

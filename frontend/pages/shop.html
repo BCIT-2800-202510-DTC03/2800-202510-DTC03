@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
 
-    <link rel="stylesheet" href="../styles/fonts.css" />
-    <link rel="stylesheet" href="../styles/navbar.css" />
-    <link rel="stylesheet" href="../styles/shop.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
 
-  <body>
-    <!--  Header -->
-    <header id="placeholder-header">
-      <!--  Header will be inserted here -->
-    </header>
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../styles/navbar.css" />
+  <link rel="stylesheet" href="../styles/shop.css" />
+</head>
 
-    <!-- Main Content -->
-    <div id="main-content">
-      <div id="purchase-overlay">
-        <div id="purchase-confirmation">
-          <div id="purchase-details">
-            <h1>Confirm Purchase</h1>
-            <p id="purchase-name">Item Name:</p>
-            <p id="purchase-cost">Cost:</p>
-          </div>
-          <br />
-          <div id="purchase-buttons">
-            <button id="confirm-button">Yes</button>
-            <button id="cancel-button" onclick="closePurchaseScreen()">
-              Cancel
-            </button>
-          </div>
+<body>
+  <!--  Header -->
+  <header id="placeholder-header">
+    <!--  Header will be inserted here -->
+  </header>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <div id="purchase-overlay">
+      <div id="purchase-confirmation">
+        <div id="purchase-details">
+          <h1>Confirm Purchase</h1>
+          <p id="purchase-name">Item Name:</p>
+          <p id="purchase-cost">Cost:</p>
         </div>
-      </div>
-
-      <div id="shop-showcase">
-        <!-- <img id="showcase-item"> -->
-        <img id="showcase-item" />
-        <button id="purchase-item" onclick="openPurchaseScreen()" disabled>
-          Buy
-        </button>
-      </div>
-      <div id="shop-inventory">
-        <div id="shop-tabs">
-          <button class="shop-tab" id="tab-fence" onclick="getItems('fence')">
-            Fence
-          </button>
-          <button class="shop-tab" id="tab-shelf" onclick="getItems('shelf')">
-            Shelf
-          </button>
-          <button class="shop-tab" id="tab-plant" onclick="getItems('plant')">
-            Plant
-          </button>
-          <button class="shop-tab" id="tab-object" onclick="getItems('object')">
-            Object
-          </button>
-          <button
-            class="shop-tab"
-            id="tab-building"
-            onclick="getItems('building')"
-          >
-            Building
+        <br />
+        <div id="purchase-buttons">
+          <button id="confirm-button">Yes</button>
+          <button id="cancel-button" onclick="closePurchaseScreen()">
+            Cancel
           </button>
         </div>
-        <p id="wallet"></p>
-        <div id="shop-grid"></div>
       </div>
     </div>
-  </body>
 
-  <!-- JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="../scripts/skeleton.js"></script>
-  <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/shop.js"></script>
+    <div id="shop-showcase">
+      <!-- <img id="showcase-item"> -->
+      <img id="showcase-item" />
+      <button id="purchase-item" onclick="openPurchaseScreen()" disabled>
+        Buy
+      </button>
+    </div>
+    <div id="shop-inventory">
+      <div id="shop-tabs">
+        <button class="shop-tab" id="tab-fence" onclick="getItems('fence')">
+          Fence
+        </button>
+        <button class="shop-tab" id="tab-shelf" onclick="getItems('shelf')">
+          Shelf
+        </button>
+        <button class="shop-tab" id="tab-plant" onclick="getItems('plant')">
+          Plant
+        </button>
+        <button class="shop-tab" id="tab-object" onclick="getItems('object')">
+          Object
+        </button>
+        <button class="shop-tab" id="tab-building" onclick="getItems('building')">
+          Building
+        </button>
+      </div>
+      <p id="wallet"></p>
+      <div id="shop-grid"></div>
+    </div>
+  </div>
+</body>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="module" src="../scripts/navbar.js"></script>
+<script type="module" src="../scripts/skeleton.js"></script>
+<script type="module" src="../scripts/shop.js"></script>
+
 </html>

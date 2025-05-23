@@ -1,9 +1,9 @@
-const PORT = 3000;
+import { backendURL } from "../util.js";
 
 async function loadUserSettings() {
     try {
         // const load = await fetch("/pages/settings", { credentials: "include" });
-        const load = await fetch(`http://localhost:${PORT}/settings`, {
+        const load = await fetch(`${backendURL}/settings`, {
             credentials: "include",
         }); // Just for testing purposes locally
         const userData = await load.json();
@@ -14,7 +14,7 @@ async function loadUserSettings() {
         }
         const userIdInput = document.getElementById("userId");
         userIdInput.value = userData._id;
-        userIdInput.value.readOnly = true;
+        userIdInput.readOnly = true;
         document.getElementById("emailInput").value = userData.email;
     } catch (error) {
         console.error("Failed to load user settings", error);
@@ -38,7 +38,7 @@ settingsForm.addEventListener("submit", async (event) => {
     const email = document.getElementById("emailInput").value;
 
     try {
-        const res = await fetch(`http://localhost:${PORT}/settings/update`, {
+        const res = await fetch(`${backendURL}/settings/update`, {
             method: "POST",
             credentials: "include",
             headers: {

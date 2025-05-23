@@ -1,3 +1,5 @@
+import { backendURL } from "../util.js";
+
 let totalWallet = 0;
 let userInventory = {};
 let currentTab = "fence";
@@ -10,11 +12,14 @@ let selectedItem = "";
 
 async function getWallet() {
     const wallet = document.getElementById("wallet");
-    await fetch("http://localhost:3000/garden/getWallet", {method: "GET", credentials: "include"})
+    await fetch(`${backendURL}/garden/getWallet`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
-            console.log("WALLET: " + data)
+            console.log(data);
+            console.log("WALLET: " + data);
             totalWallet = data;
             wallet.innerHTML = `Sun Points: <span>${totalWallet}</span>`;
         })
@@ -22,14 +27,19 @@ async function getWallet() {
 }
 
 async function getInventory() {
-    await fetch("http://localhost:3000/garden/getInventory", {method: "GET", credentials: "include"})
+    await fetch(`${backendURL}/garden/getInventory`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
-            console.log("GET INVENTORY")
-            console.log(data)
+            console.log("GET INVENTORY");
+            console.log(data);
             userInventory = data;
         })
-        .catch((error) => console.error("Error fetching user inventory:", error));
+        .catch((error) =>
+            console.error("Error fetching user inventory:", error)
+        );
 }
 
 async function getItems(tab) {
@@ -48,57 +58,59 @@ async function getItems(tab) {
     const activeTab = document.getElementById(`tab-${tab}`);
     activeTab.classList.add("shop-tab-active");
 
-    fetch(`http://localhost:3000/garden/getShopItem/${tab}`, {method: "GET"})
+    fetch(`${backendURL}/garden/getShopItem/${tab}`, {
+        method: "GET",
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            data.forEach(item => {
+            data.forEach((item) => {
                 let alreadyPurchased;
 
                 switch (tab) {
                     case "fence": {
-                        userInventory.fence.forEach(inventoryItem => {
+                        (userInventory.fence || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
-                        })
+                        });
                         break;
                     }
                     case "building": {
-                        userInventory.building.forEach(inventoryItem => {
+                        (userInventory.building || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
-                        })
+                        });
                         break;
                     }
                     case "shelf": {
-                        userInventory.shelf.forEach(inventoryItem => {
+                        (userInventory.shelf || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
-                        })
+                        });
                         break;
                     }
                     case "object": {
-                        userInventory.object.forEach(inventoryItem => {
+                        (userInventory.object || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
-                        })
+                        });
                         break;
                     }
                     case "plant": {
-                        userInventory.plant.forEach(inventoryItem => {
+                        (userInventory.plant || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
-                        })
+                        });
                         break;
                     }
                 }
 
-                // Card 
+                // Card
                 const card = document.createElement("div");
                 card.classList.add("shop-cards");
 
@@ -112,11 +124,11 @@ async function getItems(tab) {
                     cost.classList.add("item-expensive");
                 } else {
                     cost.classList.add("item-buyable");
-                };
+                }
                 cost.innerText = item.cost;
 
                 const picture = document.createElement("img");
-                picture.src = `../assets/garden/${tab}-${item.typeName}.png`
+                picture.src = `../assets/garden/${tab}-${item.typeName}.png`;
 
                 top.appendChild(cost);
                 top.appendChild(picture);
@@ -125,20 +137,22 @@ async function getItems(tab) {
                 const name = document.createElement("p");
                 name.classList.add("item-name");
 
-                console.log((alreadyPurchased == true))
+                console.log(alreadyPurchased == true);
                 if (alreadyPurchased) {
-                    name.innerText = 'PURCHASED';
+                    name.innerText = "PURCHASED";
                     name.classList.add("item-purchased");
                 } else {
-                    name.innerText = item.displayName;//Event Listener
+                    name.innerText = item.displayName; //Event Listener
                     if (totalWallet >= item.cost) {
                         card.addEventListener("click", () => {
                             console.log("Click");
 
-                            const buyButton = document.getElementById("purchase-item");
+                            const buyButton =
+                                document.getElementById("purchase-item");
                             buyButton.disabled = false;
 
-                            const showcase = document.getElementById("showcase-item");
+                            const showcase =
+                                document.getElementById("showcase-item");
                             showcase.style.visibility = "initial";
                             showcase.src = `../assets/garden/${tab}-${item.typeName}.png`;
 
@@ -147,45 +161,50 @@ async function getItems(tab) {
                             selectedTab = tab;
                             selectedItem = item.typeName;
                         });
-                };
+                    }
                 }
-                
+
                 card.appendChild(top);
                 card.appendChild(name);
-
 
                 itemList.appendChild(card);
             });
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-    
 }
 
 function openPurchaseScreen() {
     console.log("Open");
 
     const purchaseName = document.getElementById("purchase-name");
-    purchaseName.innerHTML = `Item Name: ${currentItemName}`
+    purchaseName.innerHTML = `Item Name: ${currentItemName}`;
 
     const purchaseCost = document.getElementById("purchase-cost");
-    purchaseCost.innerHTML = `Cost: ${currentItemCost}`
+    purchaseCost.innerHTML = `Cost: ${currentItemCost}`;
 
-    const purchaseConfirmation = document.getElementById("purchase-confirmation");
+    const purchaseConfirmation = document.getElementById(
+        "purchase-confirmation"
+    );
     purchaseConfirmation.style.display = "flex";
-    
+
     const purchaseOverlay = document.getElementById("purchase-overlay");
     purchaseOverlay.style.animation = "openPurchaseScreen 0.5s normal";
     purchaseOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
     purchaseOverlay.style.display = "initial";
+    let purchaseConfirm;
 
-    const purchaseConfirm = document.getElementById("confirm-button");
-    purchaseConfirm.onclick = purchaseItem;
+    if (document.getElementById("confirm-button")) {
+        purchaseConfirm = document.getElementById("confirm-button")
+    };
+    purchaseConfirm.onclick = () => purchaseItem(selectedTab, selectedItem);
 }
 
 function closePurchaseScreen() {
     console.log("Close");
 
-    const purchaseConfirmation = document.getElementById("purchase-confirmation");
+    const purchaseConfirmation = document.getElementById(
+        "purchase-confirmation"
+    );
     purchaseConfirmation.style.display = "none";
 
     const purchaseOverlay = document.getElementById("purchase-overlay");
@@ -194,11 +213,23 @@ function closePurchaseScreen() {
 
     setTimeout(() => {
         purchaseOverlay.style.display = "none";
-    }, 300)
+    }, 300);
 }
 
-async function purchaseItem(tab, type) {
-    fetch(`http://localhost:3000/garden/buyShopItem/${selectedTab}/${selectedItem}`, {method: "POST", credentials: "include"})
+async function purchaseItem(selectedTab, selectedItem) {
+    console.log("purchaseItem function is called");
+    if (!selectedTab || !selectedItem) {
+        console.log("missing info", selectedTab, selectedItem);
+        return;
+    }
+    fetch(`${backendURL}/garden/buyShopItem/${selectedTab}/${selectedItem}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+            cost: currentItemCost,
+
+        }),
+    })
         .then((response) => {
             if (response.ok) {
                 setup();
@@ -215,16 +246,24 @@ async function purchaseItem(tab, type) {
         .catch((error) => console.error("Error buying decoration:", error));
 }
 
-
 function resizeWindow() {
-    document.getElementById("shop-inventory").style.height = `${(screen.height) - 300}px`;
+    document.getElementById("shop-inventory").style.height = `${screen.height - 300
+        }px`;
 }
 
 async function setup() {
     await getWallet();
     await getInventory();
-    getItems(currentTab);
+    if (userInventory[currentTab]) {
+        getItems(currentTab);
+    }
     resizeWindow();
     window.onresize = resizeWindow;
 }
 setup();
+setTimeout(() => {
+    setup();
+}, 500);
+window.getItems = getItems;
+window.openPurchaseScreen = openPurchaseScreen;
+window.closePurchaseScreen = closePurchaseScreen;

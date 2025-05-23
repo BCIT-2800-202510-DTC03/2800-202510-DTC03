@@ -15,34 +15,24 @@ const cors = require("cors");
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
-        origin: [
-            "http://localhost:5500",
-            "http://127.0.0.1:5500",
-            "https://two800bloomgreener.onrender.com",
-        ],
+        origin: "https://two800bloomgreener.onrender.com",
         credentials: true,
     })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.set("trust proxy", 1);
 app.use(
     session({
         secret: process.env.SESSION_SECRET /* from .env */,
         resave: false,
         saveUninitialized: false,
-
         cookie: {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax", // Only set to lax for local deployment. Set none for split
-            maxAge: 1000 * 60 * 60 * 24,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24, // 1天
         },
-        // for deploy in future
-        //     cookie: {
-        //   httpOnly: true,
-        //   secure: true,
-        // }
     })
 );
 
@@ -64,7 +54,6 @@ app.use("/user", userRouter);
 
 /* Login */
 app.get("/", (req, res) => res.redirect("/login"));
-
 
 const gardenRouter = require("./routes/garden");
 app.use("/garden", gardenRouter);

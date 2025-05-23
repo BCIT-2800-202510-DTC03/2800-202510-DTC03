@@ -1,5 +1,6 @@
 import { insertGarden } from "./garden.js";
 // import { loadUserTasks } from "./userTasks.js";
+import { backendURL } from "../util.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
 const overlay = document.getElementById("task-overlay");
@@ -10,20 +11,17 @@ let title;
 let closeOverlay;
 let userCurrency;
 if (document.getElementById("close-overlay")) {
-    closeOverlay = document.getElementById("close-overlay")
-};
+    closeOverlay = document.getElementById("close-overlay");
+}
 const filterGoals = document.getElementById("filter-goals");
 const taskItems = document.getElementById("task-items");
 
-const filterDropdown = document.getElementById('filter-goals');
+const filterDropdown = document.getElementById("filter-goals");
 if (filterDropdown) {
-    toggleBtn = filterDropdown.querySelector('.filter-toggle')
-    menu = filterDropdown.querySelector('.dropdown-menu');
-    title = filterDropdown.querySelector('.dropdown-title');
-};
-
-
-
+    toggleBtn = filterDropdown.querySelector(".filter-toggle");
+    menu = filterDropdown.querySelector(".dropdown-menu");
+    title = filterDropdown.querySelector(".dropdown-title");
+}
 
 const taskCounter = document.getElementById("task-counter");
 const completedTasks = document.getElementById("completed-tasks");
@@ -160,12 +158,20 @@ if (addBtn) {
 
             const formatCategory = (category) => {
                 switch (category) {
-                    case "greenerEating": return "Greener Eating";
-                    case "transportation": return "Transportation";
-                    case "wasteReduction": return "Waste Reduction";
-                    case "resourceConservation": return "Resource Conservation";
-                    case "consciousConsumption": return "Conscious Consumption";
-                    default: return category.charAt(0).toUpperCase() + category.slice(1);
+                    case "greenerEating":
+                        return "Greener Eating";
+                    case "transportation":
+                        return "Transportation";
+                    case "wasteReduction":
+                        return "Waste Reduction";
+                    case "resourceConservation":
+                        return "Resource Conservation";
+                    case "consciousConsumption":
+                        return "Conscious Consumption";
+                    default:
+                        return (
+                            category.charAt(0).toUpperCase() + category.slice(1)
+                        );
                 }
             };
 
@@ -208,10 +214,14 @@ if (addBtn) {
                         );
                         if (alreadyExists) {
                             if (alreadyExists.completed) {
-                                console.log("Task already completed in userTasks. Skipping add.");
+                                console.log(
+                                    "Task already completed in userTasks. Skipping add."
+                                );
                                 alert("Task is already completed!");
                             } else {
-                                console.log("Task already exists in userTasks. Skipping add.");
+                                console.log(
+                                    "Task already exists in userTasks. Skipping add."
+                                );
                                 alert("Task already exists!");
                             }
                             return;
@@ -230,8 +240,8 @@ if (addBtn) {
                 }
             }
         }
-    })
-};
+    });
+}
 
 // Add task to homepage UI
 function addTaskToHome(taskText, category, completed = false) {
@@ -269,7 +279,7 @@ async function reloadUserTasks() {
 
 function taskVisibility() {
     const message = document.getElementById("no-task-message");
-    const activeTasks = userTasks.filter(t => !t.completed);
+    const activeTasks = userTasks.filter((t) => !t.completed);
     if (activeTasks.length === 0) {
         console.log("There are no tasks saved to the user db");
         message.style.display = "block";
@@ -277,7 +287,6 @@ function taskVisibility() {
         console.log("There are tasks in the users db!");
         message.style.display = "none";
     }
-
 }
 
 // loads user tasks
@@ -298,7 +307,7 @@ async function loadUserTasks() {
                 id: task._id,
                 text: task.description,
                 category: task.category,
-                completed: isCompleted
+                completed: isCompleted,
             });
         });
     } catch (err) {
@@ -327,7 +336,7 @@ async function addTaskToUser(description, category) {
 // changes the user tasks to complete
 async function completeUserTask(taskText, task, userTasks) {
     const targetTask = userTasks.find(
-        t => t.text.trim().toLowerCase() === taskText.trim().toLowerCase()
+        (t) => t.text.trim().toLowerCase() === taskText.trim().toLowerCase()
     );
     if (!targetTask || !targetTask.id) {
         console.error("Task ID not found for completion");
@@ -335,32 +344,42 @@ async function completeUserTask(taskText, task, userTasks) {
     }
     try {
         console.log("Trying to match:", taskText);
-        console.log("In userTasks:", userTasks.map(t => t.text));
-        await axios.post(`${backendURL}/userTasks/complete`, {
-            taskId: targetTask.id
-        }, { withCredentials: true });
-        await axios.post(`${backendURL}/user/updateInfo`, {
-            amount: 5
-        }, { withCredentials: true });
+        console.log(
+            "In userTasks:",
+            userTasks.map((t) => t.text)
+        );
+        await axios.post(
+            `${backendURL}/userTasks/complete`,
+            {
+                taskId: targetTask.id,
+            },
+            { withCredentials: true }
+        );
+        await axios.post(
+            `${backendURL}/user/updateInfo`,
+            {
+                amount: 5,
+            },
+            { withCredentials: true }
+        );
 
         // Visually mark as complete
         task.classList.add("completed");
         setTimeout(() => {
-            document.getElementById("popup_sunpoints_rewards").style.display = "block";
+            document.getElementById("popup_sunpoints_rewards").style.display =
+                "block";
             setTimeout(() => {
-                document.getElementById("popup_sunpoints_rewards").style.display = "none";
+                document.getElementById(
+                    "popup_sunpoints_rewards"
+                ).style.display = "none";
             }, 2000);
-
-        }, 500)
-
-
-
+        }, 500);
 
         setTimeout(() => {
             task.remove();
 
             // Update local array
-            const index = userTasks.findIndex(t => t.id === targetTask.id);
+            const index = userTasks.findIndex((t) => t.id === targetTask.id);
             if (index !== -1) {
                 const completedTask = userTasks.splice(index, 1)[0];
                 completedTask.completed = true;
@@ -374,12 +393,10 @@ async function completeUserTask(taskText, task, userTasks) {
     }
 }
 
-
-
 // Changes what the counter says for number tasks left for user
 function updateTaskCounter() {
     console.log("counter");
-    const activeTasks = userTasks.filter(t => !t.completed);
+    const activeTasks = userTasks.filter((t) => !t.completed);
     if (activeTasks.length === 1) {
         taskCounter.textContent = `${activeTasks.length} task left to do!`;
     } else {
@@ -389,21 +406,25 @@ function updateTaskCounter() {
 
 //close overlay when clicking off
 if (document.getElementById("task-overlay")) {
-    document.getElementById("task-overlay").addEventListener("click", (event) => {
-        const overlayContent = document.getElementById("task-overlay-content");
-        if (!overlayContent.contains(event.target)) {
-            document.getElementById("task-overlay").style.display = "none";
-        }
-    })
-};
+    document
+        .getElementById("task-overlay")
+        .addEventListener("click", (event) => {
+            const overlayContent = document.getElementById(
+                "task-overlay-content"
+            );
+            if (!overlayContent.contains(event.target)) {
+                document.getElementById("task-overlay").style.display = "none";
+            }
+        });
+}
 
 // Close overlay
 if (document.getElementById("close-overlay")) {
     closeOverlay.addEventListener("click", () => {
         overlay.style.display = "none";
         console.log("button closed");
-    })
-};
+    });
+}
 
 // Filter tasks on homepage based on category select
 if (filterGoals) {
@@ -418,7 +439,9 @@ if (filterGoals) {
         const filteredTasks =
             selectedCategory === "all"
                 ? userTasks
-                : userTasks.filter((task) => task.category === selectedCategory);
+                : userTasks.filter(
+                      (task) => task.category === selectedCategory
+                  );
 
         // Add filtered tasks to homepage
         filteredTasks.forEach((task) => {
@@ -427,21 +450,21 @@ if (filterGoals) {
         updateTaskCounter();
     });
 
-
     // Filter through the list of items
-    menu.querySelectorAll('li').forEach(item => {
-        item.addEventListener('click', () => {
-            filterDropdown.classList.remove('open');
-            toggleBtn.setAttribute('aria-expanded', false);
+    menu.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", () => {
+            filterDropdown.classList.remove("open");
+            toggleBtn.setAttribute("aria-expanded", false);
             const selected = item.dataset.value;
             taskItems.innerHTML = "";
             completedTasks.innerHTML = "";
 
-            const filtered = selected === "all"
-                ? userTasks
-                : userTasks.filter(t => t.category === selected);
+            const filtered =
+                selected === "all"
+                    ? userTasks
+                    : userTasks.filter((t) => t.category === selected);
 
-            filtered.forEach(task => {
+            filtered.forEach((task) => {
                 addTaskToHome(task.text, task.category, task.completed);
             });
             updateTaskCounter();
@@ -449,20 +472,20 @@ if (filterGoals) {
     });
 
     // Open filter on click
-    toggleBtn.addEventListener('click', () => {
-        const isOpen = filterDropdown.classList.toggle('open');
-        toggleBtn.setAttribute('aria-expanded', isOpen);
+    toggleBtn.addEventListener("click", () => {
+        const isOpen = filterDropdown.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", isOpen);
         if (isOpen) {
-            menu.querySelector('li').focus();
+            menu.querySelector("li").focus();
         }
     });
 }
 
 // Close dropdown if clicking outside
-document.addEventListener('click', e => {
+document.addEventListener("click", (e) => {
     if (!filterDropdown.contains(e.target)) {
-        filterDropdown.classList.remove('open');
-        toggleBtn.setAttribute('aria-expanded', false);
+        filterDropdown.classList.remove("open");
+        toggleBtn.setAttribute("aria-expanded", false);
     }
 });
 
@@ -483,39 +506,47 @@ async function loadUserCurrency() {
         });
 
         const userCurrency = response.data.currency;
-        console.log(userCurrency)
+        console.log(userCurrency);
         //get all needed information
-        return userCurrency
-
+        return userCurrency;
     } catch (error) {
         //replace with on screen message
         console.error("Error getting user information", error);
     }
-
 }
 
 export async function loadGarden() {
-    const backendURLTest = "http://localhost:3000"; // waiting to be updated
-    console.log("load garden function is called")
+    console.log("load garden function is called");
 
-    await fetch("http://localhost:3000/garden/getGarden", { method: "GET", credentials: "include" })
+    await fetch(`${backendURL}/garden/getGarden`, {
+        method: "GET",
+        credentials: "include",
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log("FETCH FROM DATABASE");
             console.log(data);
-            insertGarden(data.fence, data.building, data.shelf,
-                data.rightObject, data.leftObject,
-                data.plant1, data.plant2, data.plant3,
-                data.plant4, data.plant5, data.plant6);
+            insertGarden(
+                data.fence,
+                data.building,
+                data.shelf,
+                data.rightObject,
+                data.leftObject,
+                data.plant1,
+                data.plant2,
+                data.plant3,
+                data.plant4,
+                data.plant5,
+                data.plant6
+            );
         })
         .catch((error) => console.error("Error fetching user garden:", error));
-
 }
 
 async function setup() {
-    userCurrency = await loadUserCurrency()
+    userCurrency = await loadUserCurrency();
     await loadGarden();
-    console.log("setup function in home.js is called")
+    console.log("setup function in home.js is called");
     await loadUserTasks().then(updateTaskCounter);
 
     taskVisibility();
