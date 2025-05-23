@@ -69,7 +69,7 @@ async function getItems(tab) {
 
                 switch (tab) {
                     case "fence": {
-                        userInventory.fence.forEach((inventoryItem) => {
+                        (userInventory.fence || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -77,7 +77,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "building": {
-                        userInventory.building.forEach((inventoryItem) => {
+                        (userInventory.building || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -85,7 +85,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "shelf": {
-                        userInventory.shelf.forEach((inventoryItem) => {
+                        (userInventory.shelf || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -93,7 +93,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "object": {
-                        userInventory.object.forEach((inventoryItem) => {
+                        (userInventory.object || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -101,7 +101,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "plant": {
-                        userInventory.plant.forEach((inventoryItem) => {
+                        (userInventory.plant || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
