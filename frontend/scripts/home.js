@@ -518,7 +518,7 @@ async function loadUserCurrency() {
 export async function loadGarden() {
     console.log("load garden function is called");
 
-    await fetch(`${backendURL}garden/getGarden`, {
+    await fetch(`${backendURL}/garden/getGarden`, {
         method: "GET",
         credentials: "include",
     })
