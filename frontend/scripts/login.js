@@ -1,3 +1,5 @@
+/* global axios */
+
 import { backendURL } from "../util.js";
 import { frontendURL } from "../util.js";
 
@@ -47,7 +49,7 @@ function handleLogout() {
     const logoutButton = document.getElementById("logoutButton");
     logoutButton.addEventListener("click", async () => {
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${backendURL}/user/logout`,
 
                 {},
@@ -74,8 +76,7 @@ async function loginSubmit(event) {
     let password = document.getElementById("input_login_password").value;
     // waiting to be updated: set the email as username for now
     if (!emailAddress.includes("@")) {
-        loginErrorMessage.textContent =
-            "Invalid Email address";
+        loginErrorMessage.textContent = "Invalid Email address";
     }
     const userData = {
         username: emailAddress,
@@ -152,12 +153,12 @@ async function signUpSubmit(event) {
 
 // Toggle login and logout buttons
 async function checkLoginStatus() {
+    const logoutButton = document.getElementById("logoutButton");
+    const authButton = document.getElementById("input_login_submit");
     try {
         const response = await axios.get(`${backendURL}/user/status`, {
             withCredentials: true,
         });
-        const logoutButton = document.getElementById("logoutButton");
-        const authButton = document.getElementById("input_login_submit");
         console.log("Login status:", response.data.loggedIn);
 
         if (response.data.loggedIn) {
