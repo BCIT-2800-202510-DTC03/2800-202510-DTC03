@@ -1,3 +1,5 @@
+/* global axios */
+
 import { GoogleGenAI } from "https://esm.run/@google/genai";
 
 import { backendURL } from "../util.js";
