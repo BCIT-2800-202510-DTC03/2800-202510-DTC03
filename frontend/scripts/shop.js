@@ -191,8 +191,11 @@ function openPurchaseScreen() {
     purchaseOverlay.style.animation = "openPurchaseScreen 0.5s normal";
     purchaseOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
     purchaseOverlay.style.display = "initial";
+    let purchaseConfirm;
 
-    const purchaseConfirm = document.getElementById("confirm-button");
+    if (document.getElementById("confirm-button")) {
+        purchaseConfirm = document.getElementById("confirm-button")
+    };
     purchaseConfirm.onclick = purchaseItem;
 }
 
