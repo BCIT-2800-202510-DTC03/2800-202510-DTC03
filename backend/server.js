@@ -15,7 +15,7 @@ const cors = require("cors");
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
-        origin: true,
+        origin: "https://two800bloomgreener.onrender.com",
         credentials: true,
     })
 );
@@ -27,6 +27,12 @@ app.use(
         secret: process.env.SESSION_SECRET /* from .env */,
         resave: false,
         saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 1000 * 60 * 60 * 24, // 1天
+        },
     })
 );
 
