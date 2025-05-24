@@ -110,7 +110,6 @@ body {
     border: solid 0.1rem lightgrey;
     border-radius: 0.7vh;
     color: var(--dark-green);
-    width: 100%;
     cursor: pointer;
     padding: 0vh 1vw;
 }
@@ -230,6 +229,5 @@ body {
 }
 
 #garden-display {
-    width: 90%;
     max-width: 600px;
 }
