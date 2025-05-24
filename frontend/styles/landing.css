@@ -1,13 +1,3 @@
-/* Needs to override any future block styling
-.hidden {
-  display: none !important;
-} */
-
-/* color 
-DDA15E Orange
-DFCFBF bisque
-606C38 dark green*/
-
 html,
 body,
 h1 {
@@ -19,20 +9,7 @@ body {
     height: 100%;
     margin: 0;
 }
-/* .landing_container {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
 
-.screen {
-  height: 100vh;
-  scroll-snap-align: start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 .banner_wrapper {
     display: flexbox;
     position: relative;

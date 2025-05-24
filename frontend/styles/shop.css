@@ -1,10 +1,10 @@
 @keyframes openPurchaseScreen {
     from {
-        background-color: rgba(0, 0, 0, 0.0);
+        background-color: rgba(0, 0, 0, 0);
     }
     to {
         background-color: rgba(0, 0, 0, 0.3);
-    } 
+    }
 }
 
 @keyframes closePurchaseScreen {
@@ -12,8 +12,8 @@
         background-color: rgba(0, 0, 0, 0.3);
     }
     to {
-        background-color: rgba(0, 0, 0, 0.0);
-    } 
+        background-color: rgba(0, 0, 0, 0);
+    }
 }
 
 body {
@@ -32,12 +32,12 @@ body {
     align-items: center;
 
     background-image: linear-gradient(
-                        rgb(55, 40, 30),
-                        rgb(65, 50, 40), 
-                        rgb(75, 60, 50),
-                        rgb(95, 80, 70), 
-                        rgb(55, 40, 30)
-                    );
+        rgb(55, 40, 30),
+        rgb(65, 50, 40),
+        rgb(75, 60, 50),
+        rgb(95, 80, 70),
+        rgb(55, 40, 30)
+    );
 }
 
 #shop-showcase #showcase-item {
@@ -46,8 +46,8 @@ body {
 
     margin: 25px;
 
-    visibility: hidden; 
-    
+    visibility: hidden;
+
     object-fit: contain;
     object-position: center;
 }
@@ -63,17 +63,17 @@ body {
     box-shadow: 5px 5px 2px 2px rgba(0, 0, 0, 0.3);
 
     color: white;
-    background-color: #606C38;
+    background-color: #606c38;
 }
 
-#shop-showcase #purchase-item:enabled:hover{
+#shop-showcase #purchase-item:enabled:hover {
     width: 31%;
     font-weight: bold;
 
     background-color: #7d913b;
 }
 
-#shop-showcase #purchase-item:disabled{
+#shop-showcase #purchase-item:disabled {
     background-color: #949789;
 }
 
@@ -95,10 +95,10 @@ body {
     align-items: center;
 
     background-image: linear-gradient(
-                        rgb(150, 90, 35),
-                        rgb(150, 90, 35),
-                        rgb(100, 45, 15)
-                    );
+        rgb(150, 90, 35),
+        rgb(150, 90, 35),
+        rgb(100, 45, 15)
+    );
 }
 
 /* Tabs */
@@ -121,7 +121,7 @@ body {
 
     color: rgb(235, 220, 190);
     font-size: auto;
-    
+
     border: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -155,7 +155,7 @@ body {
     overflow-y: scroll;
 }
 
-.shop-cards{
+.shop-cards {
     width: 40vw;
     max-width: 200px;
     height: 200px;
@@ -170,7 +170,7 @@ body {
     box-shadow: 5px 5px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.shop-cards div{
+.shop-cards div {
     width: 100%;
     height: 150px;
 
@@ -195,7 +195,7 @@ body {
     object-position: center;
 }
 
-.shop-cards p{
+.shop-cards p {
     margin: 0;
     padding: 5px;
 
@@ -231,7 +231,6 @@ body {
     text-decoration: line-through;
 }
 
-
 /* Purchase Screen */
 #purchase-overlay {
     width: 100%;
@@ -241,8 +240,8 @@ body {
     display: none;
 
     position: fixed;
-    
-    background-color: rgba(0, 0, 0, 0.0);
+
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #purchase-confirmation {
@@ -300,7 +299,7 @@ body {
     font-weight: bold;
     color: white;
 
-    background-color: #606C38;
+    background-color: #606c38;
 }
 
 #confirm-button:hover {
