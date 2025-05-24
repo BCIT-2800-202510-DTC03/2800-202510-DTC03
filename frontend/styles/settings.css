@@ -1,21 +1,15 @@
 #settings-wrapper {
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 0 1rem;
 }
 
-.field {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.input {
-    text-indent: 15px;
-}
-#settings-wrapper {
+.label {
     display: flex;
     flex-direction: column;
-    margin: auto;
+    align-items: flex-start;
 }
 
 .field {
@@ -25,6 +19,20 @@
 
 .input {
     text-indent: 15px;
+    padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #606c38;
+    box-shadow: 0 0 0 2px rgba(96, 108, 56, 0.3);
+    transition: 0.2s ease-in-out;
 }
 
 .heading {
@@ -32,6 +40,7 @@
     font-size: 1.75rem;
     line-height: 2.5rem;
     color: #606c38;
+    padding-top: 1rem;
 }
 #updateSettingsBtn {
     display: block;
@@ -44,6 +53,5 @@
     background-color: #606c38;
     color: #fff;
     font-weight: 600;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
 }

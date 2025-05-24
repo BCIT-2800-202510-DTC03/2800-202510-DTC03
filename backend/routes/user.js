@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 // import user model
 const User = require("../models/User");
 const Garden = require("../models/Garden");
@@ -26,7 +26,7 @@ router.get("/status", (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
         const user = await User.findOne({ email });
 
         // find the user
@@ -81,7 +81,7 @@ router.post("/logout", async (req, res) => {
 // register
 router.post("/register", async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
 
         // validate input are not empty
         if (!email || !password) {
@@ -154,23 +154,22 @@ router.get("/test", (req, res) => {
 
 router.post("/userID", async (req, res) => {
     try {
-        const { } = req.body;
         const userId = req.session.userId;
 
         if (!userId) {
             return res.status(401).json({
-                error_message: "No active user session."
-            })
+                error_message: "No active user session.",
+            });
         }
 
-        return res.status(200).json({ userId: userId })
+        return res.status(200).json({ userId: userId });
     } catch (error) {
         console.error("Failed to get user ID: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
+});
 
 router.get("/UserInfo", async (req, res) => {
     try {
@@ -225,7 +224,7 @@ router.post("/updateInfo", async (req, res) => {
         if (typeof amount === "number") {
             user.currency += amount;
         }
-        console.log("user's currency is ", user.currency)
+        console.log("user's currency is ", user.currency);
         console.log("assigned");
         //save changes
         await user.save();
@@ -237,16 +236,15 @@ router.post("/updateInfo", async (req, res) => {
             error_message: "Server error",
         });
     }
-})
-
+});
 
 router.get("/checkForUser", async (req, res) => {
     try {
         const userId = req.query.id;
         if (!userId) {
             return res.status(400).json({
-                message: "No userID provided"
-            })
+                message: "No userID provided",
+            });
         } else if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid ID format." });
         }
@@ -255,17 +253,16 @@ router.get("/checkForUser", async (req, res) => {
         if (!user) {
             return res.status(400).json({
                 message: "No user found.",
-            })
+            });
         }
         res.status(200).json({ message: "User found!" });
     } catch (error) {
         console.error("Failed to fetch user: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
-
+});
 
 router.post("/removeFriend", async (req, res) => {
     try {
@@ -276,8 +273,8 @@ router.post("/removeFriend", async (req, res) => {
 
         if (!id) {
             return res.status(401).json({
-                error_message: "No active user session."
-            })
+                error_message: "No active user session.",
+            });
         }
 
         const objectId = new mongoose.Types.ObjectId(friendId);
@@ -286,7 +283,7 @@ router.post("/removeFriend", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         const result = await User.updateOne(
@@ -296,19 +293,18 @@ router.post("/removeFriend", async (req, res) => {
 
         if (result.modifiedCount === 0) {
             return res.status(400).json({
-                error_message: "Friend not found or already removed."
+                error_message: "Friend not found or already removed.",
             });
         }
 
         res.status(200).json({ message: "Removed Friend." });
-
     } catch (error) {
         console.error("Failed to remove friend: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
+});
 
 router.get("/getFriends", async (req, res) => {
     try {
@@ -317,8 +313,8 @@ router.get("/getFriends", async (req, res) => {
         const id = "681d758b7ca8a10aecec3284";
         if (!id) {
             return res.status(401).json({
-                error_message: "No active user session."
-            })
+                error_message: "No active user session.",
+            });
         }
 
         const user = await User.findOne({ _id: id });
@@ -326,18 +322,17 @@ router.get("/getFriends", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         res.status(200).json({ friends: user.friends });
-
     } catch (error) {
         console.error("Failed to fetch user: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
+});
 
 router.get("/getInfo", async (req, res) => {
     try {
@@ -345,8 +340,8 @@ router.get("/getInfo", async (req, res) => {
 
         if (!id) {
             return res.status(401).json({
-                error_message: "No userID provided."
-            })
+                error_message: "No userID provided.",
+            });
         }
 
         const user = await User.findOne({ _id: id });
@@ -354,7 +349,7 @@ router.get("/getInfo", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         return res.status(200).json({
@@ -363,15 +358,14 @@ router.get("/getInfo", async (req, res) => {
             goal: user.goal,
             about: user.aboutMe,
             id: user._id,
-        })
+        });
     } catch (error) {
         console.error("Failed to fetch user: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
-
+});
 
 router.post("/addFriend", async (req, res) => {
     try {
@@ -381,18 +375,18 @@ router.post("/addFriend", async (req, res) => {
 
         if (!id) {
             return res.status(401).json({
-                error_message: "No active user session."
-            })
+                error_message: "No active user session.",
+            });
         }
         if (!friendId) {
             return res.status(401).json({
-                error_message: "No friend Id provided."
-            })
+                error_message: "No friend Id provided.",
+            });
         }
 
         if (id === friendId) {
             return res.status(400).json({
-                error_message: "You cannot add yourself as a friend."
+                error_message: "You cannot add yourself as a friend.",
             });
         }
 
@@ -401,28 +395,27 @@ router.post("/addFriend", async (req, res) => {
         if (!user) {
             return res.status(401).json({
                 error_message: "Failed to find user.",
-            })
+            });
         }
 
         if (user.friends.includes(friendId)) {
             return res.status(400).json({
-                error_message: "User is already in friends list."
+                error_message: "User is already in friends list.",
             });
         }
-
 
         user.friends.push(friendId);
         await user.save();
 
         res.status(200).json({
-            message: "Successfully added friend."
-        })
+            message: "Successfully added friend.",
+        });
     } catch (error) {
         console.error("Failed to add friend: ", error);
         res.status(500).json({
             error_message: "Server error",
-        })
+        });
     }
-})
+});
 
 module.exports = router;
