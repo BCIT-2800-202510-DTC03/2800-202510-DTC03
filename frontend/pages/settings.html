@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="../styles/settings.css" />
   <link rel="stylesheet" href="../styles/navbar.css" />
 
-  <!-- This is for installing Tailwind locally and having the same Tailwind and daisyUI styling across mutliple pages-->
-  <link href="../styles/output.css" rel="stylesheet" />
   <!-- Need this for loading profile picture in header -->
   <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- This swaps backend URLs depending on deployment type (local vs render) -->
@@ -29,19 +27,19 @@
     <!--  Header will be inserted here -->
   </header>
 
-  <div id="settings-wrapper" class="max-w-md mx-auto px-4">
+  <div id="settings-wrapper">
     <h1 class="heading pt-4">Account Settings</h1>
     <!-- Need to add card styling later -->
     <form id="settingsForm">
       <!-- Username -->
       <div class="field">
-        <label class="label flex flex-col items-start"> User ID </label>
+        <label> User ID </label>
         <input id="userId" type="text" name="userId" class="input" required readonly />
       </div>
 
       <!-- Email -->
       <div class="field">
-        <label class="label flex flex-col items-start">
+        <label>
           <span id="email" class="label-text">Email</span>
         </label>
         <input id="emailInput" class="input" type="email" name="email" class="input" required />
@@ -49,7 +47,7 @@
 
       <!-- Old Password-->
       <div class="field">
-        <label class="label flex flex-col items-start">
+        <label>
           <span id="oldPassword" class="label-text">Old Password</span>
         </label>
         <input type="password" class="input" name="oldPassword" class="input input-bordered" />
@@ -57,7 +55,7 @@
 
       <!-- New Password -->
       <div class="field">
-        <label class="label flex flex-col items-start">
+        <label>
           <span id="newPassword" class="label-text">New Password</span>
         </label>
         <input type="password" class="input" name="newPassword" class="input" />
@@ -65,13 +63,13 @@
 
       <!-- Confirm Password -->
       <div class="field">
-        <label class="label flex flex-col items-start">
+        <label>
           <span id="confirmPassword" class="label-text">Confirm Password</span>
         </label>
         <input type="password" class="input" name="confirmPassword" class="input" />
       </div>
 
-      <button type="submit" class="btn btn-primary px-5" id="updateSettingsBtn">
+      <button type="submit" id="updateSettingsBtn">
         Update Settings
       </button>
     </form>
