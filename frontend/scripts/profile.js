@@ -1,3 +1,5 @@
+/* global axios */
+
 import { loadGarden } from "./home.js";
 
 import { backendURL } from "../util.js";
@@ -9,39 +11,11 @@ const buttons = document.querySelectorAll(".pfp-image-radio");
 const pfp = document.getElementById("profile-picture");
 const aboutMe = document.getElementById("about-me-txt");
 const goalSelect = document.getElementById("goals");
-const gBGElmnt = document.getElementById("garden-background");
-const gGRNDElmnt = document.getElementById("garden-ground");
-const gFenceElmnt = document.getElementById("garden-fence");
-const gBuildElmnt = document.getElementById("garden-building");
-const gShelfElmnt = document.getElementById("garden-shelf");
-const gplnt1Elmnt = document.getElementById("one");
-const gplnt2Elmnt = document.getElementById("two");
-const gplnt3Elmnt = document.getElementById("three");
-const gplnt4Elmnt = document.getElementById("four");
-const gplnt5Elmnt = document.getElementById("five");
-const gplnt6Elmnt = document.getElementById("six");
-const gRightElmnt = document.getElementById("garden-rightObject");
-const gLeftElmnt = document.getElementById("garden-leftObject");
 
 //user info variables
 var aboutContent;
 var pfpPreference;
 var userGoal;
-
-//garden variables
-var gardenBG;
-var gardenGRND;
-var gardenFence;
-var gardenBuild;
-var gardenShelf;
-var gardenplnt1;
-var gardenplnt2;
-var gardenplnt3;
-var gardenplnt4;
-var gardenplnt5;
-var gardenplnt6;
-var gardenRight;
-var gardenLeft;
 
 function profilePictureSetup() {
     editPencil.addEventListener("click", (event) => {
@@ -91,7 +65,7 @@ async function updateUserPreference() {
         pfpPreference = pfp.src;
         userGoal = goalSelect.value;
 
-        const response = await axios.post(
+        await axios.post(
             `${backendURL}/user/updateInfo`,
             {
                 aboutMe: aboutContent,
@@ -142,20 +116,18 @@ async function loadUserPreferences() {
 
 function radioButtonSetup() {
     buttons.forEach((btn) => {
-        buttons.forEach((btn) => {
-            //event listener for profile picture options
-            btn.addEventListener("change", () => {
-                if (btn.checked) {
-                    const newImageSource = btn.value;
-                    pfp.src = newImageSource;
-                    pfpOptions.style.display = "none";
-                    updateUserPreference();
-                    const headerPfp = document.getElementById("header-profile");
-                    if (headerPfp) {
-                        headerPfp.style.backgroundImage = `url('${newImageSource}')`;
-                    }
+        //event listener for profile picture options
+        btn.addEventListener("change", () => {
+            if (btn.checked) {
+                const newImageSource = btn.value;
+                pfp.src = newImageSource;
+                pfpOptions.style.display = "none";
+                updateUserPreference();
+                const headerPfp = document.getElementById("header-profile");
+                if (headerPfp) {
+                    headerPfp.style.backgroundImage = `url('${newImageSource}')`;
                 }
-            });
+            }
         });
     });
 }
