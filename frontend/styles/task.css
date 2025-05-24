@@ -1,175 +1,174 @@
 .task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #dfcfbf;
-    border-radius: 2rem;
-    padding: 18px 20px;
-    margin: 12px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: "Poppins", sans-serif;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #dfcfbf;
+  border-radius: 2rem;
+  padding: 18px 20px;
+  margin: 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
 }
 
 .task-text {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 450;
-    line-height: 1.4;
-    word-break: break-word;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 450;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 .task-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 16px;
 }
 
 .sunpoints {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: #333;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #333;
 }
 
 .sun-icon {
-    margin-right: 4px;
-    font-size: 1.2rem;
+  margin-right: 4px;
+  font-size: 1.2rem;
 }
 
 .sun-value {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .checkmark {
-    width: 32px;
-    height: 32px;
-    border: 1px solid #333;
-    border-radius: 25%;
-    background-color: #f5f0e6;
-    position: relative;
-    cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #333;
+  border-radius: 25%;
+  background-color: #f5f0e6;
+  position: relative;
+  cursor: pointer;
 }
 
 .checkmark .icon {
-    width: 40px;
-    height: 60px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
+  width: 40px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .checkmark:hover .icon {
-    opacity: 1;
+  opacity: 1;
 }
 
 .task.completed .checkmark .icon {
-    opacity: 1;
+  opacity: 1;
 }
 
 #AI-task-btn {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
-    background-color: #606c38;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-    border: none;
-    outline: none;
-    color: white;
-    cursor: pointer;
-    user-select: none;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #606c38;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  user-select: none;
 }
 
 #AI-task-btn:hover {
-    background-color: #506026;
+  background-color: #506026;
 }
 
 #AI-task-display {
-    position: absolute;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    max-width: 400px;
-    padding: 2rem;
-    background: linear-gradient(180deg, #606c38, #738a27);
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    color: #fefae0;
-    box-sizing: border-box;
-    text-align: center;
-    z-index: 1001;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 400px;
+  padding: 2rem;
+  background: linear-gradient(180deg, #606c38, #738a27);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  color: #fefae0;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 1001;
 }
 
 #AI-task-desc {
-    padding: 1.5rem 0;
-    font-size: 1.2rem;
-    flex-grow: 1;
+  padding: 1.5rem 0;
+  font-size: 1.2rem;
+  flex-grow: 1;
 }
 
 .AI-sunpoints {
-    font-size: 1.5rem;
-    margin-bottom: 1.5vh;
+  font-size: 1.5rem;
+  margin-bottom: 1.5vh;
 }
 
 #AI-btn-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  width: 100%;
 }
 
 .AI-btn {
-    padding: 1vh;
-    cursor: pointer;
-    background-color: #f1e2d2;
-    color: #606c38;
-    border-radius: 1vh;
-    border: none;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: opacity 0.2s ease;
+  padding: 1vh;
+  cursor: pointer;
+  background-color: #f1e2d2;
+  color: #606c38;
+  border-radius: 1vh;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: opacity 0.2s ease;
 }
 
 .AI-btn:hover {
-    transition: 0.2s;
-    opacity: 0.8;
+  transition: 0.2s;
+  opacity: 0.8;
 }
 
 #AI-task-wrap {
-    position: absolute;
-    top: 53%;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    z-index: 1000;
+  position: absolute;
+  top: 53%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .AI-task {
-    width: 60%;
-    border-radius: 1vh;
+  width: 60%;
+  border-radius: 1vh;
 }
