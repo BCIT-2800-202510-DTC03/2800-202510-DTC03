@@ -75,9 +75,7 @@ async function loginSubmit(event) {
     let emailAddress = document.getElementById("input_login_id").value;
     let password = document.getElementById("input_login_password").value;
     // waiting to be updated: set the email as username for now
-    if (!emailAddress.includes("@")) {
-        loginErrorMessage.textContent = "Invalid Email address";
-    }
+
     const userData = {
         username: emailAddress,
         email: emailAddress,
@@ -102,15 +100,32 @@ async function loginSubmit(event) {
         }
     }
 }
+//validating email function
+function validateEmail(email) {
+    const legalChar = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._-"
+    for (let char of email) {
+        if (!legalChar.includes(char)) {
+            signupErrorMessage.textContent = "Invalid Email address"
+            return false;
+        }
+    }
+    return true
+}
+
 //signup
 async function signUpSubmit(event) {
     event.preventDefault();
     signupErrorMessage.textContent = "";
-    let emailAddress = document.getElementById("input_signup_id").value;
+    let emailInput = document.getElementById("input_signup_id").value;
+    let emailAddress = emailInput.trim("");
     let password = document.getElementById("input_signup_password").value;
     let passwordRepeat = document.getElementById(
         "input_signup_password_repeat"
     ).value;
+    if (!validateEmail(emailAddress)) {
+        return;
+    }
+
     // validation: password must be longer than 10
     if (password.length < 10) {
         console.log("error: Password must be at least 10 characters.");
