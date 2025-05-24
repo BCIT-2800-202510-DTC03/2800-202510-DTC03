@@ -1,10 +1,13 @@
+/* global axios */
+import { backendURL } from "../util.js";
+
 export async function loadUserTasks() {
     console.log("Is load user tasks being called?");
     try {
         const tasks = await fetchUserTasks();
 
         if (!Array.isArray(tasks)) {
-            console.error("Expected array but got this instead:", data);
+            console.error("Expected array but got this instead:", tasks);
             return;
         }
         const taskItems = document.getElementById("task-items");

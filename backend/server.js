@@ -5,17 +5,25 @@ const connectToMongo = require("./db"); /* Reference db.js */
 
 const express = require("express");
 const session = require("express-session");
-const path = require("path"); /* Needed for working with directories and file paths */
-// const path = require("path"); /* Needed for working with directories and file paths */
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors");
 
+// Add conditional statement for switching between production and development easily. Just update .env from NODE_ENV=production to NODE_ENV=development.
+const allowedOrigins =
+    process.env.NODE_ENV === "production"
+        ? ["https://two800bloomgreener.onrender.com"]
+        : [
+              "http://localhost:5500",
+              "http://127.0.0.1:5500",
+              "https://two800bloomgreener.onrender.com",
+          ];
+
 /* Middleware to parse JSON and form data */
 app.use(
     cors({
-        origin: "https://two800bloomgreener.onrender.com",
+        origin: allowedOrigins,
         credentials: true,
     })
 );
@@ -29,8 +37,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: process.env.NODE_ENV === "production", // If production, set secure to true. If development, set secure to false.
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // If production, set same site to none. If development, set to lax.
             maxAge: 1000 * 60 * 60 * 24, // 1天
         },
     })
@@ -38,17 +46,6 @@ app.use(
 
 connectToMongo();
 
-/* Routes */
-// app.use("/", authRoutes); /* These aren't made yet, so just placeholders */
-// app.use("/tasks", taskRoutes);
-// app.use("/rewards", rewardRoutes);
-
-/* Testing purposes */
-// app.get("/", (req, res) => {
-//     res.send("Server connected to MongoDB");
-// });
-
-// https://expressjs.com/en/guide/routing.html
 const userRouter = require("./routes/user");
 app.use("/user", userRouter);
 
@@ -79,3 +76,7 @@ app.use("/userTasks", userTasksRouter);
 /*Ai tasks Route*/
 const aiTaskRouter = require("./routes/aiTask");
 app.use("/task/ai", aiTaskRouter);
+
+/*Error page Route */
+const errorRouter = require("./routes/error");
+app.use("/error", errorRouter);

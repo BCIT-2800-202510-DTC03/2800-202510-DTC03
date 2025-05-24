@@ -1,5 +1,9 @@
+/* global axios */
+
+/* eslint-disable no-unused-vars */
+// For "userCurrency" if it’s fetched but not used yet
+
 import { insertGarden } from "./garden.js";
-// import { loadUserTasks } from "./userTasks.js";
 import { backendURL } from "../util.js";
 
 const addBtn = document.getElementById("add-goal-tasks-btn");
@@ -24,6 +28,7 @@ if (filterDropdown) {
 }
 
 const taskCounter = document.getElementById("task-counter");
+
 const completedTasks = document.getElementById("completed-tasks");
 
 const premadeTask = [
@@ -552,4 +557,6 @@ async function setup() {
     taskVisibility();
 }
 
-setup();
+if (taskCounter) {
+    setup(); // Only run this if task UI is present
+}

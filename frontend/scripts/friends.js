@@ -1,3 +1,4 @@
+/* global axios */
 import { backendURL } from "../util.js";
 
 function setUpAddListener() {

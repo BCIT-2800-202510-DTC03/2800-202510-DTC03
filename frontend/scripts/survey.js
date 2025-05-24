@@ -1,97 +1,7 @@
+/* global axios */
+
 import { backendURL } from "../util.js";
 
-// const surveyQuestions = [
-//     {
-//         name: "How often do you eat out?",
-//         options: {
-//             o1: { desc: "Rarely (0-1 times a week)", point: 3 },
-//             o2: { desc: "Occasionally (2-3 times a week)", point: 2 },
-//             o3: { desc: "Frequently (4+ times a week)", point: 1 }
-//         },
-//         type: "greenerEating"
-//     },
-//     {
-//         name: "How do you usually get around?",
-//         options: {
-//             o1: { desc: "Walk or bike", point: 3 },
-//             o2: { desc: "Public transit", point: 2 },
-//             o3: { desc: "Drive alone", point: 1 }
-//         },
-//         type: "transportation"
-//     },
-//     {
-//         name: "How do you handle household waste?",
-//         options: {
-//             o1: { desc: "Compost and recycle consistently", point: 3 },
-//             o2: { desc: "Recycle sometimes", point: 2 },
-//             o3: { desc: "Mostly throw everything in the trash", point: 1 }
-//         },
-//         type: "wasteReduction"
-//     },
-//     {
-//         name: "How energy-efficient is your home?",
-//         options: {
-//             o1: { desc: "I actively monitor and reduce energy use", point: 3 },
-//             o2: { desc: "I try to conserve but don’t track it closely", point: 2 },
-//             o3: { desc: "I don’t do much to reduce energy use", point: 1 }
-//         },
-//         type: "resourceConservation"
-//     },
-//     {
-//         name: "How often do you buy new items?",
-//         options: {
-//             o1: { desc: "Rarely – I try to reuse or buy second-hand", point: 3 },
-//             o2: { desc: "Sometimes – I mix new and used items", point: 2 },
-//             o3: { desc: "Frequently – I love shopping new", point: 1 }
-//         },
-//         type: "consciousConsumption"
-//     },
-//     {
-//         name: "How often do you use public transportation or carpooling?",
-//         options: {
-//             o1: { desc: "Very often", point: 3 },
-//             o2: { desc: "Occasionally", point: 2 },
-//             o3: { desc: "Never", point: 1 }
-//         },
-//         type: "transportation"
-//     },
-//     {
-//         name: "Do you recycle at home?",
-//         options: {
-//             o1: { desc: "Always", point: 3 },
-//             o2: { desc: "Sometimes", point: 2 },
-//             o3: { desc: "Never", point: 1 }
-//         },
-//         type: "wasteReduction"
-//     },
-//     {
-//         name: "How do you conserve water at home?",
-//         options: {
-//             o1: { desc: "Take shorter showers, fix leaks, use low-flow fixtures", point: 3 },
-//             o2: { desc: "Occasionally turn off the tap when not in use", point: 2 },
-//             o3: { desc: "Rarely think about water conservation", point: 1 }
-//         },
-//         type: "resourceConservation"
-//     },
-//     {
-//         name: "How often do you use reusable products instead of single-use items?",
-//         options: {
-//             o1: { desc: "Very often", point: 3 },
-//             o2: { desc: "Sometimes", point: 2 },
-//             o3: { desc: "Never", point: 1 }
-//         },
-//         type: "consciousConsumption"
-//     },
-//     {
-//         name: "What factors influence your decision to buy eco-friendly products?",
-//         options: {
-//             o1: { desc: "Environmental impact", point: 3 },
-//             o2: { desc: "Cost", point: 2 },
-//             o3: { desc: "Brand reputation", point: 1 }
-//         },
-//         type: "consciousConsumption"
-//     }
-// ];
 const surveyQuestions = [
     {
         name: "Do you want to eat more plant-based meals?",
@@ -208,21 +118,23 @@ function main() {
     startButton.addEventListener("click", getNextQuestion);
 }
 
+// Handle moving to next question and storing selected option
 function getNextQuestion() {
+    const alertEle = document.getElementById("err-msg");
     if (current > 0) {
         const selected = document.querySelector(
             'input[name="option-' + (current - 1) + '"]:checked'
         );
         if (selected) {
             userResponses[current] = parseInt(selected.value);
+            alertEle.innerText = ""
         } else {
-            alert("Please select an option before continuing.");
+            alertEle.innerText = "Please select an option before continuing."
             return;
         }
     } else {
         const startText = document.getElementById("starting-text");
         startText.style = "display:none;";
-        startButton.style = "transform: translateX(50%) translateY(-100%);";
     }
     surveyContainer.innerHTML = "";
     if (current === surveyQuestions.length - 1) {
@@ -238,7 +150,9 @@ function getNextQuestion() {
 
     const question = surveyQuestions[current];
     questionName.innerText = question.name;
-    Object.entries(question.options).forEach(([key, option]) => {
+
+    Object.values(question.options).forEach(option => {
+
         const div = document.createElement("div");
         div.className = "question";
         div.innerHTML = `
@@ -251,11 +165,11 @@ function getNextQuestion() {
     console.log(userResponses);
 }
 
+// display final survey results
 function displayResults() {
     let resultText = "";
     let resultCategory = getResults();
-    questionName.innerText = "Your goal is...";
-    questionName.style = "height: 5vh;";
+    questionName.innerText = "";
     switch (resultCategory) {
         case "greenerEating":
             resultText = "To eat greener!";
@@ -276,9 +190,11 @@ function displayResults() {
             resultText = resultCategory;
             break;
     }
-    surveyContainer.innerHTML = `
+    surveyContainer.innerHTML = `<div id="result-div">
+        <h2>Your goal is...</h2>
         <p class="result-p">${resultText}</p>
         <button id="ctn-btn">Looks good!</button><br/>
+        </div>
         <div id="result-b-wrapper">
         <p class="result-p" id="again-p">Not quite what you were thinking?</p>
         <button class="result-b" id="choose-btn">Choose my own goal</button>
@@ -289,7 +205,7 @@ function displayResults() {
         event.preventDefault();
         // Redirect user to home page + store user goal
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${backendURL}/user/updateInfo`,
                 {
                     aboutMe: "",
@@ -305,12 +221,15 @@ function displayResults() {
             console.error("Failed to store user goal.", error);
         }
     });
-
+// update HTML to allow user to choose their own goal
     const choosebtn = document.getElementById("choose-btn");
     choosebtn.addEventListener("click", async (event) => {
         event.preventDefault();
-        surveyContainer.innerHTML = `<p class="result-p">${resultText}</p>
+        surveyContainer.innerHTML = `<div id="result-div">
+        <h2>Your goal is...</h2>
+        <p class="result-p">${resultText}</p>
         <button id="ctn-btn">Looks good!</button><br/>
+        </div>
         <div id="result-b-wrapper">
         <p class="result-p" id="again-p">Choose a goal</p>
         <div id="goal-select-wrap">
@@ -328,6 +247,7 @@ function displayResults() {
     });
 }
 
+// handles choosing the users goal
 function chooseOwnGoal() {
     const ctnChoose = document.getElementById("choose-ctn-btn");
     ctnChoose.addEventListener("click", async (event) => {
@@ -335,7 +255,7 @@ function chooseOwnGoal() {
         const chosenGoal = document.getElementById("goal-select").value;
         console.log(chosenGoal);
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${backendURL}/user/updateInfo`,
                 {
                     aboutMe: "",
@@ -353,6 +273,7 @@ function chooseOwnGoal() {
     });
 }
 
+// calculate the final survey results
 function getResults() {
     let categoryTotals = {
         greenerEating: 0,

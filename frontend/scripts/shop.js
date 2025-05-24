@@ -69,7 +69,7 @@ async function getItems(tab) {
 
                 switch (tab) {
                     case "fence": {
-                        userInventory.fence.forEach((inventoryItem) => {
+                        (userInventory.fence || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -77,7 +77,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "building": {
-                        userInventory.building.forEach((inventoryItem) => {
+                        (userInventory.building || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -85,7 +85,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "shelf": {
-                        userInventory.shelf.forEach((inventoryItem) => {
+                        (userInventory.shelf || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -93,7 +93,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "object": {
-                        userInventory.object.forEach((inventoryItem) => {
+                        (userInventory.object || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -101,7 +101,7 @@ async function getItems(tab) {
                         break;
                     }
                     case "plant": {
-                        userInventory.plant.forEach((inventoryItem) => {
+                        (userInventory.plant || []).forEach((inventoryItem) => {
                             if (item.typeName == inventoryItem.typeName) {
                                 alreadyPurchased = true;
                             }
@@ -191,9 +191,12 @@ function openPurchaseScreen() {
     purchaseOverlay.style.animation = "openPurchaseScreen 0.5s normal";
     purchaseOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
     purchaseOverlay.style.display = "initial";
+    let purchaseConfirm;
 
-    const purchaseConfirm = document.getElementById("confirm-button");
-    purchaseConfirm.onclick = purchaseItem;
+    if (document.getElementById("confirm-button")) {
+        purchaseConfirm = document.getElementById("confirm-button")
+    };
+    purchaseConfirm.onclick = () => purchaseItem(selectedTab, selectedItem);
 }
 
 function closePurchaseScreen() {
@@ -213,10 +216,19 @@ function closePurchaseScreen() {
     }, 300);
 }
 
-async function purchaseItem(tab, type) {
+async function purchaseItem(selectedTab, selectedItem) {
+    console.log("purchaseItem function is called");
+    if (!selectedTab || !selectedItem) {
+        console.log("missing info", selectedTab, selectedItem);
+        return;
+    }
     fetch(`${backendURL}/garden/buyShopItem/${selectedTab}/${selectedItem}`, {
         method: "POST",
         credentials: "include",
+        body: JSON.stringify({
+            cost: currentItemCost,
+
+        }),
     })
         .then((response) => {
             if (response.ok) {
@@ -235,16 +247,23 @@ async function purchaseItem(tab, type) {
 }
 
 function resizeWindow() {
-    document.getElementById("shop-inventory").style.height = `${
-        screen.height - 300
-    }px`;
+    document.getElementById("shop-inventory").style.height = `${screen.height - 300
+        }px`;
 }
 
 async function setup() {
     await getWallet();
     await getInventory();
-    getItems(currentTab);
+    if (userInventory[currentTab]) {
+        getItems(currentTab);
+    }
     resizeWindow();
     window.onresize = resizeWindow;
 }
 setup();
+setTimeout(() => {
+    setup();
+}, 500);
+window.getItems = getItems;
+window.openPurchaseScreen = openPurchaseScreen;
+window.closePurchaseScreen = closePurchaseScreen;

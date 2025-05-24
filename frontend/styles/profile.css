@@ -5,9 +5,6 @@
 }
 
 body {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
     margin: 0;
 }
 
@@ -203,16 +200,6 @@ body {
 
 .pfp-image-radio {
     display: none;
-}
-
-/* different navbar than usual pages since we don't need the user's pfp */
-#pfp-nav {
-    /* change this height to match the usual navbar */
-    /* position: absolute;
-    height: 7vh;
-    width: 100%;
-    background-color: var(--dark-green);
-    z-index: 100; */
 }
 
 .section-title {
